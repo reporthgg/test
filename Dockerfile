@@ -3,6 +3,7 @@ FROM node:22-alpine AS deps
 WORKDIR /app
 RUN apk add --no-cache openssl
 COPY package.json package-lock.json ./
+COPY prisma/schema.prisma ./prisma/schema.prisma
 RUN npm ci
 
 # ---- builder ----
@@ -25,7 +26,9 @@ ENV HOSTNAME=0.0.0.0
 RUN apk add --no-cache openssl
 
 COPY --from=builder /app ./
-RUN chmod +x docker-entrypoint.sh
+RUN sed -i 's/\r$//' docker-entrypoint.sh \
+    && chmod +x docker-entrypoint.sh \
+    && mkdir -p /app/data /app/public/uploads
 
 EXPOSE 3000
 CMD ["./docker-entrypoint.sh"]
