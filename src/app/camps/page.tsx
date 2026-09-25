@@ -19,10 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       ov.metaTitle ??
-      "Языковые лагеря за рубежом — лето 2026 для школьников | GSC Study",
+      "Языковые лагеря за рубежом: лето 2026 для школьников | GSC Study",
     description:
       ov.metaDescription ??
-      "Языковые лагеря за рубежом для школьников 12–17 лет. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
+      "Языковые лагеря за рубежом для школьников 12-17 лет. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
   };
 }
 
@@ -47,9 +47,9 @@ const includedMeta = [
 
 const scheduleMeta = [
   { icon: "restaurant", time: "8:00" },
-  { icon: "school", time: "9:00 – 12:30" },
+  { icon: "school", time: "9:00-12:30" },
   { icon: "lunch_dining", time: "13:00" },
-  { icon: "directions_walk", time: "14:00 – 18:00" },
+  { icon: "directions_walk", time: "14:00-18:00" },
   { icon: "celebration", time: "19:00" },
   { icon: "bedtime", time: "22:00" },
 ];

@@ -69,7 +69,7 @@ export default function SettingsForm({
               Заявки с сайта отправляются на этот URL. Если поле пустое, сайт
               использует переменную окружения{" "}
               <code className="font-mono text-on-surface">BITRIX_WEBHOOK_URL</code>
-              . Значение чувствительное — не передавайте его третьим лицам.
+              . URL содержит секретный ключ. Не передавайте его третьим лицам.
             </span>
           </label>
         </section>
@@ -126,7 +126,7 @@ export default function SettingsForm({
         <div className="flex items-center justify-end gap-3 border-t border-border-subtle pt-5">
           {saved && (
             <span className="text-clever-green text-sm font-semibold">
-              Сохранено ✓
+              Сохранено
             </span>
           )}
           <button
@@ -148,7 +148,7 @@ export default function SettingsForm({
           работает. Заявку можно удалить в CRM.
           {!hasWebhook && (
             <span className="block text-error font-semibold mt-1">
-              Вебхук не настроен — сначала сохраните URL выше или задайте
+              Вебхук не настроен. Сначала сохраните URL выше или задайте
               BITRIX_WEBHOOK_URL.
             </span>
           )}
@@ -170,10 +170,10 @@ export default function SettingsForm({
               }`}
             >
               {testResult.ok
-                ? "Заявка успешно отправлена ✓"
+                ? "Заявка отправлена"
                 : testResult.reason === "no-webhook"
                 ? "Вебхук не настроен"
-                : "Не удалось отправить — проверьте URL вебхука"}
+                : "Не удалось отправить. Проверьте URL вебхука"}
             </span>
           )}
         </div>

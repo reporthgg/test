@@ -8,7 +8,9 @@ import Aurora from "@/components/ui/Aurora";
 import Reveal from "@/components/Reveal";
 import { getServerLocale } from "@/lib/locale";
 import { getExamsDict } from "@/i18n/pages/exams";
+import { getTestsDict } from "@/i18n/pages/tests";
 import { getPageContent } from "@/lib/page-content";
+import { prisma } from "@/lib/prisma";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
@@ -35,14 +37,24 @@ const methodMeta = [
   { n: "04", accent: false },
 ];
 
-const testSlugs = ["general-english", "ielts-placement", "sat-placement"];
+const testKinds = ["placement", "ielts", "sat"];
 
 const targetScores = ["5.5", "6.0", "6.5", "7.0"];
 
 export default async function ExamsPage() {
   const locale = await getServerLocale();
   const t = getExamsDict(locale);
+  const testLabels = getTestsDict(locale);
   const ov = await getPageContent("exams", locale);
+  const tests = await prisma.test.findMany({
+    where: { published: true, audience: "adults", kind: { in: testKinds } },
+    orderBy: { order: "asc" },
+    select: {
+      id: true, kind: true, slug: true, title: true, description: true, timeLimit: true,
+      _count: { select: { questions: true } },
+    },
+  });
+
   return (
     <>
       <Header />
@@ -267,7 +279,7 @@ export default async function ExamsPage() {
                 {t.placement.title}
               </h2>
               <p className="text-lg text-on-surface-variant leading-relaxed">
-                {t.placement.text}
+                {testLabels.hub.subtitle}
               </p>
               <Link
                 href="/tests"
@@ -278,40 +290,44 @@ export default async function ExamsPage() {
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
-              {t.placement.items.map((item, i) => (
-                <div
-                  key={item.title}
-                  className={`${card} flex flex-col !p-6 sm:!p-8`}
-                >
-                  <h3 className="text-xl font-bold text-on-surface mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-on-surface-variant text-sm mb-8 flex-grow leading-relaxed">
-                    {item.text}
-                  </p>
-                  <div className="flex gap-6 mb-8 pt-6 border-t border-surface-variant/60">
-                    <div>
-                      <div className="text-[20px] font-extrabold number-gradient mb-1">
-                        {t.placement.timeValue}
+              {testKinds.map((kind) => {
+                const test = tests.find((test) => test.kind === kind);
+                if (!test) return null;
+                return (
+                  <div
+                    key={test.id}
+                    className={`${card} flex flex-col !p-6 sm:!p-8`}
+                  >
+                    <h3 className="text-xl font-bold text-on-surface mb-4">
+                      {test.title}
+                    </h3>
+                    <p className="text-on-surface-variant text-sm mb-8 flex-grow leading-relaxed">
+                      {test.description}
+                    </p>
+                    <div className="flex gap-6 mb-8 pt-6 border-t border-surface-variant/60">
+                      <div>
+                        <div className="text-[20px] font-extrabold number-gradient mb-1">
+                          {test.timeLimit ? `${test.timeLimit} ${testLabels.hub.minutes}` : testLabels.hub.noLimit}
+                        </div>
+                        <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
+                          {t.placement.timeLabel}
+                        </div>
                       </div>
-                      <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
-                        {t.placement.timeLabel}
+                      <div>
+                        <div className="text-[20px] font-extrabold number-gradient mb-1">
+                          {test._count.questions}
+                        </div>
+                        <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
+                          {testLabels.intro.metaQuestions}
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="text-[20px] font-extrabold number-gradient mb-1">
-                        {item.result}
-                      </div>
-                      <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
-                        {t.placement.resultLabel}
-                      </div>
-                    </div>
+                    <Link href={`/test/${test.slug}`} className={`${btnOutline} w-full py-3`}>
+                      {t.placement.cta}
+                    </Link>
                   </div>
-                  <Link href={`/test/${testSlugs[i]}`} className={`${btnOutline} w-full py-3`}>
-                    {t.placement.cta}
-                  </Link>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </Reveal>
         </section>

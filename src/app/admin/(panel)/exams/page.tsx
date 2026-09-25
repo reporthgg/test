@@ -14,10 +14,10 @@ export default async function ExamsAdminPage() {
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-primary tracking-tight">
-          Тесты уровня
+          Тесты
         </h1>
         <p className="text-on-surface-variant mt-1">
-          Редактируйте вопросы и варианты. Результаты падают в «Заявки» и Bitrix24.
+          Редактируйте вопросы, проверяйте черновики и просматривайте ответы участников.
         </p>
       </div>
 
@@ -48,18 +48,19 @@ export default async function ExamsAdminPage() {
             <p className="text-sm text-on-surface-variant flex-1">
               {t.description}
             </p>
-            <div className="flex items-center justify-between mt-6 pt-4 border-t border-border-subtle text-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-4 border-t border-border-subtle text-sm">
               <span className="text-on-surface-variant">
                 {t._count.questions} вопросов · {t._count.results} прохождений
               </span>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <Link
-                  href={`/test/${t.slug}`}
+                  href={`/test/${t.slug}?preview=1`}
                   target="_blank"
                   className="font-semibold text-on-surface-variant hover:text-primary"
                 >
-                  Открыть
+                  Предпросмотр
                 </Link>
+                <Link href={`/admin/exams/${t.id}/results`} className="font-semibold text-primary hover:underline">Результаты</Link>
                 <Link
                   href={`/admin/exams/${t.id}`}
                   className="font-semibold text-primary hover:underline inline-flex items-center gap-1"

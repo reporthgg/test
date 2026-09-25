@@ -1,21 +1,21 @@
 import type { Locale } from "@/i18n/config";
 
+
 // Словарь статичного «хрома» страницы «Летние лагеря».
 // Динамический контент лагерей приходит из БД и здесь не переводится.
 // ru — источник; kz/en — перевод.
-
 const dict = {
   ru: {
     breadcrumb: { home: "Главная", current: "Лагеря за рубежом" },
     hero: {
       title1: "Лето 2026:",
       title2: "четыре направления",
-      text: "Две-три недели языковой практики в стране языка: уроки в первой половине дня, экскурсии во второй, ровесники со всего мира вокруг. Для школьников 12–17 лет.",
+      text: "Две-три недели языковой практики в стране языка: уроки в первой половине дня, экскурсии во второй, ровесники со всего мира вокруг. Для школьников 12-17 лет.",
       bookCta: "Забронировать место",
       seeCta: "Смотреть направления",
       stats: [
-        ["12–17", "возраст участников"],
-        ["2–3", "недели длится смена"],
+        ["12-17", "возраст участников"],
+        ["2-3", "недели длится смена"],
         ["15", "уроков английского в неделю"],
         ["1", "сопровождающий от GSC Study в каждой группе"],
       ],
@@ -23,7 +23,7 @@ const dict = {
     camps: {
       eyebrow: "Направления",
       title: "Куда едем этим летом",
-      text: "Места ограничены размером группы — сопровождающий физически не может вести больше двадцати подростков.",
+      text: "Места ограничены размером группы: сопровождающий физически не может вести больше двадцати подростков.",
       seatsSuffix: "мест",
       labels: {
         country: "Страна",
@@ -35,9 +35,9 @@ const dict = {
     included: {
       eyebrow: "Что входит",
       title: "Всё, кроме карманных денег",
-      text: "Стоимость смены зависит от направления и дат — назовём на консультации.",
+      text: "Стоимость смены зависит от направления и дат. Назовём её на консультации.",
       items: [
-        { title: "Уроки английского", text: "Пятнадцать уроков в неделю в международных группах. Ребёнок оказывается среди ровесников из других стран, где английский — единственный общий язык." },
+        { title: "Уроки английского", text: "Пятнадцать уроков в неделю в международных группах. Ребёнок оказывается среди ровесников из других стран, где английский служит единственным общим языком." },
         { title: "Проживание и питание", text: "Кампус или резиденция, комнаты на двоих, трёхразовое питание. Все площадки лицензированы и работают с подростками много лет." },
         { title: "Экскурсии и досуг", text: "Программа на вторую половину дня и выходные: город, музеи, спорт, поездки за пределы города. Свободного времени без присмотра нет." },
         { title: "Сопровождающий", text: "Наш сотрудник летит вместе с группой и остаётся на всю смену. Он на связи с родителями и решает вопросы на месте." },
@@ -53,7 +53,7 @@ const dict = {
         { title: "Завтрак", text: "В столовой кампуса вместе с группой." },
         { title: "Уроки английского", text: "Три урока в международной группе своего уровня. Уровень определяют тестом в первый день." },
         { title: "Обед", text: "И свободный час на территории." },
-        { title: "Экскурсия или активность", text: "Город, музей, спорт или мастер-класс — по программе смены." },
+        { title: "Экскурсия или активность", text: "Город, музей, спорт или мастер-класс по программе смены." },
         { title: "Ужин и вечерняя программа", text: "Игры, кино, дискотека или квиз с другими группами." },
         { title: "Отбой", text: "Вожатые проверяют комнаты, сопровождающий пишет родителям в общий чат." },
       ],
@@ -61,7 +61,7 @@ const dict = {
     safety: {
       eyebrow: "Родителям",
       title: "Как мы отвечаем за безопасность",
-      text: "Главный страх при отправке ребёнка за границу — что он останется без присмотра. Поэтому группа не остаётся одна ни на одном этапе.",
+      text: "Родители переживают, что ребёнок за границей останется без присмотра. Поэтому группа не остаётся одна ни на одном этапе.",
       items: [
         ["Сопровождающий", "с группой всю смену"],
         ["Связь с родителями", "ежедневно, общий чат"],
@@ -79,7 +79,7 @@ const dict = {
         ["Заявка", "форма или WhatsApp"],
         ["Консультация", "подбор направления"],
         ["Договор и депозит", "фиксируют место"],
-        ["Документы на визу", "за 2–3 месяца до вылета"],
+        ["Документы на визу", "за 2-3 месяца до вылета"],
         ["Встреча группы", "за неделю до отъезда"],
       ],
     },
@@ -87,9 +87,9 @@ const dict = {
       eyebrow: "Вопросы",
       title: "О лагерях",
       items: [
-        { q: "Какой уровень английского нужен?", a: "Достаточно A2 — базового школьного. В первый день ребёнка тестируют и определяют в группу своего уровня, поэтому он не окажется среди тех, кто говорит намного лучше." },
+        { q: "Какой уровень английского нужен?", a: "Достаточно A2 (базового школьного уровня). В первый день ребёнка тестируют и определяют в группу своего уровня, поэтому он не окажется среди тех, кто говорит намного лучше." },
         { q: "Ребёнок никогда не летал один. Это безопасно?", a: "Он летит не один: группа собирается в Алматы или Астане и летит вместе с сопровождающим от GSC Study, который остаётся с ними до возвращения. Родители получают сообщения каждый день." },
-        { q: "Что если не дадут визу?", a: "Мы готовим пакет документов и заранее оцениваем риски. Условия возврата при отказе прописываются в договоре — обсуждаем их до внесения депозита, а не после." },
+        { q: "Что если не дадут визу?", a: "Мы готовим пакет документов и заранее оцениваем риски. Условия возврата при отказе прописываются в договоре. Обсуждаем их до внесения депозита." },
         { q: "Сколько стоит смена?", a: "Зависит от направления, дат и курса валют, поэтому цену называем на консультации. В неё входит всё, кроме карманных денег: обучение, проживание, питание, экскурсии, перелёт, виза и страховка." },
         { q: "Когда нужно определиться?", a: "Оптимально за три-четыре месяца до вылета. Визовые сроки и групповые тарифы на билеты не позволяют бронировать позже, а места в группе ограничены." },
       ],
@@ -110,7 +110,7 @@ const dict = {
       campLabel: "Направление",
       campOptions: ["Лондон", "Дубай", "Торонто", "Берлин", "Ещё не решили"],
       ageLabel: "Возраст ребёнка",
-      ageOptions: ["12–13 лет", "14–15 лет", "16–17 лет"],
+      ageOptions: ["12-13 лет", "14-15 лет", "16-17 лет"],
       cityLabel: "Город вылета",
       cityOptions: ["Алматы", "Астана", "Другой город"],
       consent: "Согласен(а) на обработку персональных данных в соответствии с законом РК.",
@@ -125,12 +125,12 @@ const dict = {
     hero: {
       title1: "2026 жаз:",
       title2: "төрт бағыт",
-      text: "Тіл елінде екі-үш апталық тілдік тәжірибе: түске дейін сабақтар, түстен кейін экскурсиялар, айналада әлемнің түкпір-түкпірінен келген құрдастар. 12–17 жастағы оқушыларға.",
+      text: "Тіл елінде екі-үш апталық тілдік тәжірибе: түске дейін сабақтар, түстен кейін экскурсиялар, айналада әлемнің түкпір-түкпірінен келген құрдастар. 12-17 жастағы оқушыларға.",
       bookCta: "Орын брондау",
       seeCta: "Бағыттарды көру",
       stats: [
-        ["12–17", "қатысушылардың жасы"],
-        ["2–3", "ауысым ұзақтығы, апта"],
+        ["12-17", "қатысушылардың жасы"],
+        ["2-3", "ауысым ұзақтығы, апта"],
         ["15", "аптасына ағылшын тілі сабағы"],
         ["1", "әр топта GSC Study серігі"],
       ],
@@ -138,7 +138,7 @@ const dict = {
     camps: {
       eyebrow: "Бағыттар",
       title: "Биыл жазда қайда барамыз",
-      text: "Орын саны топ көлемімен шектелген — серік жиырма жасөспірімнен артығын алып жүре алмайды.",
+      text: "Орын саны топ көлемімен шектелген: серік жиырма жасөспірімнен артығын алып жүре алмайды.",
       seatsSuffix: "орын",
       labels: {
         country: "Ел",
@@ -150,9 +150,9 @@ const dict = {
     included: {
       eyebrow: "Не кіреді",
       title: "Қалта ақшадан басқасының бәрі",
-      text: "Ауысым құны бағыт пен мерзімге байланысты — кеңес беру кезінде айтамыз.",
+      text: "Ауысым құны бағыт пен мерзімге байланысты. Бағасын кеңес беру кезінде айтамыз.",
       items: [
-        { title: "Ағылшын тілі сабақтары", text: "Аптасына халықаралық топтарда он бес сабақ. Бала басқа елдерден келген құрдастарының арасында болады, мұнда ағылшын тілі — жалғыз ортақ тіл." },
+        { title: "Ағылшын тілі сабақтары", text: "Аптасына халықаралық топтарда он бес сабақ. Бала басқа елдерден келген құрдастарының арасында болады, мұнда жалғыз ортақ тіл ретінде ағылшын тілі қолданылады." },
         { title: "Тұру және тамақтану", text: "Кампус немесе резиденция, екі орындық бөлмелер, үш мезгіл тамақ. Барлық алаңдар лицензияланған және жасөспірімдермен көп жылдан бері жұмыс істейді." },
         { title: "Экскурсиялар мен демалыс", text: "Түстен кейінгі уақыт пен демалыс күндеріне арналған бағдарлама: қала, мұражайлар, спорт, қала сыртына сапарлар. Қараусыз бос уақыт жоқ." },
         { title: "Серік", text: "Біздің қызметкер топпен бірге ұшып, бүкіл ауысым бойы қасында болады. Ол ата-аналармен байланыста және мәселелерді жедел шешеді." },
@@ -168,7 +168,7 @@ const dict = {
         { title: "Таңғы ас", text: "Кампус асханасында топпен бірге." },
         { title: "Ағылшын тілі сабақтары", text: "Өз деңгейіндегі халықаралық топта үш сабақ. Деңгей бірінші күні тестпен анықталады." },
         { title: "Түскі ас", text: "Және аумақта бір сағат бос уақыт." },
-        { title: "Экскурсия немесе белсенділік", text: "Қала, мұражай, спорт немесе шеберлік сыныбы — ауысым бағдарламасы бойынша." },
+        { title: "Экскурсия немесе белсенділік", text: "Ауысым бағдарламасы бойынша қалаға, мұражайға бару, спорт немесе шеберлік сыныбы." },
         { title: "Кешкі ас және кешкі бағдарлама", text: "Ойындар, кино, дискотека немесе басқа топтармен квиз." },
         { title: "Ұйқы", text: "Тәрбиешілер бөлмелерді тексереді, серік ата-аналарға ортақ чатқа жазады." },
       ],
@@ -176,7 +176,7 @@ const dict = {
     safety: {
       eyebrow: "Ата-аналарға",
       title: "Қауіпсіздікке қалай жауап береміз",
-      text: "Баланы шетелге жіберудегі басты қорқыныш — оның қараусыз қалуы. Сондықтан топ ешбір кезеңде жалғыз қалмайды.",
+      text: "Ата-аналар баланың шетелде қараусыз қалуына алаңдайды. Сондықтан топ ешбір кезеңде жалғыз қалмайды.",
       items: [
         ["Серік", "топпен бүкіл ауысым бойы"],
         ["Ата-аналармен байланыс", "күнделікті, ортақ чат"],
@@ -194,7 +194,7 @@ const dict = {
         ["Өтінім", "форма немесе WhatsApp"],
         ["Кеңес", "бағыт таңдау"],
         ["Шарт және депозит", "орынды бекітеді"],
-        ["Виза құжаттары", "ұшудан 2–3 ай бұрын"],
+        ["Виза құжаттары", "ұшудан 2-3 ай бұрын"],
         ["Топ кездесуі", "кетуден бір апта бұрын"],
       ],
     },
@@ -202,9 +202,9 @@ const dict = {
       eyebrow: "Сұрақтар",
       title: "Лагерьлер туралы",
       items: [
-        { q: "Ағылшын тілінің қандай деңгейі қажет?", a: "A2 — базалық мектеп деңгейі жеткілікті. Бірінші күні бала тестіленіп, өз деңгейіндегі топқа бөлінеді, сондықтан ол әлдеқайда жақсы сөйлейтіндердің арасында қалмайды." },
+        { q: "Ағылшын тілінің қандай деңгейі қажет?", a: "A2 (базалық мектеп деңгейі) жеткілікті. Бірінші күні бала тестіленіп, өз деңгейіндегі топқа бөлінеді, сондықтан ол әлдеқайда жақсы сөйлейтіндердің арасында қалмайды." },
         { q: "Балам ешқашан жалғыз ұшпаған. Бұл қауіпсіз бе?", a: "Ол жалғыз ұшпайды: топ Алматыда немесе Астанада жиналып, GSC Study серігімен бірге ұшады, ол қайтқанға дейін олармен бірге болады. Ата-аналар күн сайын хабарлама алады." },
-        { q: "Виза берілмесе ше?", a: "Біз құжаттар топтамасын дайындап, тәуекелдерді алдын ала бағалаймыз. Бас тартқан жағдайдағы қайтару шарттары шартта жазылады — оларды депозит енгізгенге дейін талқылаймыз, кейін емес." },
+        { q: "Виза берілмесе ше?", a: "Біз құжаттар топтамасын дайындап, тәуекелдерді алдын ала бағалаймыз. Бас тартқан жағдайдағы қайтару шарттары шартта жазылады. Оларды депозит енгізгенге дейін талқылаймыз." },
         { q: "Ауысым қанша тұрады?", a: "Бағытқа, мерзімге және валюта бағамына байланысты, сондықтан бағаны кеңес беру кезінде айтамыз. Оған қалта ақшадан басқаның бәрі кіреді: оқу, тұру, тамақтану, экскурсиялар, ұшу, виза және сақтандыру." },
         { q: "Қашан шешім қабылдау керек?", a: "Ұшудан үш-төрт ай бұрын оңтайлы. Виза мерзімдері мен билеттерге арналған топтық тарифтер кейінірек брондауға мүмкіндік бермейді, ал топтағы орындар шектеулі." },
       ],
@@ -225,7 +225,7 @@ const dict = {
       campLabel: "Бағыт",
       campOptions: ["Лондон", "Дубай", "Торонто", "Берлин", "Әлі шешпедік"],
       ageLabel: "Баланың жасы",
-      ageOptions: ["12–13 жас", "14–15 жас", "16–17 жас"],
+      ageOptions: ["12-13 жас", "14-15 жас", "16-17 жас"],
       cityLabel: "Ұшу қаласы",
       cityOptions: ["Алматы", "Астана", "Басқа қала"],
       consent: "Дербес деректерді ҚР заңнамасына сәйкес өңдеуге келісемін.",
@@ -240,12 +240,12 @@ const dict = {
     hero: {
       title1: "Summer 2026:",
       title2: "four destinations",
-      text: "Two to three weeks of language practice in the country of the language: lessons in the morning, excursions in the afternoon, peers from around the world all around. For schoolchildren aged 12–17.",
+      text: "Two to three weeks of language practice in the country of the language: lessons in the morning, excursions in the afternoon, peers from around the world all around. For schoolchildren aged 12-17.",
       bookCta: "Book a place",
       seeCta: "See destinations",
       stats: [
-        ["12–17", "age of participants"],
-        ["2–3", "weeks per session"],
+        ["12-17", "age of participants"],
+        ["2-3", "weeks per session"],
         ["15", "English lessons per week"],
         ["1", "GSC Study chaperone in every group"],
       ],
@@ -253,7 +253,7 @@ const dict = {
     camps: {
       eyebrow: "Destinations",
       title: "Where we're going this summer",
-      text: "Places are limited by group size — a chaperone physically cannot look after more than twenty teenagers.",
+      text: "Places are limited by group size: a chaperone physically cannot look after more than twenty teenagers.",
       seatsSuffix: "places",
       labels: {
         country: "Country",
@@ -265,7 +265,7 @@ const dict = {
     included: {
       eyebrow: "What's included",
       title: "Everything except pocket money",
-      text: "The session price depends on the destination and dates — we'll tell you during the consultation.",
+      text: "The session price depends on the destination and dates. We'll tell you during the consultation.",
       items: [
         { title: "English lessons", text: "Fifteen lessons a week in international groups. Your child ends up among peers from other countries, where English is the only common language." },
         { title: "Accommodation and meals", text: "A campus or residence, twin rooms, three meals a day. All venues are licensed and have worked with teenagers for many years." },
@@ -283,7 +283,7 @@ const dict = {
         { title: "Breakfast", text: "In the campus canteen together with the group." },
         { title: "English lessons", text: "Three lessons in an international group at your level. Levels are determined by a test on the first day." },
         { title: "Lunch", text: "Plus a free hour on the grounds." },
-        { title: "Excursion or activity", text: "The city, a museum, sport or a workshop — according to the session programme." },
+        { title: "Excursion or activity", text: "The city, a museum, sport or a workshop according to the session programme." },
         { title: "Dinner and evening programme", text: "Games, a film, a disco or a quiz with other groups." },
         { title: "Lights out", text: "Counsellors check the rooms, and the chaperone messages parents in the group chat." },
       ],
@@ -291,7 +291,7 @@ const dict = {
     safety: {
       eyebrow: "For parents",
       title: "How we take care of safety",
-      text: "The main fear when sending a child abroad is that they will be left unsupervised. That's why the group is never left alone at any stage.",
+      text: "Parents worry that their child might be left unsupervised abroad. That's why the group is never left alone at any stage.",
       items: [
         ["Chaperone", "with the group the whole session"],
         ["Contact with parents", "daily, in a group chat"],
@@ -309,7 +309,7 @@ const dict = {
         ["Request", "the form or WhatsApp"],
         ["Consultation", "choosing a destination"],
         ["Contract and deposit", "secure the place"],
-        ["Visa documents", "2–3 months before departure"],
+        ["Visa documents", "2-3 months before departure"],
         ["Group meeting", "a week before departure"],
       ],
     },
@@ -317,9 +317,9 @@ const dict = {
       eyebrow: "Questions",
       title: "About the camps",
       items: [
-        { q: "What level of English is needed?", a: "A2 — basic school level — is enough. On the first day the child is tested and placed in a group at their level, so they won't end up among those who speak far better." },
+        { q: "What level of English is needed?", a: "A2 (basic school level) is enough. On the first day the child is tested and placed in a group at their level, so they won't end up among those who speak far better." },
         { q: "My child has never flown alone. Is it safe?", a: "They don't fly alone: the group gathers in Almaty or Astana and flies together with a GSC Study chaperone who stays with them until they return. Parents receive messages every day." },
-        { q: "What if the visa is refused?", a: "We prepare the document package and assess the risks in advance. Refund terms in case of refusal are set out in the contract — we discuss them before the deposit is paid, not after." },
+        { q: "What if the visa is refused?", a: "We prepare the document package and assess the risks in advance. Refund terms in case of refusal are set out in the contract. We discuss them before the deposit is paid." },
         { q: "How much does a session cost?", a: "It depends on the destination, dates and exchange rate, so we quote the price during the consultation. It includes everything except pocket money: tuition, accommodation, meals, excursions, flights, visa and insurance." },
         { q: "When do I need to decide?", a: "Ideally three to four months before departure. Visa timelines and group ticket fares make it impossible to book later, and places in the group are limited." },
       ],
@@ -340,7 +340,7 @@ const dict = {
       campLabel: "Destination",
       campOptions: ["London", "Dubai", "Toronto", "Berlin", "Not decided yet"],
       ageLabel: "Child's age",
-      ageOptions: ["12–13 years", "14–15 years", "16–17 years"],
+      ageOptions: ["12-13 years", "14-15 years", "16-17 years"],
       cityLabel: "Departure city",
       cityOptions: ["Almaty", "Astana", "Another city"],
       consent: "I agree to the processing of personal data in accordance with the laws of the Republic of Kazakhstan.",

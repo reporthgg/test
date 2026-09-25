@@ -21,7 +21,7 @@ export default function ExamsConsult() {
     phone: "",
     email: "",
     exam: "IELTS Academic",
-    goal: "IELTS 5.5–6.0",
+    goal: "IELTS 5.5-6.0",
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -194,7 +194,7 @@ export default function ExamsConsult() {
                       value={form.goal}
                       onChange={(e) => setForm({ ...form, goal: e.target.value })}
                     >
-                      <option>IELTS 5.5–6.0</option>
+                      <option>IELTS 5.5-6.0</option>
                       <option>IELTS 6.5</option>
                       <option>IELTS 7.0+</option>
                       <option>SAT 1200+</option>

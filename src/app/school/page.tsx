@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SchoolPrograms from "@/components/school/SchoolPrograms";
 import ConsultSection from "@/components/ConsultSection";
+import Tests from "@/components/Tests";
 import Icon from "@/components/Icon";
 import Aurora from "@/components/ui/Aurora";
 import Reveal from "@/components/Reveal";
@@ -17,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       ov.metaTitle ??
-      "Языковая школа — курсы английского A1–C2 в Алматы и Астане | GSC Study",
+      "Языковая школа: курсы английского A1-C2 в Алматы и Астане | GSC Study",
     description:
       ov.metaDescription ??
       "Курсы английского языка от A1 до C2: общий, академический, деловой и детский. Группы до восьми человек, индивидуальные занятия и онлайн. Тест уровня и пробный урок бесплатно.",
@@ -152,6 +153,10 @@ export default async function SchoolPage() {
 
         {/* Programs (client, filterable) */}
         <SchoolPrograms />
+
+        <Reveal>
+          <Tests />
+        </Reveal>
 
         {/* Formats */}
         <section className="py-[120px] bg-white border-t border-border-subtle">

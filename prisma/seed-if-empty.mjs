@@ -12,9 +12,9 @@ try {
 await prisma.$disconnect();
 
 if (count > 0) {
-  console.log(`[seed] данные есть (tests=${count}) — сиды пропускаем.`);
+  console.log(`[seed] данные есть (tests=${count}), начальное заполнение пропускаем.`);
   process.exit(0);
 }
 
-console.log("[seed] пустая БД — заливаем стартовые данные…");
+console.log("[seed] тесты не найдены, добавляем стартовые данные…");
 await import("./seed.mjs");

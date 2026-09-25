@@ -13,7 +13,7 @@ export const site = {
   email: "info@gscenter.kz",
   instagram: "https://instagram.com/gscstudy",
 
-  workingHours: "Пн–Пт 9:00–18:00 · Сб 10:00–15:00",
+  workingHours: "Пн-Пт 9:00-18:00 · Сб 10:00-15:00",
 
   // 4 офиса: 3 в Астане + 1 в Алматы (координаты и ссылки из 2GIS)
   offices: [

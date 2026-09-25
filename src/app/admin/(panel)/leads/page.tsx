@@ -107,7 +107,7 @@ export default async function LeadsPage({
             <Icon name="group" className="text-5xl text-outline-variant mx-auto mb-4" />
             <p className="font-semibold">Заявок пока нет</p>
             <p className="text-sm mt-1">
-              Оставьте заявку через форму на сайте — она появится здесь.
+              Оставьте заявку через форму на сайте, и она появится здесь.
             </p>
           </div>
         )}

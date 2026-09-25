@@ -19,10 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       ov.metaTitle ??
-      "GSC Study — языковые курсы, IELTS и Digital SAT, поступление за рубеж | Казахстан",
+      "GSC Study: языковые курсы, IELTS и Digital SAT, поступление за рубеж | Казахстан",
     description:
       ov.metaDescription ??
-      "GSC Study — образование без границ с 2011 года. Языковые курсы, подготовка к IELTS и Digital SAT, поступление в вузы Великобритании, Германии, Канады, ОАЭ и США. Офисы в Алматы и Астане.",
+      "GSC Study: образование без границ с 2011 года. Языковые курсы, подготовка к IELTS и Digital SAT, поступление в вузы Великобритании, Германии, Канады, ОАЭ и США. Офисы в Алматы и Астане.",
   };
 }
 

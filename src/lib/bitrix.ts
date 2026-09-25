@@ -17,7 +17,7 @@ export async function sendLeadToBitrix(lead: LeadPayload): Promise<boolean> {
   if (!url) return false;
 
   const fields: Record<string, unknown> = {
-    TITLE: lead.title || `Заявка с сайта — ${lead.name}`,
+    TITLE: lead.title || `Заявка с сайта: ${lead.name}`,
     NAME: lead.name,
     PHONE: [{ VALUE: lead.phone, VALUE_TYPE: "WORK" }],
     SOURCE_DESCRIPTION: lead.source || "site",

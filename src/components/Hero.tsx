@@ -25,7 +25,7 @@ export default function Hero() {
       s: t.hero.slides[1],
       accentTag: true,
       title2Class: "text-secondary",
-      primary: { label: t.actions.tryLevelTest, href: L("/test/general-english"), accent: true },
+      primary: { label: t.actions.tryLevelTest, href: L("/tests"), accent: true },
       secondary: { label: t.actions.schedule, href: "#consult" },
     },
     {

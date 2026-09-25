@@ -12,9 +12,9 @@ import { getTestsDict } from "@/i18n/pages/tests";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Онлайн-тесты уровня — English, IELTS, SAT | GSC Study",
+  title: "Онлайн-тесты уровня: English, IELTS, SAT | GSC Study",
   description:
-    "Бесплатные онлайн-тесты: уровень английского (взрослые и дети), примерный балл IELTS и готовность к Digital SAT. Результат сразу.",
+    "Бесплатные онлайн-тесты по английскому для взрослых и детей, IELTS и SAT. Письменные задания проверяет преподаватель.",
 };
 
 export default async function TestsHubPage() {
@@ -70,7 +70,7 @@ export default async function TestsHubPage() {
                       <span className="inline-flex items-center gap-2 text-sm text-on-surface-variant">
                         <span className="inline-flex items-center gap-1.5">
                           <Icon name="help_outline" className="text-base text-primary/70" />
-                          {test._count.questions} {t.hub.questions}
+                          {t.intro.metaQuestions}: {test._count.questions}
                         </span>
                         <span className="text-border-subtle">·</span>
                         <span className="inline-flex items-center gap-1.5">

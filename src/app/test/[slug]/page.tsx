@@ -1,10 +1,13 @@
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TestRunner from "@/components/test/TestRunner";
 import Aurora from "@/components/ui/Aurora";
 import { prisma } from "@/lib/prisma";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
+import { parseTestContactFields, toPublicTestQuestion } from "@/lib/test-content";
 
 export const dynamic = "force-dynamic";
 
@@ -15,15 +18,25 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const test = await prisma.test.findUnique({ where: { slug } });
-  return { title: test ? `${test.title} — тест уровня | GSC Study` : "Тест" };
+  return {
+    title: test?.published ? `${test.title}: тест уровня | GSC Study` : "Тест",
+    ...(!test?.published ? { robots: { index: false, follow: false } } : {}),
+  };
 }
 
 export default async function TestPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ preview?: string | string[] }>;
 }) {
   const { slug } = await params;
+  const query = await searchParams;
+  const previewRequested = query.preview === "1";
+  const preview = previewRequested &&
+    await verifySessionToken((await cookies()).get(SESSION_COOKIE)?.value);
+  if (previewRequested && !preview) notFound();
   const test = await prisma.test.findUnique({
     where: { slug },
     include: {
@@ -34,14 +47,10 @@ export default async function TestPage({
     },
   });
 
-  if (!test || !test.published || test.questions.length === 0) notFound();
+  if (!test || (!test.published && !preview) || test.questions.length === 0) notFound();
 
-  // не передаём в браузер флаг правильного ответа
-  const questions = test.questions.map((q) => ({
-    id: q.id,
-    text: q.text,
-    options: q.options.map((o) => ({ id: o.id, text: o.text })),
-  }));
+  const questions = test.questions.map(toPublicTestQuestion);
+  const contactFields = parseTestContactFields(test.contactFields);
 
   return (
     <>
@@ -55,6 +64,9 @@ export default async function TestPage({
             description={test.description}
             timeLimit={test.timeLimit}
             questions={questions}
+            contactFields={contactFields}
+            preview={preview}
+            scoringMode={test.scoringMode}
           />
         </div>
       </main>

@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
       ov.metaTitle ??
-      "Образование за рубежом — поступление в вузы 25+ стран | GSC Study",
+      "Образование за рубежом: поступление в вузы 25+ стран | GSC Study",
     description:
       ov.metaDescription ??
       "Поступление в университеты Великобритании, Германии, Канады, ОАЭ и США. Подбор программы, документы, мотивационное письмо и сопровождение до зачисления. Foundation, Bachelor, Pre-Master.",

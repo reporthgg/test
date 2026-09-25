@@ -15,7 +15,7 @@ export default function BulkImport({ testId }: { testId: string }) {
     start(async () => {
       const res = await importQuestions(testId, text);
       if (res.ok) {
-        setResult({ ok: true, msg: `Добавлено ${res.added} вопросов` });
+        setResult({ ok: true, msg: `Добавлено ${res.added} вопросов. Без ключа ответа: ${res.unresolved}.` });
         setText("");
       } else {
         setResult({ ok: false, msg: res.error });
@@ -44,10 +44,10 @@ export default function BulkImport({ testId }: { testId: string }) {
               <code className="px-1 rounded bg-surface-container-low font-mono">|</code>. Правильный
               вариант отметьте звёздочкой{" "}
               <code className="px-1 rounded bg-surface-container-low font-mono">*</code> перед
-              текстом. Если звёздочки нет, правильным считается первый вариант. Пустые строки и
-              строки без{" "}
-              <code className="px-1 rounded bg-surface-container-low font-mono">|</code> пропускаются.
+              текстом. Без звёздочки вопрос сохраняется без ключа и блокирует публикацию.
+              Пустые строки пропускаются, ошибки в других строках отменяют весь импорт.
             </p>
+            <p>Только обычный текст и один вариант ответа. HTML, изображения и письменные задания добавляются в редакторе вопроса. Этот импорт добавляет вопросы в черновик и не удаляет существующие вопросы или результаты.</p>
             <p>
               Пример:{" "}
               <code className="px-1 rounded bg-surface-container-low font-mono break-all">
@@ -63,6 +63,8 @@ export default function BulkImport({ testId }: { testId: string }) {
               setResult(null);
             }}
             rows={8}
+            maxLength={500000}
+            disabled={pending}
             placeholder={"She ___ coffee every morning. | drink | *drinks | drinking | drank"}
             className="w-full rounded-lg border-border-subtle bg-surface-container-low px-4 py-2.5 focus:border-primary focus:ring-primary resize-y font-mono text-sm"
           />
@@ -81,7 +83,6 @@ export default function BulkImport({ testId }: { testId: string }) {
                   result.ok ? "text-clever-green" : "text-error"
                 }`}
               >
-                {result.ok ? "✓ " : ""}
                 {result.msg}
               </span>
             )}

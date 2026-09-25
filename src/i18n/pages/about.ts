@@ -1,18 +1,18 @@
 import type { Locale } from "@/i18n/config";
 
+
 // Словарь страницы «О нас».
 // ru — источник; kz/en — перевод (вычитать).
-
 const dict = {
   ru: {
     hero: {
       eyebrow: "С 2011 года",
-      title: "GSC Study — образование без границ с 2011 года",
-      text: "Мы открываем студентам возможности по всему миру. Больше 15 лет мы — надёжный мост к качественному образованию, ведём целеустремлённых ребят в лучшие университеты мира.",
+      title: "GSC Study: образование без границ с 2011 года",
+      text: "Помогаем студентам учить языки, готовиться к международным экзаменам и поступать в зарубежные университеты. Подбираем программы и сопровождаем подачу документов.",
       cta: "Наша миссия",
       badge: {
         value: "15+ лет",
-        label: "безупречной работы",
+        label: "работы в образовании",
       },
     },
     stats: [
@@ -23,28 +23,28 @@ const dict = {
     ],
     journey: {
       title: "Наш путь",
-      p1: "GSC Study основан в 2011 году с простой, но важной миссией — сделать образование мирового уровня доступным для целеустремлённых студентов Казахстана. То, что начиналось как небольшой консультационный офис, выросло в ведущий образовательный центр, известный своим подходом к академической честности и результату студентов.",
-      p2: "Наш рост — результат доверия тысяч семей. Мы уверены: настоящий образовательный консалтинг — это не про «заполнить заявку», а про то, чтобы формировать будущее. Мы смотрим на студента целостно: находим сильные стороны каждого и подбираем вуз, где он раскроется и академически, и лично.",
-      quote: "«Образование — самое мощное оружие, которым можно изменить мир. В GSC мы даём это оружие в руки студентам.»",
-      p3: "Сегодня, с современными центрами в Алматы и Астане, мы продолжаем совершенствовать методики подготовки к экзаменам и расширять сеть международных партнёров, чтобы наши студенты всегда были на шаг впереди.",
+      p1: "GSC Study основан в 2011 году, чтобы помогать студентам из Казахстана поступать в зарубежные университеты. Мы начинали с небольшого консультационного офиса, а затем открыли учебные центры в Алматы и Астане.",
+      p2: "На консультации обсуждаем интересы студента, его оценки, уровень языка и бюджет. По этим данным подбираем университеты, составляем план подготовки и помогаем собрать документы для поступления.",
+      quote: "«Образование: самое мощное оружие, которым можно изменить мир. В GSC мы даём это оружие в руки студентам.»",
+      p3: "В центрах Алматы и Астаны проводим языковые курсы и подготовку к экзаменам. Развиваем учебные программы и сотрудничаем с международными партнёрами по вопросам поступления.",
     },
     values: {
       title: "Наши ценности",
       subtitle: "Принципы, на которых строится наш подход к обучению и консалтингу.",
       items: [
-        { title: "Качество", text: "Держим высокие стандарты в программах и консалтинге, чтобы результат был премиального уровня." },
-        { title: "Ориентация на результат", text: "Наш успех измеряется поступлениями, баллами и прогрессом наших студентов — и ничем иным." },
+        { title: "Качество", text: "Подбираем учебную программу по уровню студента и требованиям выбранного вуза." },
+        { title: "Ориентация на результат", text: "Оцениваем работу по поступлениям, экзаменационным баллам и прогрессу студентов." },
         { title: "Прозрачность", text: "Честная оценка, понятный маршрут и открытая коммуникация на всех этапах поступления." },
-        { title: "Возможности без границ", text: "Уверены: география не должна ограничивать потенциал. Соединяем местные таланты с университетами по всему миру." },
+        { title: "Возможности без границ", text: "Помогаем студентам из Казахстана выбирать программы в зарубежных университетах и подавать документы." },
       ],
     },
     partners: {
       title: "Аккредитации и партнёры",
-      text: "Нам доверяют ведущие международные образовательные организации.",
+      text: "Международные образовательные организации, с которыми мы сотрудничаем.",
     },
     cta: {
-      title: "Готовы начать свой путь?",
-      text: "Запишитесь на персональную консультацию — обсудим ваши цели и составим маршрут к поступлению.",
+      title: "Планируете поступление?",
+      text: "Запишитесь на персональную консультацию. Обсудим ваши цели и составим план поступления.",
       button: "Получить консультацию",
     },
   },
@@ -52,12 +52,12 @@ const dict = {
   kz: {
     hero: {
       eyebrow: "2011 жылдан бері",
-      title: "GSC Study — 2011 жылдан бері шекарасыз білім",
-      text: "Біз студенттерге әлем бойынша мүмкіндіктер ашамыз. 15 жылдан астам уақыт бойы сапалы білімге апарар сенімді көпір бола отырып, мақсатты жастарды әлемнің үздік университеттеріне жетелейміз.",
+      title: "GSC Study: 2011 жылдан бері шекарасыз білім",
+      text: "Студенттерге тіл үйренуге, халықаралық емтихандарға дайындалуға және шетел университеттеріне түсуге көмектесеміз. Бағдарлама таңдап, құжат тапсыру кезінде қолдау көрсетеміз.",
       cta: "Біздің миссиямыз",
       badge: {
         value: "15+ жыл",
-        label: "мінсіз жұмыс",
+        label: "білім беру саласында",
       },
     },
     stats: [
@@ -68,28 +68,28 @@ const dict = {
     ],
     journey: {
       title: "Біздің жолымыз",
-      p1: "GSC Study 2011 жылы қарапайым, бірақ маңызды миссиямен құрылды — әлемдік деңгейдегі білімді Қазақстанның мақсатты студенттеріне қолжетімді ету. Шағын консультациялық кеңседен басталған іс академиялық адалдыққа және студенттердің нәтижесіне деген көзқарасымен танымал жетекші білім орталығына айналды.",
-      p2: "Біздің өсуіміз — мыңдаған отбасының сенімінің жемісі. Біз сенімдіміз: нағыз білім беру консалтингі «өтінім толтыру» емес, болашақты қалыптастыру. Біз студентке тұтас қараймыз: әркімнің күшті жақтарын тауып, ол академиялық та, тұлғалық та тұрғыдан ашылатын ЖОО-ны таңдаймыз.",
-      quote: "«Білім — әлемді өзгерте алатын ең қуатты қару. GSC-де біз бұл қаруды студенттердің қолына береміз.»",
-      p3: "Бүгінде Алматы мен Астанадағы заманауи орталықтарымызбен біз емтиханға дайындық әдістемелерін жетілдіруді және халықаралық серіктестер желісін кеңейтуді жалғастырамыз, осылайша студенттеріміз әрдайым бір қадам алда болады.",
+      p1: "GSC Study 2011 жылы Қазақстан студенттеріне шетел университеттеріне түсуге көмектесу үшін құрылды. Жұмысты шағын кеңес беру кеңсесінен бастап, кейін Алматы мен Астанада оқу орталықтарын аштық.",
+      p2: "Кеңесте студенттің қызығушылықтарын, бағаларын, тіл деңгейін және бюджетін талқылаймыз. Осы мәліметтерге сүйеніп университеттерді таңдаймыз, дайындық жоспарын құрамыз және түсуге қажетті құжаттарды жинауға көмектесеміз.",
+      quote: "«Білім: әлемді өзгерте алатын ең қуатты қару. GSC-де біз бұл қаруды студенттердің қолына береміз.»",
+      p3: "Алматы мен Астанадағы орталықтарда тіл курстарын және емтиханға дайындық сабақтарын өткіземіз. Оқу бағдарламаларын дамытып, түсу мәселелері бойынша халықаралық серіктестермен жұмыс істейміз.",
     },
     values: {
       title: "Біздің құндылықтарымыз",
       subtitle: "Оқыту мен консалтингке деген көзқарасымыз негізделген қағидаттар.",
       items: [
-        { title: "Сапа", text: "Нәтиже премиум деңгейде болуы үшін бағдарламалар мен консалтингте жоғары стандарттарды ұстанамыз." },
-        { title: "Нәтижеге бағдарлану", text: "Біздің табысымыз студенттеріміздің түсуімен, балдарымен және ілгерілеуімен өлшенеді — басқа ештеңемен емес." },
+        { title: "Сапа", text: "Оқу бағдарламасын студенттің деңгейіне және таңдаған ЖОО талаптарына сай таңдаймыз." },
+        { title: "Нәтижеге бағдарлану", text: "Жұмысты студенттердің оқуға түсуі, емтихан балдары және оқу барысындағы ілгерілеуі бойынша бағалаймыз." },
         { title: "Ашықтық", text: "Түсудің барлық кезеңінде әділ баға, түсінікті бағдар және ашық қарым-қатынас." },
-        { title: "Шекарасыз мүмкіндіктер", text: "Сенімдіміз: география әлеуетті шектемеуі керек. Жергілікті таланттарды әлемдегі университеттермен байланыстырамыз." },
+        { title: "Шекарасыз мүмкіндіктер", text: "Қазақстан студенттеріне шетел университеттеріндегі бағдарламаларды таңдауға және құжат тапсыруға көмектесеміз." },
       ],
     },
     partners: {
       title: "Аккредитациялар мен серіктестер",
-      text: "Бізге жетекші халықаралық білім беру ұйымдары сенеді.",
+      text: "Біз жұмыс істейтін халықаралық білім беру ұйымдары.",
     },
     cta: {
-      title: "Өз жолыңызды бастауға дайынсыз ба?",
-      text: "Жеке кеңеске жазылыңыз — мақсаттарыңызды талқылап, түсуге апарар бағдарыңызды құрастырамыз.",
+      title: "Оқуға түсуді жоспарлап жүрсіз бе?",
+      text: "Жеке кеңеске жазылыңыз. Мақсаттарыңызды талқылап, оқуға түсу жоспарын құрамыз.",
       button: "Кеңес алу",
     },
   },
@@ -97,12 +97,12 @@ const dict = {
   en: {
     hero: {
       eyebrow: "Since 2011",
-      title: "GSC Study — education without borders since 2011",
-      text: "We open opportunities for students around the world. For more than 15 years we have been a reliable bridge to quality education, guiding ambitious young people to the world's best universities.",
+      title: "GSC Study: education without borders since 2011",
+      text: "We help students learn languages, prepare for international exams and apply to universities abroad. We help choose programmes and support the application process.",
       cta: "Our mission",
       badge: {
         value: "15+ years",
-        label: "of impeccable work",
+        label: "working in education",
       },
     },
     stats: [
@@ -113,28 +113,28 @@ const dict = {
     ],
     journey: {
       title: "Our journey",
-      p1: "GSC Study was founded in 2011 with a simple but important mission — to make world-class education accessible to ambitious students in Kazakhstan. What began as a small consulting office has grown into a leading educational centre, known for its commitment to academic integrity and student outcomes.",
-      p2: "Our growth is the result of the trust of thousands of families. We believe that real educational consulting is not about “filling out an application”, but about shaping the future. We look at the student as a whole: we find each person's strengths and choose a university where they will flourish both academically and personally.",
+      p1: "GSC Study was founded in 2011 to help students from Kazakhstan apply to universities abroad. We began with a small consulting office and later opened learning centres in Almaty and Astana.",
+      p2: "During the consultation, we discuss the student's interests, grades, language level and budget. We use this information to select universities, plan preparation and help gather the required documents.",
       quote: "“Education is the most powerful weapon which you can use to change the world. At GSC we place that weapon in our students' hands.”",
-      p3: "Today, with modern centres in Almaty and Astana, we continue to refine our exam preparation methods and expand our network of international partners, so that our students are always one step ahead.",
+      p3: "Our centres in Almaty and Astana offer language courses and exam preparation. We develop our teaching programmes and work with international partners on admissions.",
     },
     values: {
       title: "Our values",
       subtitle: "The principles that shape our approach to teaching and consulting.",
       items: [
-        { title: "Quality", text: "We uphold high standards in our programmes and consulting so that the result is of a premium level." },
-        { title: "Results-driven", text: "Our success is measured by our students' admissions, scores and progress — and nothing else." },
+        { title: "Quality", text: "We select a study programme based on the student's level and the requirements of their chosen university." },
+        { title: "Results-driven", text: "We assess our work through students' admissions, exam scores and learning progress." },
         { title: "Transparency", text: "Honest assessment, a clear route and open communication at every stage of admission." },
-        { title: "Opportunity without borders", text: "We believe geography should not limit potential. We connect local talent with universities across the world." },
+        { title: "Opportunity without borders", text: "We help students from Kazakhstan choose programmes at universities abroad and submit applications." },
       ],
     },
     partners: {
       title: "Accreditations & partners",
-      text: "Leading international educational organisations trust us.",
+      text: "The international educational organisations we work with.",
     },
     cta: {
-      title: "Ready to start your journey?",
-      text: "Book a personal consultation — we'll discuss your goals and map out your route to admission.",
+      title: "Planning to apply?",
+      text: "Book a personal consultation. We'll discuss your goals and make an admissions plan.",
       button: "Get a consultation",
     },
   },

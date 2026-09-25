@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   // Собираем на Ubuntu (GitHub Actions), запускаем на хостинге (может быть
   // Ubuntu/Debian, CloudLinux/RHEL или Alpine) — включаем движки под все.
   binaryTargets = ["native", "debian-openssl-3.0.x", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
@@ -28,53 +28,65 @@ model Lead {
 
 // Тесты уровня
 model Test {
-  id          String       @id @default(cuid())
-  title       String
-  slug        String       @unique
-  kind        String       @default("placement") // placement | kids | ielts | sat
-  audience    String       @default("adults") // adults | kids
-  description String?
-  timeLimit   Int? // минуты
-  published   Boolean      @default(false)
-  order       Int          @default(0)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  questions   Question[]
-  results     TestResult[]
+  id            String       @id @default(cuid())
+  title         String
+  slug          String       @unique
+  kind          String       @default("placement") // placement | kids | ielts | sat
+  audience      String       @default("adults") // adults | kids
+  description   String?
+  timeLimit     Int? // минуты
+  scoringMode   String       @default("level")
+  sourceKey     String?      @unique
+  sourceHash    String?
+  contactFields String?
+  published     Boolean      @default(false)
+  order         Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  questions     Question[]
+  results       TestResult[]
 }
 
 // Результат прохождения теста
 model TestResult {
-  id        String   @id @default(cuid())
-  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-  testId    String
-  name      String
-  phone     String
-  email     String?
-  score     Int
-  total     Int
-  level     String // A1..C2 / прогноз балла / готовность
-  answers   String? // JSON: { questionId: optionId }
-  leadId    String?
-  createdAt DateTime @default(now())
+  id                 String   @id @default(cuid())
+  test               Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId             String
+  name               String
+  phone              String
+  email              String?
+  score              Int
+  total              Int
+  level              String // A1..C2 / прогноз балла / готовность
+  answers            String? // JSON: { questionId: optionId }
+  pendingReview      Int      @default(0)
+  submissionSnapshot String?
+  leadId             String?
+  createdAt          DateTime @default(now())
 }
 
 model Question {
-  id       String   @id @default(cuid())
-  test     Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-  testId   String
-  order    Int      @default(0)
-  text     String
-  options  Option[]
+  id              String   @id @default(cuid())
+  test            Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId          String
+  order           Int      @default(0)
+  text            String
+  type            String   @default("choice")
+  contentHtml     String?
+  acceptedAnswers String?
+  required        Boolean  @default(true)
+  sourceKey       String?
+  options         Option[]
 }
 
 model Option {
-  id         String   @id @default(cuid())
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  questionId String
-  order      Int      @default(0)
-  text       String
-  correct    Boolean  @default(false)
+  id          String   @id @default(cuid())
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId  String
+  order       Int      @default(0)
+  text        String
+  contentHtml String?
+  correct     Boolean  @default(false)
 }
 
 // Настройки сайта (ключ-значение): Bitrix webhook, контакты и т.д.

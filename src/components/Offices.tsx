@@ -34,7 +34,7 @@ export default async function Offices() {
               href={o.gis}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${o.city}, ${o.address} — открыть в 2GIS`}
+              aria-label={`${o.city}, ${o.address}. Открыть в 2GIS`}
               className="map-wrapper group card-ring block h-72 shadow-premium hover:shadow-premium-lg"
             >
               {/* Карта-превью (стежка тайлов OSM), клик открывает 2GIS */}

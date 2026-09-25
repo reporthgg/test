@@ -82,11 +82,11 @@ export default function CampForm({
         </label>
         <label className="text-sm">
           <span className="block font-semibold mb-1">Даты</span>
-          <input name="dates" defaultValue={camp.dates ?? ""} className={cls} placeholder="6–26 июля" />
+          <input name="dates" defaultValue={camp.dates ?? ""} className={cls} placeholder="6-26 июля" />
         </label>
         <label className="text-sm">
           <span className="block font-semibold mb-1">Возраст</span>
-          <input name="ageRange" defaultValue={camp.ageRange ?? ""} className={cls} placeholder="13–17 лет" />
+          <input name="ageRange" defaultValue={camp.ageRange ?? ""} className={cls} placeholder="13-17 лет" />
         </label>
         <label className="text-sm">
           <span className="block font-semibold mb-1">Проживание</span>
@@ -173,7 +173,7 @@ export default function CampForm({
         <div className="flex items-center gap-3">
           {saved && (
             <span className="text-clever-green text-sm font-semibold">
-              Сохранено ✓
+              Сохранено
             </span>
           )}
           <button

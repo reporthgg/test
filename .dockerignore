@@ -5,13 +5,18 @@ _legacy
 npm-debug.log*
 Dockerfile
 .dockerignore
-docker-compose.yml
-.github
 *.md
 .env
 .env*.local
+*.tsbuildinfo
+next-env.d.ts
 
 prisma/*.db
 prisma/*.db-journal
-data
+data/*
+!data/imports
+data/imports/*
+!data/imports/tilda
+data/imports/tilda/*
+!data/imports/tilda/manifest.json
 public/uploads

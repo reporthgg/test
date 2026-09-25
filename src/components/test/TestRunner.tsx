@@ -1,22 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import CountUp from "@/components/ui/CountUp";
 import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
 import { getTestsDict } from "@/i18n/pages/tests";
-
-type Option = { id: string; text: string };
-type Question = { id: string; text: string; options: Option[] };
+import type { TestContactField, TestQuestion, TestSubmissionResult } from "@/lib/test-types";
+import { firstMissingAnswer, isQuestionAnswered } from "./test-runner-state";
 
 type Props = {
   slug: string;
   title: string;
   description?: string | null;
   timeLimit?: number | null;
-  questions: Question[];
+  questions: TestQuestion[];
+  contactFields?: TestContactField[];
+  preview?: boolean;
+  scoringMode?: string;
 };
 
 type Step = "intro" | "quiz" | "loading" | "done" | "error";
@@ -27,52 +29,112 @@ export default function TestRunner({
   description,
   timeLimit,
   questions,
+  contactFields = [],
+  preview = false,
+  scoringMode = "level",
 }: Props) {
   const t = getTestsDict(useLocale());
   const [step, setStep] = useState<Step>("intro");
   const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [contact, setContact] = useState<Partial<Record<TestContactField["name"], string>>>({});
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [result, setResult] = useState<{ score: number; total: number; level: string } | null>(null);
+  const [result, setResult] = useState<TestSubmissionResult | null>(null);
+  const [validationError, setValidationError] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const request = useRef<AbortController | null>(null);
+  const submitting = useRef(false);
+
+  useEffect(() => () => {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    request.current?.abort();
+  }, []);
+
+  useEffect(() => {
+    if (step !== "intro") cardRef.current?.scrollIntoView({ block: "start" });
+  }, [step, idx]);
 
   const total = questions.length;
   const q = questions[idx];
   const chosen = q ? answers[q.id] : undefined;
-  const progress = Math.round((idx / total) * 100);
+  const progress = total ? Math.round((idx / total) * 100) : 0;
+  const previewLabel = preview ? t.preview.label : undefined;
+
+  function cancelAdvance() {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    advanceTimer.current = null;
+  }
 
   async function submit(finalAnswers: Record<string, string>) {
+    cancelAdvance();
+    if (submitting.current) return;
+    const missing = firstMissingAnswer(questions, finalAnswers);
+    if (missing !== -1) {
+      setIdx(missing);
+      setValidationError(true);
+      setStep("quiz");
+      return;
+    }
+    submitting.current = true;
+    const controller = new AbortController();
+    request.current = controller;
     setStep("loading");
     try {
-      const res = await fetch(`/api/tests/${slug}/submit`, {
+      const res = await fetch(`/api/tests/${encodeURIComponent(slug)}/submit${preview ? "?preview=1" : ""}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, answers: finalAnswers }),
+        body: JSON.stringify({
+          ...form,
+          ...Object.fromEntries(Object.entries(contact).filter(([, value]) => value?.trim())),
+          answers: finalAnswers,
+        }),
+        signal: controller.signal,
       });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error();
-      setResult({ score: data.score, total: data.total, level: data.level });
+      const data: Partial<TestSubmissionResult> = await res.json();
+      if (!res.ok || data.ok !== true || typeof data.score !== "number" ||
+          typeof data.total !== "number" || typeof data.level !== "string" ||
+          typeof data.pendingReview !== "number") throw new Error();
+      setResult(data as TestSubmissionResult);
       setStep("done");
     } catch {
-      setStep("error");
+      if (!controller.signal.aborted) setStep("error");
+    } finally {
+      submitting.current = false;
+      request.current = null;
     }
   }
 
   function choose(optionId: string) {
-    const next = { ...answers, [q.id]: optionId };
-    setAnswers(next);
-    // небольшая пауза и переход дальше
-    setTimeout(() => {
-      if (idx + 1 < total) setIdx(idx + 1);
-      else submit(next);
-    }, 220);
+    cancelAdvance();
+    setAnswers((previous) => ({ ...previous, [q.id]: optionId }));
+    setValidationError(false);
+    if (idx + 1 < total) {
+      // небольшая пауза и переход дальше
+      advanceTimer.current = setTimeout(() => {
+        advanceTimer.current = null;
+        setIdx(idx + 1);
+      }, 220);
+    }
+  }
+
+  function advance() {
+    cancelAdvance();
+    if (q.required && !isQuestionAnswered(q, chosen)) {
+      setValidationError(true);
+      return;
+    }
+    setValidationError(false);
+    if (idx + 1 < total) setIdx(idx + 1);
+    else void submit(answers);
   }
 
   // ---------- INTRO ----------
   if (step === "intro") {
     return (
-      <Card>
+      <Card previewLabel={previewLabel} rootRef={cardRef}>
         <div className="text-center">
-          <span className="tag-pill">{t.intro.eyebrow}</span>
+          <span className="tag-pill">{scoringMode === "raw" ? t.intro.rawEyebrow : t.intro.eyebrow}</span>
           <h1 className="text-3xl md:text-4xl font-extrabold mb-3">
             <span className="text-gradient">{title}</span>
           </h1>
@@ -88,7 +150,7 @@ export default function TestRunner({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setStep("quiz");
+            if (total > 0) setStep("quiz");
           }}
           className="space-y-4"
         >
@@ -98,7 +160,8 @@ export default function TestRunner({
               value={form.name}
               onChange={(v) => setForm({ ...form, name: v })}
               placeholder={t.intro.namePh}
-              required
+              maxLength={120}
+              required={!preview}
             />
             <Field
               label={t.intro.phoneLabel}
@@ -106,7 +169,8 @@ export default function TestRunner({
               onChange={(v) => setForm({ ...form, phone: v })}
               placeholder={t.intro.phonePh}
               type="tel"
-              required
+              maxLength={40}
+              required={!preview}
             />
           </div>
           <Field
@@ -115,17 +179,47 @@ export default function TestRunner({
             onChange={(v) => setForm({ ...form, email: v })}
             placeholder={t.intro.emailPh}
             type="email"
+            maxLength={200}
           />
+          {contactFields.map((field) => (
+            <label key={field.name} className="block text-sm font-semibold text-on-surface">
+              <span className="block mb-2">{field.label}{field.required ? " *" : ` (${t.quiz.optional})`}</span>
+              {field.options?.length ? (
+                <select
+                  value={contact[field.name] ?? ""}
+                  onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
+                  required={field.required && !preview}
+                  className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
+                >
+                  <option value="">{t.intro.selectOption}</option>
+                  {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
+                </select>
+              ) : (
+                <input
+                  type={field.name === "age" ? "number" : "text"}
+                  min={field.name === "age" ? 1 : undefined}
+                  max={field.name === "age" ? 120 : undefined}
+                  maxLength={200}
+                  value={contact[field.name] ?? ""}
+                  onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
+                  required={field.required && !preview}
+                  className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
+                />
+              )}
+            </label>
+          ))}
           <label className="flex items-start gap-3 text-sm text-on-surface-variant pt-1">
-            <input type="checkbox" required className="mt-1 rounded text-primary focus:ring-primary" />
+            <input type="checkbox" required={!preview} className="mt-1 rounded text-primary focus:ring-primary" />
             {t.intro.consent}
           </label>
           <button
             type="submit"
-            className="btn-primary shimmer w-full py-4 rounded-xl font-bold text-lg mt-2"
+            disabled={total === 0}
+            className="btn-primary shimmer w-full py-4 rounded-xl font-bold text-lg mt-2 disabled:opacity-60"
           >
             {t.intro.startBtn}
           </button>
+          {total === 0 && <p role="status" className="text-sm text-on-surface-variant">{t.intro.empty}</p>}
         </form>
       </Card>
     );
@@ -134,7 +228,7 @@ export default function TestRunner({
   // ---------- QUIZ ----------
   if (step === "quiz" && q) {
     return (
-      <Card>
+      <Card previewLabel={previewLabel} rootRef={cardRef}>
         <div className="mb-8">
           <div className="flex justify-between text-sm font-semibold text-on-surface-variant mb-2.5">
             <span>
@@ -150,16 +244,22 @@ export default function TestRunner({
           </div>
         </div>
 
-        <h2 className="text-xl md:text-2xl font-bold text-on-surface mb-8 leading-snug">
-          {q.text}
-        </h2>
+        <div id={`question-${q.id}`} className="text-xl md:text-2xl font-bold text-on-surface mb-6 leading-snug">
+          {q.contentHtml ? <RichContent html={q.contentHtml} /> : <h2 className="whitespace-pre-wrap">{q.text}</h2>}
+        </div>
+        <p className="text-sm text-on-surface-variant mb-4">
+          {q.required ? t.quiz.required : t.quiz.optional}
+          {q.type === "essay" && ` · ${t.quiz.essayNotice}`}
+        </p>
 
-        <div className="space-y-3">
+        {q.type === "choice" ? <div role="group" aria-labelledby={`question-${q.id}`} className="space-y-3">
           {q.options.map((o) => {
             const active = chosen === o.id;
             return (
               <button
                 key={o.id}
+                type="button"
+                aria-pressed={active}
                 onClick={() => choose(o.id)}
                 className={`group w-full text-left flex items-center gap-4 px-5 py-4 rounded-xl border-2 font-medium transition-all duration-200 ${
                   active
@@ -176,20 +276,64 @@ export default function TestRunner({
                 >
                   {active && <Icon name="check" className="text-base" />}
                 </span>
-                <span className="flex-1">{o.text}</span>
+                <div className="flex-1 min-w-0">
+                  {o.contentHtml ? <RichContent html={o.contentHtml} /> : <span className="whitespace-pre-wrap">{o.text}</span>}
+                </div>
               </button>
             );
           })}
-        </div>
+        </div> : q.type === "essay" ? (
+          <textarea
+            key={q.id}
+            aria-labelledby={`question-${q.id}`}
+            aria-invalid={validationError}
+            value={chosen ?? ""}
+            onChange={(event) => {
+              setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }));
+              setValidationError(false);
+            }}
+            rows={10}
+            maxLength={20000}
+            placeholder={t.quiz.answerPlaceholder}
+            className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 resize-y"
+          />
+        ) : (
+          <input
+            key={q.id}
+            type="text"
+            aria-labelledby={`question-${q.id}`}
+            aria-invalid={validationError}
+            value={chosen ?? ""}
+            onChange={(event) => {
+              setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }));
+              setValidationError(false);
+            }}
+            maxLength={2000}
+            autoComplete="off"
+            placeholder={t.quiz.answerPlaceholder}
+            className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
+          />
+        )}
+        {validationError && <p role="alert" className="mt-3 text-sm text-error">{t.quiz.answerRequired}</p>}
 
+        <div className="mt-6 flex items-center justify-between gap-4">
         {idx > 0 && (
           <button
-            onClick={() => setIdx(idx - 1)}
-            className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
+            type="button"
+            onClick={() => {
+              cancelAdvance();
+              setValidationError(false);
+              setIdx(idx - 1);
+            }}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
           >
             {t.quiz.back}
           </button>
         )}
+          <button type="button" onClick={advance} className="btn-primary ml-auto px-6 py-3 rounded-xl font-bold">
+            {idx + 1 === total ? t.quiz.finish : !q.required && !chosen?.trim() ? t.quiz.skip : t.quiz.next}
+          </button>
+        </div>
       </Card>
     );
   }
@@ -197,7 +341,7 @@ export default function TestRunner({
   // ---------- LOADING ----------
   if (step === "loading") {
     return (
-      <Card>
+      <Card previewLabel={previewLabel} rootRef={cardRef}>
         <div className="py-16 text-center">
           <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4" />
           <p className="text-on-surface-variant">{t.loading.text}</p>
@@ -209,27 +353,32 @@ export default function TestRunner({
   // ---------- DONE ----------
   if (step === "done" && result) {
     return (
-      <Card>
+      <Card previewLabel={previewLabel} rootRef={cardRef}>
         <div className="text-center py-4">
           <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6 shadow-premium">
             <Icon name="check" className="text-3xl" />
           </div>
           <p className="text-on-surface-variant mb-4 text-sm uppercase tracking-wider font-semibold">{t.result.yourResult}</p>
-          <div className="inline-flex items-center justify-center card-premium card-ring rounded-2xl bg-surface-container-lowest px-10 py-5 mb-5">
+          {result.level && result.total > 0 && <div className="inline-flex items-center justify-center card-premium card-ring rounded-2xl bg-surface-container-lowest px-10 py-5 mb-5">
             <div className="text-4xl md:text-5xl font-extrabold number-gradient leading-none">
               {result.level}
             </div>
-          </div>
-          <p className="text-on-surface-variant mb-8">
+          </div>}
+          {result.total > 0 && <p className="text-on-surface-variant mb-8">
             {t.result.correctAnswers}{" "}
             <b className="text-lg"><CountUp value={result.score} className="number-gradient font-extrabold" /></b>{" "}
             {t.result.of} {result.total}
-          </p>
+          </p>}
+          {result.pendingReview > 0 && (
+            <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-sm">
+              {t.result.manualReview} {result.pendingReview}. {t.result.manualReviewNote}
+            </p>
+          )}
           <div className="glass-card rounded-xl p-5 text-sm text-on-surface-variant mb-8">
-            {t.result.note}
+            {preview ? t.preview.resultNote : t.result.note}
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
+            {!preview && <a
               href={`${site.whatsapp.link}?text=${encodeURIComponent(
                 `${t.result.waIntro}${title}${t.result.waResult}${result.level}`
               )}`}
@@ -238,7 +387,7 @@ export default function TestRunner({
               className="btn-primary px-6 py-3 rounded-xl font-bold"
             >
               {t.result.waButton}
-            </a>
+            </a>}
             <Link href="/" className="btn-outline px-6 py-3 rounded-xl font-bold bg-white">
               {t.result.home}
             </Link>
@@ -250,7 +399,7 @@ export default function TestRunner({
 
   // ---------- ERROR ----------
   return (
-    <Card>
+    <Card previewLabel={previewLabel} rootRef={cardRef}>
       <div className="py-12 text-center">
         <p className="text-error font-semibold mb-4">
           {t.error.text}
@@ -261,17 +410,36 @@ export default function TestRunner({
         >
           {t.error.retry}
         </button>
+        <button onClick={() => setStep("intro")} className="block mx-auto mt-4 text-sm text-primary font-semibold">
+          {t.error.editContact}
+        </button>
       </div>
     </Card>
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
+function Card({
+  children,
+  previewLabel,
+  rootRef,
+}: {
+  children: React.ReactNode;
+  previewLabel?: string;
+  rootRef: React.RefObject<HTMLDivElement | null>;
+}) {
   return (
-    <div className="max-w-2xl mx-auto card-premium card-ring rounded-2xl bg-white p-7 md:p-12 shadow-premium">
+    <div ref={rootRef} className="max-w-2xl mx-auto card-premium card-ring rounded-2xl bg-white p-7 md:p-12 shadow-premium scroll-mt-28">
+      {previewLabel && <p role="status" className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-3 text-sm font-semibold">{previewLabel}</p>}
       {children}
     </div>
   );
+}
+
+function RichContent({ html }: { html: string }) {
+  return <div
+    className="break-words [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_p]:mb-3 [&_blockquote]:my-5 [&_blockquote]:text-base [&_blockquote]:font-normal [&_blockquote]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_table]:max-w-full [&_a]:underline"
+    dangerouslySetInnerHTML={{ __html: html }}
+  />;
 }
 
 function Meta({ label, value }: { label: string; value: string }) {
@@ -292,6 +460,7 @@ function Field({
   placeholder,
   type = "text",
   required,
+  maxLength,
 }: {
   label: string;
   value: string;
@@ -299,20 +468,22 @@ function Field({
   placeholder?: string;
   type?: string;
   required?: boolean;
+  maxLength?: number;
 }) {
   return (
-    <div>
-      <label className="block text-sm font-semibold text-on-surface mb-2">
+    <label className="block">
+      <span className="block text-sm font-semibold text-on-surface mb-2">
         {label}
-      </label>
+      </span>
       <input
         type={type}
         required={required}
+        maxLength={maxLength}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
       />
-    </div>
+    </label>
   );
 }

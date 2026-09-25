@@ -13,10 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
   const ov = await getPageContent("about", locale);
   return {
-    title: ov.metaTitle ?? "О нас — GSC Study",
+    title: ov.metaTitle ?? "О нас | GSC Study",
     description:
       ov.metaDescription ??
-      "GSC Study — образование без границ с 2011 года. Более 15 000 студентов, центры в Алматы и Астане, поступление в вузы 25+ стран.",
+      "GSC Study: образование без границ с 2011 года. Более 15 000 студентов, центры в Алматы и Астане, поступление в вузы 25+ стран.",
   };
 }
 
@@ -35,8 +35,8 @@ const valuesMeta = [
 ];
 
 const partners = [
-  { src: "/brand/icef.png", alt: "ICEF Accredited — Trusted Agency #1478", h: "h-16" },
-  { src: "/brand/bc-ielts.png", alt: "British Council — IELTS Registration Centre", h: "h-12 sm:h-14" },
+  { src: "/brand/icef.png", alt: "ICEF Accredited: Trusted Agency #1478", h: "h-16" },
+  { src: "/brand/bc-ielts.png", alt: "British Council: IELTS Registration Centre", h: "h-12 sm:h-14" },
 ];
 
 export default async function AboutPage() {

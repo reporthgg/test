@@ -14,7 +14,7 @@ export default async function TrustStrip() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/icef.png"
-              alt="ICEF Accredited — Trusted Agency #1478"
+              alt="ICEF Accredited: Trusted Agency #1478"
               className="h-16 w-auto"
             />
           </div>
@@ -22,7 +22,7 @@ export default async function TrustStrip() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/bc-ielts.png"
-              alt="British Council — IELTS Registration Centre"
+              alt="British Council: IELTS Registration Centre"
               className="h-12 sm:h-14 w-auto"
             />
           </div>

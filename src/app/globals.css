@@ -545,10 +545,10 @@ select {
   backdrop-filter: blur(8px);
 }
 
+
 /* ============================================================
    PREMIUM LAYER — gradients, glow, spotlight, aurora, motion
    ============================================================ */
-
 html {
   scroll-behavior: smooth;
 }

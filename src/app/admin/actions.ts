@@ -28,7 +28,6 @@ export async function login(_prev: unknown, formData: FormData) {
     maxAge: SESSION_MAX_AGE,
   });
 
-  // Промежуточный редирект из /admin заменяет ответ Server Action обычным HTML.
   const target = from.replace(/^\/admin\/?(?=[?#]|$)/, "/admin/dashboard");
   redirect(target.startsWith("/admin/") ? target : "/admin/dashboard");
 }

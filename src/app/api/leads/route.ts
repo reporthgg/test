@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       phone: String(phone),
       email: body.email ?? null,
       source: body.source ?? "site",
-      title: `Заявка с сайта — ${name}`,
+      title: `Заявка с сайта: ${name}`,
       comment: [interest && `Интерес: ${interest}`, body.city && `Город: ${body.city}`]
         .filter(Boolean)
         .join("\n"),

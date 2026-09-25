@@ -45,9 +45,9 @@ export default function LeadRow({ lead }: { lead: Lead }) {
           )}
         </div>
       </td>
-      <td className="py-4 px-4 text-on-surface-variant">{lead.interest ?? "—"}</td>
+      <td className="py-4 px-4 text-on-surface-variant">{lead.interest ?? "-"}</td>
       <td className="py-4 px-4 text-on-surface-variant whitespace-nowrap">
-        {lead.city ?? "—"}
+        {lead.city ?? "-"}
       </td>
       <td className="py-4 px-4 text-on-surface-variant whitespace-nowrap text-sm">
         {new Date(lead.createdAt).toLocaleDateString("ru-RU", {

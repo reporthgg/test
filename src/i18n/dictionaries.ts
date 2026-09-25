@@ -1,8 +1,8 @@
 import type { Locale } from "./config";
 
+
 // Словарь для «хрома» (шапка/футер/кнопки) и главной страницы.
 // ru — источник; kz/en — перевод (машинно-качественный, вычитать).
-
 const ru = {
   nav: {
     school: "Языковая школа",
@@ -28,24 +28,24 @@ const ru = {
         tag: "GSC Study",
         title1: "Образование",
         title2: "без границ",
-        text: "Языковые курсы, подготовка к международным экзаменам и поступление в зарубежные университеты — от первого теста уровня до зачисления.",
+        text: "Языковые курсы, подготовка к международным экзаменам и поступление в зарубежные университеты. Помогаем от первого теста уровня до зачисления.",
       },
       {
         tag: "Набор 2026",
         title1: "Старт групп",
         title2: "каждый месяц",
-        text: "Группы формируем по результатам теста уровня — от A1 до C2. До восьми человек, чтобы говорил каждый.",
+        text: "Группы формируем по результатам теста уровня, от A1 до C2. До восьми человек, чтобы говорил каждый.",
       },
       {
         tag: "Приёмная кампания",
         title1: "Поступление в вузы",
         title2: "25+ стран",
-        text: "Подбираем университет под аттестат и бюджет, готовим документы и ведём до зачисления — UK, Германия, Канада, ОАЭ, США.",
+        text: "Подбираем университет под аттестат и бюджет, готовим документы и ведём до зачисления. Основные направления: Великобритания, Германия, Канада, ОАЭ, США.",
       },
     ],
     features: [
       "Группы до восьми человек, индивидуально или онлайн",
-      "Тест уровня и пробный урок — бесплатно",
+      "Тест уровня и пробный урок бесплатно",
       "Сопровождение до зачисления в университет",
     ],
     stats: [
@@ -57,7 +57,7 @@ const ru = {
   },
   leadForm: {
     title: "Записаться на пробный урок",
-    subtitle: "Оставьте заявку — менеджер свяжется с вами в ближайшее время.",
+    subtitle: "Оставьте заявку, и менеджер свяжется с вами в ближайшее время.",
     name: "Имя",
     namePh: "Айгерим",
     city: "Город",
@@ -67,7 +67,7 @@ const ru = {
     consent: "Согласен(а) на обработку персональных данных.",
     submit: "Записаться",
     sending: "Отправляем…",
-    faster: "Быстрее —",
+    faster: "Быстрее:",
     successTitle: "Заявка отправлена!",
     successText: "Менеджер свяжется с вами в ближайшее время.",
     error: "Что-то пошло не так. Попробуйте ещё раз или напишите в WhatsApp.",
@@ -75,18 +75,18 @@ const ru = {
   directions: {
     eyebrow: "Направления",
     title: "Четыре направления GSC Study",
-    text: "Язык, экзамен и поступление связаны между собой. Мы ведём студента по всей цепочке, а не по отдельному курсу.",
+    text: "Помогаем выучить язык, подготовиться к экзаменам и подать документы в университет.",
     cards: [
       { title: "Языковая школа", text: "Английский от A1 до C2 и китайский язык. Общий, академический, деловой и детский форматы.", cta: "Смотреть курсы" },
       { title: "Экзамены", text: "Подготовка к IELTS и Digital SAT с пробными тестами и прогнозной оценкой до реального экзамена.", cta: "Подготовка к экзаменам" },
       { title: "За рубеж", text: "Подбор университета, подготовка документов и сопровождение до зачисления в вузы 25+ стран.", cta: "Программы за рубежом" },
-      { title: "Лагеря", text: "Языковые смены для школьников 12–17 лет с сопровождающим от GSC Study. Лето 2026.", cta: "Смотреть лагеря" },
+      { title: "Лагеря", text: "Языковые смены для школьников 12-17 лет с сопровождающим от GSC Study. Лето 2026.", cta: "Смотреть лагеря" },
     ],
   },
   testsBlock: {
     eyebrow: "Тестирование",
     title: "Тесты на определение уровня",
-    text: "Пройдите онлайн бесплатно и сразу узнайте свой уровень — мы пришлём разбор и подберём программу.",
+    text: "Пройдите онлайн бесплатно и сразу узнайте свой уровень. Мы пришлём разбор и подберём программу.",
   },
   steps: {
     eyebrow: "Как начать",
@@ -130,7 +130,7 @@ const ru = {
   offices: {
     eyebrow: "Контакты",
     title: "Наши центры",
-    text: "Четыре учебных центра — три в Астане и один в Алматы. Или занимайтесь онлайн из любого города.",
+    text: "Четыре учебных центра: три в Астане и один в Алматы. Или занимайтесь онлайн из любого города.",
     writeWhatsApp: "Написать в WhatsApp",
   },
   faq: {
@@ -144,7 +144,7 @@ const ru = {
   trust: { title: "Аккредитации и партнёры" },
   sticky: { consult: "Консультация" },
   footer: {
-    brandDesc: "Образование без границ с 2011 года. Мы помогаем студентам достигать академических высот в лучших вузах мира.",
+    brandDesc: "С 2011 года помогаем учить языки, готовиться к экзаменам и поступать в зарубежные университеты.",
     programs: "Программы",
     company: "Компания",
     contacts: "Контакты",
@@ -194,24 +194,24 @@ const kz: Dict = {
         tag: "GSC Study",
         title1: "Шекарасыз",
         title2: "білім",
-        text: "Тіл курстары, халықаралық емтихандарға дайындық және шетел университеттеріне түсу — алғашқы деңгей тестінен қабылданғанға дейін.",
+        text: "Тіл курстары, халықаралық емтихандарға дайындық және шетел университеттеріне түсу. Алғашқы деңгей тестінен қабылданғанға дейін көмектесеміз.",
       },
       {
         tag: "2026 жинағы",
         title1: "Топтар ашылады",
         title2: "ай сайын",
-        text: "Топтарды деңгей тестінің нәтижесі бойынша құрамыз — A1-ден C2-ге дейін. Әркім сөйлесуі үшін сегіз адамға дейін.",
+        text: "A1-ден C2-ге дейінгі топтарды деңгей тестінің нәтижесі бойынша құрамыз. Әркім сөйлесуі үшін сегіз адамға дейін.",
       },
       {
         tag: "Қабылдау науқаны",
         title1: "Жоғары оқу орындарына",
         title2: "25+ елде",
-        text: "Университетті аттестат пен бюджетке қарай таңдаймыз, құжаттарды дайындап, қабылданғанға дейін алып жүреміз — UK, Германия, Канада, БАӘ, АҚШ.",
+        text: "Университетті аттестат пен бюджетке қарай таңдаймыз, құжаттарды дайындап, қабылданғанға дейін алып жүреміз. Негізгі бағыттар: Ұлыбритания, Германия, Канада, БАӘ, АҚШ.",
       },
     ],
     features: [
       "Топтар сегіз адамға дейін, жеке немесе онлайн",
-      "Деңгей тесті мен сынама сабақ — тегін",
+      "Деңгей тесті мен сынама сабақ тегін",
       "Университетке қабылданғанға дейін қолдау",
     ],
     stats: [
@@ -223,7 +223,7 @@ const kz: Dict = {
   },
   leadForm: {
     title: "Сынама сабаққа жазылу",
-    subtitle: "Өтінім қалдырыңыз — менеджер жақын арада хабарласады.",
+    subtitle: "Өтінім қалдырыңыз, менеджер жақын арада хабарласады.",
     name: "Аты",
     namePh: "Айгерім",
     city: "Қала",
@@ -233,7 +233,7 @@ const kz: Dict = {
     consent: "Дербес деректерді өңдеуге келісемін.",
     submit: "Жазылу",
     sending: "Жіберілуде…",
-    faster: "Жылдамырақ —",
+    faster: "Жылдамырақ:",
     successTitle: "Өтінім жіберілді!",
     successText: "Менеджер жақын арада хабарласады.",
     error: "Бірдеңе дұрыс болмады. Қайталап көріңіз немесе WhatsApp-қа жазыңыз.",
@@ -241,18 +241,18 @@ const kz: Dict = {
   directions: {
     eyebrow: "Бағыттар",
     title: "GSC Study-дің төрт бағыты",
-    text: "Тіл, емтихан және түсу өзара байланысты. Біз студентті жеке курспен емес, толық жолмен алып жүреміз.",
+    text: "Тіл үйренуге, емтихандарға дайындалуға және университетке құжат тапсыруға көмектесеміз.",
     cards: [
       { title: "Тіл мектебі", text: "A1-ден C2-ге дейінгі ағылшын және қытай тілі. Жалпы, академиялық, іскерлік және балаларға арналған форматтар.", cta: "Курстарды көру" },
       { title: "Емтихандар", text: "IELTS және Digital SAT-қа дайындық, сынама тесттер мен нақты емтиханға дейінгі болжамды бағамен.", cta: "Емтиханға дайындық" },
       { title: "Шетелге", text: "Университет таңдау, құжаттарды дайындау және 25+ елдің ЖОО-ларына қабылданғанға дейін қолдау.", cta: "Шетелдегі бағдарламалар" },
-      { title: "Лагерьлер", text: "12–17 жастағы оқушыларға GSC Study серігімен тілдік ауысымдар. 2026 жаз.", cta: "Лагерьлерді көру" },
+      { title: "Лагерьлер", text: "12-17 жастағы оқушыларға GSC Study серігімен тілдік ауысымдар. 2026 жаз.", cta: "Лагерьлерді көру" },
     ],
   },
   testsBlock: {
     eyebrow: "Тестілеу",
     title: "Деңгейді анықтау тесттері",
-    text: "Онлайн тегін өтіп, деңгейіңізді бірден біліңіз — біз талдау жіберіп, бағдарлама таңдап береміз.",
+    text: "Онлайн тегін өтіп, деңгейіңізді бірден біліңіз. Біз талдау жіберіп, бағдарлама таңдап береміз.",
   },
   steps: {
     eyebrow: "Қалай бастау керек",
@@ -296,7 +296,7 @@ const kz: Dict = {
   offices: {
     eyebrow: "Байланыс",
     title: "Біздің орталықтар",
-    text: "Төрт оқу орталығы — үшеуі Астанада, біреуі Алматыда. Немесе кез келген қаладан онлайн оқыңыз.",
+    text: "Төрт оқу орталығы: үшеуі Астанада, біреуі Алматыда. Немесе кез келген қаладан онлайн оқыңыз.",
     writeWhatsApp: "WhatsApp-қа жазу",
   },
   faq: {
@@ -310,7 +310,7 @@ const kz: Dict = {
   trust: { title: "Аккредитациялар мен серіктестер" },
   sticky: { consult: "Кеңес алу" },
   footer: {
-    brandDesc: "2011 жылдан бері шекарасыз білім. Біз студенттерге әлемнің үздік ЖОО-ларында академиялық жетістіктерге жетуге көмектесеміз.",
+    brandDesc: "2011 жылдан бері тіл үйренуге, емтихандарға дайындалуға және шетел университеттеріне түсуге көмектесеміз.",
     programs: "Бағдарламалар",
     company: "Компания",
     contacts: "Байланыс",
@@ -358,24 +358,24 @@ const en: Dict = {
         tag: "GSC Study",
         title1: "Education",
         title2: "without borders",
-        text: "Language courses, preparation for international exams and admission to universities abroad — from your first level test to enrolment.",
+        text: "Language courses, preparation for international exams and admission to universities abroad. We support you from your first level test to enrolment.",
       },
       {
         tag: "Intake 2026",
         title1: "New groups start",
         title2: "every month",
-        text: "We form groups by level-test results — from A1 to C2. Up to eight people so everyone speaks.",
+        text: "We form groups by level-test results, from A1 to C2. Up to eight people so everyone speaks.",
       },
       {
         tag: "Admissions",
         title1: "Admission to universities in",
         title2: "25+ countries",
-        text: "We pick a university to match your grades and budget, prepare documents and guide you to enrolment — UK, Germany, Canada, UAE, USA.",
+        text: "We pick a university to match your grades and budget, prepare documents and guide you to enrolment. Main destinations: UK, Germany, Canada, UAE, USA.",
       },
     ],
     features: [
       "Groups of up to eight, one-to-one or online",
-      "Level test and a trial lesson — free",
+      "Free level test and trial lesson",
       "Support all the way to university enrolment",
     ],
     stats: [
@@ -387,7 +387,7 @@ const en: Dict = {
   },
   leadForm: {
     title: "Book a trial lesson",
-    subtitle: "Leave a request — our manager will contact you shortly.",
+    subtitle: "Leave a request and our manager will contact you shortly.",
     name: "Name",
     namePh: "Aigerim",
     city: "City",
@@ -397,7 +397,7 @@ const en: Dict = {
     consent: "I agree to the processing of personal data.",
     submit: "Sign up",
     sending: "Sending…",
-    faster: "Faster —",
+    faster: "Faster:",
     successTitle: "Request sent!",
     successText: "Our manager will contact you shortly.",
     error: "Something went wrong. Please try again or message us on WhatsApp.",
@@ -405,18 +405,18 @@ const en: Dict = {
   directions: {
     eyebrow: "Directions",
     title: "Four directions of GSC Study",
-    text: "Language, exam and admission are connected. We guide the student along the whole path, not a single course.",
+    text: "We help you learn a language, prepare for exams and apply to university.",
     cards: [
       { title: "Language School", text: "English from A1 to C2 and Chinese. General, academic, business and kids formats.", cta: "See courses" },
       { title: "Exams", text: "IELTS and Digital SAT preparation with mock tests and a predicted score before the real exam.", cta: "Exam preparation" },
       { title: "Study Abroad", text: "University selection, document preparation and support up to enrolment in 25+ countries.", cta: "Programmes abroad" },
-      { title: "Camps", text: "Language sessions for schoolchildren 12–17 with a GSC Study chaperone. Summer 2026.", cta: "See camps" },
+      { title: "Camps", text: "Language sessions for schoolchildren 12-17 with a GSC Study chaperone. Summer 2026.", cta: "See camps" },
     ],
   },
   testsBlock: {
     eyebrow: "Testing",
     title: "Level placement tests",
-    text: "Take one online for free and see your level right away — we'll send feedback and suggest a program.",
+    text: "Take one online for free and see your level right away. We'll send feedback and suggest a program.",
   },
   steps: {
     eyebrow: "How to start",
@@ -460,21 +460,21 @@ const en: Dict = {
   offices: {
     eyebrow: "Contacts",
     title: "Our centres",
-    text: "Four learning centres — three in Astana and one in Almaty. Or study online from any city.",
+    text: "Four learning centres: three in Astana and one in Almaty. Or study online from any city.",
     writeWhatsApp: "Message on WhatsApp",
   },
   faq: {
     title: "Frequently asked questions",
     items: [
       ["From what age can studies begin?", "We accept children from the age of 6 into special kids programmes."],
-      ["How long is the IELTS preparation course?", "A standard course lasts 2–3 months depending on your current level."],
+      ["How long is the IELTS preparation course?", "A standard course lasts 2-3 months depending on your current level."],
       ["Do you help with visas?", "Yes, we provide full visa support for our students."],
     ],
   },
   trust: { title: "Accreditations & partners" },
   sticky: { consult: "Consultation" },
   footer: {
-    brandDesc: "Education without borders since 2011. We help students reach academic heights at the world's best universities.",
+    brandDesc: "Since 2011, we have helped students learn languages, prepare for exams and apply to universities abroad.",
     programs: "Programmes",
     company: "Company",
     contacts: "Contacts",

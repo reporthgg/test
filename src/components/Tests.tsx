@@ -8,7 +8,7 @@ import Icon from "@/components/Icon";
 export default async function Tests() {
   const locale = await getServerLocale();
   const t = getDictionary(locale).testsBlock;
-  const h = getTestsDict(locale).hub;
+  const { hub: h, intro } = getTestsDict(locale);
 
   const tests = await prisma.test.findMany({
     where: { published: true },
@@ -54,7 +54,7 @@ export default async function Tests() {
               <p className="text-gray-600 flex-1">{test.description}</p>
               <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-100">
                 <span className="text-sm text-gray-500">
-                  {test._count.questions} {h.questions} ·{" "}
+                  {intro.metaQuestions}: {test._count.questions} ·{" "}
                   {test.timeLimit
                     ? `${test.timeLimit} ${h.minutes}`
                     : h.noLimit}

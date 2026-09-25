@@ -1,6 +1,5 @@
 # dependencies
 /node_modules
-node_modules/
 
 # next.js
 /.next/
@@ -37,7 +36,12 @@ _legacy/
 /public/uploads/
 
 # Локальные данные прод-стека (том с БД и загрузками)
-/data/
+/data/*
+!/data/imports/
+/data/imports/*
+!/data/imports/tilda/
+/data/imports/tilda/*
+!/data/imports/tilda/manifest.json
 
 # Шаблон БД, создаётся в CI
 prisma/*.db.seed

@@ -13,7 +13,7 @@ const LOCALE_LABELS: Record<LocaleKey, string> = {
   en: "English",
 };
 
-const PLACEHOLDER = "оставьте пустым — будет значение по умолчанию";
+const PLACEHOLDER = "оставьте пустым для значения по умолчанию";
 
 type FieldKey = keyof PageOverride;
 
@@ -123,7 +123,7 @@ export default function PageContentForm({
 
               {isHome && (
                 <p className="text-xs text-on-surface-variant mb-4">
-                  Для главной страницы редактируется только SEO — текст героя
+                  Для главной страницы редактируется только SEO. Текст героя
                   задаётся в слайдере.
                 </p>
               )}
@@ -171,7 +171,7 @@ export default function PageContentForm({
         </button>
         {saved && !pending && (
           <span className="text-clever-green text-sm font-semibold">
-            Сохранено ✓
+            Сохранено
           </span>
         )}
         {error && (

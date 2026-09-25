@@ -10,7 +10,7 @@ const tests = [
     kind: "placement",
     audience: "adults",
     description:
-      "25 вопросов с нарастающей сложностью в формате Cambridge. Определяет уровень английского по шкале A1–C2 — с него начинается любая подготовка.",
+      "25 вопросов с нарастающей сложностью в формате Cambridge. Определяет уровень английского по шкале A1-C2 перед началом подготовки.",
     timeLimit: 20,
     order: 1,
     // Формат Cambridge General English: 25 вопросов, сложность нарастает A1 → C2.
@@ -30,7 +30,7 @@ const tests = [
       // B1
       ["If it rains tomorrow, we ___ at home.", ["stay", "will stay", "stayed", "would stay"], 1],
       ["She has been living here ___ ten years.", ["since", "for", "from", "during"], 1],
-      ["You ___ smoke here — it's forbidden.", ["mustn't", "don't have to", "needn't", "could"], 0],
+      ["You ___ smoke here; it's forbidden.", ["mustn't", "don't have to", "needn't", "could"], 0],
       ["This is the man ___ car was stolen.", ["who", "which", "whose", "whom"], 2],
       ["The film was ___ boring that I fell asleep.", ["so", "such", "too", "very"], 0],
       // B2
@@ -54,7 +54,7 @@ const tests = [
     kind: "kids",
     audience: "kids",
     description:
-      "Игровой тест для детей 7–12 лет: простые слова и фразы, чтобы подобрать группу.",
+      "Игровой тест для детей 7-12 лет: простые слова и фразы, чтобы подобрать группу.",
     timeLimit: 10,
     order: 2,
     questions: [
@@ -211,10 +211,10 @@ async function main() {
   const campsCount = await prisma.camp.count();
   if (campsCount === 0) {
     const camps = [
-      { city: "Лондон", country: "Великобритания", dates: "6–26 июля", ageRange: "13–17 лет", housing: "кампус, комнаты на 2", seats: 20, order: 1, image: "/camps/london.jpg", summary: "Проживание в кампусе университета, уроки английского в первой половине дня, поездки в Оксфорд, Кембридж и Брайтон." },
-      { city: "Дубай", country: "ОАЭ", dates: "1–15 июня", ageRange: "12–16 лет", housing: "резиденция", seats: 16, order: 2, image: "/camps/dubai.jpg", summary: "Языковая практика и знакомство с кампусами филиалов британских вузов — полезно тем, кто присматривается к поступлению в ОАЭ." },
-      { city: "Торонто", country: "Канада", dates: "13–31 июля", ageRange: "14–17 лет", housing: "кампус", seats: 20, order: 3, image: "/camps/toronto.jpg", summary: "Академический английский с проектной работой и защитой в конце смены, плюс поездка на Ниагарский водопад." },
-      { city: "Берлин", country: "Германия", dates: "3–17 августа", ageRange: "13–17 лет", housing: "резиденция", seats: 18, order: 4, image: "/camps/berlin.jpg", summary: "Английский и базовый немецкий, знакомство с системой немецких университетов и поездки по земле Бранденбург." },
+      { city: "Лондон", country: "Великобритания", dates: "6-26 июля", ageRange: "13-17 лет", housing: "кампус, комнаты на 2", seats: 20, order: 1, image: "/camps/london.jpg", summary: "Проживание в кампусе университета, уроки английского в первой половине дня, поездки в Оксфорд, Кембридж и Брайтон." },
+      { city: "Дубай", country: "ОАЭ", dates: "1-15 июня", ageRange: "12-16 лет", housing: "резиденция", seats: 16, order: 2, image: "/camps/dubai.jpg", summary: "Языковая практика и знакомство с кампусами филиалов британских вузов для тех, кто присматривается к поступлению в ОАЭ." },
+      { city: "Торонто", country: "Канада", dates: "13-31 июля", ageRange: "14-17 лет", housing: "кампус", seats: 20, order: 3, image: "/camps/toronto.jpg", summary: "Академический английский с проектной работой и защитой в конце смены, плюс поездка на Ниагарский водопад." },
+      { city: "Берлин", country: "Германия", dates: "3-17 августа", ageRange: "13-17 лет", housing: "резиденция", seats: 18, order: 4, image: "/camps/berlin.jpg", summary: "Английский и базовый немецкий, знакомство с системой немецких университетов и поездки по земле Бранденбург." },
     ];
     for (const c of camps) {
       await prisma.camp.create({ data: { ...c, published: true } });
