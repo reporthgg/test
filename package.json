@@ -12,7 +12,7 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "node prisma/seed.mjs",
-    "db:deploy": "prisma db push --skip-generate && node prisma/seed-if-empty.mjs"
+    "db:deploy": "prisma db push --skip-generate && prisma db execute --file prisma/manual-migrations/20260925_test_contact_fields.sql --schema prisma/schema.prisma && node prisma/seed-if-empty.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

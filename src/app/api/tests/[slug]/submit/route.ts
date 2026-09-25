@@ -91,7 +91,7 @@ export async function POST(
     if (preview) {
       return NextResponse.json(result, { headers: { "Cache-Control": "no-store" } });
     }
-    const { name, phone, email, contacts, answers } = submission;
+    const { name, phone, email, consent, contacts, answers } = submission;
     const { score, total, level, pendingReview } = result;
     const snapshot = createSubmissionSnapshot(test, submission, contactFields, result);
 
@@ -105,7 +105,7 @@ export async function POST(
           city: contacts.city ?? null,
           interest: `${test.title}: ${level}`,
           source: `test:${slug}`,
-          extra: JSON.stringify({ level, score, total, pendingReview, contacts }),
+          extra: JSON.stringify({ level, score, total, pendingReview, contacts, consent }),
         },
       });
       await transaction.testResult.create({

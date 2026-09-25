@@ -38,6 +38,7 @@ export type ValidatedSubmission = {
   name: string;
   phone: string;
   email: string | null;
+  consent: boolean;
   contacts: Partial<Record<TestContactField["name"], string>>;
   answers: Record<string, string>;
 };
@@ -84,7 +85,7 @@ export function validateTestSubmission(
 ): ValidatedSubmission {
   if (!isRecord(body)) throw new SubmissionValidationError("Ожидается JSON-объект");
   const allowedFields = new Set([
-    "name", "phone", "email", "answers", "contacts", ...contactFields.map((field) => field.name),
+    "name", "phone", "email", "consent", "answers", "contacts", ...contactFields.map((field) => field.name),
   ]);
   for (const key of Object.keys(body)) {
     if (!allowedFields.has(key)) invalid(key, "Неизвестное поле формы");
@@ -99,6 +100,13 @@ export function validateTestSubmission(
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(email)) {
     invalid("email", "Некорректный email");
   }
+  if (body.consent !== undefined && typeof body.consent !== "boolean") {
+    invalid("consent", "Согласие должно быть передано как логическое значение");
+  }
+  if (!preview && body.consent !== true) {
+    invalid("consent", "Подтвердите согласие на обработку персональных данных");
+  }
+  const consent = body.consent === true;
   const rawContacts = body.contacts === undefined ? {} : body.contacts;
   if (!isRecord(rawContacts)) invalid("contacts", "Некорректные контакты");
   const contactNames = new Set<string>(contactFields.map((field) => field.name));
@@ -145,7 +153,7 @@ export function validateTestSubmission(
     }
     if (value) answers[question.id] = value;
   }
-  return { name, phone, email: email || null, contacts, answers };
+  return { name, phone, email: email || null, consent, contacts, answers };
 }
 
 function questionKey(question: GradingQuestion): string[] | null {
@@ -214,6 +222,7 @@ export function createSubmissionSnapshot(
       email: submission.email,
       ...submission.contacts,
     },
+    consent: submission.consent,
     result,
     questions: test.questions.map((question) => ({
       id: question.id,

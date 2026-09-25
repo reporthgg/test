@@ -107,11 +107,15 @@ export default function TestMetaForm(p: Props) {
         </label>
       </div>
       <div className="mt-5 space-y-4">
-        <h3 className="font-semibold">Дополнительные контактные поля</h3>
+        <h3 className="font-semibold">Анкета после теста</h3>
+        <p className="text-sm text-on-surface-variant">Имя, телефон и согласие на обработку персональных данных обязательны после теста. Дополнительные поля включаются только по вашему желанию.</p>
+        {contactFields.length === 0
+          ? <p className="text-sm text-on-surface-variant">Дополнительных полей нет.</p>
+          : <button type="button" onClick={() => { setContactFields([]); setSaved(false); setError(""); }} className="text-error text-sm">Убрать дополнительные поля</button>}
         {contactFields.map((field) => (
           <div key={field.name} className="rounded-lg border border-border-subtle p-4 space-y-3">
             <div className="flex flex-wrap justify-between gap-3">
-              <span className="text-sm font-semibold">{field.name}</span>
+              <span className="text-sm font-semibold">{field.label}</span>
               <button type="button" onClick={() => { setContactFields(contactFields.filter((item) => item.name !== field.name)); setSaved(false); }} className="text-error text-sm">Удалить поле</button>
             </div>
             <label className="block text-sm">
@@ -123,13 +127,13 @@ export default function TestMetaForm(p: Props) {
               Обязательное поле
             </label>
             <label className="block text-sm">
-              Варианты выбора, каждый с новой строки. Пустое поле: свободный ввод.
+              Минимум два варианта выбора, каждый с новой строки. Пустое поле: свободный ввод.
               <textarea value={field.optionsText} rows={3} maxLength={20000} onChange={(event) => setContactFields(contactFields.map((item) => item.name === field.name ? { ...item, optionsText: event.target.value } : item))} className="mt-1 w-full rounded-lg border border-border-subtle px-3 py-2 resize-y" />
             </label>
           </div>
         ))}
         {contactFields.length < 4 && <label className="block text-sm font-semibold">
-          Добавить контактное поле
+          Добавить дополнительное поле
           <select value="" onChange={(event) => {
             const name = event.target.value as TestContactField["name"];
             const labels = { age: "Возраст", city: "Город", branch: "Филиал", studyFormat: "Формат обучения" };
@@ -142,6 +146,7 @@ export default function TestMetaForm(p: Props) {
             {!contactFields.some((field) => field.name === "studyFormat") && <option value="studyFormat">Формат обучения</option>}
           </select>
         </label>}
+        <p className="text-xs text-on-surface-variant">Изменения анкеты вступят в силу после нажатия «Сохранить».</p>
       </div>
       <div className="flex items-center gap-4 mt-5">
         <button

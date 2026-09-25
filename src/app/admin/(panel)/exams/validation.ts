@@ -86,6 +86,7 @@ export function validateTestMetaInput(value: unknown): TestMetaData {
     if (field.options !== undefined && (!Array.isArray(field.options) || field.options.length > 100)) throw new Error("В контактном поле допустимо до 100 вариантов.");
     const options = field.options === undefined ? undefined : (field.options as unknown[]).map((option) => text(option, "Контактный вариант", 200, true));
     if (options && new Set(options).size !== options.length) throw new Error("Контактные варианты не должны повторяться.");
+    if (options?.length === 1) throw new Error("Для списка нужны минимум два варианта. Уберите все варианты, чтобы оставить свободный ввод.");
     return {
       name: name as TestContactField["name"],
       label: text(field.label, "Название контактного поля", 200, true),

@@ -13,6 +13,7 @@ type ResultSnapshot = {
   questions: ResultQuestion[];
   contact: Record<string, string>;
   contactLabels: Record<string, string>;
+  consent: boolean | null;
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -61,6 +62,7 @@ export function parseResultSnapshot(raw: string | null): ResultSnapshot | null {
       questions,
       contact,
       contactLabels,
+      consent: typeof snapshot.consent === "boolean" ? snapshot.consent : null,
     };
   } catch {
     return null;

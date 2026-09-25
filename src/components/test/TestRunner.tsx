@@ -21,7 +21,7 @@ type Props = {
   scoringMode?: string;
 };
 
-type Step = "intro" | "quiz" | "loading" | "done" | "error";
+type Step = "intro" | "quiz" | "contacts" | "loading" | "done" | "error";
 
 export default function TestRunner({
   slug,
@@ -35,7 +35,9 @@ export default function TestRunner({
 }: Props) {
   const t = getTestsDict(useLocale());
   const [step, setStep] = useState<Step>("intro");
-  const [form, setForm] = useState({ name: "", phone: "", email: "" });
+  const [form, setForm] = useState({ name: "", phone: "" });
+  const [consent, setConsent] = useState(false);
+  const [contactError, setContactError] = useState("");
   const [contact, setContact] = useState<Partial<Record<TestContactField["name"], string>>>({});
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -69,6 +71,7 @@ export default function TestRunner({
   async function submit(finalAnswers: Record<string, string>) {
     cancelAdvance();
     if (submitting.current) return;
+    setContactError("");
     const missing = firstMissingAnswer(questions, finalAnswers);
     if (missing !== -1) {
       setIdx(missing);
@@ -87,11 +90,17 @@ export default function TestRunner({
         body: JSON.stringify({
           ...form,
           ...Object.fromEntries(Object.entries(contact).filter(([, value]) => value?.trim())),
+          consent,
           answers: finalAnswers,
         }),
         signal: controller.signal,
       });
-      const data: Partial<TestSubmissionResult> = await res.json();
+      const data: Partial<TestSubmissionResult> & { message?: unknown } = await res.json();
+      if (!preview && res.status === 400) {
+        setContactError(typeof data.message === "string" ? data.message : t.error.text);
+        setStep("contacts");
+        return;
+      }
       if (!res.ok || data.ok !== true || typeof data.score !== "number" ||
           typeof data.total !== "number" || typeof data.level !== "string" ||
           typeof data.pendingReview !== "number") throw new Error();
@@ -125,8 +134,18 @@ export default function TestRunner({
       return;
     }
     setValidationError(false);
-    if (idx + 1 < total) setIdx(idx + 1);
-    else void submit(answers);
+    if (idx + 1 < total) {
+      setIdx(idx + 1);
+      return;
+    }
+    const missing = firstMissingAnswer(questions, answers);
+    if (missing !== -1) {
+      setIdx(missing);
+      setValidationError(true);
+      return;
+    }
+    if (preview) void submit(answers);
+    else setStep("contacts");
   }
 
   // ---------- INTRO ----------
@@ -142,45 +161,58 @@ export default function TestRunner({
             <p className="text-on-surface-variant mb-8 max-w-lg mx-auto leading-relaxed">{description}</p>
           )}
         </div>
-        <div className="flex flex-wrap gap-3 mb-8 text-sm">
-          <Meta label={t.intro.metaQuestions} value={String(total)} />
-          <Meta label={t.intro.metaTime} value={timeLimit ? `${timeLimit} ${t.intro.minutes}` : t.intro.noLimit} />
-          <Meta label={t.intro.metaCost} value={t.intro.free} />
+        <p className="text-center text-sm text-on-surface-variant mb-6">
+          {t.intro.metaQuestions}: {total}
+          {timeLimit ? ` · ${timeLimit} ${t.intro.minutes}` : ""}
+        </p>
+        {!preview && <p className="text-center text-sm text-on-surface-variant mb-6">{t.intro.contactNotice}</p>}
+        <button
+          type="button"
+          onClick={() => setStep("quiz")}
+          disabled={total === 0}
+          className="btn-primary shimmer w-full py-4 rounded-xl font-bold text-lg disabled:opacity-60"
+        >
+          {t.intro.startBtn}
+        </button>
+        {total === 0 && <p className="text-sm text-on-surface-variant mt-3">{t.intro.empty}</p>}
+      </Card>
+    );
+  }
+
+  if (step === "contacts") {
+    return (
+      <Card rootRef={cardRef}>
+        <div className="mb-8">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-primary mb-3">{t.contact.title}</h1>
+          <p className="text-on-surface-variant">{t.contact.subtitle}</p>
         </div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if (total > 0) setStep("quiz");
+            void submit(answers);
           }}
+          onChange={() => setContactError("")}
           className="space-y-4"
         >
           <div className="grid sm:grid-cols-2 gap-4">
             <Field
-              label={t.intro.nameLabel}
+              label={t.contact.nameLabel}
               value={form.name}
               onChange={(v) => setForm({ ...form, name: v })}
-              placeholder={t.intro.namePh}
+              placeholder={t.contact.namePh}
               maxLength={120}
-              required={!preview}
+              required
             />
             <Field
-              label={t.intro.phoneLabel}
+              label={t.contact.phoneLabel}
               value={form.phone}
               onChange={(v) => setForm({ ...form, phone: v })}
-              placeholder={t.intro.phonePh}
+              placeholder={t.contact.phonePh}
               type="tel"
               maxLength={40}
-              required={!preview}
+              required
             />
           </div>
-          <Field
-            label={t.intro.emailLabel}
-            value={form.email}
-            onChange={(v) => setForm({ ...form, email: v })}
-            placeholder={t.intro.emailPh}
-            type="email"
-            maxLength={200}
-          />
           {contactFields.map((field) => (
             <label key={field.name} className="block text-sm font-semibold text-on-surface">
               <span className="block mb-2">{field.label}{field.required ? " *" : ` (${t.quiz.optional})`}</span>
@@ -188,10 +220,10 @@ export default function TestRunner({
                 <select
                   value={contact[field.name] ?? ""}
                   onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
-                  required={field.required && !preview}
+                  required={field.required}
                   className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
                 >
-                  <option value="">{t.intro.selectOption}</option>
+                  <option value="">{t.contact.selectOption}</option>
                   {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
                 </select>
               ) : (
@@ -202,24 +234,36 @@ export default function TestRunner({
                   maxLength={200}
                   value={contact[field.name] ?? ""}
                   onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
-                  required={field.required && !preview}
+                  required={field.required}
                   className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
                 />
               )}
             </label>
           ))}
           <label className="flex items-start gap-3 text-sm text-on-surface-variant pt-1">
-            <input type="checkbox" required={!preview} className="mt-1 rounded text-primary focus:ring-primary" />
-            {t.intro.consent}
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(event) => setConsent(event.target.checked)}
+              required
+              className="mt-1 rounded text-primary focus:ring-primary"
+            />
+            {t.contact.consent}
           </label>
+          {contactError && <p role="alert" className="text-error text-sm">{contactError}</p>}
           <button
             type="submit"
-            disabled={total === 0}
-            className="btn-primary shimmer w-full py-4 rounded-xl font-bold text-lg mt-2 disabled:opacity-60"
+            className="btn-primary w-full py-4 rounded-xl font-bold text-lg mt-2"
           >
-            {t.intro.startBtn}
+            {t.contact.submit}
           </button>
-          {total === 0 && <p role="status" className="text-sm text-on-surface-variant">{t.intro.empty}</p>}
+          <button
+            type="button"
+            onClick={() => setStep("quiz")}
+            className="block mx-auto text-sm font-semibold text-primary"
+          >
+            {t.contact.back}
+          </button>
         </form>
       </Card>
     );
@@ -331,7 +375,7 @@ export default function TestRunner({
           </button>
         )}
           <button type="button" onClick={advance} className="btn-primary ml-auto px-6 py-3 rounded-xl font-bold">
-            {idx + 1 === total ? t.quiz.finish : !q.required && !chosen?.trim() ? t.quiz.skip : t.quiz.next}
+            {idx + 1 === total ? (preview ? t.quiz.finish : t.quiz.toContacts) : !q.required && !chosen?.trim() ? t.quiz.skip : t.quiz.next}
           </button>
         </div>
       </Card>
@@ -410,9 +454,9 @@ export default function TestRunner({
         >
           {t.error.retry}
         </button>
-        <button onClick={() => setStep("intro")} className="block mx-auto mt-4 text-sm text-primary font-semibold">
+        {!preview && <button onClick={() => setStep("contacts")} className="block mx-auto mt-4 text-sm text-primary font-semibold">
           {t.error.editContact}
-        </button>
+        </button>}
       </div>
     </Card>
   );
@@ -440,17 +484,6 @@ function RichContent({ html }: { html: string }) {
     className="break-words [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_p]:mb-3 [&_blockquote]:my-5 [&_blockquote]:text-base [&_blockquote]:font-normal [&_blockquote]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_table]:max-w-full [&_a]:underline"
     dangerouslySetInnerHTML={{ __html: html }}
   />;
-}
-
-function Meta({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex-1 min-w-[6rem] rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 text-center">
-      <div className="font-extrabold text-primary text-xl leading-none mb-1">{value}</div>
-      <div className="text-[0.7rem] uppercase tracking-wider text-on-surface-variant">
-        {label}
-      </div>
-    </div>
-  );
 }
 
 function Field({

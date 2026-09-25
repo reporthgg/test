@@ -10,7 +10,7 @@
   "tests": [
     {
       "sourceKey": "tilda:3304416:71753845:1571254661",
-      "sourceHash": "453bd4954b72326ec33d32396de15d208cdd24ff258e06c272698d39c5d6b74d",
+      "sourceHash": "066f68241714a4780423a27927f6abc69d997c31ad9a1b1ec5f59df7d31c4da6",
       "slug": "tilda-general-english",
       "title": "General English",
       "kind": "placement",
@@ -18,36 +18,7 @@
       "description": "25 вопросов по английскому и два письменных задания.",
       "timeLimit": null,
       "scoringMode": "raw",
-      "contactFields": [
-        {
-          "name": "age",
-          "label": "Возраст",
-          "required": true
-        },
-        {
-          "name": "city",
-          "label": "Город",
-          "required": true
-        },
-        {
-          "name": "branch",
-          "label": "Филиал",
-          "required": true,
-          "options": [
-            "Город Астана, пр. Улы Дала 41/6",
-            "Город Астана, ул. Сыганак 15",
-            "Город Алматы, ул. Сейфуллина 575"
-          ]
-        },
-        {
-          "name": "studyFormat",
-          "label": "Удобный формат занятий",
-          "required": true,
-          "options": [
-            "Оффлайн"
-          ]
-        }
-      ],
+      "contactFields": [],
       "questions": [
         {
           "sourceKey": "gen1",
@@ -876,7 +847,7 @@
     },
     {
       "sourceKey": "tilda:3304416:71753845:1667099501",
-      "sourceHash": "155c504b20792006127a9e429dfefc53d9ea462921ef5afe37cef00bb9f5e9d0",
+      "sourceHash": "b3197a243202891b0af27cb924072e51d71d0532dbb90b87884ca2b92d19f4da",
       "slug": "tilda-sat",
       "title": "SAT",
       "kind": "sat",
@@ -884,36 +855,7 @@
       "description": "30 вопросов по английскому и математике.",
       "timeLimit": null,
       "scoringMode": "raw",
-      "contactFields": [
-        {
-          "name": "age",
-          "label": "Возраст",
-          "required": true
-        },
-        {
-          "name": "city",
-          "label": "Город",
-          "required": true
-        },
-        {
-          "name": "branch",
-          "label": "Филиал",
-          "required": true,
-          "options": [
-            "Город Астана, пр. Улы Дала 41/6",
-            "Город Астана, ул. Сыганак 15",
-            "Город Алматы, ул. Сейфуллина 575"
-          ]
-        },
-        {
-          "name": "studyFormat",
-          "label": "Удобный формат занятий",
-          "required": true,
-          "options": [
-            "Оффлайн"
-          ]
-        }
-      ],
+      "contactFields": [],
       "questions": [
         {
           "sourceKey": "sat_q1",
@@ -1880,7 +1822,7 @@
     },
     {
       "sourceKey": "tilda:3304416:71753845:1571247411",
-      "sourceHash": "a60f0d8bdf7c7beb2e526a27764bf5541fa89940a50b20128b5abbac4d2e25df",
+      "sourceHash": "a60be198b43b4b2736d710ca6643dbd4cc5adc53d2048efda91982d9fb7e74e0",
       "slug": "tilda-ielts",
       "title": "IELTS",
       "kind": "ielts",
@@ -1888,36 +1830,7 @@
       "description": "22 вопроса по английскому и письменное задание.",
       "timeLimit": null,
       "scoringMode": "raw",
-      "contactFields": [
-        {
-          "name": "age",
-          "label": "Возраст",
-          "required": true
-        },
-        {
-          "name": "city",
-          "label": "Город",
-          "required": true
-        },
-        {
-          "name": "branch",
-          "label": "Филиал",
-          "required": true,
-          "options": [
-            "Город Астана, пр. Улы Дала 41/6",
-            "Город Астана, ул. Сыганак 15",
-            "Город Алматы, ул. Сейфуллина 575"
-          ]
-        },
-        {
-          "name": "studyFormat",
-          "label": "Удобный формат занятий",
-          "required": true,
-          "options": [
-            "Оффлайн"
-          ]
-        }
-      ],
+      "contactFields": [],
       "questions": [
         {
           "sourceKey": "ielts_q1",
@@ -2579,7 +2492,7 @@
     },
     {
       "sourceKey": "tilda:3304416:71753845:1571260541",
-      "sourceHash": "695fee09c5a2c354192e04f75172a32a3b9aabe420d817d65dc5676b4b1076d3",
+      "sourceHash": "d4d391a9f69201304efe01f9ca774783ca39e109481eeb9e7098fdc0ada5f556",
       "slug": "tilda-kids-6-8",
       "title": "English for Kids (6-8 years)",
       "kind": "kids",
@@ -2587,36 +2500,7 @@
       "description": "20 заданий с картинками для детей 6-8 лет.",
       "timeLimit": null,
       "scoringMode": "raw",
-      "contactFields": [
-        {
-          "name": "age",
-          "label": "Ваш возраст",
-          "required": true
-        },
-        {
-          "name": "city",
-          "label": "Город",
-          "required": true
-        },
-        {
-          "name": "branch",
-          "label": "Филиал",
-          "required": true,
-          "options": [
-            "Город Астана, пр. Улы Дала 41/6",
-            "Город Астана, ул. Сыганак 15",
-            "Город Алматы, ул. Сейфуллина 575"
-          ]
-        },
-        {
-          "name": "studyFormat",
-          "label": "Удобный формат занятий",
-          "required": true,
-          "options": [
-            "Оффлайн"
-          ]
-        }
-      ],
+      "contactFields": [],
       "questions": [
         {
           "sourceKey": "kidteen_q1",
@@ -3168,7 +3052,7 @@
     },
     {
       "sourceKey": "tilda:3304416:71753845:1571258411",
-      "sourceHash": "bb6313c8721e16e999449111827765da53af82eea2c66858ffa110adb02c5295",
+      "sourceHash": "8ad7cbce414698de7d6baccbd5aafbb1f001e5b4de3926cbc6eed9717044b456",
       "slug": "tilda-kids-9-12",
       "title": "English for Kids (9-12 years)",
       "kind": "kids",
@@ -3176,36 +3060,7 @@
       "description": "22 задания с картинками и короткими текстами для детей 9-12 лет.",
       "timeLimit": null,
       "scoringMode": "raw",
-      "contactFields": [
-        {
-          "name": "age",
-          "label": "Возраст",
-          "required": true
-        },
-        {
-          "name": "city",
-          "label": "Город",
-          "required": true
-        },
-        {
-          "name": "branch",
-          "label": "Филиал",
-          "required": true,
-          "options": [
-            "Город Астана, пр. Улы Дала 41/6",
-            "Город Астана, ул. Сыганак 15",
-            "Город Алматы, ул. Сейфуллина 575"
-          ]
-        },
-        {
-          "name": "studyFormat",
-          "label": "Удобный формат занятий",
-          "required": true,
-          "options": [
-            "Оффлайн"
-          ]
-        }
-      ],
+      "contactFields": [],
       "questions": [
         {
           "sourceKey": "kidlit1",

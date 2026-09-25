@@ -42,6 +42,10 @@ export default async function TestResultDetailPage({
           <dd className="font-semibold whitespace-pre-wrap break-words">{value || "Не указано"}</dd>
         </div>)}
         <div>
+          <dt className="text-xs uppercase tracking-wide text-on-surface-variant">Согласие на обработку персональных данных</dt>
+          <dd className="font-semibold">{snapshot?.consent === true ? "Получено" : snapshot?.consent === false ? "Не дано" : "Не зафиксировано"}</dd>
+        </div>
+        <div>
           <dt className="text-xs uppercase tracking-wide text-on-surface-variant">Автоматический результат</dt>
           <dd className="font-semibold">{result.score} / {result.total}{result.level ? ` (${result.level})` : ""}</dd>
         </div>
