@@ -4,6 +4,7 @@ import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
 import { useLocale } from "@/i18n/useLocale";
+import { getDictionary } from "@/i18n/dictionaries";
 import { getAbroadDict } from "@/i18n/pages/abroad";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -13,8 +14,11 @@ const infoIcons = ["videocam", "schedule"];
 export default function AbroadConsult() {
   const locale = useLocale();
   const t = getAbroadDict(locale).consult;
+  const submissionText = getDictionary(locale).submission;
 
   const [status, setStatus] = useState<Status>("idle");
+  const [crmDelivered, setCrmDelivered] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -30,10 +34,13 @@ export default function AbroadConsult() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "abroad-consult" }),
+        body: JSON.stringify({ ...form, consent, source: "abroad-consult" }),
       });
-      if (!res.ok) throw new Error("failed");
+      const data: { ok?: unknown; crmDelivered?: unknown } | null = await res.json();
+      if (!res.ok || data?.ok !== true) throw new Error("failed");
+      setCrmDelivered(data.crmDelivered === true);
       setStatus("success");
+      setConsent(false);
     } catch {
       setStatus("error");
     }
@@ -111,10 +118,10 @@ export default function AbroadConsult() {
                 <Icon name="check" className="text-3xl" />
               </div>
               <h3 className="text-2xl font-bold text-on-surface mb-2">
-                {t.successTitle}
+                {crmDelivered ? t.successTitle : submissionText.savedTitle}
               </h3>
               <p className="text-sm text-on-surface-variant">
-                {t.successText}
+                {crmDelivered ? t.successText : submissionText.deliveryUnconfirmed}
               </p>
             </div>
           ) : (
@@ -225,6 +232,8 @@ export default function AbroadConsult() {
                     className="mt-1 rounded text-primary focus:ring-primary border-border-subtle"
                     required
                     type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
                   />
                   <span className="text-xs text-on-surface-variant leading-tight">
                     {t.form.consent}

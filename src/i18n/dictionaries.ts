@@ -72,6 +72,10 @@ const ru = {
     successText: "Менеджер свяжется с вами в ближайшее время.",
     error: "Что-то пошло не так. Попробуйте ещё раз или напишите в WhatsApp.",
   },
+  submission: {
+    savedTitle: "Данные сохранены",
+    deliveryUnconfirmed: "Данные сохранены. Отправку менеджеру пока не удалось подтвердить. Повторять заявку не нужно.",
+  },
   directions: {
     eyebrow: "Направления",
     title: "Четыре направления GSC Study",
@@ -238,6 +242,10 @@ const kz: Dict = {
     successText: "Менеджер жақын арада хабарласады.",
     error: "Бірдеңе дұрыс болмады. Қайталап көріңіз немесе WhatsApp-қа жазыңыз.",
   },
+  submission: {
+    savedTitle: "Деректер сақталды",
+    deliveryUnconfirmed: "Деректер сақталды. Менеджерге жіберілгенін әзірге растау мүмкін болмады. Өтінімді қайталап жіберудің қажеті жоқ.",
+  },
   directions: {
     eyebrow: "Бағыттар",
     title: "GSC Study-дің төрт бағыты",
@@ -401,6 +409,10 @@ const en: Dict = {
     successTitle: "Request sent!",
     successText: "Our manager will contact you shortly.",
     error: "Something went wrong. Please try again or message us on WhatsApp.",
+  },
+  submission: {
+    savedTitle: "Data saved",
+    deliveryUnconfirmed: "Your data has been saved. We could not yet confirm delivery to a manager. You do not need to submit again.",
   },
   directions: {
     eyebrow: "Directions",

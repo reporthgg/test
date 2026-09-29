@@ -1,6 +1,9 @@
+import { randomUUID } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { sendLeadToBitrix } from "@/lib/bitrix";
+import type { BitrixLeadPayload } from "@/lib/bitrix";
+import { sendStoredLeadToBitrix, type BitrixDeliveryRecord } from "@/lib/bitrix-delivery";
+import { formatTestLeadComment } from "@/lib/bitrix-comments";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { parseTestContactFields } from "@/lib/test-content";
 import {
@@ -94,22 +97,43 @@ export async function POST(
     const { name, phone, email, consent, contacts, answers } = submission;
     const { score, total, level, pendingReview } = result;
     const snapshot = createSubmissionSnapshot(test, submission, contactFields, result);
+    const leadId = randomUUID();
+    const resultId = randomUUID();
+    const payload: BitrixLeadPayload = {
+      name,
+      phone,
+      email,
+      source: `test:${slug}`,
+      title: `Тест «${test.title}»: ${level}`,
+      comment: formatTestLeadComment(test, submission, contactFields, result, resultId),
+      originId: leadId,
+    };
+    const deliveryRecord: BitrixDeliveryRecord = {
+      version: 1,
+      status: "pending",
+      attempts: 0,
+      payload,
+    };
 
     await prisma.$transaction(async (transaction) => {
       // заявка (лид)
-      const lead = await transaction.lead.create({
+      await transaction.lead.create({
         data: {
+          id: leadId,
           name,
           phone,
           email,
           city: contacts.city ?? null,
           interest: `${test.title}: ${level}`,
           source: `test:${slug}`,
-          extra: JSON.stringify({ level, score, total, pendingReview, contacts, consent }),
+          extra: JSON.stringify({
+            level, score, total, pendingReview, contacts, consent, _bitrix: deliveryRecord,
+          }),
         },
       });
       await transaction.testResult.create({
         data: {
+          id: resultId,
           testId: test.id,
           name,
           phone,
@@ -120,31 +144,21 @@ export async function POST(
           pendingReview,
           answers: JSON.stringify(answers),
           submissionSnapshot: snapshot,
-          leadId: lead.id,
+          leadId,
         },
       });
     });
 
+    let crmDelivered = false;
     try {
-      await sendLeadToBitrix({
-        name,
-        phone,
-        email,
-        source: `test:${slug}`,
-        title: `Тест «${test.title}»: ${level}`,
-        comment: [
-          `Результат теста «${test.title}»: ${level}`,
-          `Правильных: ${score} из ${total}`,
-          `Ожидают проверки: ${pendingReview}`,
-          ...contactFields
-            .filter((field) => contacts[field.name])
-            .map((field) => `${field.label}: ${contacts[field.name]}`),
-        ].join("\n"),
-      });
-    } catch (error) {
-      console.error("[test submit] CRM delivery failed:", error);
+      const delivery = await sendStoredLeadToBitrix(leadId);
+      crmDelivered = delivery.status === "sent";
+    } catch {
+      console.error("[test submit] CRM delivery failed", leadId);
     }
-    return NextResponse.json(result, { headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json({ ...result, crmDelivered }, {
+      headers: { "Cache-Control": "no-store" },
+    });
   } catch (e) {
     if (e instanceof SubmissionValidationError) {
       return errorResponse(e.status, e.code, e.message, e.details);

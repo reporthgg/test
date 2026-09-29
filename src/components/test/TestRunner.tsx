@@ -6,6 +6,7 @@ import Icon from "@/components/Icon";
 import CountUp from "@/components/ui/CountUp";
 import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
+import { getDictionary } from "@/i18n/dictionaries";
 import { getTestsDict } from "@/i18n/pages/tests";
 import type { TestContactField, TestQuestion, TestSubmissionResult } from "@/lib/test-types";
 import { firstMissingAnswer, isQuestionAnswered } from "./test-runner-state";
@@ -33,7 +34,9 @@ export default function TestRunner({
   preview = false,
   scoringMode = "level",
 }: Props) {
-  const t = getTestsDict(useLocale());
+  const locale = useLocale();
+  const t = getTestsDict(locale);
+  const submissionText = getDictionary(locale).submission;
   const [step, setStep] = useState<Step>("intro");
   const [form, setForm] = useState({ name: "", phone: "" });
   const [consent, setConsent] = useState(false);
@@ -419,7 +422,7 @@ export default function TestRunner({
             </p>
           )}
           <div className="glass-card rounded-xl p-5 text-sm text-on-surface-variant mb-8">
-            {preview ? t.preview.resultNote : t.result.note}
+            {preview ? t.preview.resultNote : result.crmDelivered === true ? t.result.note : submissionText.deliveryUnconfirmed}
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {!preview && <a

@@ -10,7 +10,10 @@ type Status = "idle" | "loading" | "success" | "error";
 export default function LeadForm() {
   const locale = useLocale();
   const t = getDictionary(locale).leadForm;
+  const submissionText = getDictionary(locale).submission;
   const [status, setStatus] = useState<Status>("idle");
+  const [crmDelivered, setCrmDelivered] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [form, setForm] = useState({ name: "", city: "", phone: "" });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -20,11 +23,14 @@ export default function LeadForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "hero-form" }),
+        body: JSON.stringify({ ...form, consent, source: "hero-form" }),
       });
-      if (!res.ok) throw new Error("request failed");
+      const data: { ok?: unknown; crmDelivered?: unknown } | null = await res.json();
+      if (!res.ok || data?.ok !== true) throw new Error("request failed");
+      setCrmDelivered(data.crmDelivered === true);
       setStatus("success");
       setForm({ name: "", city: "", phone: "" });
+      setConsent(false);
     } catch {
       setStatus("error");
     }
@@ -38,8 +44,8 @@ export default function LeadForm() {
             <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
           </svg>
         </div>
-        <h3 className="text-2xl font-extrabold text-gray-900 mb-3">{t.successTitle}</h3>
-        <p className="text-base text-gray-600">{t.successText}</p>
+        <h3 className="text-2xl font-extrabold text-gray-900 mb-3">{crmDelivered ? t.successTitle : submissionText.savedTitle}</h3>
+        <p className="text-base text-gray-600">{crmDelivered ? t.successText : submissionText.deliveryUnconfirmed}</p>
       </div>
     );
   }
@@ -98,7 +104,14 @@ export default function LeadForm() {
         </div>
         <div className="flex items-start pt-2">
           <div className="flex h-5 items-center">
-            <input className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" id="h-consent" required type="checkbox" />
+            <input
+              className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+              id="h-consent"
+              required
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+            />
           </div>
           <div className="ml-3 text-sm text-gray-500">
             <label htmlFor="h-consent">{t.consent}</label>

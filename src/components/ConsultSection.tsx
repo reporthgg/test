@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
 import Reveal from "@/components/Reveal";
 import { useLocale } from "@/i18n/useLocale";
+import { getDictionary } from "@/i18n/dictionaries";
 import { getSchoolDict } from "@/i18n/pages/school";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -26,6 +27,7 @@ export default function ConsultSection({
 }: Props) {
   const locale = useLocale();
   const t = getSchoolDict(locale);
+  const submissionText = getDictionary(locale).submission;
 
   const eyebrowText = eyebrow ?? t.consult.eyebrow;
   const titleNode = title ?? (
@@ -37,6 +39,8 @@ export default function ConsultSection({
   const textStr = text ?? t.consult.text;
 
   const [status, setStatus] = useState<Status>("idle");
+  const [crmDelivered, setCrmDelivered] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [form, setForm] = useState({
     name: "",
     city: "",
@@ -52,11 +56,14 @@ export default function ConsultSection({
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source }),
+        body: JSON.stringify({ ...form, consent, source }),
       });
-      if (!res.ok) throw new Error("failed");
+      const data: { ok?: unknown; crmDelivered?: unknown } | null = await res.json();
+      if (!res.ok || data?.ok !== true) throw new Error("failed");
+      setCrmDelivered(data.crmDelivered === true);
       setStatus("success");
       setForm({ name: "", city: "", phone: "", email: "", course: courses?.[0] ?? "" });
+      setConsent(false);
     } catch {
       setStatus("error");
     }
@@ -109,10 +116,10 @@ export default function ConsultSection({
                   <Icon name="check" className="text-3xl" />
                 </div>
                 <h3 className="font-headline-md text-headline-md text-primary mb-2">
-                  {t.consult.successTitle}
+                  {crmDelivered ? t.consult.successTitle : submissionText.savedTitle}
                 </h3>
                 <p className="font-body-md text-on-surface-variant">
-                  {t.consult.successText}
+                  {crmDelivered ? t.consult.successText : submissionText.deliveryUnconfirmed}
                 </p>
               </div>
             ) : (
@@ -225,6 +232,8 @@ export default function ConsultSection({
                         id="consent2"
                         required
                         type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
                       />
                     </div>
                     <div className="ml-3 text-sm">

@@ -4,13 +4,18 @@ import { useState } from "react";
 import { site } from "@/lib/site";
 import Icon from "@/components/Icon";
 import { useLocale } from "@/i18n/useLocale";
+import { getDictionary } from "@/i18n/dictionaries";
 import { getCampsDict } from "@/i18n/pages/camps";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function CampsConsult() {
-  const t = getCampsDict(useLocale()).consult;
+  const locale = useLocale();
+  const t = getCampsDict(locale).consult;
+  const submissionText = getDictionary(locale).submission;
   const [status, setStatus] = useState<Status>("idle");
+  const [crmDelivered, setCrmDelivered] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -26,10 +31,13 @@ export default function CampsConsult() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, source: "camps-consult" }),
+        body: JSON.stringify({ ...form, consent, source: "camps-consult" }),
       });
-      if (!res.ok) throw new Error("failed");
+      const data: { ok?: unknown; crmDelivered?: unknown } | null = await res.json();
+      if (!res.ok || data?.ok !== true) throw new Error("failed");
+      setCrmDelivered(data.crmDelivered === true);
       setStatus("success");
+      setConsent(false);
     } catch {
       setStatus("error");
     }
@@ -84,10 +92,10 @@ export default function CampsConsult() {
                   <Icon name="check" className="text-3xl" />
                 </div>
                 <h3 className="text-3xl font-extrabold text-on-surface mb-2">
-                  {t.successTitle}
+                  {crmDelivered ? t.successTitle : submissionText.savedTitle}
                 </h3>
                 <p className="text-on-surface-variant">
-                  {t.successText}
+                  {crmDelivered ? t.successText : submissionText.deliveryUnconfirmed}
                 </p>
               </div>
             ) : (
@@ -198,6 +206,8 @@ export default function CampsConsult() {
                         id="k-consent"
                         required
                         type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
                       />
                     </div>
                     <div className="ml-3 text-sm">

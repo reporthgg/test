@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Icon from "@/components/Icon";
 import LeadRow from "@/components/admin/LeadRow";
 import Link from "next/link";
+import { getBitrixDeliverySummary } from "@/lib/bitrix-delivery";
 
 export const dynamic = "force-dynamic";
 
@@ -89,6 +90,7 @@ export default async function LeadsPage({
                 <th className="py-4 px-4 font-semibold">Город</th>
                 <th className="py-4 px-4 font-semibold">Дата</th>
                 <th className="py-4 px-4 font-semibold">Статус</th>
+                <th className="py-4 px-4 font-semibold">Bitrix24</th>
                 <th className="py-4 px-4 font-semibold text-right">•••</th>
               </tr>
             </thead>
@@ -96,7 +98,18 @@ export default async function LeadsPage({
               {leads.map((l) => (
                 <LeadRow
                   key={l.id}
-                  lead={{ ...l, createdAt: l.createdAt.toISOString() }}
+                  lead={{
+                    id: l.id,
+                    name: l.name,
+                    phone: l.phone,
+                    email: l.email,
+                    city: l.city,
+                    interest: l.interest,
+                    source: l.source,
+                    status: l.status,
+                    createdAt: l.createdAt.toISOString(),
+                    bitrix: getBitrixDeliverySummary(l.extra),
+                  }}
                 />
               ))}
             </tbody>

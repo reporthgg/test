@@ -1,8 +1,9 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import Icon from "@/components/Icon";
-import { updateLeadStatus, deleteLead } from "@/app/admin/(panel)/leads/actions";
+import { updateLeadStatus, deleteLead, retryLeadBitrix } from "@/app/admin/(panel)/leads/actions";
+import type { BitrixDeliverySummary } from "@/lib/bitrix-delivery";
 
 type Lead = {
   id: string;
@@ -14,6 +15,7 @@ type Lead = {
   source: string | null;
   status: string;
   createdAt: string;
+  bitrix: BitrixDeliverySummary | null;
 };
 
 const statusStyles: Record<string, string> = {
@@ -22,8 +24,17 @@ const statusStyles: Record<string, string> = {
   enrolled: "bg-clever-green/10 text-clever-green border border-clever-green/30",
 };
 
+const deliveryLabels: Record<BitrixDeliverySummary["status"], string> = {
+  pending: "Ожидает подтверждения",
+  sent: "Доставлено",
+  failed: "Не отправлено",
+  uncertain: "Доставка не подтверждена",
+  not_configured: "Нет вебхука",
+};
+
 export default function LeadRow({ lead }: { lead: Lead }) {
   const [pending, start] = useTransition();
+  const [deliveryMessage, setDeliveryMessage] = useState<string | null>(null);
 
   return (
     <tr className="hover:bg-surface-container-low/60 transition-colors align-top">
@@ -72,6 +83,35 @@ export default function LeadRow({ lead }: { lead: Lead }) {
           <option value="contacted">Связались</option>
           <option value="enrolled">Записан</option>
         </select>
+      </td>
+      <td className="py-4 px-4 text-sm min-w-[12rem]">
+        <p className={lead.bitrix?.status === "sent" ? "text-clever-green" : "text-on-surface-variant"}>
+          {lead.bitrix ? deliveryLabels[lead.bitrix.status] : "Статус не записан"}
+          {lead.bitrix?.remoteId ? ` · №${lead.bitrix.remoteId}` : ""}
+        </p>
+        {lead.bitrix?.errorCode && <p className="text-xs text-on-surface-variant mt-1 break-words">{lead.bitrix.errorCode}</p>}
+        {lead.bitrix && lead.bitrix.status !== "sent" && (
+          <button
+            type="button"
+            disabled={pending}
+            onClick={() => {
+              setDeliveryMessage(null);
+              start(async () => {
+                try {
+                  const result = await retryLeadBitrix(lead.id);
+                  setDeliveryMessage(result.message);
+                } catch {
+                  setDeliveryMessage("Не удалось получить подтверждение. Обновите список заявок.");
+                }
+              });
+            }}
+            className="text-primary font-semibold mt-2 disabled:opacity-50"
+          >
+            {pending ? "Проверяем..." : lead.bitrix.status === "uncertain" || lead.bitrix.status === "pending"
+              ? "Проверить доставку" : "Повторить отправку"}
+          </button>
+        )}
+        {deliveryMessage && <p role="status" className="text-xs text-on-surface-variant mt-2">{deliveryMessage}</p>}
       </td>
       <td className="py-4 px-4 text-right">
         <button

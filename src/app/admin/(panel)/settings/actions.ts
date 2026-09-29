@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import {
   setSetting,
-  getBitrixWebhookUrl,
   type SettingKey,
 } from "@/lib/settings";
 import { sendLeadToBitrix } from "@/lib/bitrix";
@@ -25,12 +24,7 @@ export async function saveSettings(formData: FormData): Promise<void> {
 }
 
 export async function sendTestLead(): Promise<{ ok: boolean; reason?: string }> {
-  const url = await getBitrixWebhookUrl();
-  if (!url) {
-    return { ok: false, reason: "no-webhook" };
-  }
-
-  const ok = await sendLeadToBitrix({
+  const result = await sendLeadToBitrix({
     name: "Тест из админки",
     phone: "+70000000000",
     title: "Проверка вебхука Bitrix24",
@@ -38,5 +32,7 @@ export async function sendTestLead(): Promise<{ ok: boolean; reason?: string }> 
     source: "admin-test",
   });
 
-  return { ok };
+  return result.status === "sent"
+    ? { ok: true }
+    : { ok: false, reason: result.status === "not_configured" ? "no-webhook" : result.errorCode };
 }

@@ -28,4 +28,5 @@ export type TestSubmissionResult = {
   total: number;
   level: string;
   pendingReview: number;
+  crmDelivered?: boolean;
 };
