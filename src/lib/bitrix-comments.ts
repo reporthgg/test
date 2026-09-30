@@ -1,6 +1,5 @@
 import sanitizeHtml from "sanitize-html";
-import { parseQuestionType } from "./test-content";
-import { gradeTest, type GradingTest, type ValidatedSubmission } from "./test-submission";
+import type { GradingTest, ValidatedSubmission } from "./test-submission";
 import type { TestContactField, TestSubmissionResult } from "./test-types";
 
 const SITE_URL = "https://gscstudy.com";
@@ -149,25 +148,12 @@ export function formatTestLeadComment(
     `Согласие на обработку персональных данных: ${consent ? "Да" : "Нет"}`,
     `Результат в админке: ${SITE_URL}/admin/exams/${encodeURIComponent(test.id)}/results/${encodeURIComponent(resultId)}`,
   ].join("\n");
-  const questions = test.questions.map((question, index) => {
-    const type = parseQuestionType(question.type);
-    const answer = answers[question.id];
-    const option = type === "choice"
-      ? question.options.find((item) => item.id === answer)
-      : undefined;
-    const displayAnswer = !answer ? "Ответ не дан" : option
-      ? formatBitrixRichText(option.contentHtml, option.text)
-      : plainText(answer);
-    const grading = answer ? gradeTest({ ...test, questions: [question] }, answers) : null;
-    const status = grading
-      ? grading.pendingReview ? "Проверяет преподаватель" : grading.score ? "Верно" : "Неверно"
-      : null;
-    return [
-      `Вопрос ${index + 1}${type === "essay" ? " (эссе)" : ""}`,
+  const essays = test.questions
+    .filter((question) => question.type === "essay" && answers[question.id]?.trim())
+    .map((question, index) => [
+      `Эссе ${index + 1}`,
       formatBitrixRichText(question.contentHtml, question.text),
-      `Ответ: ${displayAnswer}`,
-      ...(status ? [`Статус: ${status}`] : []),
-    ].join("\n");
-  });
-  return [header, ...questions].join("\n\n");
+      `Ответ: ${plainText(answers[question.id])}`,
+    ].join("\n"));
+  return [header, ...essays].join("\n\n");
 }
