@@ -4,12 +4,13 @@ import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
 import { getDictionary } from "@/i18n/dictionaries";
+import { stripLocale } from "@/i18n/config";
 
 export default function WhatsAppBubble() {
   const pathname = usePathname();
   const locale = useLocale();
-  // не показываем в админке
-  if (pathname?.startsWith("/admin")) return null;
+  // На новой главной используется виджет из макета.
+  if (pathname?.startsWith("/admin") || stripLocale(pathname ?? "/") === "/") return null;
   const label = getDictionary(locale).actions.bubble;
 
   return (

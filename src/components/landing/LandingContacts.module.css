@@ -1,0 +1,435 @@
+.contacts {
+  position: relative;
+  background: var(--landing-pink, #b1005a);
+}
+
+.contacts::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: var(--landing-blue, #135685);
+}
+
+.offices,
+.faq {
+  position: relative;
+  overflow: clip;
+  background: var(--landing-blue, #135685);
+  color: white;
+}
+
+.offices { padding: 120px 0 96px; }
+.offices > :global(.landing-container) { position: relative; }
+
+.officesLine {
+  position: absolute;
+  top: -155px;
+  left: calc(50% - 965px);
+  max-width: none;
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+
+.officesHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.officesHeader > p {
+  order: -1;
+  margin-bottom: 15px;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+}
+
+.officesTitle em,
+.faqTitle em { color: inherit; opacity: 0.5; }
+.cityPicker { display: none; }
+
+.officeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.officeCard {
+  position: relative;
+  height: 285px;
+  overflow: hidden;
+  border-radius: 30px;
+  background: #f1f5f8;
+}
+
+.mapImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 610px;
+  max-width: none;
+  height: 300px;
+  min-width: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.officeAddress {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.officeAddress h3,
+.officeAddress p,
+.gisBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  border-radius: 500px;
+  padding: 10px 20px;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+}
+
+.officeAddress h3 {
+  background: var(--landing-blue, #135685);
+  font-weight: 800;
+}
+
+.officeAddress p {
+  border: 0.8px solid rgb(152 152 152 / 50%);
+  background: white;
+  color: #636363;
+  font-weight: 600;
+}
+
+.gisBadge {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: var(--landing-green, #37814c);
+  font-weight: 800;
+}
+
+.routeButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  min-width: 235px;
+  min-height: 50px;
+  padding: 14px 25px;
+  border-radius: 10px;
+  background: var(--landing-pink, #b1005a);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+}
+
+.officesLineMobile,
+.gisIcon,
+.faqLineMobile,
+.hashtagMobile,
+.plusMobile,
+.footerLineMobile { display: none; }
+
+.faq {
+  padding: 70px 0 96px;
+  border-radius: 0 0 50px 50px;
+}
+
+.faqLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 445fr) minmax(0, 715fr);
+  align-items: start;
+  gap: 80px;
+  position: relative;
+}
+
+.faqHeader { position: relative; }
+.faqTitle { max-width: 350px; padding-right: 15px; }
+.faqTitle em { display: block; }
+
+.hashtag {
+  position: absolute;
+  top: 19px;
+  right: 7px;
+}
+
+.faqLine {
+  position: absolute;
+  left: calc(50% - 770px);
+  top: 530px;
+  max-width: none;
+  transform: rotate(3deg);
+  pointer-events: none;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.question {
+  color: var(--landing-blue, #135685);
+  background: #f0ebec;
+  border-radius: 30px;
+}
+
+.question summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 110px;
+  padding: 25px 40px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
+
+.question summary::-webkit-details-marker { display: none; }
+.question summary > span { min-width: 0; }
+.question summary > span[data-question="2"] { max-width: 350px; }
+.question summary > span[data-question="3"] { max-width: 320px; }
+.question summary img { flex: 0 0 auto; transition: transform 160ms ease; }
+.question[open] summary img { transform: rotate(45deg); }
+.question[open] summary { min-height: 0; padding-top: 40px; padding-bottom: 0; align-items: flex-start; }
+
+.question > p {
+  padding: 10px 95px 40px 40px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding: 70px 0 56px;
+  background: var(--landing-blue, #135685);
+  color: white;
+  font-weight: 300;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: minmax(230px, 327fr) minmax(170px, 184fr) minmax(120px, 132fr) minmax(360px, 417fr);
+  column-gap: 60px;
+  align-items: start;
+}
+
+.brand { position: relative; }
+
+.logo {
+  position: relative;
+  display: block;
+  width: 170px;
+  height: 68px;
+  overflow: hidden;
+}
+
+.logo img {
+  position: absolute;
+  left: -14.3%;
+  top: -109.01%;
+  width: 128.03%;
+  height: 318.15%;
+  max-width: none;
+}
+
+.brand > p {
+  max-width: 270px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+}
+
+.brand strong { font-weight: 700; }
+.socialLinks { display: flex; margin-top: 57px; }
+
+.socialLinks a {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 0.5px solid white;
+  background: var(--landing-blue, #135685);
+}
+
+.socialLinks a + a { margin-left: -12px; }
+.footer h3 { font-size: 20px; font-weight: 700; line-height: 28px; letter-spacing: -0.02em; }
+.footerNav ul { display: flex; flex-direction: column; gap: 8px; margin-top: 35px; }
+.footerNav a { font-size: 18px; line-height: 28px; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.footerNav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.footerContacts address {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 34px;
+  margin-top: 33px;
+  font-style: normal;
+}
+
+.footerContacts address > div { min-width: 0; }
+.footerContacts address > div > span { display: block; font-size: 18px; line-height: 28px; letter-spacing: -0.02em; margin-bottom: 4px; }
+.footerContacts address a { font-size: 24px; line-height: 28px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+.footerContacts address p { font-size: 20px; line-height: 28px; font-weight: 800; letter-spacing: -0.02em; }
+.footerContacts address p span { display: block; white-space: nowrap; }
+
+.footerDivider {
+  position: relative;
+  margin-top: 52px;
+  height: 36px;
+}
+
+.footerLine {
+  position: absolute;
+  left: 50%;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+.footerBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 34px;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+}
+
+.legalText { display: flex; gap: 50px; }
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.contacts a:focus-visible,
+.question summary:focus-visible,
+.footer a:focus-visible {
+  outline: 3px solid var(--landing-yellow, #eac35d);
+  outline-offset: 4px;
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+  .footerGrid { grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+  .footerContacts { grid-column: 2 / 4; }
+  .brand { grid-row: span 2; }
+  .faqLayout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 35px; }
+  .faqTitle { font-size: 50px; line-height: 1.06; }
+  .hashtag { top: 125px; right: 10px; }
+  .question summary { font-size: 19px; padding: 26px; }
+  .question[open] summary { padding: 26px 26px 0; }
+  .question > p { font-size: 18px; padding: 10px 26px 26px; }
+}
+
+@media (max-width: 600px) {
+  .contacts::before { top: -30px; height: 30px; }
+  .offices { padding: 72px 0 0; }
+  .officesLine { display: none; }
+  .officesLineMobile { display: block; position: absolute; top: -390px; left: -165px; max-width: none; transform: rotate(14.17deg); pointer-events: none; }
+  .officesHeader { display: block; margin-bottom: 28px; text-align: left; }
+  .officesTitle { font-size: 35px; line-height: 38px; letter-spacing: -0.04em; }
+  .officesHeader > p { max-width: 290px; margin: 5px 0 0; font-size: 16px; line-height: 23px; letter-spacing: -0.01em; }
+  .cityPicker { display: flex; width: 100%; height: 40px; padding: 2px; margin-bottom: 16px; border: 0.6px solid #dadada; border-radius: 300px; }
+  .cityPicker label { position: relative; flex: 1; min-width: 0; cursor: pointer; }
+  .cityPicker input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+  .cityPicker span { display: grid; place-items: center; height: 34px; border-radius: 300px; font-size: 12px; line-height: 16px; font-weight: 800; }
+  .cityPicker input:checked + span { color: var(--landing-blue, #135685); background: white; }
+  .cityPicker input:focus-visible + span { outline: 3px solid var(--landing-yellow, #eac35d); outline-offset: 3px; }
+  .officeGrid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .officePicker:has(input[value="astana"]:checked) .officeCard[data-city="almaty"],
+  .officePicker:has(input[value="almaty"]:checked) .officeCard[data-city="astana"] { display: none; }
+  .officeCard { height: 300px; border-radius: 24px; }
+  .mapImage { width: 738px; height: 363px; top: -10.68px; transform: translateX(-50%); }
+  .officeAddress { top: 10px; left: 10px; gap: 5px; }
+  .officeAddress h3, .officeAddress p { min-height: 34px; padding: 9px 16px; font-size: 12px; }
+  .gisBadge, .routeArrow { display: none; }
+  .gisIcon { display: block; }
+  .routeButton { min-width: 0; min-height: 45px; left: 10px; bottom: 10px; padding: 10px; gap: 5px; justify-content: flex-start; border-radius: 14px; background: var(--landing-green, #37814c); font-size: 14px; line-height: 19px; }
+  .faq { padding: 72px 0 50px; border-radius: 0 0 30px 30px; }
+  .faqLayout { display: block; }
+  .faqHeader { min-height: 38px; padding-right: 60px; margin-bottom: 28px; }
+  .faqTitle { max-width: none; padding-right: 0; font-size: 35px; line-height: 38px; letter-spacing: -0.04em; }
+  .faqTitle em { display: inline; }
+  .hashtag, .faqLine, .plus { display: none; }
+  .hashtagMobile { display: block; position: absolute; top: -9px; right: 0; }
+  .faqLineMobile { display: block; position: absolute; left: -40px; top: 294px; max-width: none; transform: rotate(3deg); pointer-events: none; }
+  .questions { gap: 8px; }
+  .question { border-radius: 14px; }
+  .question summary { min-height: 60px; padding: 12px 20px; font-size: 14px; line-height: 18px; letter-spacing: -0.02em; gap: 8px; }
+  .plusMobile { display: block; }
+  .question summary > span[data-question="2"] { max-width: 200px; }
+  .question summary > span[data-question="3"] { max-width: 180px; }
+  .question summary > span[data-question="6"] { max-width: 190px; }
+  .question[open] summary { padding: 21px 20px 0; }
+  .question > p { padding: 5px 50px 21px 20px; font-size: 14px; font-weight: 400; line-height: 21px; letter-spacing: -0.01em; }
+  .footer { padding: 72px 0 36px; }
+  .footerGrid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 37px 25px; }
+  .brand { grid-column: 1 / -1; min-height: 162px; padding-right: 86px; margin-bottom: 0; }
+  .brand > p { margin-top: 20px; max-width: 245px; font-size: 14px; line-height: 22px; }
+  .socialLinks { position: absolute; top: 4px; right: 0; flex-direction: column; gap: 10px; margin-top: 0; }
+  .socialLinks a + a { margin-left: 0; }
+  .footerNav ul { margin-top: 20px; gap: 10px; }
+  .footerNav a { font-size: 18px; line-height: 28px; }
+  .footer[data-locale="kz"] .footerNav a { font-size: 17px; }
+  .footerContacts { grid-column: 1 / -1; }
+  .footerContacts address { margin-top: 20px; gap: 25px 16px; }
+  .footerContacts address a { font-size: 20px; line-height: 26px; text-decoration: underline; text-underline-offset: 3px; }
+  .footerContacts address > div:nth-child(3) a { font-size: 18px; }
+  .footerContacts address p { font-size: 18px; line-height: 26px; }
+  .footerDivider { height: 13px; margin-top: 48px; }
+  .footerLine { display: none; }
+  .footerLineMobile { display: block; position: absolute; left: 50%; transform: translateX(-50%); max-width: none; }
+  .footerBottom { display: block; margin-top: 29px; font-size: 12px; line-height: 16px; }
+  .legalText { flex-wrap: wrap; gap: 12px 18px; margin-top: 8px; }
+}
+
+@media (max-width: 374px) {
+  .footerGrid { column-gap: 16px; }
+  .footerNav a { font-size: 16px; }
+  .footerContacts address a { font-size: 17px; }
+  .footerContacts address p, .footerContacts address > div:nth-child(3) a { font-size: 16px; }
+  .faqTitle, .officesTitle { font-size: 30px; line-height: 34px; }
+  .hashtagMobile { transform: scale(0.8); transform-origin: right; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question summary img { transition: none; }
+}

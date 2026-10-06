@@ -1,0 +1,187 @@
+@font-face {
+  font-family: "Futura PT";
+  src: url("../../../futura-pt-demi.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("../../../futura-pt-heavy.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Futura PT";
+  src: url("../../../futura-pt-demi-oblique.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-full-300.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-full-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-full-500.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-full-600.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-full-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-full-800.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+.landing {
+  --landing-blue: #135685;
+  --landing-pink: #b1005a;
+  --landing-green: #37814c;
+  --landing-yellow: #eac35d;
+  --landing-cream: #fffcf3;
+  position: relative;
+  isolation: isolate;
+  background: var(--landing-blue);
+  color: #3a3a3a;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+  overflow: clip;
+}
+
+.landing *,
+.landing *::before,
+.landing *::after {
+  box-sizing: border-box;
+}
+
+.landing :where(button, input, select, textarea) {
+  font: inherit;
+}
+
+.landing :where(button, a, input, select, summary):focus-visible {
+  outline: 3px solid var(--landing-yellow);
+  outline-offset: 4px;
+}
+
+.landing :where(button, a, summary) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.landing :where(section[id], div[id]) {
+  scroll-margin-top: 120px;
+}
+
+.landing-container {
+  width: min(1240px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+.landing-title {
+  margin: 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 70px;
+  font-weight: 600;
+  line-height: 1.057;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.landing-title em {
+  font-style: italic;
+  opacity: 0.5;
+}
+
+.landing-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 14px 26px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--landing-blue);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms, color 160ms, opacity 160ms;
+}
+
+.landing-button:hover {
+  opacity: 0.9;
+}
+
+.landing button:disabled {
+  cursor: wait;
+}
+
+body:has(.landing dialog[open]) {
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .landing-container {
+    width: calc(100% - 32px);
+  }
+
+  .landing-title {
+    font-size: 35px;
+    line-height: 38px;
+  }
+
+  .landing :where(section[id], div[id]) {
+    scroll-margin-top: 90px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing *,
+  .landing *::before,
+  .landing *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

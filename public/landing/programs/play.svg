@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="play">
+<rect x="0.75" y="0.75" width="60.5" height="60.5" rx="30.25" fill="white"/>
+<rect x="0.75" y="0.75" width="60.5" height="60.5" rx="30.25" stroke="#E2E8F0" stroke-width="1.5"/>
+<path id="Polygon 2" d="M37.5 26.6699C37.5 23.5907 37.5 22.0511 36.5 21.4737C35.5 20.8964 34.1667 21.6662 31.5 23.2058L24 27.5359C21.3333 29.0755 20 29.8453 20 31C20 32.1547 21.3333 32.9245 24 34.4641L31.5 38.7942C34.1667 40.3338 35.5 41.1036 36.5 40.5263C37.5 39.9489 37.5 38.4093 37.5 35.3301L37.5 26.6699Z" fill="url(#paint0_linear_0_5)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_5" x1="24.5" y1="42.2583" x2="41.3684" y2="15.4692" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B1005A"/>
+<stop offset="1" stop-color="#F0889F"/>
+</linearGradient>
+</defs>
+</svg>
