@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import type { ReactElement } from "react";
-import { LeadButton } from "@/components/landing/LandingForms";
 import type { Locale } from "@/i18n/config";
 import {
   bookingSteps,
@@ -53,10 +52,10 @@ export function CampsIncluded({ locale }: { locale: Locale }): ReactElement {
             </li>
           ))}
         </ul>
-        <LeadButton kind="camps" className={styles.estimateButton}>
+        <a href="#consult" className={styles.estimateButton}>
           <span>{t.estimate.map((line) => <span key={line}>{line}</span>)}</span>
           <img src="/landing/programs/consultation-arrow.svg" alt="" width={155} height={65.0009} />
-        </LeadButton>
+        </a>
       </div>
       <div className={styles.beyondSticker} aria-hidden="true">
         <Image
@@ -225,11 +224,11 @@ export function CampsSteps({ locale }: { locale: Locale }): ReactElement {
             </li>
           ))}
           <li className={styles.planCell}>
-            <LeadButton kind="camps" className={styles.planButton}>
+            <a href="#consult" className={styles.planButton}>
               <span>{t.plan}</span>
               <img className={styles.desktopAsset} src={`${assetPath}/plan-arrow.svg`} alt="" width={33.9961} height={33.9961} />
               <img className={styles.mobileAsset} src={`${assetPath}/plan-arrow-mobile.svg`} alt="" width={20} height={20} />
-            </LeadButton>
+            </a>
           </li>
         </ol>
       </div>

@@ -11,7 +11,6 @@ import {
   type ReactElement,
 } from "react";
 import type { Locale } from "@/i18n/config";
-import { LeadButton } from "@/components/landing/LandingForms";
 import { campsHeroContent, campsSlideIds, getCampsSlideIndex, type CampsSlideIndex } from "./hero-content";
 import styles from "./CampsHero.module.css";
 
@@ -349,7 +348,7 @@ export default function CampsHero({ locale }: { locale: Locale }): ReactElement 
           </p>
           {current !== 0 && <span className={styles.hashtag} aria-hidden="true" />}
           <div className={styles.actions}>
-            <LeadButton kind="camps" className={`landing-button ${styles.primary}`}>{text.primary}</LeadButton>
+            <a href="#consult" className={`landing-button ${styles.primary}`}>{text.primary}</a>
             <a href="#camp-stories" className={`landing-button ${styles.secondary}`}>{text.secondary}</a>
           </div>
         </div>

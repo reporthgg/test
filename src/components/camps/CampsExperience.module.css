@@ -127,6 +127,7 @@
   border-radius: 50%;
   background: var(--landing-blue);
   color: white;
+  text-align: center;
   transform: rotate(-7.2deg);
   cursor: pointer;
 }
@@ -502,6 +503,7 @@
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: -0.04em;
+  text-align: center;
   cursor: pointer;
 }
 
