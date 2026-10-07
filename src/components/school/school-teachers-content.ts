@@ -1,52 +1,46 @@
 import type { Locale } from "@/i18n/config";
 
 type LocalizedText = Record<Locale, string>;
-type SchoolTeacher = {
-  id: string;
+type TeacherProfile = {
   name: LocalizedText;
   subjects: LocalizedText;
   experience: number;
   qualification: string;
-  image: string | null;
-  tone: "pink" | "green" | "blue";
+  image: { src: string; width: number; height: number } | null;
 };
 
-export const schoolTeachers: readonly SchoolTeacher[] = [
+type TeacherCard = {
+  id: string;
+  tone: "pink" | "green" | "blue";
+  profile: TeacherProfile | null;
+};
+
+export const schoolTeachers: readonly TeacherCard[] = [
   {
     id: "ayaulym",
-    name: { ru: "Аяулым", kz: "Аяулым", en: "Ayaulym" },
-    subjects: { ru: "General English, Academic English", kz: "General English, Academic English", en: "General English, Academic English" },
-    experience: 9,
-    qualification: "CELTA",
-    image: "/school/teacher-ayaulym.png",
     tone: "pink",
+    profile: {
+      name: { ru: "Аяулым", kz: "Аяулым", en: "Ayaulym" },
+      subjects: { ru: "General English, Academic English", kz: "General English, Academic English", en: "General English, Academic English" },
+      experience: 9,
+      qualification: "CELTA",
+      image: { src: "/school/teacher-ayaulym.png", width: 1192, height: 1319 },
+    },
   },
   {
-    id: "dariya",
-    name: { ru: "Дария", kz: "Дария", en: "Dariya" },
-    subjects: { ru: "Подготовка к IELTS", kz: "IELTS емтиханына дайындық", en: "IELTS preparation" },
-    experience: 6,
-    qualification: "IELTS 8.5",
-    image: "/school/teacher-dariya.png",
+    id: "teacher-2",
     tone: "green",
+    profile: null,
   },
   {
-    id: "madina",
-    name: { ru: "Мадина Р.", kz: "Мадина Р.", en: "Madina R." },
-    subjects: { ru: "English for Kids, English for Teens", kz: "English for Kids, English for Teens", en: "English for Kids, English for Teens" },
-    experience: 7,
-    qualification: "TKT",
-    image: null,
+    id: "teacher-3",
     tone: "blue",
+    profile: null,
   },
   {
-    id: "li-wei",
-    name: { ru: "Ли Вэй", kz: "Ли Вэй", en: "Li Wei" },
-    subjects: { ru: "Китайский язык", kz: "Қытай тілі", en: "Chinese" },
-    experience: 5,
-    qualification: "HSK 6",
-    image: null,
+    id: "teacher-4",
     tone: "pink",
+    profile: null,
   },
 ];
 
@@ -58,34 +52,46 @@ type TeachersCopy = {
   experience: string;
   years: string;
   listLabel: string;
+  placeholderName: string;
+  placeholderPhoto: string;
+  placeholderSubjects: string;
 };
 
 export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
   ru: {
     title: ["Познакомьтесь с вашими", "преподавателями"],
-    description: "Выберите преподавателя для пробного урока",
+    description: "Познакомьтесь с преподавателем на пробном уроке",
     trial: "Пробный урок",
     bookWith: "Пробный урок с преподавателем",
     experience: "стаж",
     years: "лет",
     listLabel: "Преподаватели языковой школы",
+    placeholderName: "Имя преподавателя",
+    placeholderPhoto: "Фото преподавателя",
+    placeholderSubjects: "Информация о преподавателе появится здесь",
   },
   kz: {
     title: ["Өз", "оқытушыларыңызбен танысыңыз"],
-    description: "Сынама сабаққа оқытушыны таңдаңыз",
+    description: "Сынама сабақта оқытушымен танысыңыз",
     trial: "Сынама сабақ",
     bookWith: "Сынама сабақтың оқытушысы:",
     experience: "тәжірибе",
     years: "жыл",
     listLabel: "Тіл мектебінің оқытушылары",
+    placeholderName: "Оқытушының аты",
+    placeholderPhoto: "Оқытушының фотосы",
+    placeholderSubjects: "Оқытушы туралы ақпарат осы жерде көрсетіледі",
   },
   en: {
     title: ["Meet your", "teachers"],
-    description: "Choose a teacher for your trial lesson",
+    description: "Meet your teacher at a trial lesson",
     trial: "Trial lesson",
     bookWith: "Book a trial lesson with",
     experience: "experience",
     years: "years",
     listLabel: "Language school teachers",
+    placeholderName: "Teacher name",
+    placeholderPhoto: "Teacher photo",
+    placeholderSubjects: "Information about the teacher will appear here",
   },
 };

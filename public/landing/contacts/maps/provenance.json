@@ -1,0 +1,57 @@
+{
+  "provider": "2GIS",
+  "capturedAt": "2026-10-07",
+  "captureMethod": "Screenshots of public 2GIS browser maps, cropped without resizing. Interface panels hidden for capture; original map, branch markers and 2GIS attribution retained.",
+  "mapZoom": 16,
+  "cropCssPixels": {
+    "left": 64,
+    "top": 47,
+    "width": 738,
+    "height": 363
+  },
+  "images": [
+    {
+      "file": "syganak.png",
+      "address": "Астана, улица Сыганак, 15",
+      "shortUrl": "https://go.2gis.com/2yCeX",
+      "sourceUrl": "https://2gis.kz/astana/firm/70000001090736325?m=71.384812%2C51.129951%2F16",
+      "width": 738,
+      "height": 363,
+      "addressVerified": true,
+      "listingStatus": "listed"
+    },
+    {
+      "file": "uly-dala.png",
+      "address": "Астана, проспект Улы Дала, 41/6",
+      "shortUrl": "https://go.2gis.com/ciCQC",
+      "sourceUrl": "https://2gis.kz/astana/firm/70000001040980150?m=71.415188%2C51.09765%2F16",
+      "width": 738,
+      "height": 363,
+      "addressVerified": true,
+      "listingStatus": "listed"
+    },
+    {
+      "file": "almaty.png",
+      "address": "Алматы, проспект Сейфуллина, 575",
+      "shortUrl": "https://go.2gis.com/JP3xW",
+      "sourceUrl": "https://2gis.kz/almaty/firm/70000001103468323?m=76.93321%2C43.24685%2F16",
+      "width": 738,
+      "height": 363,
+      "addressVerified": true,
+      "listingStatus": "listed",
+      "addressNote": "Адрес повторно проверен по актуальной карточке 2GIS. Владелец поручил использовать адрес из 2GIS вместо прежнего 574/1."
+    }
+  ],
+  "excluded": [
+    {
+      "address": "Астана, улица Сарайшык, 34",
+      "shortUrl": "https://go.2gis.com/utSWu",
+      "sourceUrl": "https://2gis.kz/astana/firm/70000001094103521",
+      "reason": "owner_confirmed_removal",
+      "listingStatus": "removed",
+      "listingRemovedAt": "2026-09-11",
+      "ownerConfirmedAt": "2026-10-07",
+      "note": "Владелец подтвердил, что филиал не работает, и поручил удалить его из списка."
+    }
+  ]
+}

@@ -16,18 +16,28 @@ test("programme pricing is consultation-only in every locale", () => {
   }
 });
 
-test("canonical teachers retain two portraits without promising unavailable videos", () => {
+test("only Ayaulym has a profile and the other three card slots stay available", () => {
   assert.deepEqual(
-    schoolTeachers.map(({ id, image }) => ({ id, image })),
+    schoolTeachers.map(({ id, profile }) => ({
+      id,
+      name: profile?.name.ru ?? null,
+      image: profile?.image?.src ?? null,
+    })),
     [
-      { id: "ayaulym", image: "/school/teacher-ayaulym.png" },
-      { id: "dariya", image: "/school/teacher-dariya.png" },
-      { id: "madina", image: null },
-      { id: "li-wei", image: null },
+      { id: "ayaulym", name: "Аяулым", image: "/school/teacher-ayaulym.png" },
+      { id: "teacher-2", name: null, image: null },
+      { id: "teacher-3", name: null, image: null },
+      { id: "teacher-4", name: null, image: null },
     ],
   );
+  assert.deepEqual(schoolTeachers.map(({ tone }) => tone), ["pink", "green", "blue", "pink"]);
+  assert.equal(schoolTeachers[0].profile?.experience, 9);
+  assert.equal(schoolTeachers[0].profile?.qualification, "CELTA");
   for (const locale of locales) {
     assert.doesNotMatch(schoolTeachersContent[locale].description, /видео|video|бейне/iu);
+    assert.ok(schoolTeachersContent[locale].placeholderName);
+    assert.ok(schoolTeachersContent[locale].placeholderPhoto);
+    assert.ok(schoolTeachersContent[locale].placeholderSubjects);
   }
 });
 
@@ -52,18 +62,18 @@ test("all existing programmes remain present in every locale", () => {
   );
 });
 
-test("all 32 original section assets exist and are non-empty", async () => {
+test("all active section assets exist and are non-empty", async () => {
   const files = [
     ...schoolProgramArtwork.flatMap((art) => [
       `program-${art.id}.${art.extension}`, `program-${art.id}-mobile.png`,
     ]),
-    ...schoolTeachers.flatMap((teacher) => teacher.image ? [path.basename(teacher.image)] : []),
+    ...schoolTeachers.flatMap(({ profile }) => profile?.image ? [path.basename(profile.image.src)] : []),
     "teacher-badge.svg", "test-arrow-white.svg", "test-arrow-blue.svg", "test-note.svg",
     "teaching-students.jpg", "teaching-retouch.png", "teaching-teacher.png", "teaching-child.jpg",
     "teaching-marker-1.svg", "teaching-marker-2.svg", "teaching-marker-3.svg", "teaching-marker-4.svg",
     "teaching-group.svg", "teaching-location.svg",
   ];
-  assert.equal(files.length, 32);
+  assert.equal(files.length, 31);
   for (const file of files) {
     const asset = path.join(process.cwd(), "public", "school", file);
     const info = await stat(asset);

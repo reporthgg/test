@@ -15,21 +15,15 @@ export const site = {
 
   workingHours: "Пн-Пт 9:00-18:00 · Сб 10:00-15:00",
 
-  // 4 офиса: 3 в Астане + 1 в Алматы (координаты и ссылки из 2GIS)
+  // 3 офиса: 2 в Астане и 1 в Алматы, координаты и ссылки из 2GIS.
   offices: [
-    {
-      city: "Астана",
-      address: "ул. Сарайшык, 34",
-      lat: 51.133145,
-      lon: 71.429999,
-      gis: "https://go.2gis.com/utSWu",
-    },
     {
       city: "Астана",
       address: "ул. Сыганак, 15",
       lat: 51.129951,
       lon: 71.384812,
       gis: "https://go.2gis.com/2yCeX",
+      mapPreview: "/landing/contacts/maps/syganak.png",
     },
     {
       city: "Астана",
@@ -37,13 +31,15 @@ export const site = {
       lat: 51.09765,
       lon: 71.415188,
       gis: "https://go.2gis.com/ciCQC",
+      mapPreview: "/landing/contacts/maps/uly-dala.png",
     },
     {
       city: "Алматы",
-      address: "ул. Сейфуллина, 574/1",
+      address: "пр. Сейфуллина, 575",
       lat: 43.24685,
       lon: 76.93321,
       gis: "https://go.2gis.com/JP3xW",
+      mapPreview: "/landing/contacts/maps/almaty.png",
     },
   ],
 

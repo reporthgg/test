@@ -28,19 +28,19 @@ export default async function Offices() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-6">
-          {site.offices.map((o, i) => (
+          {site.offices.map((o) => (
             <a
-              key={i}
+              key={o.gis}
               href={o.gis}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${o.city}, ${o.address}. Открыть в 2GIS`}
               className="map-wrapper group card-ring block h-72 shadow-premium hover:shadow-premium-lg"
             >
-              {/* Карта-превью (стежка тайлов OSM), клик открывает 2GIS */}
+              {/* Снимок карты филиала в 2GIS. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`/maps/office-${i}.jpg`}
+                src={o.mapPreview}
                 alt={`Карта: ${o.city}, ${o.address}`}
                 loading="lazy"
                 className="map-image absolute inset-0 w-full h-full object-cover"
@@ -110,14 +110,13 @@ export default async function Offices() {
         <p className="mt-4 text-center text-xs text-gray-400">
           Карты:{" "}
           <a
-            href="https://www.openstreetmap.org/copyright"
+            href="https://2gis.kz"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"
           >
-            © OpenStreetMap
-          </a>{" "}
-          · точки в 2GIS
+            © 2GIS
+          </a>
         </p>
       </div>
     </section>

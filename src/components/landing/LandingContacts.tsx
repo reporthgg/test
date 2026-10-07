@@ -38,7 +38,7 @@ export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
             <div className={styles.officeGrid}>
               {site.offices.map((office) => (
                 <article className={styles.officeCard} data-city={office.city === "Астана" ? "astana" : "almaty"} key={office.gis}>
-                  <Image className={styles.mapImage} src="/landing/contacts/map-preview.png" alt={t.mapPreview} width={738} height={363} sizes="(max-width: 600px) 738px, (max-width: 1024px) 90vw, 610px" />
+                  <Image className={styles.mapImage} src={office.mapPreview} alt={`${t.mapPreview}: ${t.cities[office.city]}, ${t.addresses[office.address]}`} width={738} height={363} sizes="(max-width: 600px) 738px, (max-width: 1024px) 90vw, 610px" />
                   <div className={styles.officeAddress}>
                     <h3>{t.cities[office.city]}</h3>
                     <p>{t.addresses[office.address]}</p>
@@ -55,6 +55,7 @@ export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
                     {t.route}
                     <img className={styles.routeArrow} src="/landing/contacts/route-arrow.svg" alt="" />
                   </a>
+                  <a className={styles.mapAttribution} href={office.gis} target="_blank" rel="noopener noreferrer">© 2GIS</a>
                 </article>
               ))}
             </div>
