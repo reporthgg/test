@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test src/proxy.test.ts scripts/landing-assets.test.mjs",
+    "test": "node --import tsx --test src/proxy.test.ts src/lib/test-presentation.test.ts src/components/school/school-sections.test.ts scripts/landing-assets.test.mjs scripts/school-assets.test.mjs",
     "test:proxy": "node --import tsx --test src/proxy.test.ts",
     "test:landing:api": "node --test scripts/landing-api.test.mjs",
     "check:text": "node scripts/check-ai-text.mjs",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@radix-ui/react-select": "^2.3.8",
     "next": "16.3.8",
     "prisma": "^6.19.3",
     "react": "19.3.0",

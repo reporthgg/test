@@ -5,6 +5,7 @@ import { LeadButton } from "@/components/landing/LandingForms";
 import { withLocale } from "@/i18n/config";
 import type { Locale } from "@/i18n/config";
 import { prisma } from "@/lib/prisma";
+import { questionSummary, testPresentation } from "@/lib/test-presentation";
 import ProgramsCarousel from "./ProgramsCarousel";
 import { programsContent } from "./programs-content";
 import { studentStories } from "./stories-content";
@@ -16,51 +17,6 @@ const directions = [
   { path: "/abroad", icon: "rocket", tone: "yellow", width: 40, height: 40 },
   { path: "/camps", icon: "lightning", tone: "light", width: 23, height: 33 },
 ] as const;
-
-type PublishedTest = {
-  id: string;
-  slug: string;
-  title: string;
-  kind: string;
-  audience: string;
-  timeLimit: number | null;
-  questions: { type: string }[];
-};
-
-function testPresentation(test: PublishedTest, locale: Locale) {
-  const t = programsContent[locale];
-  if (test.kind === "ielts") return { title: "IELTS", flag: "ielts", age: "" };
-  if (test.kind === "sat") return { title: "SAT", flag: "sat", age: "" };
-  if (test.slug === "tilda-kids-6-8") {
-    return { title: t.testTitles.kids, flag: "kids-young", age: `(6-8 ${t.years})` };
-  }
-  if (test.slug === "tilda-kids-9-12") {
-    return { title: t.testTitles.kids, flag: "kids-older", age: `(9-12 ${t.years})` };
-  }
-  if (test.slug === "general-english" || test.slug === "tilda-general-english") {
-    return { title: t.testTitles.general, flag: "general", age: "" };
-  }
-  if (test.slug === "kids-english") {
-    return { title: t.testTitles.kids, flag: "kids-young", age: "" };
-  }
-  return {
-    title: test.title,
-    flag: test.audience === "kids" ? "kids-young" : "general",
-    age: "",
-  };
-}
-
-function questionSummary(test: PublishedTest, locale: Locale): string {
-  const written = test.questions.filter((question) => question.type === "essay").length;
-  const questions = test.questions.length - written;
-  const t = programsContent[locale];
-  const rules = new Intl.PluralRules(locale === "kz" ? "kk" : locale);
-  const questionCategory = rules.select(questions);
-  const writtenCategory = rules.select(written);
-  const questionForm = questionCategory === "one" || questionCategory === "few" ? questionCategory : "other";
-  const writtenForm = writtenCategory === "one" || writtenCategory === "few" ? writtenCategory : "other";
-  return `${questions} ${t.questionForms[questionForm]}${written > 0 ? ` + ${written} ${t.writtenForms[writtenForm]}` : ""}`;
-}
 
 export default async function LandingPrograms({
   locale,

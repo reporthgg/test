@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="36" viewBox="0 0 72 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="decor-half-circle" clip-path="url(#clip0_0_4)">
+<path id="Vector" d="M0 0H72C72 9.54779 68.2072 18.7045 61.4558 25.4558C54.7045 32.2072 45.5478 36 36 36C26.4522 36 17.2955 32.2072 10.5442 25.4558C3.79285 18.7045 0 9.54779 0 0Z" fill="#E9C158"/>
+</g>
+<defs>
+<clipPath id="clip0_0_4">
+<rect width="72" height="36" fill="white"/>
+</clipPath>
+</defs>
+</svg>

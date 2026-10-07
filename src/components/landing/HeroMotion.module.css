@@ -1,0 +1,195 @@
+.word {
+  white-space: nowrap;
+}
+
+.character {
+  display: inline-block;
+  animation-name: characterReveal;
+  animation-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  animation-fill-mode: both;
+  animation-play-state: var(--hero-entry-state, running);
+}
+
+.hashtag,
+.photograph {
+  animation-duration: var(--hero-timeline);
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: var(--hero-entry-state, running);
+}
+
+.hashtag[data-slide="0"],
+.photograph[data-slide="0"] {
+  --hero-timeline: 9.973333s;
+}
+
+.hashtag[data-slide="1"],
+.photograph[data-slide="1"] {
+  --hero-timeline: 4.117612s;
+}
+
+.hashtag[data-slide="2"],
+.photograph[data-slide="2"] {
+  --hero-timeline: 2.330017s;
+}
+
+.hashtag[data-slide="0"] { animation-name: hashtagEducation; }
+.hashtag[data-slide="1"] { animation-name: hashtagEnglish; }
+.hashtag[data-slide="2"] { animation-name: hashtagAbroad; }
+.photograph[data-slide="0"][data-photo="0"] { animation-name: universityOpacity, universityTranslate, universityScale; }
+.photograph[data-slide="0"][data-photo="1"] { animation-name: studentsOpacity, studentsTranslate, studentsScale; }
+.photograph[data-slide="1"][data-photo="0"] { animation-name: portraitOpacity, portraitTranslate, portraitScale; }
+.photograph[data-slide="1"][data-photo="1"] { animation-name: englishStudentsOpacity, englishStudentsTranslate, englishStudentsScale; }
+.photograph[data-slide="2"][data-photo="0"] { animation-name: abroadUniversityOpacity, abroadUniversityTranslate, abroadUniversityScale; }
+.photograph[data-slide="2"][data-photo="1"] { animation-name: abroadStudentsOpacity, abroadStudentsTranslate, abroadStudentsScale; }
+
+.photograph {
+  position: absolute;
+}
+
+/* Entrance tracks run once per slide. The carousel owns the 10s repeat lifecycle. */
+@keyframes characterReveal {
+  from { opacity: 0; filter: blur(40px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+/* Native keyframes exported from Figma, preserving per-track easing and offsets. */
+@keyframes hashtagEducation {
+  0% { opacity: 0; }
+  13.075% { animation-timing-function: ease-out; opacity: 0; }
+  33.128%, 100% { opacity: 1; }
+}
+
+@keyframes hashtagEnglish {
+  0% { opacity: 0; }
+  31.669% { animation-timing-function: ease-out; opacity: 0; }
+  80.241%, 100% { opacity: 1; }
+}
+
+@keyframes hashtagAbroad {
+  0% { opacity: 0; }
+  55.965% { animation-timing-function: ease-out; opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes universityOpacity {
+  0% { opacity: 0; }
+  3.951% { animation-timing-function: cubic-bezier(0.09, 0.55, 0.5, 1); opacity: 0; }
+  7.961%, 100% { opacity: 1; }
+}
+
+@keyframes universityTranslate {
+  0% { translate: 0 20px; }
+  3.951% { animation-timing-function: cubic-bezier(0.3, -1.2, 0.45, 1); translate: 0 20px; }
+  13.977%, 100% { translate: 0 0; }
+}
+
+@keyframes universityScale {
+  0% { scale: 0.6 0.6; }
+  3.951% { animation-timing-function: cubic-bezier(0.15, 0.52, 0.5, 1); scale: 0.6 0.6; }
+  11.771%, 100% { scale: 1 1; }
+}
+
+@keyframes studentsOpacity {
+  0% { opacity: 0; }
+  11.771% { animation-timing-function: cubic-bezier(0.09, 0.55, 0.5, 1); opacity: 0; }
+  14.617%, 100% { opacity: 1; }
+}
+
+@keyframes studentsTranslate {
+  0% { translate: 0 20px; }
+  11.771% { animation-timing-function: cubic-bezier(0.3, -1.2, 0.45, 1); translate: 0 20px; }
+  18.886%, 100% { translate: 0 0; }
+}
+
+@keyframes studentsScale {
+  0% { scale: 0.6 0.6; }
+  11.771% { animation-timing-function: cubic-bezier(0.15, 0.52, 0.5, 1); scale: 0.6 0.6; }
+  17.321%, 100% { scale: 1 1; }
+}
+
+@keyframes portraitOpacity {
+  0% { opacity: 0; }
+  9.569% { animation-timing-function: cubic-bezier(0.09, 0.55, 0.5, 1); opacity: 0; }
+  19.283%, 100% { opacity: 1; }
+}
+
+@keyframes portraitTranslate {
+  0% { translate: 0 20px; }
+  9.569% { animation-timing-function: cubic-bezier(0.3, -1.2, 0.45, 1); translate: 0 20px; }
+  33.855%, 100% { translate: 0 0; }
+}
+
+@keyframes portraitScale {
+  0% { scale: 0.6 0.6; }
+  9.569% { animation-timing-function: cubic-bezier(0.15, 0.52, 0.5, 1); scale: 0.6 0.6; }
+  28.512%, 100% { scale: 1 1; }
+}
+
+@keyframes englishStudentsOpacity {
+  0% { opacity: 0; }
+  28.512% { animation-timing-function: cubic-bezier(0.09, 0.55, 0.5, 1); opacity: 0; }
+  35.405%, 100% { opacity: 1; }
+}
+
+@keyframes englishStudentsTranslate {
+  0% { translate: 0 20px; }
+  28.512% { animation-timing-function: cubic-bezier(0.3, -1.2, 0.45, 1); translate: 0 20px; }
+  45.744%, 100% { translate: 0 0; }
+}
+
+@keyframes englishStudentsScale {
+  0% { scale: 0.6 0.6; }
+  28.512% { animation-timing-function: cubic-bezier(0.15, 0.52, 0.5, 1); scale: 0.6 0.6; }
+  41.953%, 100% { scale: 1 1; }
+}
+
+@keyframes abroadUniversityOpacity {
+  0% { opacity: 0; }
+  16.91% { animation-timing-function: cubic-bezier(0.09, 0.55, 0.5, 1); opacity: 0; }
+  34.077%, 100% { opacity: 1; }
+}
+
+@keyframes abroadUniversityTranslate {
+  0% { translate: 0 20px; }
+  16.91% { animation-timing-function: cubic-bezier(0.3, -1.2, 0.45, 1); translate: 0 20px; }
+  59.828%, 100% { translate: 0 0; }
+}
+
+@keyframes abroadUniversityScale {
+  0% { scale: 0.6 0.6; }
+  16.91% { animation-timing-function: cubic-bezier(0.15, 0.52, 0.5, 1); scale: 0.6 0.6; }
+  50.386%, 100% { scale: 1 1; }
+}
+
+@keyframes abroadStudentsOpacity {
+  0% { opacity: 0; }
+  50.386% { animation-timing-function: cubic-bezier(0.09, 0.55, 0.5, 1); opacity: 0; }
+  62.567%, 100% { opacity: 1; }
+}
+
+@keyframes abroadStudentsTranslate {
+  0% { translate: 0 20px; }
+  50.386% { animation-timing-function: cubic-bezier(0.3, -1.2, 0.45, 1); translate: 0 20px; }
+  80.839%, 100% { translate: 0 0; }
+}
+
+@keyframes abroadStudentsScale {
+  0% { scale: 0.6 0.6; }
+  50.386% { animation-timing-function: cubic-bezier(0.15, 0.52, 0.5, 1); scale: 0.6 0.6; }
+  74.139%, 100% { scale: 1 1; }
+}
+
+[data-motion-disabled="true"] .character,
+[data-motion-disabled="true"] .hashtag,
+[data-motion-disabled="true"] .photograph {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character,
+  .hashtag,
+  .photograph {
+    animation: none;
+  }
+}

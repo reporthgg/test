@@ -10,7 +10,8 @@ export default function StickyMobileCTA() {
   const pathname = usePathname();
   const locale = useLocale();
   const t = getDictionary(locale);
-  if (pathname?.startsWith("/admin") || stripLocale(pathname ?? "/") === "/") return null;
+  const page = stripLocale(pathname ?? "/");
+  if (pathname?.startsWith("/admin") || page === "/" || page === "/school") return null;
 
   return (
     <div className="md:hidden fixed bottom-0 inset-x-0 z-50 glass-card border-t border-border-subtle rounded-t-2xl shadow-premium-lg px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-3">

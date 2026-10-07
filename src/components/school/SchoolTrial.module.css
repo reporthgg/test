@@ -1,0 +1,474 @@
+.section {
+  padding-bottom: 120px;
+  border-radius: 0 0 50px 50px;
+  background: #fff;
+  scroll-margin-top: 100px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #dce6ee;
+  border-radius: 40px;
+  background: #fff;
+}
+
+.offer {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 64px;
+  color: #fff;
+  background: var(--landing-blue, #135685);
+}
+
+.flags {
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.offerText,
+.offer ul {
+  position: relative;
+  z-index: 1;
+}
+
+.offer h2 {
+  margin: 0;
+  outline: none;
+  font-family: "Futura PT", sans-serif;
+  font-size: 70px;
+  font-weight: 600;
+  line-height: 74px;
+  letter-spacing: -2.8px;
+  text-transform: uppercase;
+}
+
+.offer h2 em {
+  color: rgb(255 255 255 / 50%);
+  font-weight: 600;
+}
+
+.offerText p {
+  margin: 24px 0 0;
+  color: rgb(255 255 255 / 85%);
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+}
+
+.offer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 24px 0 0;
+  padding: 8px 0 0;
+  list-style: none;
+}
+
+.offer li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 25px;
+}
+
+.offer li img {
+  flex: none;
+}
+
+.sticker {
+  position: absolute;
+  top: 408px;
+  left: calc(100% - 264px);
+  width: 338.86px;
+  height: 338.86px;
+  transform: rotate(-15deg);
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.panel {
+  min-width: 0;
+  padding: 56px 64px;
+  color: #374151;
+}
+
+.price {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e1eaf1;
+}
+
+.price s {
+  display: block;
+  color: #a3a3a2;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.48px;
+}
+
+.price strong {
+  display: block;
+  color: #548655;
+  font-size: 140px;
+  font-weight: 700;
+  line-height: 140px;
+  letter-spacing: -5.6px;
+}
+
+.price p {
+  margin: 0;
+  color: #2e2d2c;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 25px;
+}
+
+.fields fieldset {
+  gap: 12px;
+}
+
+.fields .nameCity {
+  gap: 12px;
+}
+
+.fields .field label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+}
+
+.fields .field input,
+.fields .field [role="combobox"] {
+  height: 54px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+}
+
+.fields .consent {
+  gap: 12px;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.fields .checkbox,
+.fields .checkbox input {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+}
+
+.fields .checkbox input {
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+.fields button[type="submit"] {
+  min-height: 66px;
+  margin-top: 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  letter-spacing: -0.64px;
+}
+
+.panel .success {
+  gap: 16px;
+  padding: 32px;
+  border-radius: 20px;
+}
+
+.panel .success h3 {
+  font-size: 40px;
+  line-height: 40px;
+  letter-spacing: -1.6px;
+}
+
+.panel .success p,
+.panel .success a {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.18px;
+}
+
+dialog.dialog {
+  width: min(1240px, calc(100% - 32px));
+  border-radius: 40px;
+  box-shadow: 0 24px 60px rgb(0 0 0 / 25%);
+}
+
+.dialog .card {
+  border: 0;
+  border-radius: 0;
+}
+
+.dialog .close {
+  top: 23px;
+  right: 23px;
+}
+
+.desktopAsset {
+  display: block;
+}
+
+.desktopText {
+  display: inline;
+}
+
+.mobileAsset,
+.mobileText {
+  display: none;
+}
+
+.bottomSection h2 {
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 768px) and (max-width: 1239px) {
+  .offer,
+  .panel {
+    padding: 48px 32px;
+  }
+
+  .offer h2 {
+    font-size: 54px;
+    line-height: 58px;
+    letter-spacing: -2.16px;
+  }
+
+  .offerText p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .offer li {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .fields .nameCity {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel .success {
+    padding: 24px;
+  }
+
+  .panel .success h3 {
+    font-size: 32px;
+    line-height: 34px;
+  }
+
+  .dialog .close {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .bottomSection fieldset input[type="text"],
+  .bottomSection fieldset input[type="tel"] {
+    height: 54px;
+    padding: 10px 16px;
+    border-color: #e5e7eb;
+    border-radius: 12px;
+    background: #f9fafb;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-bottom: 16px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 24px;
+  }
+
+  .offer {
+    padding: 32px 20px 28px;
+  }
+
+  .flags {
+    right: 8px;
+  }
+
+  .offer h2 {
+    max-width: 250px;
+    font-size: 35px;
+    line-height: 38px;
+    letter-spacing: -1.4px;
+  }
+
+  .offerText p {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: -0.16px;
+  }
+
+  .offer ul {
+    gap: 10px;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .offer li {
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.16px;
+  }
+
+  .sticker {
+    top: 244.865px;
+    left: calc(100% - 87.5px);
+    width: 152.487px;
+    height: 152.487px;
+  }
+
+  .panel {
+    padding: 24px 20px;
+  }
+
+  .price {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+  }
+
+  .price s {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.36px;
+  }
+
+  .price strong {
+    font-size: 90px;
+    line-height: 90px;
+    letter-spacing: -3.6px;
+  }
+
+  .price p {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.14px;
+  }
+
+  .fields fieldset {
+    gap: 16px;
+  }
+
+  .fields .nameCity {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .fields .field label {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.24px;
+  }
+
+  .fields .field input,
+  .fields .field [role="combobox"] {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .fields .consent {
+    margin-top: 0;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .fields button[type="submit"] {
+    min-height: 48px;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    letter-spacing: -0.56px;
+  }
+
+  .panel .success {
+    gap: 12px;
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .panel .success h3 {
+    font-size: 25px;
+    line-height: 26px;
+    letter-spacing: -1px;
+  }
+
+  .panel .success p,
+  .panel .success a {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.14px;
+  }
+
+  dialog.dialog {
+    width: min(358px, calc(100% - 32px));
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgb(0 0 0 / 25%);
+  }
+
+  .dialog .flags {
+    right: 58px;
+  }
+
+  .dialog .close {
+    top: 11px;
+    right: 11px;
+  }
+
+  section.bottomSection {
+    padding-top: 102px;
+  }
+
+  .bottomSection > :global(.landing-container) {
+    padding-inline: 0;
+  }
+
+  .bottomSection .bottomYellow {
+    bottom: -3px;
+  }
+
+  .bottomSection .bottomPink {
+    top: 162px;
+  }
+
+  .bottomSection .bottomRibbon {
+    bottom: -52px;
+  }
+
+  .desktopAsset,
+  .desktopText {
+    display: none;
+  }
+
+  .mobileAsset {
+    display: block;
+  }
+
+  .mobileText {
+    display: inline;
+  }
+}

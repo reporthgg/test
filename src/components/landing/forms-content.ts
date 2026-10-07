@@ -6,6 +6,7 @@ export type FormsContent = {
   name: string;
   namePlaceholder: string;
   city: string;
+  optionalCity: string;
   cityPlaceholder: string;
   cities: readonly { value: string; label: string }[];
   phone: string;
@@ -22,6 +23,7 @@ export type FormsContent = {
   trialSteps: readonly string[];
   trialPriceCaption: string;
   trialSubmit: string;
+  schoolTrialSubmit: string;
   bottomTitle: string;
   bottomTitleAccent: string;
   bottomDescription: string;
@@ -42,6 +44,7 @@ export const formsContent: Record<Locale, FormsContent> = {
     name: "Имя",
     namePlaceholder: "Введите ваше имя",
     city: "Город",
+    optionalCity: "Город (необязательно)",
     cityPlaceholder: "Выберите",
     cities: [
       { value: "Астана", label: "Астана" },
@@ -66,6 +69,7 @@ export const formsContent: Record<Locale, FormsContent> = {
     ],
     trialPriceCaption: "Пробный урок + определение уровня",
     trialSubmit: "Получить пробный урок",
+    schoolTrialSubmit: "Записаться на пробный урок",
     bottomTitle: "Пройдите",
     bottomTitleAccent: "диагностику",
     bottomDescription: "Познакомьтесь с преподавателем и форматом занятий",
@@ -89,6 +93,7 @@ export const formsContent: Record<Locale, FormsContent> = {
     name: "Атыңыз",
     namePlaceholder: "Атыңызды енгізіңіз",
     city: "Қала",
+    optionalCity: "Қала (міндетті емес)",
     cityPlaceholder: "Таңдаңыз",
     cities: [
       { value: "Астана", label: "Астана" },
@@ -113,6 +118,7 @@ export const formsContent: Record<Locale, FormsContent> = {
     ],
     trialPriceCaption: "Сынақ сабағы + деңгейді анықтау",
     trialSubmit: "Сынақ сабағына жазылу",
+    schoolTrialSubmit: "Сынақ сабағына жазылу",
     bottomTitle: "Диагностикадан",
     bottomTitleAccent: "өтіңіз",
     bottomDescription: "Оқытушымен және сабақ форматымен танысыңыз",
@@ -136,6 +142,7 @@ export const formsContent: Record<Locale, FormsContent> = {
     name: "Name",
     namePlaceholder: "Enter your name",
     city: "City",
+    optionalCity: "City (optional)",
     cityPlaceholder: "Select",
     cities: [
       { value: "Астана", label: "Astana" },
@@ -160,6 +167,7 @@ export const formsContent: Record<Locale, FormsContent> = {
     ],
     trialPriceCaption: "Trial lesson + level assessment",
     trialSubmit: "Get a trial lesson",
+    schoolTrialSubmit: "Book a trial lesson",
     bottomTitle: "Take a free",
     bottomTitleAccent: "assessment",
     bottomDescription: "Meet your teacher and experience our classes",

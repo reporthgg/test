@@ -1,0 +1,26 @@
+{
+  "fileKey": "42okfRbJjXQGNEN6EDGh7X",
+  "assets": {
+    "hero/photo-1.png": "260:2092",
+    "hero/photo-2.png": "260:2094",
+    "hero/photo-3.png": "260:2095",
+    "hero/photo-1-mobile.png": "260:3734",
+    "hero/photo-2-mobile.png": "260:3736",
+    "hero/photo-3-mobile.png": "260:3737",
+    "hero/line.svg": "260:2063",
+    "hero/benefit-1.svg": "260:2078",
+    "hero/benefit-2.svg": "260:2086",
+    "hero/pennant.svg": "260:2097",
+    "hero/half-circle.svg": "260:2099",
+    "trust/british-council.png": "260:2119",
+    "trust/quality-english.png": "260:2129",
+    "trust/star.svg": "260:2112",
+    "trust/flower.svg": "260:2120",
+    "certificate/illustration.png": "260:2680",
+    "certificate/step-1.svg": "260:2743",
+    "certificate/step-2.svg": "260:2747",
+    "certificate/step-3.svg": "260:2751",
+    "test-sticker.png": "260:2513",
+    "teaching-sticker.png": "260:2571"
+  }
+}

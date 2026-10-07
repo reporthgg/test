@@ -5,11 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { withLocale, type Locale } from "@/i18n/config";
 import { LandingLeadForm, LeadButton } from "@/components/landing/LandingForms";
+import HeroMotionTitle from "./HeroMotion";
+import HeroPartners from "./HeroPartners";
 import HeroPhotographs from "./HeroPhotographs";
 import { heroContent } from "./hero-content";
 import styles from "./LandingHero.module.css";
+import motionStyles from "./HeroMotion.module.css";
 
 const slideIds = ["education", "english", "abroad"] as const;
+const hashtagNodeIds = ["418:28", "184:4009", "185:4131"] as const;
+const AUTOPLAY_INTERVAL_MS = 10_000;
 
 function subscribeMotion(callback: () => void): () => void {
   const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -27,16 +32,37 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [inView, setInView] = useState(true);
+  const [pageVisible, setPageVisible] = useState(true);
   const reducedMotion = useSyncExternalStore(subscribeMotion, getReducedMotion, () => true);
+  const heroRef = useRef<HTMLElement>(null);
   const touchRef = useRef<{ x: number; y: number } | null>(null);
   const slide = text.slides[current];
+  const motionPaused = paused || hovered || focused || reducedMotion || !inView || !pageVisible;
   const advance = useEffectEvent(() => setCurrent((index) => (index + 1) % slideIds.length));
+  const updateVisibility = useEffectEvent(() => {
+    setPageVisible(heroRef.current?.ownerDocument.visibilityState !== "hidden");
+  });
 
   useEffect(() => {
-    if (paused || hovered || focused || reducedMotion) return;
-    const timer = window.setInterval(advance, 6500);
+    const hero = heroRef.current;
+    if (!hero) return;
+    const owner = hero.ownerDocument;
+    updateVisibility();
+    owner.addEventListener("visibilitychange", updateVisibility);
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(hero);
+    return () => {
+      observer.disconnect();
+      owner.removeEventListener("visibilitychange", updateVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (motionPaused) return;
+    const timer = window.setInterval(advance, AUTOPLAY_INTERVAL_MS);
     return () => window.clearInterval(timer);
-  }, [paused, hovered, focused, reducedMotion]);
+  }, [motionPaused]);
 
   function goTo(index: number): void {
     setPaused(true);
@@ -45,8 +71,12 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
 
   return (
     <section
+      ref={heroRef}
       className={`${styles.hero} ${styles[slideIds[current]]}`}
       data-locale={locale}
+      data-slide={current}
+      data-motion-disabled={reducedMotion}
+      data-offscreen={!inView || !pageVisible}
       aria-label={text.carousel}
       aria-roledescription="carousel"
       onMouseEnter={() => setHovered(true)}
@@ -77,11 +107,8 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
         onTouchCancel={() => { touchRef.current = null; }}
       >
         <div className={styles.copy} aria-live={paused ? "polite" : "off"}>
-          <h1 className={styles.title}>
-            <span>{slide.title}</span>
-            <span className={styles.accent}>{slide.accent}</span>
-          </h1>
-          <div className={styles.hashtag} aria-hidden="true" />
+          <HeroMotionTitle key={`${locale}-${current}`} title={slide.title} accent={slide.accent} current={current} locale={locale} />
+          <div key={current} className={`${styles.hashtag} ${motionStyles.hashtag}`} data-slide={current} data-node-id={hashtagNodeIds[current]} aria-hidden="true" />
           <p className={styles.description}>{slide.description}</p>
           {current === 0 ? (
             <LeadButton kind="diagnostic" className={styles.circleButton}>
@@ -142,22 +169,7 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
             </LeadButton>
           </div>
         </div>
-        <div className={styles.partners}>
-          <div className={styles.partner}>
-            <span className={styles.flower} aria-hidden="true" />
-            <picture>
-              <source media="(max-width: 767px)" srcSet="/landing/hero/british-council-mobile.png" />
-              <Image src="/landing/hero/british-council.png" width={112} height={32} alt="British Council" />
-            </picture>
-          </div>
-          <div className={styles.partner}>
-            <Image src="/landing/hero/icef.png" width={108} height={36} alt="ICEF" />
-          </div>
-          <div className={`${styles.partner} ${styles.since}`}>
-            <span>{text.since}<br /><span>{text.year}</span></span>
-            <span className={styles.star} aria-hidden="true" />
-          </div>
-        </div>
+        <HeroPartners locale={locale} paused={motionPaused} />
         <HeroPhotographs current={current} />
         <span className="sr-only">{slide.photoAlt}</span>
       </div>

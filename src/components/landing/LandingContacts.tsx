@@ -9,11 +9,10 @@ import { site } from "@/lib/site";
 import { contactsContent } from "@/components/landing/contacts-content";
 import styles from "@/components/landing/LandingContacts.module.css";
 
-export function LandingContacts({ locale }: { locale: Locale }): ReactElement {
+export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
   const t = contactsContent[locale];
 
   return (
-    <div className={styles.contacts}>
       <section id="offices" className={styles.offices} aria-labelledby="landing-offices-title">
         <img className={styles.officesLine} src="/landing/contacts/offices-line.svg" alt="" />
         <img className={styles.officesLineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" />
@@ -62,6 +61,15 @@ export function LandingContacts({ locale }: { locale: Locale }): ReactElement {
           </div>
         </div>
       </section>
+  );
+}
+
+export function LandingContacts({ locale }: { locale: Locale }): ReactElement {
+  const t = contactsContent[locale];
+
+  return (
+    <div className={styles.contacts}>
+      <LandingOffices locale={locale} />
       <section id="faq" className={styles.faq} aria-labelledby="landing-faq-title">
         <img className={styles.faqLine} src="/landing/contacts/faq-line.svg" alt="" />
         <img className={styles.faqLineMobile} src="/landing/contacts/faq-line-mobile.svg" alt="" />

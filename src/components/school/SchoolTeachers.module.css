@@ -1,0 +1,52 @@
+.section { position: relative; padding: 120px 0; background: #f2f6f9; color: #135685; }
+.sticker { position: absolute; top: -27px; left: calc(50% - 776.835px); width: 319.435px; height: 212.424px; transform: rotate(12deg); transform-origin: top left; pointer-events: none; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 48px 24px; }
+.header { grid-column: 1 / -1; grid-row: 1; display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; }
+.header h2 { max-width: 910px; overflow-wrap: anywhere; }
+.header h2 em { display: block; }
+.header p { margin: 0; padding-bottom: 74px; color: #525251; font: 400 18px/28px "Manrope", sans-serif; letter-spacing: -.01em; }
+.trial { grid-column: 2; grid-row: 1; margin-top: 76px; justify-self: start; border: 0; border-radius: 12px; padding: 16px 32px; background: #b1005a; color: #fff; font: 700 16px/22px "Manrope", sans-serif; cursor: pointer; }
+.trial:hover { background: #97004d; }
+.track { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; min-width: 0; }
+.card { min-width: 0; overflow: hidden; border: 1px solid #e1eaf1; border-radius: 28px; background: #fff; }
+.photo { position: relative; height: 320px; overflow: hidden; }
+.pink { background: linear-gradient(140.389deg, #b7799a 0%, #e2b9ce 71.429%); }
+.green { background: linear-gradient(140.389deg, #6e9f7d 0%, #afcdb8 71.429%); }
+.blue { background: linear-gradient(140.389deg, #5f8fb3 0%, #9dbbd2 71.429%); }
+.photo img { position: absolute; max-width: none; }
+.ayaulym { width: 100%; height: 100.28%; left: 0; top: 5.12%; }
+.dariya { width: 101.93%; height: 89.47%; left: -1.86%; top: 10.65%; }
+.body { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 185px; padding: 22px 24px 24px; }
+.body h3 { margin: 0 0 8px; font: 600 22px/22px "Futura PT", sans-serif; letter-spacing: -.04em; text-transform: uppercase; }
+.teacherName { border: 0; margin: 0; padding: 0; background: transparent; color: #135685; font: inherit; letter-spacing: inherit; text-transform: inherit; text-align: start; cursor: pointer; }
+.teacherName:hover { text-decoration: underline; text-underline-offset: 4px; }
+.subjects { margin: 0; font: 400 16px/22px "Manrope", sans-serif; letter-spacing: -.01em; color: #525251; }
+.facts { display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px solid #e1eaf1; padding-top: 8px; }
+.experience { display: grid; }
+.experience strong { color: #2e2d2c; font: 700 20px/28px "Manrope", sans-serif; }
+.experience > span { color: #6f6f6e; font: 400 14px/20px "Manrope", sans-serif; }
+.qualification { display: flex; align-items: center; gap: 6px; padding: 7px 12px 7px 10px; border-radius: 100px; background: #e5ede5; color: #548655; font: 700 14px/16px "Manrope", sans-serif; white-space: nowrap; }
+.qualification img { display: block; }
+.screenReader { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .layout, .header { grid-template-columns: minmax(0, 1fr) 220px; }
+  .header :global(.landing-title) { font-size: 50px; line-height: 54px; }
+  .track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trial { margin-top: 108px; }
+}
+
+@media (max-width: 767px) {
+  .section { padding: 72px 0; }
+  .sticker { display: none; }
+  .layout { display: flex; flex-direction: column; gap: 0; }
+  .header { display: block; width: 100%; }
+  .header p { padding: 0; font-size: 16px; line-height: 23px; }
+  .track { order: 1; display: flex; gap: 12px; width: calc(100% + 16px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 0 16px; padding: 3px 16px 3px 3px; margin: 49px 0 -3px -3px; }
+  .card { flex: 0 0 292px; scroll-snap-align: start; }
+  .trial { order: 2; margin: 0; width: 100%; min-height: 48px; padding: 14px 24px; border-radius: 10px; font-size: 14px; line-height: 20px; }
+}
+
+@media (max-width: 374px) {
+  .header :global(.landing-title) { font-size: 30px; line-height: 34px; }
+}

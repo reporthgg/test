@@ -1,0 +1,166 @@
+.results {
+  position: relative;
+  overflow: clip;
+  padding: 110px 0;
+  border-radius: 0 0 50px 50px;
+  background: var(--landing-blue, #135685);
+  color: white;
+}
+
+.results > :global(.landing-container) { position: relative; }
+.header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+.title { position: relative; min-width: 0; max-width: 850px; }
+.title > span { display: block; }
+.title em { color: inherit; }
+.arrows { display: flex; flex: 0 0 auto; gap: 12px; }
+
+.arrows button {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.previous { border: 1.5px solid rgb(255 255 255 / 20%); background: var(--landing-blue, #135685); }
+.next { border: 1.5px solid white; background: white; }
+.results .arrows button:disabled { cursor: default; }
+.next:disabled { opacity: 0.45; }
+.arrows button:not(:disabled):hover { box-shadow: 0 0 0 3px rgb(255 255 255 / 20%); }
+
+.track {
+  width: calc(100% + max(32px, (100vw - 1240px) / 2));
+  margin-top: 56px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar { display: none; }
+.cards { position: relative; display: flex; gap: 24px; width: max-content; padding: 0 max(32px, (100vw - 1240px) / 2) 0 0; margin: 0; list-style: none; }
+
+.card {
+  position: relative;
+  display: flex;
+  flex: 0 0 340px;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 340px;
+  height: 500px;
+  padding: 0 24px 24px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: linear-gradient(132.2deg, #5f8fb3 0%, #9dbbd2 71.43%);
+  scroll-snap-align: start;
+}
+
+.card[data-color="pink"] { background: linear-gradient(132.2deg, #b7799a 0%, #e2b9ce 71.43%); }
+.card[data-color="green"] { background: linear-gradient(132.2deg, #6e9f7d 0%, #afcdb8 71.43%); }
+.card[data-person="saida"],
+.card[data-person="zhanel"] { background: linear-gradient(132.2deg, #6e9bbc 0%, #a9c4d8 71.43%); }
+.portrait { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; pointer-events: none; }
+.card[data-person="kalima"] .portrait { top: 15.93%; left: -8.12%; width: 116.16%; height: 87.4%; object-fit: fill; }
+.card[data-person="amir"] .portrait { top: 12.78%; left: -1.11%; width: 102.22%; height: 87.2%; object-fit: fill; }
+.card[data-person="diar"] .portrait { top: 16.59%; left: -13.11%; width: 120.62%; height: 100%; object-fit: fill; }
+.card[data-person="nursultan"] .portrait { top: 15.12%; left: -6.34%; width: 112.68%; height: 100%; object-fit: fill; }
+.card[data-person="zhanel"] .portrait { object-fit: fill; object-position: bottom; }
+.overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 300px; background: linear-gradient(180deg, rgb(11 47 74 / 0%), rgb(11 47 74 / 92%)); pointer-events: none; }
+
+.play {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+}
+
+.playDesktop { position: absolute; left: 28px; top: 24px; }
+.playMobile { display: none; }
+
+.readStory {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 35px;
+  padding: 5px 14px;
+  border: 1px solid var(--landing-pink, #b1005a);
+  border-radius: 300px;
+  background: #f0ebec;
+  color: var(--landing-pink, #b1005a);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.info { position: relative; display: flex; flex-direction: column; gap: 4px; width: 100%; min-width: 0; overflow: hidden; }
+.result { font-size: 54px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.detail { font-size: 20px; font-weight: 600; line-height: normal; letter-spacing: -0.01em; color: rgb(255 255 255 / 85%); }
+.person { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; width: 100%; padding-top: 12px; border-top: 1px solid rgb(255 255 255 / 25%); }
+.person h3 { font-size: 20px; font-weight: 600; line-height: normal; }
+.person > p { font-size: 15px; font-weight: 400; line-height: normal; color: rgb(255 255 255 / 75%); text-align: right; }
+.footer { display: flex; justify-content: space-between; align-items: center; gap: 40px; margin-top: 56px; padding-right: 20px; }
+.progress { position: relative; flex: 0 0 240px; height: 3px; overflow: hidden; border-radius: 2px; background: rgb(255 255 255 / 20%); }
+.progress > span { position: absolute; top: 0; height: 3px; border-radius: 2px; background: white; }
+.instagram { display: flex; align-items: center; gap: 28px; }
+.instagram > p { max-width: 320px; font-size: 20px; line-height: 32px; letter-spacing: -0.01em; color: rgb(255 255 255 / 85%); }
+.instagram > a { display: flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 8px; min-height: 58px; padding: 16px 32px; border: 1.5px solid white; border-radius: 12px; font-size: 16px; font-weight: 700; line-height: 22px; letter-spacing: -0.04em; }
+.instagram > a:hover { background: rgb(255 255 255 / 10%); }
+
+.resultsSticker { position: absolute; top: -64.4px; left: calc(50% - 7.6px); width: 311.083px; height: 311.083px; transform: rotate(-34.21deg); pointer-events: none; }
+.pinkSticker { position: absolute; top: 669.07px; left: -16.91px; width: 166.906px; height: 166.906px; overflow: hidden; box-shadow: 0 4px 2px rgb(0 0 0 / 30%); transform: rotate(20deg); pointer-events: none; }
+.pinkSticker img { position: absolute; top: -30.56%; left: -29.71%; width: 159.22%; height: 162.53%; max-width: none; }
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .results .title { font-size: 54px; line-height: 1.06; }
+  .footer { gap: 24px; padding-right: 0; }
+  .progress { flex-basis: 180px; }
+  .instagram { gap: 20px; }
+  .instagram > p { max-width: 280px; font-size: 17px; line-height: 26px; }
+  .instagram > a { padding-inline: 20px; }
+}
+
+@media (max-width: 767px) {
+  .results { padding: 102px 0 50px; border-radius: 0 0 30px 30px; }
+  .results > :global(.landing-container) { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .header, .footer { display: contents; }
+  .results .title { grid-row: 1; margin-bottom: 4px; font-size: 35px; line-height: 38px; }
+  .arrows { grid-row: 3; grid-column: 1; justify-self: end; gap: 8px; }
+  .arrows button { width: 44px; height: 44px; }
+  .track { grid-row: 2; width: calc(100% + 16px); margin-top: 0; }
+  .cards { gap: 12px; padding-right: 16px; }
+  .card { flex-basis: 278.8px; width: 278.8px; height: 410px; padding: 0 19.68px 19.68px; border-radius: 22.96px; }
+  .overlay { height: 246px; }
+  .play { top: 16.4px; left: 16.4px; width: 62.32px; height: 62.32px; box-shadow: 0 8.2px 24.6px rgb(0 0 0 / 18%); }
+  .playDesktop { display: none; }
+  .playMobile { display: block; position: absolute; top: 19.68px; left: 22.96px; }
+  .readStory { top: 16.4px; left: 16.4px; right: 16.4px; min-height: 44px; padding-inline: 12px; border-width: 0.82px; font-size: 14px; line-height: 18px; }
+  .info { gap: 3.28px; }
+  .result { font-size: 44.28px; }
+  .detail { font-size: 16.4px; }
+  .person { padding-top: 9.84px; border-top-width: 0.82px; gap: 6px; }
+  .person h3 { font-size: 16.4px; }
+  .person > p { font-size: 12.3px; }
+  .progress { grid-row: 3; grid-column: 1; align-self: center; width: calc(100% - 112px); }
+  .instagram { grid-row: 4; flex-direction: column; gap: 16px; align-items: stretch; }
+  .instagram > p { max-width: none; font-size: 16px; font-weight: 300; line-height: 23px; }
+  .instagram > a { width: 100%; min-height: 48px; padding-block: 12px; font-size: 14px; line-height: 20px; }
+  .resultsSticker { top: -26.7px; left: calc(50% + 84.87px); width: 172.603px; height: 172.603px; transform: rotate(-114.3deg); }
+  .pinkSticker { top: auto; bottom: -26.57px; left: -17.83px; width: 95.671px; height: 95.671px; }
+}
+
+@media (max-width: 374px) {
+  .results .title { font-size: 30px; line-height: 34px; }
+  .results[data-locale="kz"] .title { font-size: 28px; }
+}

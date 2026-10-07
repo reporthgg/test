@@ -17,10 +17,16 @@ import {
 } from "react";
 import type { Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
+import SchoolTrialCard from "@/components/school/SchoolTrialCard";
+import LandingSelect from "./LandingSelect";
 import { formsContent } from "./forms-content";
 import styles from "./LandingForms.module.css";
+import schoolStyles from "@/components/school/SchoolTrial.module.css";
 
-type LeadKind = "diagnostic" | "trial";
+export type LeadKind = "diagnostic" | "trial";
+export type LandingScope = "landing" | "school";
+export type LeadSelection = { course?: string; teacher?: string };
+type ActiveLead = { kind: LeadKind; selection?: LeadSelection };
 type Field = "name" | "phone" | "city" | "consent";
 type FieldErrors = Partial<Record<Field, string>>;
 type FormValues = { name: string; phone: string; city: string; consent: boolean };
@@ -28,8 +34,10 @@ type SavedLead = { kind: LeadKind; crmDelivered: boolean };
 
 type LandingContextValue = {
   locale: Locale;
+  scope: LandingScope;
   activeLead: LeadKind | null;
-  openLead: (kind: LeadKind) => void;
+  leadSelection?: LeadSelection;
+  openLead: (kind: LeadKind, selection?: LeadSelection) => void;
   closeLead: () => void;
   savedLead: SavedLead | null;
   notifySaved: (lead: SavedLead) => void;
@@ -42,14 +50,18 @@ const controlCharacters = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u;
 
 export function LandingProvider({
   locale,
+  scope = "landing",
   children,
 }: {
   locale: Locale;
+  scope?: LandingScope;
   children: ReactNode;
 }): ReactElement {
-  const [activeLead, setActiveLead] = useState<LeadKind | null>(null);
+  const [activeLead, setActiveLead] = useState<ActiveLead | null>(null);
   const [savedLead, setSavedLead] = useState<SavedLead | null>(null);
-  const openLead = useCallback((kind: LeadKind) => setActiveLead(kind), []);
+  const openLead = useCallback((kind: LeadKind, selection?: LeadSelection) => {
+    setActiveLead({ kind, selection });
+  }, []);
   const closeLead = useCallback(() => setActiveLead(null), []);
   const dismissNotification = useCallback(() => setSavedLead(null), []);
 
@@ -57,7 +69,9 @@ export function LandingProvider({
     <LandingContext.Provider
       value={{
         locale,
-        activeLead,
+        scope,
+        activeLead: activeLead?.kind ?? null,
+        leadSelection: activeLead?.selection,
         openLead,
         closeLead,
         savedLead,
@@ -76,20 +90,22 @@ function useLandingContext(): LandingContextValue {
   return context;
 }
 
-export function useLandingActions(): { openLead: (kind: LeadKind) => void } {
-  const { openLead } = useLandingContext();
-  return { openLead };
+export function useLandingActions(): Pick<LandingContextValue, "openLead" | "scope"> {
+  const { openLead, scope } = useLandingContext();
+  return { openLead, scope };
 }
 
 export function LeadButton({
   kind = "diagnostic",
   className,
+  course,
+  teacher,
   children,
 }: {
   kind?: LeadKind;
   className?: string;
   children: ReactNode;
-}): ReactElement {
+} & LeadSelection): ReactElement {
   const { openLead } = useLandingActions();
   const buttonRef = useRef<HTMLButtonElement>(null);
   return (
@@ -100,7 +116,7 @@ export function LeadButton({
       aria-haspopup="dialog"
       onClick={() => {
         buttonRef.current?.focus();
-        openLead(kind);
+        openLead(kind, { course, teacher });
       }}
     >
       {children}
@@ -112,7 +128,8 @@ function SuccessMessage({
   kind,
   crmDelivered,
   focus = false,
-}: SavedLead & { focus?: boolean }): ReactElement {
+  school = false,
+}: SavedLead & { focus?: boolean; school?: boolean }): ReactElement {
   const { locale } = useLandingContext();
   const t = formsContent[locale];
   const successRef = useRef<HTMLDivElement>(null);
@@ -122,8 +139,9 @@ function SuccessMessage({
   }, [focus]);
 
   return (
-    <div className={styles.success} ref={successRef} tabIndex={-1}>
-      <img src="/landing/forms/success-check.svg" alt="" />
+    <div className={`${styles.success} ${school ? schoolStyles.success : ""}`} ref={successRef} tabIndex={-1}>
+      {school && <img className={schoolStyles.desktopAsset} src="/landing/forms/school-success-desktop.svg" alt="" />}
+      <img className={school ? schoolStyles.mobileAsset : undefined} src="/landing/forms/success-check.svg" alt="" />
       <h3>{crmDelivered ? t.successTitle : t.savedTitle}</h3>
       <p>
         {crmDelivered
@@ -144,14 +162,20 @@ function LeadFields({
   source,
   appearance = "standard",
   visible = true,
+  selection,
 }: {
   kind: LeadKind;
   source: string;
-  appearance?: "standard" | "bottom";
+  appearance?: "standard" | "bottom" | "school";
   visible?: boolean;
+  selection?: LeadSelection;
 }): ReactElement {
-  const { locale, notifySaved } = useLandingContext();
+  const { locale, scope, notifySaved } = useLandingContext();
   const t = formsContent[locale];
+  const school = appearance === "school";
+  const hasCity = kind === "diagnostic" || school;
+  const cityRequired = kind === "diagnostic" && scope === "landing";
+  const fieldClass = `${styles.field} ${school ? schoolStyles.field : ""}`;
   const id = useId();
   const [values, setValues] = useState<FormValues>(emptyValues);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -160,10 +184,10 @@ function LeadFields({
   const [crmDelivered, setCrmDelivered] = useState<boolean | null>(null);
   const requestRef = useRef<AbortController | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
-  const cityRef = useRef<HTMLSelectElement>(null);
+  const cityRef = useRef<HTMLButtonElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const consentRef = useRef<HTMLInputElement>(null);
-  const errorFocusRef = useRef<HTMLInputElement | HTMLSelectElement | null>(null);
+  const errorFocusRef = useRef<HTMLInputElement | HTMLButtonElement | null>(null);
 
   useEffect(() => () => requestRef.current?.abort(), []);
 
@@ -204,7 +228,10 @@ function LeadFields({
     ) {
       nextErrors.phone = t.errors.phone;
     }
-    if (kind === "diagnostic" && !t.cities.some((city) => city.value === values.city)) {
+    if (
+      hasCity && (cityRequired || values.city !== "") &&
+      !t.cities.some((city) => city.value === values.city)
+    ) {
       nextErrors.city = t.errors.city;
     }
     if (!values.consent) nextErrors.consent = t.errors.consent;
@@ -227,7 +254,9 @@ function LeadFields({
         body: JSON.stringify({
           name,
           phone,
-          ...(kind === "diagnostic" ? { city: values.city } : {}),
+          ...(hasCity && values.city ? { city: values.city } : {}),
+          ...(selection?.course ? { course: selection.course } : {}),
+          ...(selection?.teacher ? { teacher: selection.teacher } : {}),
           consent: true,
           source,
           leadKind: kind,
@@ -271,21 +300,21 @@ function LeadFields({
   }
 
   if (crmDelivered !== null) {
-    return <SuccessMessage kind={kind} crmDelivered={crmDelivered} focus={visible} />;
+    return <SuccessMessage kind={kind} crmDelivered={crmDelivered} focus={visible} school={school} />;
   }
 
   const bottom = appearance === "bottom";
   const [beforeWhatsApp, afterWhatsApp] = t.whatsappPhone.split("WhatsApp");
   return (
     <form
-      className={`${styles.fields} ${bottom ? styles.bottomFields : ""}`}
+      className={`${styles.fields} ${bottom ? styles.bottomFields : ""} ${school ? schoolStyles.fields : ""}`}
       onSubmit={handleSubmit}
       noValidate
       aria-busy={sending}
     >
       <fieldset className={styles.fieldset} disabled={sending}>
-        <div className={kind === "diagnostic" ? styles.nameCity : styles.nameOnly}>
-          <div className={styles.field}>
+        <div className={`${hasCity ? styles.nameCity : styles.nameOnly} ${school ? schoolStyles.nameCity : ""}`}>
+          <div className={fieldClass}>
             <label htmlFor={`${id}-name`}>{t.name}</label>
             <input
               ref={nameRef}
@@ -303,36 +332,39 @@ function LeadFields({
             />
             {errorFor("name")}
           </div>
-          {kind === "diagnostic" && (
-            <div className={styles.field}>
-              <label htmlFor={`${id}-city`}>{t.city}</label>
-              <div className={styles.selectWrap}>
-                <select
-                  ref={cityRef}
-                  id={`${id}-city`}
-                  name="city"
-                  required
-                  autoComplete="address-level2"
-                  value={values.city}
-                  aria-invalid={!!errors.city}
-                  aria-describedby={errors.city ? `${id}-city-error` : undefined}
-                  onChange={(event) => updateField("city", event.target.value)}
-                >
-                  <option value="" disabled>{t.cityPlaceholder}</option>
-                  {t.cities.map((city) => (
-                    <option key={city.value} value={city.value}>{city.label}</option>
-                  ))}
-                </select>
-              </div>
+          {hasCity && (
+            <div className={fieldClass}>
+              <label htmlFor={`${id}-city`}>{cityRequired ? t.city : t.optionalCity}</label>
+              <LandingSelect
+                ref={cityRef}
+                id={`${id}-city`}
+                name="city"
+                className={styles.selectControl}
+                required={cityRequired}
+                disabled={sending}
+                autoComplete="address-level2"
+                value={values.city}
+                options={t.cities}
+                placeholder={t.cityPlaceholder}
+                aria-label={cityRequired ? t.city : t.optionalCity}
+                aria-invalid={!!errors.city}
+                aria-describedby={errors.city ? `${id}-city-error` : undefined}
+                onValueChange={(city) => updateField("city", city)}
+              />
               {errorFor("city")}
             </div>
           )}
         </div>
-        <div className={styles.field}>
+        <div className={fieldClass}>
           <label htmlFor={`${id}-phone`}>
             {bottom
               ? <>{beforeWhatsApp}<strong>WhatsApp</strong>{afterWhatsApp}</>
-              : kind === "trial" ? t.whatsappPhone : t.phone}
+              : school ? (
+                <>
+                  <span className={schoolStyles.desktopText}>{t.phone}</span>
+                  <span className={schoolStyles.mobileText}>{t.whatsappPhone}</span>
+                </>
+              ) : kind === "trial" ? t.whatsappPhone : t.phone}
           </label>
           <input
             ref={phoneRef}
@@ -352,8 +384,8 @@ function LeadFields({
           {errorFor("phone")}
         </div>
         <div className={styles.consentField}>
-          <label className={styles.consent} htmlFor={`${id}-consent`}>
-            <span className={styles.checkbox}>
+          <label className={`${styles.consent} ${school ? schoolStyles.consent : ""}`} htmlFor={`${id}-consent`}>
+            <span className={`${styles.checkbox} ${school ? schoolStyles.checkbox : ""}`}>
               <input
                 ref={consentRef}
                 id={`${id}-consent`}
@@ -391,7 +423,12 @@ function LeadFields({
         type="submit"
         disabled={sending}
       >
-        <span>{sending ? t.sending : kind === "trial" ? t.trialSubmit : t.submit}</span>
+        {school && !sending ? (
+          <>
+            <span className={schoolStyles.desktopText}>{t.schoolTrialSubmit}</span>
+            <span className={schoolStyles.mobileText}>{t.trialSubmit}</span>
+          </>
+        ) : <span>{sending ? t.sending : kind === "trial" ? t.trialSubmit : t.submit}</span>}
         {bottom && (
           <>
             <img className={styles.arrowDesktop} src="/landing/forms/arrow-desktop.svg" alt="" />
@@ -410,7 +447,7 @@ export function LandingLeadForm({
   variant: "white" | "pink";
   source?: string;
 }): ReactElement {
-  const { locale } = useLandingContext();
+  const { locale, scope } = useLandingContext();
   const t = formsContent[locale];
   const titleId = useId();
   return (
@@ -420,7 +457,7 @@ export function LandingLeadForm({
     >
       <h2 id={titleId}>{t.diagnosticTitle}</h2>
       <p className={styles.description}>{t.diagnosticDescription}</p>
-      <LeadFields kind="diagnostic" source={source ?? `landing-diagnostic-${variant}`} />
+      <LeadFields kind="diagnostic" source={source ?? `${scope}-diagnostic-${variant}`} />
       <p className={styles.faster}>
         {t.faster}{" "}
         <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
@@ -430,11 +467,11 @@ export function LandingLeadForm({
 }
 
 export function TrialSection(): ReactElement {
-  const { locale } = useLandingContext();
+  const { locale, scope } = useLandingContext();
   const t = formsContent[locale];
   const titleId = useId();
   return (
-    <section id="trial" className={styles.trialSection} aria-labelledby={titleId}>
+    <section id="trial" className={`${styles.trialSection} ${scope === "school" ? schoolStyles.bottomSection : ""}`} aria-labelledby={titleId}>
       <div className={`landing-container ${styles.trialContainer}`}>
         <header className={styles.trialHeading}>
           <p>{t.bottomDescription}</p>
@@ -447,21 +484,35 @@ export function TrialSection(): ReactElement {
             <img className={styles.backgroundDesktop} src="/landing/forms/form-desktop.svg" alt="" />
             <img className={styles.backgroundMobile} src="/landing/forms/form-mobile.svg" alt="" />
           </div>
-          <LeadFields kind="trial" source="landing-trial-bottom" appearance="bottom" />
+          <LeadFields kind="trial" source={`${scope}-trial-bottom`} appearance="bottom" />
         </div>
       </div>
       <div className={styles.stickers} aria-hidden="true">
-        <Image className={styles.stickerYellow} src="/landing/forms/sticker-yellow.png" alt="" width={400} height={266} sizes="(max-width: 767px) 160px, 400px" />
+        <Image className={`${styles.stickerYellow} ${schoolStyles.bottomYellow}`} src="/landing/forms/sticker-yellow.png" alt="" width={400} height={266} sizes="(max-width: 767px) 160px, 400px" />
         <Image className={styles.stickerBlue} src="/landing/forms/sticker-blue.png" alt="" width={245} height={245} sizes="245px" />
-        <Image className={styles.stickerPink} src="/landing/forms/sticker-pink.png" alt="" width={230} height={230} sizes="(max-width: 767px) 120px, 230px" />
-        <Image className={styles.stickerRibbon} src="/landing/forms/sticker-ribbon.png" alt="" width={415} height={276} sizes="(max-width: 767px) 145px, 415px" />
+        <Image className={`${styles.stickerPink} ${schoolStyles.bottomPink}`} src="/landing/forms/sticker-pink.png" alt="" width={230} height={230} sizes="(max-width: 767px) 120px, 230px" />
+        <Image className={`${styles.stickerRibbon} ${schoolStyles.bottomRibbon}`} src="/landing/forms/sticker-ribbon.png" alt="" width={415} height={276} sizes="(max-width: 767px) 145px, 415px" />
       </div>
     </section>
   );
 }
 
-export function LandingOverlays(): ReactElement {
-  const { locale, activeLead, closeLead, savedLead, dismissNotification } = useLandingContext();
+export function SchoolTrialSection(): ReactElement {
+  const { locale, scope } = useLandingContext();
+  const titleId = useId();
+  return (
+    <section id="school-trial" className={schoolStyles.section} aria-labelledby={titleId}>
+      <div className="landing-container">
+        <SchoolTrialCard locale={locale} headingId={titleId}>
+          <LeadFields kind="trial" source={`${scope}-trial-inline`} appearance="school" />
+        </SchoolTrialCard>
+      </div>
+    </section>
+  );
+}
+
+export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolean }): ReactElement {
+  const { locale, scope, activeLead, leadSelection, closeLead, savedLead, dismissNotification } = useLandingContext();
   const t = formsContent[locale];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const trialHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -469,6 +520,8 @@ export function LandingOverlays(): ReactElement {
   const backdropPress = useRef(false);
   const id = useId();
   const isOpen = activeLead !== null;
+  const school = scope === "school";
+  const schoolTrial = school && activeLead === "trial";
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -485,7 +538,7 @@ export function LandingOverlays(): ReactElement {
     <>
       <dialog
         ref={dialogRef}
-        className={`${styles.dialog} ${activeLead === "diagnostic" ? styles.diagnosticDialog : ""}`}
+        className={`${styles.dialog} ${activeLead === "diagnostic" ? styles.diagnosticDialog : ""} ${schoolTrial ? schoolStyles.dialog : ""}`}
         aria-labelledby={`${id}-${activeLead ?? "trial"}-title`}
         onCancel={(event) => {
           event.preventDefault();
@@ -511,42 +564,58 @@ export function LandingOverlays(): ReactElement {
         }}
       >
         <div className={styles.dialogContent}>
-          <div className={styles.trialDialogContent} hidden={activeLead !== "trial"}>
-            <div className={styles.offer}>
-              <img className={styles.flags} src="/landing/forms/flags.svg" alt="" />
-              <h2 id={`${id}-trial-title`} ref={trialHeadingRef} tabIndex={-1}>
-                {t.trialTitle}<br /><em>{t.trialTitleAccent}</em>
-              </h2>
-              <p>{t.trialDescription}</p>
-              <ul>
-                {t.trialSteps.map((step) => (
-                  <li key={step}><img src="/landing/forms/step-check.svg" alt="" /><span>{step}</span></li>
-                ))}
-              </ul>
-              <Image className={styles.offerSticker} src="/landing/forms/sticker-blue.png" alt="" width={153} height={153} sizes="153px" />
-            </div>
-            <div className={styles.trialFormPanel}>
-              <div className={styles.price}>
-                <s>15 000 ₸</s>
-                <strong>0 ₸</strong>
-                <p>{t.trialPriceCaption}</p>
+          {schoolTrial && (
+            <SchoolTrialCard locale={locale} headingId={`${id}-trial-title`} headingRef={trialHeadingRef}>
+              <LeadFields
+                key={JSON.stringify(leadSelection ?? {})}
+                kind="trial"
+                source="school-trial-popup"
+                appearance="school"
+                selection={leadSelection}
+              />
+            </SchoolTrialCard>
+          )}
+          {!school && (
+            <div className={styles.trialDialogContent} hidden={activeLead !== "trial"}>
+              <div className={styles.offer}>
+                <img className={styles.flags} src="/landing/forms/flags.svg" alt="" />
+                <h2 id={`${id}-trial-title`} ref={trialHeadingRef} tabIndex={-1}>
+                  {t.trialTitle}<br /><em>{t.trialTitleAccent}</em>
+                </h2>
+                <p>{t.trialDescription}</p>
+                <ul>
+                  {t.trialSteps.map((step) => (
+                    <li key={step}><img src="/landing/forms/step-check.svg" alt="" /><span>{step}</span></li>
+                  ))}
+                </ul>
+                <Image className={styles.offerSticker} src="/landing/forms/sticker-blue.png" alt="" width={153} height={153} sizes="153px" />
               </div>
-              <LeadFields kind="trial" source="landing-trial-popup" visible={activeLead === "trial"} />
+              <div className={styles.trialFormPanel}>
+                <div className={styles.price}>
+                  <s>15 000 ₸</s>
+                  <strong>0 ₸</strong>
+                  <p>{t.trialPriceCaption}</p>
+                </div>
+                <LeadFields kind="trial" source={`${scope}-trial-popup`} visible={activeLead === "trial"} selection={leadSelection} />
+              </div>
             </div>
-          </div>
-          <div className={`${styles.leadCard} ${styles.white} ${styles.diagnosticPanel}`} hidden={activeLead !== "diagnostic"}>
-            <h2 id={`${id}-diagnostic-title`} ref={diagnosticHeadingRef} tabIndex={-1}>
-              {t.diagnosticTitle}
-            </h2>
-            <p className={styles.description}>{t.diagnosticDescription}</p>
-            <LeadFields kind="diagnostic" source="landing-diagnostic-popup" visible={activeLead === "diagnostic"} />
-            <p className={styles.faster}>
-              {t.faster}{" "}
-              <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            </p>
-          </div>
-          <button className={styles.close} type="button" onClick={closeLead} aria-label={t.close}>
-            <img src="/landing/forms/close.svg" alt="" />
+          )}
+          {(!school || activeLead === "diagnostic") && (
+            <div className={`${styles.leadCard} ${styles.white} ${styles.diagnosticPanel}`} hidden={activeLead !== "diagnostic"}>
+              <h2 id={`${id}-diagnostic-title`} ref={diagnosticHeadingRef} tabIndex={-1}>
+                {t.diagnosticTitle}
+              </h2>
+              <p className={styles.description}>{t.diagnosticDescription}</p>
+              <LeadFields kind="diagnostic" source={`${scope}-diagnostic-popup`} visible={activeLead === "diagnostic"} selection={leadSelection} />
+              <p className={styles.faster}>
+                {t.faster}{" "}
+                <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              </p>
+            </div>
+          )}
+          <button className={`${styles.close} ${schoolTrial ? schoolStyles.close : ""}`} type="button" onClick={closeLead} aria-label={t.close}>
+            {schoolTrial && <img className={schoolStyles.desktopAsset} src="/landing/forms/school-close-desktop.svg" alt="" />}
+            <img className={schoolTrial ? schoolStyles.mobileAsset : undefined} src="/landing/forms/close.svg" alt="" />
           </button>
         </div>
       </dialog>
@@ -560,9 +629,11 @@ export function LandingOverlays(): ReactElement {
           </div>
         )}
       </div>
-      <a className={styles.whatsappWidget} href={site.whatsapp.link} target="_blank" rel="noopener noreferrer" aria-label={t.whatsapp}>
-        <img src="/landing/forms/whatsapp.svg" alt="" />
-      </a>
+      {showWhatsapp && (
+        <a className={styles.whatsappWidget} href={site.whatsapp.link} target="_blank" rel="noopener noreferrer" aria-label={t.whatsapp}>
+          <img src="/landing/forms/whatsapp.svg" alt="" />
+        </a>
+      )}
     </>
   );
 }

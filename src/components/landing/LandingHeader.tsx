@@ -3,20 +3,20 @@
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { isLocale, locales, withLocale, type Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
 import { useLandingActions } from "@/components/landing/LandingForms";
+import LandingSelect from "./LandingSelect";
 import { heroContent } from "./hero-content";
 import styles from "./LandingHeader.module.css";
 
 const languageLabels: Record<Locale, string> = { ru: "Рус", kz: "Қаз", en: "Eng" };
+const languageOptions = locales.map((value) => ({ value, label: languageLabels[value] }));
 const destinations = ["/school", "/exams", "/abroad", "/camps", "/#offices"] as const;
 
 export default function LandingHeader({ locale }: { locale: Locale }): ReactElement {
   const text = heroContent[locale];
-  const router = useRouter();
-  const { openLead } = useLandingActions();
+  const { openLead, scope } = useLandingActions();
   const markerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDialogElement>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -45,7 +45,8 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
   function changeLanguage(value: string): void {
     if (!isLocale(value)) return;
     closeMenu();
-    router.push(withLocale(value, "/"));
+    // Локаль приходит из server rewrite, поэтому не переиспользуем RSC-кэш другого языка.
+    window.location.assign(withLocale(value, scope === "school" ? "/school" : "/"));
   }
 
   const programLinks = [
@@ -75,16 +76,13 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
             {destinations.map((href, index) => (
               <Link href={withLocale(locale, href)} key={href}>{text.nav[index]}</Link>
             ))}
-            <select
+            <LandingSelect
               aria-label={text.language}
               className={styles.language}
               value={locale}
-              onChange={(event) => changeLanguage(event.target.value)}
-            >
-              {locales.map((language) => (
-                <option key={language} value={language}>{languageLabels[language]}</option>
-              ))}
-            </select>
+              options={languageOptions}
+              onValueChange={changeLanguage}
+            />
           </nav>
           <button type="button" onClick={consult} className={styles.consult}>
             {text.consultation}
@@ -111,6 +109,12 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
         aria-label={text.menu}
         onClose={() => setMenuOpen(false)}
         onCancel={() => setMenuOpen(false)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            event.preventDefault();
+            closeMenu();
+          }
+        }}
       >
         <div className={styles.menuTop}>
           <Link href={withLocale(locale, "/")} onClick={closeMenu}>

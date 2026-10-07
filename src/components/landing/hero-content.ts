@@ -22,6 +22,7 @@ type HeroContent = {
   carousel: string;
   pause: string;
   play: string;
+  partners: string;
   skip: string;
   nav: [string, string, string, string, string];
   consultation: string;
@@ -81,6 +82,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     carousel: "Возможности GSC Study",
     pause: "Приостановить слайдер",
     play: "Продолжить слайдер",
+    partners: "Партнёры и аккредитации",
     skip: "Перейти к содержимому",
     nav: ["Языковая школа", "Экзамены", "За рубеж", "Лагеря", "Центры"],
     consultation: "Консультация",
@@ -138,6 +140,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     carousel: "GSC Study мүмкіндіктері",
     pause: "Слайдерді тоқтату",
     play: "Слайдерді жалғастыру",
+    partners: "Серіктестер және аккредитациялар",
     skip: "Мазмұнға өту",
     nav: ["Тіл мектебі", "Емтихандар", "Шетелде оқу", "Лагерьлер", "Орталықтар"],
     consultation: "Кеңес алу",
@@ -195,6 +198,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     carousel: "Explore GSC Study",
     pause: "Pause slideshow",
     play: "Resume slideshow",
+    partners: "Partners and accreditations",
     skip: "Skip to content",
     nav: ["Language school", "Exams", "Study abroad", "Camps", "Centres"],
     consultation: "Consultation",

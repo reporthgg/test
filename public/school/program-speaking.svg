@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="234" height="140" viewBox="0 0 234 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="illustration / spk" clip-path="url(#clip0_0_34)">
+<path id="Vector" d="M106 36C106 23.8497 96.1503 14 84 14C71.8497 14 62 23.8497 62 36V64C62 76.1503 71.8497 86 84 86C96.1503 86 106 76.1503 106 64V36Z" fill="#37814C"/>
+<path id="Vector_2" opacity="0.7" d="M72 36H96M72 50H96" stroke="white" stroke-width="4" stroke-linecap="round"/>
+<path id="Vector_3" d="M50 62C50 71.0174 53.5821 79.6654 59.9584 86.0416C66.3346 92.4179 74.9826 96 84 96C93.0174 96 101.665 92.4179 108.042 86.0416C114.418 79.6654 118 71.0174 118 62" stroke="#37814C" stroke-width="6" stroke-linecap="round"/>
+<path id="Vector_4" d="M84 96V118M66 124H102" stroke="#37814C" stroke-width="6" stroke-linecap="round"/>
+<path id="Vector_5" d="M138 22H204C207.713 22 211.274 23.475 213.899 26.1005C216.525 28.726 218 32.287 218 36V64C218 67.713 216.525 71.274 213.899 73.8995C211.274 76.525 207.713 78 204 78H164L146 92V78H138C134.287 78 130.726 76.525 128.101 73.8995C125.475 71.274 124 67.713 124 64V36C124 32.287 125.475 28.726 128.101 26.1005C130.726 23.475 134.287 22 138 22Z" fill="#135685"/>
+<path id="Vector_6" d="M152 55C154.761 55 157 52.7614 157 50C157 47.2386 154.761 45 152 45C149.239 45 147 47.2386 147 50C147 52.7614 149.239 55 152 55Z" fill="white"/>
+<path id="Vector_7" d="M170 55C172.761 55 175 52.7614 175 50C175 47.2386 172.761 45 170 45C167.239 45 165 47.2386 165 50C165 52.7614 167.239 55 170 55Z" fill="white"/>
+<path id="Vector_8" d="M188 55C190.761 55 193 52.7614 193 50C193 47.2386 190.761 45 188 45C185.239 45 183 47.2386 183 50C183 52.7614 185.239 55 188 55Z" fill="white"/>
+<path id="Vector_9" d="M150 104C158 110 158 122 150 128M166 98C180 108 180 128 166 138" stroke="#B1005A" stroke-width="5" stroke-linecap="round"/>
+</g>
+<defs>
+<clipPath id="clip0_0_34">
+<rect width="234" height="140" fill="white"/>
+</clipPath>
+</defs>
+</svg>

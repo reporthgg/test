@@ -69,7 +69,7 @@
 }
 
 .field input,
-.field select {
+.field .selectControl {
   display: block;
   width: 100%;
   height: 44px;
@@ -86,39 +86,26 @@
   letter-spacing: -0.2px;
 }
 
+.field .selectControl {
+  display: flex;
+}
+
 .field input::placeholder {
   color: #7c8492;
   opacity: 1;
 }
 
-.field select {
-  appearance: none;
-  padding-right: 30px;
-}
-
-.selectWrap { position: relative; }
-
-.selectWrap::after {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  height: 14px;
-  content: url("/landing/forms/chevron-blue.svg");
-  transform: translateY(-50%) rotate(-90deg);
-  pointer-events: none;
-}
-
-.field select:invalid {
+.field .selectControl[data-placeholder] {
   color: #7c8492;
 }
 
 .field input:focus-visible,
-.field select:focus-visible {
+.field .selectControl:focus-visible {
   outline: 2px solid var(--landing-blue, #135685);
 }
 
 .field input[aria-invalid="true"],
-.field select[aria-invalid="true"] {
+.field .selectControl[aria-invalid="true"] {
   border-color: #b42318;
 }
 
@@ -234,28 +221,23 @@
 }
 
 .pink .field input,
-.pink .field select {
+.pink .field .selectControl {
   border: 0.5px solid rgb(229 231 235 / 65%);
   color: #fff;
   background-color: rgb(249 250 251 / 10%);
 }
 
 .pink .field input::placeholder,
-.pink .field select:invalid {
+.pink .field .selectControl[data-placeholder] {
   color: rgb(255 255 255 / 80%);
 }
 
-.pink .selectWrap::after {
-  content: url("/landing/forms/chevron-white.svg");
-}
-
-.pink .field option {
-  color: #374151;
-  background: #fff;
+.pink .selectControl {
+  --select-icon-color: white;
 }
 
 .pink .field input:focus-visible,
-.pink .field select:focus-visible,
+.pink .field .selectControl:focus-visible,
 .pink .checkbox input:focus-visible {
   outline-color: var(--landing-yellow, #eac35d);
 }
@@ -284,7 +266,7 @@
 }
 
 .pink .field input[aria-invalid="true"],
-.pink .field select[aria-invalid="true"] {
+.pink .field .selectControl[aria-invalid="true"] {
   border: 2px solid var(--landing-yellow, #eac35d);
 }
 

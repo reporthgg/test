@@ -1,0 +1,940 @@
+.included,
+.schedule,
+.care,
+.steps {
+  position: relative;
+  margin-bottom: -70px;
+}
+
+.included {
+  z-index: 7;
+  overflow: clip;
+  padding: 188px 0 251px;
+  background: var(--landing-pink);
+  color: white;
+}
+
+.includedHeader {
+  display: grid;
+  grid-template-columns: 399px minmax(0, 1fr);
+}
+
+.includedTitle {
+  grid-area: 1 / 1 / 2 / -1;
+  margin: 0 0 0 -11px;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 135px;
+  font-weight: 600;
+  line-height: 120px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.includedTitle > span {
+  display: block;
+  color: rgb(255 255 255 / 24%);
+}
+
+.includedTitle > strong {
+  display: block;
+  padding-left: 440px;
+  font-weight: inherit;
+  white-space: nowrap;
+}
+
+.includedIntro {
+  grid-area: 1 / 1;
+  align-self: end;
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.includedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 15px;
+  width: calc(100% + 36px);
+  margin: 97px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.includedCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 116px;
+  padding: 16px 24px;
+  border-radius: 28px;
+  background: white;
+}
+
+.includedIllustration {
+  display: block;
+  flex: 0 0 106px;
+  width: 106px;
+  height: 67px;
+}
+
+.includedIllustration img {
+  display: block;
+  width: 106px;
+  height: 67px;
+}
+
+.includedCard > div {
+  min-width: 0;
+}
+
+.includedCard h3,
+.carePoint h3 {
+  margin: 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.includedCard h3 {
+  color: var(--landing-blue);
+}
+
+.includedCard p,
+.carePoint p {
+  margin: 12px 0 0;
+  color: #525251;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.estimateButton {
+  position: absolute;
+  right: max(47px, calc((100% - 1346px) / 2));
+  bottom: 92px;
+  display: block;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  padding: 0;
+  border: 6px solid var(--landing-pink);
+  border-radius: 50%;
+  background: var(--landing-blue);
+  color: white;
+  transform: rotate(-7.2deg);
+  cursor: pointer;
+}
+
+.estimateButton > span {
+  position: absolute;
+  top: 33px;
+  left: 0;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+}
+
+.estimateButton > span > span {
+  display: block;
+}
+
+.estimateButton > img {
+  position: absolute;
+  top: 99.23px;
+  left: -15.47px;
+}
+
+.estimateButton:hover,
+.planButton:hover {
+  filter: brightness(1.08);
+}
+
+.beyondSticker {
+  position: absolute;
+  bottom: 17px;
+  left: -15px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  transform: rotate(12.34deg);
+  pointer-events: none;
+}
+
+.beyondSticker img {
+  position: absolute;
+  top: -23.74%;
+  left: -23.92%;
+  width: 145.51%;
+  height: 149.95%;
+  max-width: none;
+}
+
+.includedMobileSticker,
+.mobileAsset,
+.mobileTime,
+.photoMobile {
+  display: none;
+}
+
+.desktopAsset {
+  display: block;
+}
+
+.schedule {
+  z-index: 6;
+  padding-top: 120px;
+  background: var(--landing-pink);
+  color: white;
+}
+
+.scheduleTitle {
+  padding: 0 24px;
+  text-align: center;
+}
+
+.scheduleList {
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scheduleRow {
+  position: relative;
+}
+
+.scheduleInner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 21px;
+  min-height: 178px;
+  padding-block: 60px;
+}
+
+.scheduleIcon {
+  position: relative;
+  left: -17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+}
+
+.scheduleCopy {
+  min-width: 0;
+}
+
+.scheduleHeading h3 {
+  margin: 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.scheduleCopy > p {
+  max-width: 485px;
+  margin: 12px 0 0;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  opacity: 0.8;
+}
+
+.desktopTime {
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+.scheduleNotch {
+  position: absolute;
+  top: 0;
+  left: 16px;
+}
+
+.breakfast {
+  background: var(--landing-pink);
+}
+
+.english {
+  background: #f46899;
+}
+
+.lunch {
+  background: var(--landing-blue);
+}
+
+.activity {
+  background: #548655;
+}
+
+.evening {
+  background: #e9c158;
+}
+
+.bedtime {
+  background: white;
+  color: #2e2d2c;
+}
+
+.bedtime .desktopTime,
+.bedtime .mobileTime {
+  color: rgb(0 0 0 / 80%);
+}
+
+.care {
+  z-index: 5;
+  padding: 92px 0 120px;
+  background: white;
+}
+
+.careTitle {
+  max-width: 700px;
+  color: var(--landing-blue);
+  font-size: 62px;
+  line-height: 74px;
+  letter-spacing: -0.05em;
+}
+
+.careTitle > span {
+  display: block;
+}
+
+.careGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 32px;
+  margin: 52px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carePoint {
+  min-width: 0;
+}
+
+.careNumber {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: #6f6f6e;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+}
+
+.carePoint h3 {
+  color: #2e2d2c;
+}
+
+.carePoint p {
+  margin-top: 8px;
+}
+
+.carePoint:last-child p {
+  width: min(433px, calc(100% + 41px));
+}
+
+.carePhotos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  height: 641px;
+  margin-top: 60px;
+}
+
+.carePhoto {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.carePhoto img {
+  object-fit: cover;
+}
+
+.carePhoto .photoDesktop {
+  object-fit: fill;
+}
+
+.carePhoto:first-child .photoDesktop {
+  height: 118.51% !important;
+  object-position: center top;
+}
+
+.carePhoto:nth-child(2) .photoDesktop {
+  top: -0.34% !important;
+  left: -0.07% !important;
+  width: 100.14% !important;
+  height: 100.34% !important;
+}
+
+.carePhoto:nth-child(3) .photoDesktop {
+  top: -0.5% !important;
+  left: -0.3% !important;
+  width: 100.3% !important;
+  height: 100.5% !important;
+}
+
+.steps {
+  z-index: 4;
+  overflow: clip;
+  padding: 151px 0 120px;
+  border-radius: 0 0 50px 50px;
+  background: white;
+}
+
+.stepsPanel {
+  padding: 64px 56px 56px;
+  border-radius: 40px;
+  background: #e7eff5;
+}
+
+.stepsTitle {
+  color: var(--landing-blue);
+  font-size: 64px;
+  line-height: 74px;
+  letter-spacing: -0.05em;
+}
+
+.stepsTitle > span,
+.stepsTitle > strong {
+  display: block;
+}
+
+.stepsTitle > strong {
+  color: var(--landing-pink);
+  font-weight: inherit;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stepCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+  min-height: 152px;
+  padding: 36px 30px;
+  border-radius: 28px;
+  background: var(--landing-blue);
+  color: white;
+}
+
+.stepNumber {
+  flex: none;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 56.121px;
+  letter-spacing: -0.04em;
+  opacity: 0.6;
+}
+
+.stepCard > div {
+  min-width: 0;
+}
+
+.stepCard h3 {
+  margin: 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.stepCard p {
+  margin: 12px 0 0;
+  color: rgb(255 255 255 / 85%);
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+.planCell {
+  min-width: 0;
+}
+
+.planButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 152px;
+  height: 100%;
+  padding: 16px 32px;
+  border: 0;
+  border-radius: 28px;
+  background: var(--landing-pink);
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.04em;
+  cursor: pointer;
+}
+
+.planButton img {
+  flex: none;
+  transform: scaleY(-1);
+}
+
+.keysSticker {
+  position: absolute;
+  right: -88px;
+  bottom: -4px;
+  width: 275.107px;
+  height: 275.107px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .includedTitle {
+    font-size: clamp(78px, 9.4vw, 113px);
+    line-height: 1;
+  }
+
+  .includedTitle > strong {
+    padding-left: 34%;
+  }
+
+  .includedHeader {
+    grid-template-columns: minmax(250px, 32%) minmax(0, 1fr);
+  }
+
+  .includedIntro {
+    margin-bottom: 0;
+    padding-right: 16px;
+    font-size: 16px;
+  }
+
+  .includedGrid {
+    width: 100%;
+    margin-top: 72px;
+  }
+
+  .includedCard {
+    padding-inline: 16px;
+  }
+
+  .includedIllustration {
+    flex-basis: 80px;
+    width: 80px;
+    height: auto;
+  }
+
+  .includedIllustration img {
+    width: 80px;
+    height: auto;
+  }
+
+  .scheduleTitle {
+    font-size: 54px;
+  }
+
+  .scheduleInner {
+    grid-template-columns: 80px minmax(0, 1fr) auto;
+    gap: 16px;
+  }
+
+  .scheduleHeading h3 {
+    font-size: 27px;
+    line-height: 30px;
+  }
+
+  .scheduleCopy > p {
+    padding-right: 16px;
+    font-size: 18px;
+  }
+
+  .desktopTime {
+    font-size: 36px;
+  }
+
+  .careGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .carePoint:last-child p {
+    width: 100%;
+  }
+
+  .carePhotos {
+    height: 520px;
+  }
+
+  .stepsPanel {
+    padding-inline: 32px;
+  }
+
+  .stepsTitle {
+    font-size: 54px;
+  }
+
+  .stepCard {
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .stepCard h3 {
+    font-size: 27px;
+    line-height: 32px;
+  }
+
+  .stepCard p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .planButton {
+    padding-inline: 20px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .included,
+  .schedule,
+  .care,
+  .steps {
+    margin-bottom: -36px;
+  }
+
+  .included {
+    padding: 94px 0 213px;
+  }
+
+  .includedHeader {
+    display: block;
+  }
+
+  .includedTitle {
+    margin: 0;
+    font-size: clamp(37px, 12vw, 64px);
+    line-height: 45px;
+  }
+
+  .includedTitle > span {
+    color: rgb(255 255 255 / 50%);
+  }
+
+  .includedTitle > strong {
+    padding: 0;
+    text-align: right;
+  }
+
+  .includedIntro {
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .includedGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-top: 39px;
+  }
+
+  .includedCard {
+    min-height: 100px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .includedIllustration {
+    flex-basis: 68px;
+    width: 68px;
+    height: 42.981px;
+  }
+
+  .includedIllustration img {
+    width: 68px;
+    height: 42.981px;
+  }
+
+  .includedCard h3 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .includedCard p {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .estimateButton {
+    right: 20.4px;
+    bottom: 54.4px;
+    width: 180px;
+    height: 180px;
+  }
+
+  .estimateButton > img {
+    top: 89.23px;
+    left: -25.47px;
+  }
+
+  .beyondSticker,
+  .desktopAsset,
+  .desktopTime,
+  .photoDesktop {
+    display: none;
+  }
+
+  .mobileAsset,
+  .photoMobile {
+    display: block;
+  }
+
+  .includedMobileSticker {
+    position: absolute;
+    top: 51.8px;
+    right: -52.8px;
+    display: block;
+    width: 130px;
+    height: 130px;
+    transform: rotate(-12.78deg);
+    pointer-events: none;
+  }
+
+  .schedule {
+    padding-top: 62px;
+  }
+
+  .scheduleTitle {
+    font-size: 32px;
+    line-height: 38px;
+  }
+
+  .scheduleTitle > span {
+    display: block;
+  }
+
+  .scheduleInner {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 17px;
+    min-height: 128px;
+    padding-block: 24px;
+  }
+
+  .english .scheduleInner,
+  .activity .scheduleInner,
+  .bedtime .scheduleInner {
+    min-height: 152px;
+  }
+
+  .scheduleIcon {
+    left: 1px;
+    height: 40px;
+  }
+
+  .bedtime .scheduleIcon {
+    left: 4px;
+  }
+
+  .scheduleNotch {
+    left: 7px;
+  }
+
+  .scheduleHeading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+  }
+
+  .scheduleHeading h3 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .mobileTime {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Futura PT", "Manrope", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+
+  .timeDivider {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 18px;
+  }
+
+  .timeDivider img {
+    position: absolute;
+    top: 8px;
+    left: -9px;
+    transform: rotate(-90deg);
+  }
+
+  .scheduleCopy > p {
+    max-width: none;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .care {
+    padding: 72px 0;
+  }
+
+  .careTitle {
+    font-size: 35px;
+    line-height: 38px;
+    letter-spacing: -0.04em;
+  }
+
+  .careGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .careNumber {
+    margin-bottom: 6px;
+  }
+
+  .carePoint h3 {
+    font-size: 25px;
+    line-height: 26px;
+  }
+
+  .carePoint:nth-child(4) h3 {
+    max-width: 290px;
+  }
+
+  .carePoint p {
+    margin-top: 6px;
+  }
+
+  .carePoint:last-child p {
+    width: 100%;
+  }
+
+  .carePhotos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    height: 356px;
+    margin-top: 28px;
+  }
+
+  .carePhoto {
+    border-radius: 20px;
+  }
+
+  .carePhoto:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .carePhoto:nth-child(3) .photoMobile {
+    top: -48.58% !important;
+    height: 171.81% !important;
+    object-fit: fill;
+  }
+
+  .steps {
+    padding: 104px 0 60px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .stepsPanel {
+    padding: 24px 12px;
+    border-radius: 24px;
+  }
+
+  .stepsTitle {
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .stepsGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .stepCard {
+    gap: 12px;
+    min-height: 115px;
+    padding: 18px 12px 18px 14px;
+    border-radius: 20px;
+  }
+
+  .stepCard:nth-child(3),
+  .stepCard:nth-child(4) {
+    min-height: 114px;
+  }
+
+  .stepNumber {
+    font-size: 40px;
+  }
+
+  .stepCard h3 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .stepCard p {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .planButton {
+    min-height: 62px;
+    padding: 16px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .keysSticker {
+    top: 9px;
+    right: -44px;
+    bottom: auto;
+    width: 172.686px;
+    height: 172.686px;
+  }
+}

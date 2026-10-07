@@ -1,0 +1,46 @@
+.section { background: #fff; color: #135685; padding-bottom: 120px; }
+.layout { display: grid; grid-template-columns: minmax(0, 540fr) minmax(0, 596fr); grid-template-rows: auto auto; column-gap: 64px; row-gap: 28px; align-items: start; }
+.content { grid-column: 1; grid-row: 1 / span 2; }
+.description { margin: 24px 0; font: 400 20px/32px "Manrope", sans-serif; color: #525251; letter-spacing: -.01em; }
+.points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; padding: 0; margin: 0; list-style: none; }
+.points li { min-width: 0; }
+.pointNumber { display: flex; align-items: center; gap: 10px; color: #6f6f6e; font: 700 14px/16px "Manrope", sans-serif; }
+.pointNumber img { display: block; }
+.points h3 { margin: 8px 0; font: 600 22px/22px "Futura PT", sans-serif; letter-spacing: -.04em; text-transform: uppercase; color: #2e2d2c; overflow-wrap: anywhere; }
+.points p { margin: 0; color: #525251; font: 400 16px/24px "Manrope", sans-serif; letter-spacing: -.01em; }
+.formats { grid-column: 2; grid-row: 2; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; padding: 0; margin: 0; list-style: none; }
+.formats li { display: flex; gap: 10px; align-items: center; color: #2e2d2c; font: 500 16px/22px "Manrope", sans-serif; letter-spacing: -.01em; }
+.formats li > span { display: flex; padding: 7.2px; border-radius: 50%; background: #e5ede5; flex: 0 0 auto; }
+.formats img { display: block; }
+.photos { grid-column: 2; grid-row: 1; width: 100%; height: 722px; display: grid; grid-template-columns: minmax(0, 372fr) minmax(0, 200fr); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.students, .teacher, .child { position: relative; border-radius: 28px; overflow: hidden; isolation: isolate; }
+.students { grid-row: 1 / span 2; background: rgb(246 227 237 / 80%); }
+.studentsPhoto { position: absolute; height: 100%; width: 129.36%; max-width: none; left: -10.86%; top: 0; mix-blend-mode: darken; }
+.retouch { position: absolute; width: 56px; height: 48px; left: 40.5914%; top: 81.4404%; object-fit: cover; }
+.teacher { background: #cdddf5; }
+.teacher img { position: absolute; height: 119.82%; width: 117.54%; max-width: none; left: -17.49%; top: -.83%; mix-blend-mode: darken; }
+.child { background: #e5ede5; }
+.child img { position: absolute; height: 133.31%; width: 348.91%; max-width: none; left: -45.05%; top: -27.75%; mix-blend-mode: multiply; }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .layout { gap: 28px; }
+  .content :global(.landing-title) { font-size: clamp(38px, 4.17vw, 50px); line-height: 1.08; }
+  .points { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .photos { position: sticky; top: 110px; height: 650px; grid-template-columns: minmax(0, 1fr) minmax(0, .65fr); gap: 12px; }
+}
+
+@media (max-width: 767px) {
+  .section { padding: 72px 0; }
+  .layout { display: flex; flex-direction: column; gap: 0; }
+  .description { margin: 12px 0 28px; font-size: 16px; line-height: 23px; }
+  .points { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .points h3 { margin: 6px 0; font-size: 25px; line-height: 26px; }
+  .formats { flex-direction: column; align-items: flex-start; gap: 12px; margin: 24px 0 28px; }
+  .formats li { font-size: 14px; line-height: 20px; }
+  .photos { height: 356px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .students, .teacher, .child { border-radius: 20px; }
+  .studentsPhoto { height: 109.37%; width: 150%; left: -25%; top: -9.3%; }
+  .retouch { width: 32.576px; height: 27.922px; left: 34.6821%; top: 79.559%; }
+  .teacher img { height: 201.75%; width: 112.77%; left: -12.77%; top: -13.71%; mix-blend-mode: normal; }
+  .child img { height: 146.06%; width: 217.8%; left: -9.03%; top: -23.25%; mix-blend-mode: normal; }
+}

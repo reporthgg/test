@@ -1,108 +1,83 @@
 "use client";
 
 import { useState } from "react";
-import Icon from "@/components/Icon";
-import Reveal from "@/components/Reveal";
+import type { ReactElement } from "react";
+import type { Locale } from "@/i18n/config";
+import { LeadButton } from "@/components/landing/LandingForms";
 import { useLocale } from "@/i18n/useLocale";
 import { getSchoolDict } from "@/i18n/pages/school";
+import { schoolProgramArtwork, schoolProgramsContent } from "./school-programs-content";
+import styles from "./SchoolPrograms.module.css";
 
-export default function SchoolPrograms() {
-  const locale = useLocale();
-  const t = getSchoolDict(locale);
-  const courses = t.courses;
-  const filters = t.filters;
-
+export default function SchoolPrograms({ locale }: { locale?: Locale }): ReactElement {
+  const currentLocale = useLocale();
+  const resolvedLocale = locale ?? currentLocale;
+  const existing = getSchoolDict(resolvedLocale);
+  const t = schoolProgramsContent[resolvedLocale];
   const [active, setActive] = useState<string>("all");
-
-  const shown = courses.filter((c) => active === "all" || c.cat === active);
+  const programs = schoolProgramArtwork.map((artwork, index) => {
+    const course = existing.courses[artwork.courseIndex];
+    return {
+      ...artwork,
+      name: course.title,
+      category: course.cat,
+      badge: course.rows[artwork.badgeRow][1],
+      description: t.descriptions[index],
+    };
+  });
+  const shown = programs.filter((program) => active === "all" || program.category === active);
 
   return (
-    <section
-      id="programs-sec"
-      className="py-[120px] bg-surface-container-low border-t border-border-subtle"
-    >
-      <div className="max-w-container-max mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal>
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="tag-pill">
-            {t.programs.eyebrow}
-          </span>
-          <h2 className="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6">
-            {t.programs.title}
+    <section id="programs-sec" className={styles.section} aria-labelledby="school-programs-title">
+      <div className="landing-container">
+        <header className={styles.header}>
+          <h2 id="school-programs-title" className="landing-title">
+            {t.title[0]} <em>{t.title[1]}</em>
           </h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant">
-            {t.programs.text}
-          </p>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {filters.map((f) => (
-            <button
-              key={f.key}
-              onClick={() => setActive(f.key)}
-              className={`px-6 py-2 rounded-full font-button text-sm border-2 transition-colors ${
-                active === f.key
-                  ? "border-primary bg-primary text-white"
-                  : "border-primary/20 text-primary hover:border-primary"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {shown.map((c) => (
-            <div
-              key={c.title}
-              className={`card-spotlight card-ring rounded-2xl p-8 flex flex-col ${
-                c.highlight
-                  ? "bg-secondary/5 border border-secondary/20 shadow-premium hover-lift"
-                  : "card-premium"
-              }`}
-            >
-              <div className="mb-6">
-                <span
-                  className={`inline-block px-3 py-1 rounded-md font-label-caps text-[11px] uppercase mb-4 ${
-                    c.highlight
-                      ? "bg-secondary text-white"
-                      : "bg-surface-container-high text-on-surface-variant"
-                  }`}
-                >
-                  {c.tag}
-                </span>
-                <h3 className="font-headline-md text-[24px] text-primary mb-3">
-                  {c.title}
-                </h3>
-                <p className="font-body-md text-on-surface-variant">{c.desc}</p>
-              </div>
-              <div className="space-y-3 mb-8 flex-1">
-                {c.rows.map(([k, v]) => (
-                  <div
-                    key={k}
-                    className={`flex justify-between border-b pb-2 ${
-                      c.highlight ? "border-secondary/10" : "border-border-subtle"
-                    }`}
-                  >
-                    <span className="text-sm text-on-surface-variant">{k}</span>
-                    <b className="text-sm text-primary">{v}</b>
-                  </div>
-                ))}
-              </div>
-              <a
-                className="link-underline inline-flex w-fit items-center text-secondary font-button group hover:text-[#8f0048] transition-colors"
-                href="#consult"
+          <div className={styles.filters} role="group" aria-label={t.filterLabel}>
+            {existing.filters.map((filter) => (
+              <button
+                type="button"
+                key={filter.key}
+                aria-pressed={active === filter.key}
+                aria-controls="school-programs-grid"
+                onClick={() => setActive(filter.key)}
               >
-                {t.programs.signUp}
-                <Icon
-                  name="arrow_forward"
-                  className="ml-1 group-hover:translate-x-1 transition-transform"
-                />
-              </a>
-            </div>
+                {filter.label}
+              </button>
+            ))}
+          </div>
+        </header>
+        <p className={styles.screenReader} role="status">{t.countLabel} {shown.length}</p>
+        <div className={styles.grid} id="school-programs-grid">
+          {shown.map((program) => (
+            <article key={program.id} className={`${styles.card} ${styles[program.tone]}`}>
+              <h3>{program.name}</h3>
+              <p className={styles.description}>{program.description}</p>
+              <div className={styles.illustration}>
+                <picture data-program={program.id}>
+                  <source media="(max-width: 767px)" srcSet={`/school/program-${program.id}-mobile.png`} />
+                  <img
+                    src={`/school/program-${program.id}.${program.extension}`}
+                    alt=""
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
+              <div className={styles.meta}>
+                <span className={styles.badge}>{program.badge}</span>
+                <p className={styles.price}>{t.price}</p>
+              </div>
+              <LeadButton
+                kind="trial"
+                course={program.name}
+                className={styles.trial}
+              >
+                {t.trial}
+              </LeadButton>
+            </article>
           ))}
         </div>
-        </Reveal>
       </div>
     </section>
   );

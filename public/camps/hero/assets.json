@@ -1,0 +1,40 @@
+{
+  "figmaFile": "42okfRbJjXQGNEN6EDGh7X",
+  "desktopSlides": ["325:598", "367:3564", "327:1102"],
+  "mobileSlides": ["401:967", "409:2721", "409:2803"],
+  "assets": {
+    "brand-mark.png": "327:995",
+    "campus-disneyland.png": "327:957",
+    "campus-shanghai.png": "327:981",
+    "desktop-badge.svg": "327:982",
+    "desktop-landscape-mask.svg": "327:958",
+    "desktop-portrait-mask.svg": "327:983",
+    "desktop-summer-landscape-mask.svg": "327:1140",
+    "mobile-campus-badge.svg": "401:1270",
+    "mobile-campus-disneyland.png": "401:1269",
+    "mobile-campus-landscape-mask.svg": "401:1246",
+    "mobile-campus-portrait-mask.svg": "401:1271",
+    "mobile-campus-shanghai.png": "401:1245",
+    "mobile-chevron-left.svg": "401:1292",
+    "mobile-chevron-right.svg": "401:1295",
+    "mobile-green-hashtag.svg": "409:2799",
+    "mobile-summer-badge.svg": "409:2864",
+    "mobile-summer-landscape-mask.svg": "409:2840",
+    "mobile-summer-portrait-mask.svg": "409:2865",
+    "mobile-winter-badge.svg": "409:2779",
+    "mobile-winter-landscape-mask.svg": "409:2755",
+    "mobile-winter-london.png": "409:2754",
+    "mobile-winter-portrait-mask.svg": "409:2780",
+    "summer-new-york.png": "327:1139",
+    "summer-student.png": "327:1123",
+    "winter-london.png": "367:3585",
+    "winter-new-york.jpg": "367:3601"
+  },
+  "reusedAssets": {
+    "/landing/hero/yellow-line.svg": "325:599",
+    "/landing/hero/mobile-yellow-line.svg": "401:1285",
+    "/landing/hero/hashtag.svg": "367:3625",
+    "/landing/hero/chevron-left.svg": "332:1582",
+    "/landing/hero/chevron-right.svg": "332:1585"
+  }
+}

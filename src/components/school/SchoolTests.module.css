@@ -1,0 +1,75 @@
+.section { position: relative; padding-bottom: 120px; background: #fff; color: #135685; scroll-margin-top: 100px; }
+.sticker { position: absolute; top: -80.8px; left: calc(50% - 813px); width: 275.107px; height: 275.107px; transform: rotate(-12deg); transform-origin: top left; pointer-events: none; }
+.panel { padding: 64px 56px 56px; background: #e7eff5; border-radius: 40px; }
+.header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 380px); align-items: end; gap: 28px; margin-bottom: 44px; }
+.header h2 { max-width: 670px; }
+.header p { margin: 0; font: 400 20px/32px "Manrope", sans-serif; color: #525251; letter-spacing: -.01em; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.english, .ielts { display: flex; flex-direction: column; gap: 20px; min-width: 0; padding: 36px; border-radius: 28px; }
+.english { background: #fff; }
+.ielts { position: relative; isolation: isolate; background: #135685; color: #fff; overflow: hidden; }
+.cardTop { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.free, .examBadge { padding: 6px 14px 6px 12px; border-radius: 100px; font: 700 14px/16px "Manrope", sans-serif; }
+.free { color: #548655; background: #e5ede5; }
+.examBadge { background: rgb(255 255 255 / 14%); }
+.arrow, .arrowLight { width: 56px; height: 56px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; }
+.arrow { background: #135685; }
+.arrowLight { background: #fff; }
+.arrow img, .arrowLight img { display: block; }
+.english h3, .ielts h3 { margin: 0; font: 600 40px/40px "Futura PT", sans-serif; letter-spacing: -.04em; text-transform: uppercase; overflow-wrap: anywhere; }
+.description { margin: 0; font: 400 18px/28px "Manrope", sans-serif; color: #525251; }
+.ielts .description { color: rgb(255 255 255 / 85%); }
+.choose { margin: 0; font: 400 14px/20px "Manrope", sans-serif; color: #6f6f6e; }
+.variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: 10px; }
+.variant { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; position: relative; min-width: 0; border-radius: 18px; padding: 16px 16px 46px; color: #135685; background: #f2f6f9; text-decoration: none; transition: background-color .15s; }
+.variant:hover { background: #e7eff5; }
+.variant strong { font: 600 22px/22px "Futura PT", sans-serif; letter-spacing: -.04em; text-transform: uppercase; overflow-wrap: anywhere; }
+.variantTitle { font: 500 12px/16px "Manrope", sans-serif; overflow-wrap: anywhere; }
+.questionCount { font: 400 14px/20px "Manrope", sans-serif; color: #525251; }
+.duration { position: absolute; bottom: 0; right: 0; max-width: 100%; padding: 6px 10px; border-radius: 12px 0 18px; color: #fff; background: #135685; font: 700 14px/16px "Manrope", sans-serif; text-align: center; }
+.general { color: #fff; background: #135685; }
+.general:hover { background: #103e60; }
+.general .questionCount { color: rgb(255 255 255 / 85%); }
+.general .duration { background: #fff; color: #135685; }
+.examMeta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+.examQuestions { border: 1px solid rgb(255 255 255 / 35%); padding: 9px 14px; border-radius: 100px; font: 500 16px/22px "Manrope", sans-serif; }
+.examDuration { padding: 10px 18px; border-radius: 100px; background: #fff; color: #135685; font: 700 16px/22px "Manrope", sans-serif; }
+.note { display: flex; gap: 12px; align-items: center; margin: auto 0 0; padding: 14px 16px; border-radius: 16px; background: rgb(255 255 255 / 10%); font: 400 15px/21px "Manrope", sans-serif; }
+.note img { display: block; flex-shrink: 0; }
+.scoreDecoration { position: absolute; z-index: -1; right: -20px; bottom: 18px; font: 600 200px/1 "Futura PT", sans-serif; letter-spacing: -.04em; color: rgb(255 255 255 / 6%); pointer-events: none; }
+.allTests { display: inline-block; margin-top: 24px; color: #135685; text-underline-offset: 4px; font: 700 16px/24px "Manrope", sans-serif; }
+.empty { display: grid; gap: 20px; justify-items: start; }
+.empty p { margin: 0; color: #525251; font: 400 16px/24px "Manrope", sans-serif; }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .panel { padding: 40px 28px; }
+  .header { grid-template-columns: 1fr; }
+  .english, .ielts { padding: 24px; }
+  .variants { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  .section { padding: 72px 0 0; }
+  .sticker { top: -8.36px; left: calc(100% - 168px); width: 213.594px; height: 213.594px; }
+  .panel { padding: 32px 16px 20px; border-radius: 24px; }
+  .header { grid-template-columns: minmax(0, 1fr); gap: 0; margin-bottom: 24px; }
+  .header p { font-size: 16px; line-height: 23px; }
+  .cards { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .english, .ielts { padding: 20px; border-radius: 24px; gap: 12px; }
+  .free, .examBadge { font-size: 12px; line-height: 14px; }
+  .arrow, .arrowLight { width: 44px; height: 44px; }
+  .english h3, .ielts h3 { font-size: 25px; line-height: 26px; }
+  .description { font-size: 16px; line-height: 22px; }
+  .choose { font-size: 12px; line-height: 16px; }
+  .variants { grid-template-columns: repeat(auto-fit, minmax(min(100%, 82px), 1fr)); gap: 8px; }
+  .variant { padding: 12px 10px 48px; gap: 4px; }
+  .variant strong { font-size: 16px; line-height: 18px; }
+  .variantTitle { font-size: 11px; line-height: 15px; }
+  .questionCount { font-size: 12px; line-height: 16px; }
+  .duration { padding: 4px 8px; font-size: 12px; line-height: 14px; }
+  .ielts { padding-bottom: 56px; }
+  .examQuestions { font-size: 14px; line-height: 20px; }
+  .examDuration { position: absolute; right: 0; bottom: 0; border-radius: 24px 0 24px; font-size: 14px; line-height: 20px; }
+  .note { margin-top: 0; font-size: 12px; line-height: 16px; }
+  .scoreDecoration { bottom: 110px; font-size: 160px; }
+}

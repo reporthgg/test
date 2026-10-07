@@ -13,6 +13,7 @@ import mobileEnglishStudents from "../../../public/landing/hero/mobile-english-s
 import mobileAbroadUniversity from "../../../public/landing/hero/mobile-abroad-university.png";
 import mobileAbroadStudents from "../../../public/landing/hero/mobile-abroad-students.png";
 import styles from "./LandingHero.module.css";
+import motionStyles from "./HeroMotion.module.css";
 
 type Photo = {
   image: StaticImageData;
@@ -56,7 +57,13 @@ const mobilePhotos: readonly (readonly Photo[])[] = [
   ],
 ];
 
-function FramedPhoto({ photo, mobile }: { photo: Photo; mobile: boolean }): ReactElement {
+const motionNodeIds = [
+  ["418:87", "418:111"],
+  ["264:220", "184:4036"],
+  ["264:278", "264:302"],
+] as const;
+
+function FramedPhoto({ photo, mobile, current, index }: { photo: Photo; mobile: boolean; current: number; index: number }): ReactElement {
   const angle = photo.angle * Math.PI / 180;
   const dx = photo.renderX - photo.x;
   const dy = photo.renderY - photo.y;
@@ -73,20 +80,35 @@ function FramedPhoto({ photo, mobile }: { photo: Photo; mobile: boolean }): Reac
       : undefined,
   };
   return (
-    <div className={`${styles.photoFrame} ${mobile ? styles.mobilePhoto : styles.desktopPhoto}`} style={frameStyle}>
-      <Image
-        src={photo.image}
-        alt=""
-        sizes={`${photo.image.width}px`}
-        className={styles.photoImage}
-        style={{
-          left: dx * Math.cos(angle) + dy * Math.sin(angle),
-          top: -dx * Math.sin(angle) + dy * Math.cos(angle),
-          width: photo.image.width,
-          height: photo.image.height,
-          transform: `rotate(${-photo.angle}deg)`,
-        }}
-      />
+    <div
+      className={`${motionStyles.photograph} ${mobile ? styles.mobilePhoto : styles.desktopPhoto}`}
+      data-slide={current}
+      data-photo={index}
+      data-motion-wrapper-for={motionNodeIds[current][index]}
+      style={{
+        left: frameStyle.left,
+        top: frameStyle.top,
+        width: photo.width,
+        height: photo.height,
+        // Scale around the rotated frame's center without changing its clipping coordinates.
+        transformOrigin: `${(photo.width * Math.cos(angle) - photo.height * Math.sin(angle)) / 2}px ${(photo.width * Math.sin(angle) + photo.height * Math.cos(angle)) / 2}px`,
+      }}
+    >
+      <div className={`${styles.photoFrame} ${mobile ? styles.mobilePhoto : styles.desktopPhoto}`} style={{ ...frameStyle, left: 0, top: 0 }}>
+        <Image
+          src={photo.image}
+          alt=""
+          sizes={`${photo.image.width}px`}
+          className={styles.photoImage}
+          style={{
+            left: dx * Math.cos(angle) + dy * Math.sin(angle),
+            top: -dx * Math.sin(angle) + dy * Math.cos(angle),
+            width: photo.image.width,
+            height: photo.image.height,
+            transform: `rotate(${-photo.angle}deg)`,
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -94,8 +116,8 @@ function FramedPhoto({ photo, mobile }: { photo: Photo; mobile: boolean }): Reac
 export default function HeroPhotographs({ current }: { current: number }): ReactElement {
   return (
     <div className={styles.photographs} aria-hidden="true">
-      {desktopPhotos[current].map((photo) => <FramedPhoto key={photo.image.src} photo={photo} mobile={false} />)}
-      {mobilePhotos[current].map((photo) => <FramedPhoto key={photo.image.src} photo={photo} mobile />)}
+      {desktopPhotos[current].map((photo, index) => <FramedPhoto key={photo.image.src} photo={photo} mobile={false} current={current} index={index} />)}
+      {mobilePhotos[current].map((photo, index) => <FramedPhoto key={photo.image.src} photo={photo} mobile current={current} index={index} />)}
     </div>
   );
 }

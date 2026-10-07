@@ -1,0 +1,100 @@
+.contacts { background: var(--landing-pink, #b1005a); }
+.offices { overflow: clip; border-radius: 0 0 50px 50px; background: var(--landing-blue, #135685); }
+
+/* Keep the shared offices and their site.ts addresses; expose its city picker on desktop too. */
+.offices fieldset {
+  display: flex;
+  width: min(100%, 358px);
+  height: 40px;
+  padding: 2px;
+  margin: 0 auto 20px;
+  border: 0.6px solid #dadada;
+  border-radius: 300px;
+}
+
+.offices fieldset label { position: relative; flex: 1; min-width: 0; cursor: pointer; }
+.offices fieldset input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+.offices fieldset span { display: grid; place-items: center; height: 34px; border-radius: 300px; font-size: 12px; line-height: 16px; font-weight: 800; }
+.offices fieldset input:checked + span { color: var(--landing-blue, #135685); background: white; }
+.offices fieldset input:focus-visible + span { outline: 3px solid var(--landing-yellow, #eac35d); outline-offset: 3px; }
+.offices:has(input[value="astana"]:checked) article[data-city="almaty"],
+.offices:has(input[value="almaty"]:checked) article[data-city="astana"] { display: none; }
+
+.faq {
+  position: relative;
+  overflow: clip;
+  padding: 70px 0 96px;
+  color: white;
+  background: var(--landing-blue, #135685);
+}
+
+.layout { position: relative; display: grid; grid-template-columns: minmax(0, 445fr) minmax(0, 715fr); align-items: start; gap: 80px; }
+.header { position: relative; }
+.title { max-width: 340px; padding-right: 15px; overflow-wrap: anywhere; }
+.title > span, .title > em { display: block; }
+.title em { color: inherit; }
+.hashtag { position: absolute; top: 19px; right: 7px; }
+.hashtagMobile { display: none; }
+.line { position: absolute; top: 530.57px; left: calc(50% - 770px); max-width: none; transform: rotate(3deg); pointer-events: none; }
+.questions { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.question { border-radius: 30px; color: var(--landing-blue, #135685); background: #f0ebec; }
+
+.question summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 104px;
+  padding: 32px 32px 32px 40px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
+
+.question summary::-webkit-details-marker { display: none; }
+.question summary > span:first-child { min-width: 0; }
+.icons { display: grid; flex: 0 0 40.004px; place-items: center; width: 40.004px; height: 40.004px; }
+.closeDesktop, .openMobile, .closeMobile { display: none; }
+.question[open] summary { align-items: flex-start; min-height: 0; padding-top: 36px; padding-bottom: 0; }
+.question[open] .icons { flex-basis: 56.574px; width: 56.574px; height: 56.574px; }
+.question[open] .openDesktop { display: none; }
+.question[open] .closeDesktop { display: block; transform: rotate(45deg); }
+.answer { padding: 12px 112.574px 36px 40px; font-size: 20px; font-weight: 300; line-height: 30px; letter-spacing: -0.02em; }
+.trial { display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding-top: 6px; margin-top: 12px; background: transparent; color: var(--landing-pink, #b1005a); font-size: 18px; font-weight: 700; line-height: 24px; letter-spacing: -0.02em; cursor: pointer; }
+.trial:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 35px; }
+  .faq .title { font-size: clamp(38px, 4.17vw, 50px); line-height: 1.06; }
+  .hashtag { top: 175px; right: 10px; }
+  .question summary { padding: 26px; font-size: 19px; line-height: 27px; }
+  .question[open] summary { padding: 26px 26px 0; }
+  .answer { padding: 12px 106.574px 26px 26px; font-size: 18px; line-height: 27px; }
+}
+
+@media (max-width: 767px) {
+  .offices { border-radius: 0 0 30px 30px; }
+  .offices fieldset { width: 100%; margin-bottom: 16px; }
+  .faq { padding: 72px 0 50px; }
+  .layout { display: block; }
+  .header { margin-bottom: 28px; padding-right: 65px; }
+  .faq .title { max-width: none; padding-right: 0; font-size: 35px; line-height: 38px; overflow-wrap: anywhere; }
+  .hashtag { display: none; }
+  .hashtagMobile { display: block; position: absolute; top: 4px; right: 8px; }
+  .line { top: 580px; left: -340px; }
+  .questions { gap: 8px; }
+  .question { border-radius: 14px; }
+  .question summary { min-height: 62px; padding: 20px 16px 20px 20px; gap: 12px; font-size: 16px; line-height: 22px; }
+  .icons { flex-basis: 20.002px; width: 20.002px; height: 20.002px; }
+  .openDesktop, .question[open] .closeDesktop { display: none; }
+  .openMobile { display: block; }
+  .question[open] summary { padding: 20px 16px 0 20px; }
+  .question[open] .icons { flex-basis: 28.287px; width: 28.287px; height: 28.287px; }
+  .question[open] .openMobile { display: none; }
+  .question[open] .closeMobile { display: block; transform: rotate(45deg); }
+  .answer { padding: 10px 56.287px 20px 20px; font-size: 16px; line-height: 22px; }
+  .trial { min-height: 28px; margin-top: 10px; padding-top: 6px; font-size: 16px; line-height: 22px; }
+}

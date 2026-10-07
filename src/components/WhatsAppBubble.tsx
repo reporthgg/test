@@ -9,8 +9,9 @@ import { stripLocale } from "@/i18n/config";
 export default function WhatsAppBubble() {
   const pathname = usePathname();
   const locale = useLocale();
-  // На новой главной используется виджет из макета.
-  if (pathname?.startsWith("/admin") || stripLocale(pathname ?? "/") === "/") return null;
+  const page = stripLocale(pathname ?? "/");
+  // На страницах из Figma используется собственный виджет.
+  if (pathname?.startsWith("/admin") || page === "/" || page === "/school") return null;
   const label = getDictionary(locale).actions.bubble;
 
   return (
