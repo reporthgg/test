@@ -1,0 +1,268 @@
+/* Figma 334:2670 (1440) и 409:2387 (390): верхние 70 / 36 px секции уходят под предыдущий блок,
+   а её низ на столько же перекрывает блок вопросов (шаг между секциями в макете -70 / -36 px). */
+.tour {
+  position: relative;
+  z-index: 1;
+  overflow: clip;
+  min-height: 937px;
+  margin-bottom: -70px;
+  padding: 237px 0 161px;
+  border-radius: 0 0 50px 50px;
+  background: #80b6dc;
+  color: white;
+}
+
+/* Фото начинается на 14.8 px ниже верха рамки и выходит на 49 px за её низ. */
+.photo {
+  position: absolute;
+  top: 14.8px;
+  left: 0;
+  width: 100%;
+  max-width: none;
+  height: calc(100% + 49px);
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.sky { display: none; }
+
+/* Figma 401:144: синяя заливка и прогрессивное размытие фона: 24 px у левого края, 0 у правого.
+   Размытие собрано из четырёх полос, каждая следующая слабее и плавно перетекает в соседнюю. */
+.shade {
+  --blur-direction: to right;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(1057px, 73.4%);
+  background: linear-gradient(to left, #13568500, #1356854e 45.51%, #13568566);
+  pointer-events: none;
+}
+
+.shade::before,
+.shade::after,
+.blur {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.shade::before {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(var(--blur-direction), #000 18.75%, #0000 31.25%);
+  mask-image: linear-gradient(var(--blur-direction), #000 18.75%, #0000 31.25%);
+}
+
+.blur:first-child {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(var(--blur-direction), #0000 18.75%, #000 31.25% 43.75%, #0000 56.25%);
+  mask-image: linear-gradient(var(--blur-direction), #0000 18.75%, #000 31.25% 43.75%, #0000 56.25%);
+}
+
+.blur:last-child {
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-mask-image: linear-gradient(var(--blur-direction), #0000 43.75%, #000 56.25% 68.75%, #0000 81.25%);
+  mask-image: linear-gradient(var(--blur-direction), #0000 43.75%, #000 56.25% 68.75%, #0000 81.25%);
+}
+
+.shade::after {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-mask-image: linear-gradient(var(--blur-direction), #0000 68.75%, #000 81.25%, #0000);
+  mask-image: linear-gradient(var(--blur-direction), #0000 68.75%, #000 81.25%, #0000);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dates {
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: white;
+  color: #2e2d2c;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+}
+
+.tour .title {
+  max-width: 862px;
+  margin-top: 33px;
+  font-size: 70px;
+  line-height: 74px;
+}
+
+.title > span { display: block; }
+
+.text {
+  max-width: 629px;
+  margin-top: 20px;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+.text > span { display: block; }
+
+/* Figma 334:2694: стеклянная плашка, эффект Glass с размытием 17 переведён в blur(8.5px). */
+.countdown {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 305px;
+  min-height: 84px;
+  margin-top: 40px;
+  padding: 10px 28px;
+  border: 1px solid #ffffffa3;
+  border-radius: 20px;
+  background: #135685cc;
+  -webkit-backdrop-filter: blur(8.5px);
+  backdrop-filter: blur(8.5px);
+  color: var(--landing-yellow, #eac35d);
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 22px;
+  letter-spacing: -0.07em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Звезда 60 px повёрнута на -12°, её центр на 5.58 / 7.58 px от угла плашки
+   (отступы считаются от внутреннего края рамки толщиной 1 px). */
+.star {
+  position: absolute;
+  top: -23.42px;
+  left: -25.42px;
+  width: 60px;
+  max-width: none;
+  height: 60px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.flower {
+  position: absolute;
+  right: -16px;
+  bottom: -23px;
+  width: 45px;
+  height: 45px;
+  pointer-events: none;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 305px;
+  min-height: 66px;
+  margin-top: 60px;
+  padding: 10px 24px;
+  border-radius: 12px;
+  background: #548655db;
+  -webkit-backdrop-filter: blur(8.5px);
+  backdrop-filter: blur(8.5px);
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.button:hover { background: #37814cdb; }
+.button img { flex: none; width: 30.3131px; height: 30.3131px; }
+
+/* Когда тур начался, плашки отсчёта нет и кнопка встаёт на её место. */
+.text + .button { margin-top: 40px; }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .tour .title { font-size: clamp(48px, 6.4vw, 70px); line-height: 1.057; }
+}
+
+@media (max-width: 767px) {
+  .tour {
+    min-height: 808px;
+    margin-bottom: -36px;
+    padding: 96px 0 284px;
+  }
+
+  /* Figma 409:2387: фото 895 x 613 px, правый край на 180.5 px за рамкой, низ на 84.4 px ниже неё. */
+  .photo {
+    top: auto;
+    right: -180.5px;
+    bottom: -84.4px;
+    left: auto;
+    width: max(895px, calc(100% + 181px));
+    height: auto;
+    aspect-ratio: 2714 / 1859;
+  }
+
+  /* Figma 409:2388: голубая заливка до 407 px, к 496 px она растворяется. */
+  .sky {
+    display: block;
+    position: absolute;
+    top: -19px;
+    right: 0;
+    bottom: 312px;
+    left: 0;
+    background: linear-gradient(#80b6dc calc(100% - 88.6px), #80b6dc00);
+    pointer-events: none;
+  }
+
+  /* Figma 409:2389: та же рамка с размытием, повёрнутая сверху вниз, и коричневая заливка 3 %. */
+  .shade {
+    --blur-direction: to bottom;
+    top: -19px;
+    bottom: auto;
+    width: 100%;
+    height: 565px;
+    background: linear-gradient(#261b0c08, #281d0c06 54.49%, #4a331200);
+  }
+
+  .tour .title {
+    max-width: 358px;
+    margin-top: 34px;
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .text {
+    max-width: 358px;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .text > span { display: inline; }
+
+  .countdown {
+    min-width: 253px;
+    min-height: 72px;
+    margin-top: 41px;
+    padding: 10px 24px;
+    font-size: 24px;
+  }
+
+  .star { top: -29.42px; left: -21.42px; }
+  .flower { right: -22px; bottom: -18px; }
+
+  .button {
+    min-width: 257px;
+    margin-top: 21px;
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+
+  .text + .button { margin-top: 41px; }
+}

@@ -7,10 +7,12 @@ function text(ru: string, kz: string, en: string): LocalizedText {
   return { ru, kz, en };
 }
 
+// "\n" in includedIntro marks the mobile line breaks from Figma; on wider screens it renders as a space.
+// "\u00a0" keeps a short word with the next one, as in the Figma line breaks.
 export const experienceContent = {
   ru: {
     holidays: "Каникулы",
-    includedIntro: "В стоимость входит всё: от перелёта и проживания до обучения и экскурсий. Вам остаётся предусмотреть карманные деньги",
+    includedIntro: "В стоимость входит всё: от перелёта\nи проживания до обучения и экскурсий.\nВам остаётся предусмотреть карманные деньги",
     estimate: ["Получить", "расчёт"],
     scheduleTitle: ["Как выглядит", "день в лагере"],
     careTitle: ["Забота о ребёнке", "на каждом этапе"],
@@ -29,7 +31,7 @@ export const experienceContent = {
   },
   kz: {
     holidays: "Демалыс",
-    includedIntro: "Бағаға ұшу мен тұрудан бастап оқу мен экскурсияларға дейін бәрі кіреді. Сізге тек қалта ақшасын қарастыру қалады",
+    includedIntro: "Бағаға ұшу мен тұрудан бастап оқу мен\nэкскурсияларға дейін бәрі кіреді.\nСізге тек қалта ақшасын қарастыру қалады",
     estimate: ["Бағасын", "есептеу"],
     scheduleTitle: ["Лагерьдегі күн", "қалай өтеді"],
     careTitle: ["Балаға қамқорлық", "әр кезеңде"],
@@ -48,7 +50,7 @@ export const experienceContent = {
   },
   en: {
     holidays: "Holidays",
-    includedIntro: "Everything is included: flights, accommodation, classes and excursions. All you need to budget for is spending money",
+    includedIntro: "Everything is included: flights, accommodation,\nclasses and excursions.\nAll you need to budget for is spending money",
     estimate: ["Get a", "quote"],
     scheduleTitle: ["What a day", "at camp looks like"],
     careTitle: ["Care for your child", "at every stage"],
@@ -82,7 +84,7 @@ export const includedItems = [
     id: "english",
     title: text("Английский каждый день", "Күн сайын ағылшын тілі", "English every day"),
     description: text(
-      "Занятия и практика в международной среде",
+      "Занятия и практика в международной\u00a0среде",
       "Халықаралық ортадағы сабақтар мен тәжірибе",
       "Classes and practice in an international setting",
     ),
@@ -174,7 +176,7 @@ export const scheduleItems = [
     title: text("Экскурсия или активность", "Экскурсия немесе іс-шара", "Excursion or activity"),
     mobileTitle: text("Туры и активность", "Турлар мен іс-шаралар", "Tours and activities"),
     description: text(
-      "Город, музей, спорт или мастер-класс по программе смены",
+      "Город, музей, спорт или мастер-класс по\u00a0программе смены",
       "Лагерь бағдарламасы бойынша қала, мұражай, спорт немесе шеберлік сабағы",
       "City visits, museums, sport or workshops on the camp programme",
     ),
@@ -239,7 +241,7 @@ export const careItems = [
   },
   {
     color: "yellow",
-    title: text("Свободное время под присмотром", "Бақылаудағы бос уақыт", "Supervised free time"),
+    title: text("Свободное время под\u00a0присмотром", "Бақылаудағы бос уақыт", "Supervised free time"),
     description: text(
       "Ребята отдыхают на территории школы под наблюдением команды",
       "Балалар мектеп аумағында команда бақылауымен демалады",
@@ -250,7 +252,7 @@ export const careItems = [
     color: "rose",
     title: text("Медицинская страховка", "Медициналық сақтандыру", "Medical insurance"),
     description: text(
-      "Действует на протяжении поездки. Куратор помогает организовать обращение за медицинской помощью",
+      "Действует на протяжении поездки. Куратор помогает организовать обращение за\u00a0медицинской помощью",
       "Сапар бойы жарамды. Жетекші медициналық көмекке жүгінуді ұйымдастыруға көмектеседі",
       "Valid throughout the trip. The group leader helps arrange medical assistance when needed",
     ),

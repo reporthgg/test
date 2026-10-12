@@ -24,8 +24,9 @@ import styles from "./LandingForms.module.css";
 import schoolStyles from "@/components/school/SchoolTrial.module.css";
 
 export type LeadKind = "diagnostic" | "trial";
-export type LandingScope = "landing" | "school";
-export type LeadSelection = { course?: string; teacher?: string };
+// camps: формы оформлены как на главной, scope нужен только для источника заявки в CRM.
+export type LandingScope = "landing" | "school" | "camps";
+export type LeadSelection = { course?: string; teacher?: string; camp?: string };
 type ActiveLead = { kind: LeadKind; selection?: LeadSelection };
 // Консультация открывается только формой на первом экране, у неё нет своего попапа.
 type FormKind = LeadKind | "consultation";
@@ -105,6 +106,7 @@ export function LeadButton({
   className,
   course,
   teacher,
+  camp,
   children,
 }: {
   kind?: LeadKind;
@@ -121,7 +123,7 @@ export function LeadButton({
       aria-haspopup="dialog"
       onClick={() => {
         buttonRef.current?.focus();
-        openLead(kind, { course, teacher });
+        openLead(kind, { course, teacher, camp });
       }}
     >
       {children}
@@ -181,7 +183,7 @@ function LeadFields({
   const school = appearance === "school";
   const consultation = kind === "consultation";
   const hasCity = kind === "diagnostic" || school;
-  const cityRequired = kind === "diagnostic" && scope === "landing";
+  const cityRequired = kind === "diagnostic" && scope !== "school";
   const fieldClass = `${styles.field} ${school ? schoolStyles.field : ""}`;
   // Порядок полей на экране: по нему фокус переходит к первой ошибке.
   const fieldOrder: readonly Field[] = consultation
@@ -282,6 +284,7 @@ function LeadFields({
           ...(consultation && values.year ? { year: values.year } : {}),
           ...(selection?.course ? { course: selection.course } : {}),
           ...(selection?.teacher ? { teacher: selection.teacher } : {}),
+          ...(selection?.camp ? { camp: selection.camp } : {}),
           consent: true,
           source,
           leadKind: kind,
@@ -478,7 +481,7 @@ function LeadFields({
             </span>
             <span>
               {t.consent}
-              {bottom && scope === "landing" && <span className={styles.consentPeriod}>.</span>}
+              {bottom && scope !== "school" && <span className={styles.consentPeriod}>.</span>}
             </span>
           </label>
           {errorFor("consent")}
@@ -559,7 +562,7 @@ export function TrialSection(): ReactElement {
             {t.bottomTitle}<br /><em>{t.bottomTitleAccent}</em>
           </h2>
         </header>
-        <div className={`${styles.bottomForm} ${scope === "landing" ? styles.homeBottomForm : ""}`}>
+        <div className={`${styles.bottomForm} ${scope !== "school" ? styles.homeBottomForm : ""}`}>
           <div className={styles.formBackground} aria-hidden="true">
             <img className={styles.backgroundDesktop} src="/landing/forms/form-desktop.svg" alt="" />
             <img className={styles.backgroundMobile} src="/landing/forms/form-mobile.svg" alt="" />
@@ -683,9 +686,9 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
           {(!school || activeLead === "diagnostic") && (
             <div className={`${styles.leadCard} ${styles.white} ${styles.diagnosticPanel}`} hidden={activeLead !== "diagnostic"}>
               <h2 id={`${id}-diagnostic-title`} ref={diagnosticHeadingRef} tabIndex={-1}>
-                {t.diagnosticTitle}
+                {scope === "camps" ? t.campsTitle : t.diagnosticTitle}
               </h2>
-              <p className={styles.description}>{t.diagnosticDescription}</p>
+              <p className={styles.description}>{scope === "camps" ? t.campsDescription : t.diagnosticDescription}</p>
               <LeadFields kind="diagnostic" source={`${scope}-diagnostic-popup`} visible={activeLead === "diagnostic"} selection={leadSelection} />
               <p className={styles.faster}>
                 {t.faster}{" "}

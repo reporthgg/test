@@ -1,0 +1,320 @@
+/* Not in Figma: built from the camps page system (Futura titles, Manrope text, radii 30/24,
+   brand colours). Meant to follow CampsResults: its top 70px (36px on mobile) sit under the
+   results section, and it overlaps the next section by the same amount. */
+.catalog {
+  position: relative;
+  z-index: 8;
+  margin-bottom: -70px;
+  padding: 180px 0 120px;
+  border-radius: 0 0 50px 50px;
+  background: white;
+  color: #2e2d2c;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.title {
+  min-width: 0;
+  color: var(--landing-blue, #135685);
+}
+
+.title strong {
+  color: var(--landing-pink, #b1005a);
+  font-weight: inherit;
+}
+
+.intro {
+  flex: 0 1 400px;
+  margin: 0 0 6px;
+  color: #525251;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  --accent: var(--landing-pink, #b1005a);
+  --accent-text: white;
+  --placeholder: linear-gradient(132.2deg, #b7799a 0%, #e2b9ce 71.43%);
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 360px;
+  padding: 8px;
+  border-radius: 30px;
+  background: #e7eff5;
+}
+
+.card[data-accent="blue"] {
+  --accent: var(--landing-blue, #135685);
+  --placeholder: linear-gradient(132.2deg, #5f8fb3 0%, #9dbbd2 71.43%);
+}
+
+.card[data-accent="green"] {
+  --accent: var(--landing-green, #37814c);
+  --placeholder: linear-gradient(132.2deg, #6e9f7d 0%, #afcdb8 71.43%);
+}
+
+.card[data-accent="yellow"] {
+  --accent: var(--landing-yellow, #eac35d);
+  --accent-text: #2e2d2c;
+  --placeholder: linear-gradient(132.2deg, #d9a93a 0%, #f1d995 71.43%);
+}
+
+.media {
+  position: relative;
+  min-height: 344px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--placeholder);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.seats {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 24px 22px 22px 30px;
+}
+
+.city {
+  margin: 0;
+  color: var(--landing-blue, #135685);
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.country {
+  order: -1;
+  margin: 0 0 10px;
+  color: var(--landing-pink, #b1005a);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+}
+
+.fact {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: white;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+}
+
+.fact dt {
+  color: #6f6f6e;
+}
+
+.fact dd {
+  margin: 0;
+  color: var(--landing-blue, #135685);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.summary {
+  margin: 18px 0 0;
+  color: #525251;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.action {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.card .signup {
+  min-width: 200px;
+  background: var(--landing-pink, #b1005a);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .catalog .title {
+    font-size: clamp(48px, 6.4vw, 70px);
+    line-height: 1.06;
+  }
+
+  .intro {
+    flex-basis: 320px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .media {
+    min-height: 0;
+    height: 240px;
+  }
+
+  .body {
+    padding: 22px 14px 14px;
+  }
+
+  .city {
+    font-size: 34px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .catalog {
+    margin-bottom: -36px;
+    padding: 106px 0 60px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .header {
+    display: block;
+  }
+
+  .intro {
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding: 6px;
+    border-radius: 24px;
+  }
+
+  .media {
+    min-height: 0;
+    height: 220px;
+    border-radius: 18px;
+  }
+
+  .seats {
+    top: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .body {
+    padding: 18px 10px 10px;
+  }
+
+  .country {
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .city {
+    font-size: 30px;
+    line-height: 32px;
+  }
+
+  .facts {
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .fact {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .summary {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .action {
+    width: 100%;
+    padding-top: 20px;
+  }
+
+  .card .signup {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 374px) {
+  .catalog .title {
+    font-size: 30px;
+    line-height: 34px;
+  }
+}

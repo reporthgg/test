@@ -37,7 +37,8 @@
 
 .includedTitle > strong {
   display: block;
-  padding-left: 440px;
+  /* Figma indents the second line with 17 spaces. */
+  padding-left: 443px;
   font-weight: inherit;
   white-space: nowrap;
 }
@@ -123,8 +124,10 @@
   height: 200px;
   overflow: hidden;
   padding: 0;
-  border: 6px solid var(--landing-pink);
+  border: 0;
   border-radius: 50%;
+  /* Figma draws this stroke outside the circle, so it must not shrink the blue fill. */
+  box-shadow: 0 0 0 6px var(--landing-pink);
   background: var(--landing-blue);
   color: white;
   text-align: center;
@@ -134,7 +137,7 @@
 
 .estimateButton > span {
   position: absolute;
-  top: 33px;
+  top: 39px;
   left: 0;
   width: 100%;
   font-size: 18px;
@@ -149,8 +152,8 @@
 
 .estimateButton > img {
   position: absolute;
-  top: 99.23px;
-  left: -15.47px;
+  top: 105.23px;
+  left: -9.47px;
 }
 
 .estimateButton:hover,
@@ -178,7 +181,6 @@
   max-width: none;
 }
 
-.includedMobileSticker,
 .mobileAsset,
 .mobileTime,
 .photoMobile {
@@ -196,7 +198,7 @@
   color: white;
 }
 
-.scheduleTitle {
+.schedule .scheduleTitle {
   padding: 0 24px;
   text-align: center;
 }
@@ -254,6 +256,8 @@
 }
 
 .desktopTime {
+  /* Offsets the trailing letter-spacing so the digits end at the container edge, as in Figma. */
+  margin-right: 0.04em;
   font-family: "Futura PT", "Manrope", sans-serif;
   font-size: 48px;
   font-weight: 600;
@@ -294,8 +298,11 @@
   color: #2e2d2c;
 }
 
-.bedtime .desktopTime,
-.bedtime .mobileTime {
+.bedtime .scheduleIcon {
+  left: -15px;
+}
+
+.bedtime .desktopTime {
   color: rgb(0 0 0 / 80%);
 }
 
@@ -305,7 +312,7 @@
   background: white;
 }
 
-.careTitle {
+.care .careTitle {
   max-width: 700px;
   color: var(--landing-blue);
   font-size: 62px;
@@ -375,27 +382,10 @@
   object-fit: cover;
 }
 
-.carePhoto .photoDesktop {
-  object-fit: fill;
-}
-
+/* Figma crops the first photo to its top 84% and stretches it to the frame. */
 .carePhoto:first-child .photoDesktop {
   height: 118.51% !important;
-  object-position: center top;
-}
-
-.carePhoto:nth-child(2) .photoDesktop {
-  top: -0.34% !important;
-  left: -0.07% !important;
-  width: 100.14% !important;
-  height: 100.34% !important;
-}
-
-.carePhoto:nth-child(3) .photoDesktop {
-  top: -0.5% !important;
-  left: -0.3% !important;
-  width: 100.3% !important;
-  height: 100.5% !important;
+  object-fit: fill;
 }
 
 .steps {
@@ -412,7 +402,7 @@
   background: #e7eff5;
 }
 
-.stepsTitle {
+.steps .stepsTitle {
   color: var(--landing-blue);
   font-size: 64px;
   line-height: 74px;
@@ -444,7 +434,7 @@
   gap: 20px;
   min-width: 0;
   min-height: 152px;
-  padding: 36px 30px;
+  padding: 36px 36px 36px 30px;
   border-radius: 28px;
   background: var(--landing-blue);
   color: white;
@@ -452,6 +442,8 @@
 
 .stepNumber {
   flex: none;
+  /* Offsets the trailing letter-spacing so the text starts where Figma places it. */
+  margin-right: 0.04em;
   font-family: "Futura PT", "Manrope", sans-serif;
   font-size: 72px;
   font-weight: 600;
@@ -562,7 +554,7 @@
     height: auto;
   }
 
-  .scheduleTitle {
+  .schedule .scheduleTitle {
     font-size: 54px;
   }
 
@@ -601,7 +593,7 @@
     padding-inline: 32px;
   }
 
-  .stepsTitle {
+  .steps .stepsTitle {
     font-size: 54px;
   }
 
@@ -635,7 +627,7 @@
   }
 
   .included {
-    padding: 94px 0 213px;
+    padding: 94px 0 125px;
   }
 
   .includedHeader {
@@ -652,15 +644,16 @@
     color: rgb(255 255 255 / 50%);
   }
 
+  /* Figma indents the second line with 8 spaces. */
   .includedTitle > strong {
-    padding: 0;
-    text-align: right;
+    padding-left: 1.544em;
   }
 
   .includedIntro {
     margin: 16px 0 0;
     font-size: 16px;
     line-height: 24px;
+    white-space: pre-line;
   }
 
   .includedGrid {
@@ -699,15 +692,24 @@
   }
 
   .estimateButton {
-    right: 20.4px;
-    bottom: 54.4px;
-    width: 180px;
-    height: 180px;
+    right: 24.42px;
+    bottom: 26.42px;
+    width: 112.95px;
+    height: 112.95px;
+    box-shadow: 0 0 0 3.765px var(--landing-pink);
+  }
+
+  .estimateButton > span {
+    top: 24.47px;
+    font-size: 11.295px;
+    line-height: 13.81px;
   }
 
   .estimateButton > img {
-    top: 89.23px;
-    left: -25.47px;
+    top: 59.76px;
+    left: -12.21px;
+    width: 97.27px;
+    height: 40.79px;
   }
 
   .beyondSticker,
@@ -722,22 +724,11 @@
     display: block;
   }
 
-  .includedMobileSticker {
-    position: absolute;
-    top: 51.8px;
-    right: -52.8px;
-    display: block;
-    width: 130px;
-    height: 130px;
-    transform: rotate(-12.78deg);
-    pointer-events: none;
-  }
-
   .schedule {
     padding-top: 62px;
   }
 
-  .scheduleTitle {
+  .schedule .scheduleTitle {
     font-size: 32px;
     line-height: 38px;
   }
@@ -794,7 +785,12 @@
     line-height: 22px;
     letter-spacing: -0.04em;
     white-space: nowrap;
-    opacity: 0.8;
+    /* Only the time is translucent: the divider SVG carries its own 60% opacity. */
+    color: rgb(255 255 255 / 80%);
+  }
+
+  .bedtime .mobileTime {
+    color: rgb(0 0 0 / 64%);
   }
 
   .timeDivider {
@@ -808,6 +804,7 @@
     position: absolute;
     top: 8px;
     left: -9px;
+    max-width: none;
     transform: rotate(-90deg);
   }
 
@@ -822,7 +819,7 @@
     padding: 72px 0;
   }
 
-  .careTitle {
+  .care .careTitle {
     font-size: 35px;
     line-height: 38px;
     letter-spacing: -0.04em;
@@ -841,10 +838,6 @@
   .carePoint h3 {
     font-size: 25px;
     line-height: 26px;
-  }
-
-  .carePoint:nth-child(4) h3 {
-    max-width: 290px;
   }
 
   .carePoint p {
@@ -887,7 +880,7 @@
     border-radius: 24px;
   }
 
-  .stepsTitle {
+  .steps .stepsTitle {
     font-size: 30px;
     line-height: 40px;
   }
@@ -926,7 +919,7 @@
 
   .planButton {
     min-height: 62px;
-    padding: 16px 20px;
+    padding: 16px 32px;
     border-radius: 20px;
     font-size: 16px;
     line-height: 22px;

@@ -11,6 +11,7 @@ import {
   type ReactElement,
 } from "react";
 import type { Locale } from "@/i18n/config";
+import { LeadButton } from "@/components/landing/LandingForms";
 import { campsHeroContent, campsSlideIds, getCampsSlideIndex, type CampsSlideIndex } from "./hero-content";
 import styles from "./CampsHero.module.css";
 
@@ -176,21 +177,28 @@ function FramedPhoto({ photo, mobile, current }: { photo: Photo; mobile: boolean
       }}
     >
       <div className={styles.photoFrame} style={frameStyle}>
-        <Image
-          src={`${assetPath}${photo.src}`}
-          alt=""
-          fill
-          sizes={`${Math.ceil(photo.width)}px`}
-          className={styles.photoImage}
+        {/* next/image with fill forbids a custom height, so the Figma image slot geometry lives on a wrapper. */}
+        <span
+          className={styles.photoMedia}
           style={{
-            objectFit: photo.imageFit ?? "cover",
-            objectPosition: photo.imageFit === "fill" ? "bottom" : "center",
-            height: photo.imageHeight ?? "100%",
+            height: photo.imageHeight,
             transform: !mobile && portrait ? "rotate(-1.41deg)" : undefined,
-            top: mobile && !portrait ? 1.26 * scale : 0,
-            left: mobile && !portrait ? -0.25 * scale : 0,
+            top: mobile && !portrait ? 1.26 * scale : undefined,
+            left: mobile && !portrait ? -0.25 * scale : undefined,
           }}
-        />
+        >
+          <Image
+            src={`${assetPath}${photo.src}`}
+            alt=""
+            fill
+            sizes={`${Math.ceil(photo.width)}px`}
+            className={styles.photoImage}
+            style={{
+              objectFit: photo.imageFit ?? "cover",
+              objectPosition: photo.imageFit === "fill" ? "bottom" : "center",
+            }}
+          />
+        </span>
         {portrait && (
           <Image
             src={`${assetPath}${mobile ? `mobile-${campsSlideIds[current]}-badge.svg` : "desktop-badge.svg"}`}
@@ -348,8 +356,8 @@ export default function CampsHero({ locale }: { locale: Locale }): ReactElement 
           </p>
           {current !== 0 && <span className={styles.hashtag} aria-hidden="true" />}
           <div className={styles.actions}>
-            <a href="#consult" className={`landing-button ${styles.primary}`}>{text.primary}</a>
-            <a href="#camp-stories" className={`landing-button ${styles.secondary}`}>{text.secondary}</a>
+            <LeadButton kind="diagnostic" className={`landing-button ${styles.primary}`}>{text.primary}</LeadButton>
+            <a href="#results" className={`landing-button ${styles.secondary}`}>{text.secondary}</a>
           </div>
         </div>
         <div className={styles.controls} role="group" aria-label={text.carousel}>

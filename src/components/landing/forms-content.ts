@@ -8,6 +8,8 @@ type BranchOption = LandingSelectOption & { city: string };
 export type FormsContent = {
   diagnosticTitle: string;
   diagnosticDescription: string;
+  campsTitle: string;
+  campsDescription: string;
   consultationTitle: string;
   consultationDescription: string;
   name: string;
@@ -71,6 +73,8 @@ export const formsContent: Record<Locale, FormsContent> = {
   ru: {
     diagnosticTitle: "Записаться на бесплатную диагностику",
     diagnosticDescription: "Эксперт разберет ваш кейс,\nопределит уровень языка и даст советы",
+    campsTitle: "Подобрать программу лагеря",
+    campsDescription: "Расскажем о направлениях, датах и условиях поездки и ответим на вопросы",
     consultationTitle: "Бесплатная консультация\nс экспертом",
     consultationDescription: "За 30 минут разберём твои шансы\nи наметим план действий",
     name: "Имя",
@@ -149,6 +153,8 @@ export const formsContent: Record<Locale, FormsContent> = {
   kz: {
     diagnosticTitle: "Тегін диагностикаға жазылыңыз",
     diagnosticDescription: "Маман жағдайыңызды талдап, тіл деңгейіңізді анықтайды және кеңес береді",
+    campsTitle: "Лагерь бағдарламасын таңдау",
+    campsDescription: "Бағыттар, күндер мен сапар шарттары туралы айтып, сұрақтарыңызға жауап береміз",
     consultationTitle: "Сарапшымен\nтегін кеңес",
     consultationDescription: "30 минутта мүмкіндіктеріңді талдап,\nіс-қимыл жоспарын құрамыз",
     name: "Атыңыз",
@@ -225,6 +231,8 @@ export const formsContent: Record<Locale, FormsContent> = {
   en: {
     diagnosticTitle: "Book a free assessment",
     diagnosticDescription: "An expert will review your goals, assess your language level and offer advice",
+    campsTitle: "Choose a camp programme",
+    campsDescription: "We will talk you through destinations, dates and trip conditions and answer your questions",
     consultationTitle: "Free consultation\nwith an expert",
     consultationDescription: "In 30 minutes, we will review your chances\nand outline an action plan",
     name: "Name",

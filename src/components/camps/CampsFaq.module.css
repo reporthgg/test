@@ -1,0 +1,95 @@
+/* Figma 334:2613 (1440) и 409:2582 (390): верхние 70 / 36 px уходят под блок тура,
+   поэтому отступ сверху считается от верха рамки макета. */
+.faq {
+  position: relative;
+  z-index: 0;
+  overflow: clip;
+  padding: 194px 0 106px;
+  border-radius: 0 0 50px 50px;
+  color: white;
+  background: var(--landing-blue, #135685);
+}
+
+.layout { position: relative; display: grid; grid-template-columns: minmax(0, 445fr) minmax(0, 715fr); align-items: start; gap: 80px; }
+.header { position: relative; }
+.title { overflow-wrap: anywhere; }
+.title > span, .title > em { display: block; }
+/* Первые две строки не заходят под решётку, третья стоит ниже неё и может занять всю колонку. */
+.title > span { max-width: 325px; }
+/* На десктопе третья строка прямая, на мобильной наклонная, в обоих случаях с прозрачностью 50 %. */
+.faq .title em { color: inherit; font-style: normal; }
+.hashtag { position: absolute; top: 19px; right: 4px; }
+.hashtagMobile, .lineMobile { display: none; }
+/* Figma 334:2614: центр повёрнутого вектора, пересчитанный в неповёрнутую рамку картинки. */
+.line { position: absolute; top: 673.41px; left: calc(50% - 759.18px); max-width: none; transform: rotate(3deg); pointer-events: none; }
+.questions { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.question { border-radius: 30px; color: var(--landing-blue, #135685); background: #f0ebec; }
+
+.question summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 104px;
+  padding: 32px 32px 32px 40px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
+
+.question summary::-webkit-details-marker { display: none; }
+.question summary > span:first-child { min-width: 0; }
+.icons { display: grid; flex: 0 0 40.004px; place-items: center; width: 40.004px; height: 40.004px; }
+.closeDesktop, .openMobile, .closeMobile { display: none; }
+.question[open] summary { align-items: flex-start; min-height: 0; padding-top: 36px; padding-bottom: 0; }
+.question[open] .icons { flex-basis: 56.574px; width: 56.574px; height: 56.574px; }
+.question[open] .openDesktop { display: none; }
+.question[open] .closeDesktop { display: block; transform: rotate(45deg); }
+.answer { padding: 12px 112.574px 36px 40px; font-size: 20px; font-weight: 300; line-height: 30px; letter-spacing: -0.02em; }
+/* Вложенный селектор перебивает font: inherit для кнопок из landing.css. Ссылке разрешено
+   заходить в колонку иконки, а стрелка переносится только вместе с последним словом. */
+.answer .action { display: inline-block; vertical-align: top; min-height: 30px; padding-top: 6px; margin-top: 12px; margin-right: -80.574px; background: transparent; color: var(--landing-pink, #b1005a); font-size: 18px; font-weight: 700; line-height: 24px; letter-spacing: -0.02em; text-align: left; cursor: pointer; }
+.action > span { margin-left: 4px; }
+.action:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Figma 334:2615: заголовок сдвинут на 5 px левее сетки, чтобы буквы Futura встали по краю. */
+@media (min-width: 1200px) {
+  .header .title { margin-left: -5px; }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 35px; }
+  .faq .title { font-size: clamp(38px, 4.17vw, 50px); line-height: 1.06; }
+  .hashtag { top: 175px; right: 10px; }
+  .question summary { padding: 26px; font-size: 19px; line-height: 27px; }
+  .question[open] summary { padding: 26px 26px 0; }
+  .answer { padding: 12px 106.574px 26px 26px; font-size: 18px; line-height: 27px; }
+}
+
+@media (max-width: 767px) {
+  .faq { padding: 109px 0 50px; border-radius: 0 0 30px 30px; }
+  .layout { display: block; }
+  .header { margin-bottom: 24px; padding-right: 65px; }
+  .faq .title { font-size: 35px; line-height: 38px; }
+  .title > span { max-width: none; }
+  .faq .title em { font-style: italic; }
+  .hashtag, .line { display: none; }
+  .hashtagMobile { display: block; position: absolute; top: 4px; right: 8px; }
+  /* Figma 409:2718: линия привязана к низу блока вопросов, её рамка на 64.48 px ниже секции. */
+  .lineMobile { display: block; position: absolute; bottom: -64.48px; left: -238.45px; max-width: none; transform: rotate(-9.49deg); pointer-events: none; }
+  .questions { gap: 8px; }
+  .question { border-radius: 14px; }
+  .question summary { min-height: 62px; padding: 20px 16px 20px 20px; gap: 12px; font-size: 16px; line-height: 22px; }
+  .icons { flex-basis: 20.002px; width: 20.002px; height: 20.002px; }
+  .openDesktop, .question[open] .closeDesktop { display: none; }
+  .openMobile { display: block; }
+  .question[open] summary { padding: 20px 16px 0 20px; }
+  .question[open] .icons { flex-basis: 28.287px; width: 28.287px; height: 28.287px; }
+  .question[open] .openMobile { display: none; }
+  .question[open] .closeMobile { display: block; transform: rotate(45deg); }
+  .answer { padding: 10px 56.287px 20px 20px; font-size: 16px; line-height: 22px; }
+  .answer .action { min-height: 28px; margin-top: 10px; margin-right: -40.287px; padding-top: 6px; font-size: 16px; line-height: 22px; }
+}

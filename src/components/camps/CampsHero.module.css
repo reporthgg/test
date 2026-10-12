@@ -112,7 +112,9 @@
   margin-top: 27.894px;
 }
 
-.actions > * {
+/* Two classes so these win over the global .landing-button loaded after this module. */
+.actions .primary,
+.actions .secondary {
   flex: 1;
   min-width: 0;
   min-height: 66px;
@@ -124,12 +126,12 @@
   letter-spacing: -0.04em;
 }
 
-.primary {
+.actions .primary {
   border-color: var(--frame-pink);
   background: var(--frame-pink);
 }
 
-.secondary {
+.actions .secondary {
   border-color: var(--frame-pink);
   background: var(--hero-surface);
   color: var(--frame-pink);
@@ -192,6 +194,15 @@
 .photoFrame {
   position: relative;
   overflow: hidden;
+}
+
+.photoMedia {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
 }
 
 .photoImage {
@@ -261,7 +272,7 @@
 .dots {
   display: flex;
   gap: 4px;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .dots button {
@@ -374,7 +385,8 @@
     width: 61%;
   }
 
-  .actions > * {
+  .actions .primary,
+  .actions .secondary {
     padding-inline: 12px;
     font-size: 14px;
   }
@@ -459,13 +471,14 @@
     padding-top: 8px;
   }
 
-  .actions > * {
+  .actions .primary,
+  .actions .secondary {
     flex: auto;
     min-height: 48px;
     padding: 12px 20px;
     border-radius: 10px;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 20px;
   }
 
   .hashtag,
@@ -484,18 +497,9 @@
     left: auto;
   }
 
+  /* The mobile hero (401:967, 409:2721, 409:2803) has no yellow line. */
   .scribble {
-    top: 199px;
-    left: calc(50% - 518px);
-    width: 736.087px;
-    height: 579.43px;
-  }
-
-  .scribble::before {
-    width: 644.754px;
-    height: 404.413px;
-    background-image: url("/landing/hero/mobile-yellow-line.svg");
-    transform: rotate(18deg);
+    display: none;
   }
 
   .controls {
@@ -513,7 +517,7 @@
 
   .dots {
     gap: 0;
-    margin-left: 3px;
+    margin-left: 6.4px;
   }
 
   .dots button {

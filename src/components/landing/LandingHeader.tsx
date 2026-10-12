@@ -5,11 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { isLocale, locales, withLocale, type Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
-import { useLandingActions } from "@/components/landing/LandingForms";
+import { useLandingActions, type LandingScope } from "@/components/landing/LandingForms";
 import LandingSelect from "./LandingSelect";
 import { heroContent } from "./hero-content";
 import styles from "./LandingHeader.module.css";
 
+// При смене языка остаёмся на той же странице.
+const scopePaths: Record<LandingScope, string> = { landing: "/", school: "/school", camps: "/camps" };
 const languageLabels: Record<Locale, string> = { ru: "Рус", kz: "Қаз", en: "Eng" };
 const languageOptions = locales.map((value) => ({ value, label: languageLabels[value] }));
 const destinations = ["/school", "/exams", "/abroad", "/camps", "/#offices"] as const;
@@ -46,7 +48,7 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
     if (!isLocale(value)) return;
     closeMenu();
     // Локаль приходит из server rewrite, поэтому не переиспользуем RSC-кэш другого языка.
-    window.location.assign(withLocale(value, scope === "school" ? "/school" : "/"));
+    window.location.assign(withLocale(value, scopePaths[scope]));
   }
 
   const programLinks = [

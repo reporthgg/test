@@ -14,9 +14,9 @@ import styles from "./CampsExperience.module.css";
 
 const assetPath = "/camps/experience";
 const carePhotos = [
-  { desktop: "camp-carnival.png", mobile: "students-mobile.png" },
-  { desktop: "disneyland-memory.png", mobile: "city-mobile.png" },
-  { desktop: "camp-student-story.png", mobile: "paris-mobile.png" },
+  { desktop: "camp-carnival.jpg", mobile: "students-mobile.png" },
+  { desktop: "disneyland-memory.png", mobile: "city-mobile.jpg" },
+  { desktop: "camp-student-story.png", mobile: "paris-mobile.jpg" },
 ] as const;
 
 export function CampsIncluded({ locale }: { locale: Locale }): ReactElement {
@@ -66,14 +66,6 @@ export function CampsIncluded({ locale }: { locale: Locale }): ReactElement {
           sizes="262px"
         />
       </div>
-      <Image
-        className={styles.includedMobileSticker}
-        src="/landing/stories/results-sticker.png"
-        alt=""
-        width={130}
-        height={130}
-        sizes="130px"
-      />
     </section>
   );
 }
