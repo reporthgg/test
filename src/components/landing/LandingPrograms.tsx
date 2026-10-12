@@ -12,11 +12,17 @@ import { studentStories } from "./stories-content";
 import styles from "./LandingPrograms.module.css";
 
 const directions = [
-  { path: "/school", icon: "message", tone: "light", width: 28, height: 26 },
-  { path: "/exams", icon: "document", tone: "green", width: 24, height: 30 },
-  { path: "/abroad", icon: "rocket", tone: "yellow", width: 40, height: 40 },
-  { path: "/camps", icon: "lightning", tone: "light", width: 23, height: 33 },
+  { path: "/school", icon: "message", tone: "light", arrow: "blue", mobileArrow: "blue", width: 28, height: 26 },
+  { path: "/exams", icon: "document", tone: "green", arrow: "white", mobileArrow: "white", width: 24, height: 30 },
+  { path: "/abroad", icon: "rocket", tone: "yellow", arrow: "white", mobileArrow: "cream", width: 40, height: 40 },
+  { path: "/camps", icon: "lightning", tone: "light", arrow: "blue", mobileArrow: "blue", width: 23, height: 33 },
 ] as const;
+
+function approximateMinutes(minutes: number, locale: Locale): string {
+  const category = new Intl.PluralRules(locale === "kz" ? "kk" : locale).select(minutes);
+  const form = category === "one" || category === "few" ? category : "other";
+  return `≈ ${minutes} ${programsContent[locale].minuteForms[form]}`;
+}
 
 export default async function LandingPrograms({
   locale,
@@ -91,10 +97,10 @@ export default async function LandingPrograms({
                     <picture>
                       <source
                         media="(max-width: 767px)"
-                        srcSet={`/landing/programs/wave-arrow-${direction.tone === "light" ? "blue" : "white"}-mobile.svg`}
+                        srcSet={`/landing/programs/wave-arrow-${direction.mobileArrow}-mobile.svg`}
                       />
                       <Image
-                        src={`/landing/programs/wave-arrow-${direction.tone === "light" ? "blue" : "white"}.svg`}
+                        src={`/landing/programs/wave-arrow-${direction.arrow}.svg`}
                         alt=""
                         width={55}
                         height={15}
@@ -135,25 +141,34 @@ export default async function LandingPrograms({
           >
             {tests.map((test) => {
               const card = testPresentation(test, locale);
+              const kids = card.flag.startsWith("kids");
+              const hasWritten = test.questions.some((question) => question.type === "essay");
               return (
                 <article
                   key={test.id}
-                  className={`${styles.testCard} ${card.flag === "general" ? styles.generalTest : ""}`}
+                  className={`${styles.testCard} ${card.flag === "general" ? styles.generalTest : ""} ${kids ? styles.kidsTest : ""}`}
                 >
-                  <picture className={`${styles.testFlag} ${card.flag.startsWith("kids") ? styles.kidsFlag : ""}`}>
+                  <picture className={`${styles.testFlag} ${kids ? styles.kidsFlag : ""}`}>
                     <source media="(max-width: 767px)" srcSet={`/landing/programs/flag-${card.flag}-mobile.svg`} />
                     <Image src={`/landing/programs/flag-${card.flag}.svg`} alt="" width={card.flag === "general" || card.flag === "ielts" ? 45 : 60} height={card.flag === "general" ? 72 : 53} />
                   </picture>
                   <h3>{card.title}</h3>
                   {card.age && <p className={styles.testAge}>{card.age}</p>}
                   <div className={styles.testMeta}>
-                    <span className={styles.questionCount}>{questionSummary(test, locale)}</span>
-                    <span>
-                      <picture>
+                    <span className={`${styles.questionCount} ${hasWritten ? styles.writtenCount : ""}`}>
+                      {questionSummary(test, locale, { countSingleWritten: false })}
+                    </span>
+                    <span className={styles.testDuration}>
+                      <picture className={styles.timerIcon}>
                         <source media="(max-width: 767px)" srcSet="/landing/programs/timer-mobile.svg" />
                         <Image src="/landing/programs/timer.svg" alt="" width={17} height={19} />
                       </picture>
-                      {test.timeLimit ? `${test.timeLimit} ${t.minutes}` : t.noTimeLimit}
+                      {test.timeLimit ? (
+                        <>
+                          <span className={styles.durationLong}>{approximateMinutes(test.timeLimit, locale)}</span>
+                          <span className={styles.durationShort}>{`${test.timeLimit} ${t.minutes}`}</span>
+                        </>
+                      ) : t.noTimeLimit}
                     </span>
                   </div>
                   <Link href={withLocale(locale, `/test/${test.slug}`)} className={styles.testLink}>

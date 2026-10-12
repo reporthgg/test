@@ -154,12 +154,15 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
             <Image src="/landing/hero/chevron-left.svg" width={24} height={24} alt="" />
           </button>
           <button type="button" className={styles.next} onClick={() => goTo(current + 1)} aria-label={text.next}>
-            <Image src="/landing/hero/chevron-right.svg" width={24} height={24} alt="" />
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/landing/hero/mobile-chevron-right.svg" />
+              <Image src="/landing/hero/chevron-right.svg" width={24} height={24} alt="" />
+            </picture>
           </button>
         </div>
         <div className={styles.form} id="consult">
           <div className={styles.desktopForm}>
-            <LandingLeadForm variant="white" source="hero-form" />
+            <LandingLeadForm variant="white" kind="consultation" source="hero-form" />
           </div>
           <div className={styles.mobileForm}>
             <h2>{text.diagnosticTitle}</h2>

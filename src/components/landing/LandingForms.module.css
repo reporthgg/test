@@ -27,11 +27,12 @@
 }
 
 .description {
-  margin: 6px 0 20px;
+  margin: 5px 0 20px;
   color: #6b7280;
   font-size: 14px;
   font-weight: 300;
   line-height: 20px;
+  white-space: pre-line;
 }
 
 .fields {
@@ -64,7 +65,7 @@
   margin-bottom: 8px;
   font-size: 12px;
   font-weight: 600;
-  line-height: 17px;
+  line-height: 16px;
   letter-spacing: -0.24px;
 }
 
@@ -87,16 +88,18 @@
 }
 
 .field .selectControl {
+  --select-icon-size: 16px;
+  --select-chevron: url("/landing/forms/chevron-blue-16.svg");
   display: flex;
 }
 
 .field input::placeholder {
-  color: #7c8492;
+  color: #9ca3af;
   opacity: 1;
 }
 
 .field .selectControl[data-placeholder] {
-  color: #7c8492;
+  color: #9ca3af;
 }
 
 .field input:focus-visible,
@@ -136,7 +139,7 @@
   margin: 0;
   border: 0.7px solid #d1d5db;
   border-radius: 4px;
-  background: transparent;
+  background: #fff;
   cursor: pointer;
 }
 
@@ -165,11 +168,22 @@
   background: var(--landing-pink, #b1005a);
   cursor: pointer;
   font: inherit;
+  letter-spacing: -0.28px;
+  transition: filter 150ms ease;
+}
+
+/* landing.css подключается после модулей и сбрасывает шрифт кнопок через font: inherit,
+   поэтому размер и начертание кнопок отправки заданы селектором с формой. */
+.fields .submit {
   font-size: 14px;
   font-weight: 700;
   line-height: 20px;
-  letter-spacing: -0.28px;
-  transition: filter 150ms ease;
+}
+
+.fields .roundSubmit {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 22px;
 }
 
 .submit:hover:not(:disabled),
@@ -210,6 +224,94 @@
 .faster a:hover,
 .success a:hover {
   text-decoration: underline;
+}
+
+/* Форма консультации на первом экране, Figma 595:750. */
+.consultation {
+  padding: 31px 34px 32px;
+  border-width: 1px;
+  border-radius: 40px;
+}
+
+.consultation h2 {
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -0.84px;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.consultation .description {
+  margin: 8px -21px 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
+.consultation .fieldset,
+.consultation .nameCity {
+  gap: 11px;
+}
+
+.consultation .field label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: -0.28px;
+}
+
+.consultation .field input,
+.consultation .field .selectControl {
+  height: 54px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: -0.28px;
+}
+
+.consultation .field .selectControl {
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.consultation .consentField {
+  margin-top: 10px;
+}
+
+.consultation .consent {
+  gap: 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.consultation .checkbox,
+.consultation .checkbox input {
+  width: 20px;
+  height: 20px;
+  flex-basis: 20px;
+}
+
+.consultation .checkbox input {
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+.consultation .submit {
+  min-height: 66px;
+  margin-top: 30px;
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.32px;
+}
+
+.consultation .faster {
+  margin-top: 15px;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.32px;
 }
 
 .pink h2,
@@ -350,9 +452,11 @@
   text-transform: uppercase;
 }
 
+/* Прозрачность задаёт цвет, поэтому глобальное opacity у .landing-title em здесь снято. */
 .trialHeading h2 em {
   color: rgb(255 255 255 / 50%);
   font-weight: 600;
+  opacity: 1;
 }
 
 .bottomForm {
@@ -396,26 +500,36 @@
 }
 
 .bottomFields .field label {
-  font-size: 17px;
+  margin-bottom: 12px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 26px;
+  line-height: 34px;
   letter-spacing: -0.2px;
 }
 
 .bottomFields .field label strong {
   color: var(--landing-green, #37814c);
+  font-weight: 800;
+}
+
+.bottomFields .field label strong span {
   font-weight: 700;
 }
 
 .bottomFields .field input {
   height: 60px;
-  padding: 12px 20px;
+  padding: 12px 25px;
   border-color: #e2e2e2;
   border-radius: 500px;
   color: #5b5b5b;
   background: #fff;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 20px;
+  line-height: 34px;
+}
+
+.homeBottomForm .field input::placeholder,
+.homeBottomForm .consent {
+  color: #5b5b5b;
 }
 
 .bottomFields .consentField {
@@ -428,30 +542,36 @@
   font-size: 12px;
   font-weight: 300;
   line-height: 17px;
+  letter-spacing: -0.12px;
 }
 
 .bottomFields .checkbox {
-  width: 24px;
-  height: 24px;
-  flex-basis: 24px;
+  width: 16px;
+  height: 16px;
+  flex-basis: 16px;
+  margin-top: 5px;
 }
 
 .bottomFields .checkbox input {
   position: absolute;
   z-index: 1;
   inset: 0;
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   opacity: 0;
 }
 
 .checkboxArtwork {
   display: flex;
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
   pointer-events: none;
+}
+
+.checkboxArtwork img {
+  display: block;
 }
 
 .bottomFields .checkbox:focus-within {
@@ -464,17 +584,18 @@
   max-width: 230px;
 }
 
+/* Figma: жёлтый круг 200 px и обводка 8 px снаружи, поэтому общий размер 216 px. */
 .roundSubmit {
   position: absolute;
-  bottom: -174px;
+  bottom: -182px;
   left: 50%;
   display: flex;
-  width: 200px;
-  height: 200px;
+  width: 216px;
+  height: 216px;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  padding: 37px 20px 20px;
+  padding: 45px 20px 20px;
   transform: translateX(-50%);
   border: 8px solid var(--landing-pink, #b1005a);
   border-radius: 50%;
@@ -482,9 +603,6 @@
   background: var(--landing-yellow, #eac35d);
   cursor: pointer;
   font: inherit;
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 22px;
   letter-spacing: -0.72px;
 }
 
@@ -496,8 +614,8 @@
 
 .arrowDesktop {
   position: absolute;
-  bottom: 21px;
-  left: -10px;
+  bottom: 29.5px;
+  left: -9.5px;
 }
 
 .arrowMobile {
@@ -708,6 +826,7 @@
   padding-inline: 16px;
   border-radius: 12px;
   font-size: 14px;
+  letter-spacing: -0.28px;
 }
 
 .trialFormPanel .field label {
@@ -728,9 +847,15 @@
   flex-basis: 20px;
 }
 
+.trialFormPanel .checkbox input {
+  border-width: 1px;
+  border-radius: 6px;
+}
+
 .trialFormPanel .submit {
   min-height: 48px;
   margin-top: 20px;
+  letter-spacing: -0.56px;
 }
 
 .close,
@@ -746,17 +871,27 @@
   cursor: pointer;
 }
 
+/* Попап диагностики, Figma 147:1723: рамка 0.7 #b2b2b2 даёт сама карточка. */
 .diagnosticDialog {
   width: min(420px, calc(100% - 32px));
-}
-
-.diagnosticPanel {
   border: 0;
-  padding-top: 58px;
 }
 
 .diagnosticPanel h2 {
   outline: none;
+}
+
+.diagnosticPanel .field .selectControl {
+  --select-icon-size: 14px;
+  --select-chevron: url("/landing/forms/chevron-blue.svg");
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.diagnosticPanel .field input::placeholder,
+.diagnosticPanel .field .selectControl[data-placeholder] {
+  color: rgb(156 163 175 / 80%);
+  font-size: 10px;
 }
 
 .notificationRegion {
@@ -807,14 +942,18 @@
   .stickerPink { right: -110px; }
 }
 
+/* На планшете колонка формы уже 505 px: ужимаем поля карточки, чтобы она не наезжала на ленту партнёров. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .consultation { padding: 24px 20px; }
+  .consultation .description { margin-inline: 0; }
+}
+
 @media (max-width: 767px) {
   .trialSection {
     min-height: 630px;
     padding: 72px 0 125px;
     border-radius: 0 0 30px 30px;
   }
-
-  .trialContainer { padding-inline: 16px; }
 
   .trialHeading {
     align-items: flex-start;
@@ -825,7 +964,7 @@
   .trialHeading h2 {
     order: -1;
     max-width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     font-size: 35px;
     line-height: 38px;
     letter-spacing: -1.4px;
@@ -834,7 +973,7 @@
   .trialHeading h2 em { color: #f0889f; }
 
   .trialHeading p {
-    max-width: 310px;
+    max-width: 296px;
     margin: 0;
     font-size: 18px;
     line-height: 25px;
@@ -843,7 +982,7 @@
 
   .bottomForm {
     width: 100%;
-    padding: 24px 20px 44px;
+    padding: 24px 20px 42px;
   }
 
   .formBackground { border-radius: 20px 20px 0 0; }
@@ -856,41 +995,70 @@
   }
 
   .bottomFields .field label {
+    margin-bottom: 10px;
+    color: #636363;
     font-size: 14px;
     line-height: 18px;
     letter-spacing: -0.14px;
   }
 
+  .bottomFields .field label strong { font-weight: 700; }
+
+  /* Введённый текст остаётся 16 px, чтобы iOS не увеличивал страницу при фокусе. */
   .bottomFields .field input {
     height: 55px;
+    padding: 10px 20px;
+    border-width: 0.5px;
     font-size: 16px;
     line-height: 18px;
   }
 
+  .bottomFields .field input::placeholder,
+  .homeBottomForm .field input::placeholder {
+    color: #9ca3af;
+    font-size: 14px;
+    letter-spacing: -0.14px;
+  }
+
   .bottomFields .consentField { max-width: 205px; }
 
-  .bottomFields .consent {
+  .bottomFields .consent,
+  .homeBottomForm .consent {
     gap: 14px;
+    color: #4b5563;
     line-height: 16px;
   }
+
+  .bottomFields .checkbox {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+    margin-top: 4px;
+  }
+
+  .consentPeriod { display: none; }
 
   .bottomFields .formError {
     max-width: calc(100% - 75px);
   }
 
+  /* Figma: жёлтый круг 120 px и обводка 5 px снаружи. */
   .roundSubmit {
-    right: 8px;
-    bottom: -97px;
+    right: 3.5px;
+    bottom: -100.25px;
     left: auto;
-    width: 120px;
-    height: 120px;
-    padding: 19px 8px 10px;
+    width: 130px;
+    height: 130px;
+    padding: 24px 8px 10px;
     transform: none;
     border-width: 5px;
+    letter-spacing: -0.48px;
+  }
+
+  .fields .roundSubmit {
     font-size: 12px;
     font-weight: 700;
     line-height: 14px;
-    letter-spacing: -0.48px;
   }
 
   .roundSubmit > span { max-width: 92px; }
@@ -898,8 +1066,8 @@
 
   .arrowMobile {
     position: absolute;
-    bottom: 14px;
-    left: -21px;
+    bottom: 19.5px;
+    left: -15.5px;
     display: block;
   }
 
@@ -952,7 +1120,16 @@
     letter-spacing: -1.4px;
   }
 
+  .offer > p { max-width: 295px; }
+
   .offer ul { padding-top: 15px; }
+
+  .offerSticker {
+    right: -67px;
+    bottom: -72px;
+    width: 152.5px;
+    height: 152.5px;
+  }
 
   .trialFormPanel {
     padding: 24px 20px;

@@ -88,7 +88,7 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
             {text.consultation}
           </button>
           <button
-            className={styles.menuButton}
+            className={`${styles.menuButton} ${styles.burger}`}
             type="button"
             aria-label={text.menu}
             aria-expanded={menuOpen}
@@ -98,7 +98,7 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
               setMenuOpen(true);
             }}
           >
-            <Image src="/landing/hero/menu.svg" width={40} height={40} alt="" />
+            <Image src="/landing/hero/menu.svg" width={37} height={34} alt="" />
           </button>
         </div>
       </header>
@@ -118,7 +118,7 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
       >
         <div className={styles.menuTop}>
           <Link href={withLocale(locale, "/")} onClick={closeMenu}>
-            <Image src="/landing/hero/logo.png" width={94} height={38} alt="GSC Study" />
+            <Image src="/landing/hero/logo.png" width={78} height={31} alt="GSC Study" />
           </Link>
           <button type="button" onClick={consult} className={styles.menuConsult}>
             {text.consultation}
@@ -161,8 +161,11 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
         <div className={styles.contacts}>
           <h2>{text.contacts}</h2>
           <div className={styles.contactGrid}>
-            <div><span>{text.callCenter}</span><a href={`tel:${site.phone.tel}`}>{site.phone.display}</a></div>
-            <div><span>WhatsApp:</span><a href={site.whatsapp.link} target="_blank" rel="noreferrer">{site.whatsapp.display}</a></div>
+            <div><span>{text.callCenter}</span><a href={`tel:${site.phone.tel}`} className={styles.phone}>{site.phone.display}</a></div>
+            <div>
+              <span>WhatsApp:</span>
+              <a href={site.whatsapp.link} target="_blank" rel="noreferrer" className={styles.phone}>{site.whatsapp.display}</a>
+            </div>
             <div><span>Email:</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
             <div><span>{text.hours}</span><strong>{text.weekdays}<br />{text.saturday}</strong></div>
           </div>

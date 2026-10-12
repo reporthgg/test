@@ -17,7 +17,9 @@ type ProgramsCopy = {
   years: string;
   questionForms: { one: string; few: string; other: string };
   writtenForms: { one: string; few: string; other: string };
+  singleWrittenTask: string;
   minutes: string;
+  minuteForms: { one: string; few: string; other: string };
   noTimeLimit: string;
   startTest: string;
   allTests: string;
@@ -47,37 +49,39 @@ type ProgramsCopy = {
 export const programsContent: Record<Locale, ProgramsCopy> = {
   ru: {
     directionsTitle: ["Экосистема", "для будущего", "вашего ребёнка"],
-    directionsIntro: "От первых занятий языком до поступления в зарубежный университет",
+    directionsIntro: "От первых занятий языком до поступления в зарубежный университет",
     directions: [
       {
         title: "Языковые курсы",
-        description: "Английский и китайский для общения, учёбы и новых возможностей",
+        description: "Английский и китайский для общения,\nучёбы и новых возможностей",
         cta: "Смотреть курсы",
       },
       {
         title: "Международные\nэкзамены",
-        description: "Подготовка к IELTS и SAT с учётом вашего уровня и цели",
+        description: "Подготовка к IELTS и SAT с учётом\nвашего уровня и цели",
         cta: "Подготовка к экзаменам",
       },
       {
         title: "Образование\nза рубежом",
-        description: "Подбор университета, подготовка документов и сопровождение поступления",
+        description: "Подбор университета, подготовка\nдокументов и сопровождение поступления",
         cta: "Программы за рубежом",
       },
       {
         title: "Зарубежные лагеря",
-        description: "Языковая практика, самостоятельность и знакомство с международной средой",
+        description: "Языковая практика, самостоятельность\nи знакомство с международной средой",
         cta: "Смотреть лагеря",
       },
     ],
     languageFormats: ["группы до 8 человек", "индивидуально", "онлайн"],
     testsTitle: ["Узнайте свой уровень", "бесплатно"],
-    testsIntro: "Выберите тест, чтобы понять, с чего начать подготовку",
+    testsIntro: "Выберите тест, чтобы понять, с чего начать подготовку",
     testTitles: { general: "General English", kids: "English for Kids" },
     years: "лет",
     questionForms: { one: "вопрос", few: "вопроса", other: "вопросов" },
     writtenForms: { one: "письменное задание", few: "письменных задания", other: "письменных заданий" },
+    singleWrittenTask: "письменное задание",
     minutes: "мин",
+    minuteForms: { one: "минута", few: "минуты", other: "минут" },
     noTimeLimit: "без лимита",
     startTest: "Пройти тест",
     allTests: "Все тесты",
@@ -87,7 +91,7 @@ export const programsContent: Record<Locale, ProgramsCopy> = {
     abroadTitle: ["Узнайте, с чего начать", "поступление за рубеж"],
     abroadLead: "За 15 минут онлайн эксперт разберёт вашу ситуацию:",
     abroadDetails: " цели, уровень подготовки и сроки.",
-    abroadSummary: "Вы поймёте, какие варианты рассматривать и что делать в первую очередь.",
+    abroadSummary: "Вы поймёте, какие варианты рассматривать и что делать в первую очередь.",
     consultationTags: ["бесплатно", "онлайн", "15 минут"],
     consultationCta: "Получить бесплатный разбор",
     studentName: "Аминка-витаминка",
@@ -98,15 +102,15 @@ export const programsContent: Record<Locale, ProgramsCopy> = {
     steps: [
       {
         title: "Цели и возможности",
-        description: "Обсуждаем интересы, уровень языка, бюджет и сроки поступления",
+        description: "Обсуждаем интересы, уровень\nязыка, бюджет и сроки поступления",
       },
       {
         title: "Подготовка",
-        description: "Определяем необходимые экзамены и план подготовки",
+        description: "Определяем необходимые\nэкзамены и план подготовки",
       },
       {
         title: "Поступление",
-        description: "Подбираем программы, готовим документы и сопровождаем подачу заявок",
+        description: "Подбираем программы, готовим документы и сопровождаем подачу заявок",
       },
     ],
     studentsImageAlt: "Студенты GSC Study",
@@ -144,7 +148,9 @@ export const programsContent: Record<Locale, ProgramsCopy> = {
     years: "жас",
     questionForms: { one: "сұрақ", few: "сұрақ", other: "сұрақ" },
     writtenForms: { one: "жазбаша тапсырма", few: "жазбаша тапсырма", other: "жазбаша тапсырма" },
+    singleWrittenTask: "жазбаша тапсырма",
     minutes: "мин",
+    minuteForms: { one: "минут", few: "минут", other: "минут" },
     noTimeLimit: "шектеусіз",
     startTest: "Тесттен өту",
     allTests: "Барлық тесттер",
@@ -211,7 +217,9 @@ export const programsContent: Record<Locale, ProgramsCopy> = {
     years: "years",
     questionForms: { one: "question", few: "questions", other: "questions" },
     writtenForms: { one: "writing task", few: "writing tasks", other: "writing tasks" },
+    singleWrittenTask: "a writing task",
     minutes: "min",
+    minuteForms: { one: "minute", few: "minutes", other: "minutes" },
     noTimeLimit: "no time limit",
     startTest: "Take the test",
     allTests: "All tests",

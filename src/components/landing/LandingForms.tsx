@@ -18,7 +18,7 @@ import {
 import type { Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
 import SchoolTrialCard from "@/components/school/SchoolTrialCard";
-import LandingSelect from "./LandingSelect";
+import LandingSelect, { type LandingSelectOption } from "./LandingSelect";
 import { formsContent } from "./forms-content";
 import styles from "./LandingForms.module.css";
 import schoolStyles from "@/components/school/SchoolTrial.module.css";
@@ -27,10 +27,13 @@ export type LeadKind = "diagnostic" | "trial";
 export type LandingScope = "landing" | "school";
 export type LeadSelection = { course?: string; teacher?: string };
 type ActiveLead = { kind: LeadKind; selection?: LeadSelection };
-type Field = "name" | "phone" | "city" | "consent";
+// Консультация открывается только формой на первом экране, у неё нет своего попапа.
+type FormKind = LeadKind | "consultation";
+type SelectField = "city" | "branch" | "program" | "year";
+type Field = "name" | "phone" | SelectField | "consent";
 type FieldErrors = Partial<Record<Field, string>>;
-type FormValues = { name: string; phone: string; city: string; consent: boolean };
-type SavedLead = { kind: LeadKind; crmDelivered: boolean };
+type FormValues = Record<Exclude<Field, "consent">, string> & { consent: boolean };
+type SavedLead = { kind: FormKind; crmDelivered: boolean };
 
 type LandingContextValue = {
   locale: Locale;
@@ -45,7 +48,9 @@ type LandingContextValue = {
 };
 
 const LandingContext = createContext<LandingContextValue | null>(null);
-const emptyValues: FormValues = { name: "", phone: "", city: "", consent: false };
+const emptyValues: FormValues = {
+  name: "", phone: "", city: "", branch: "", program: "", year: "", consent: false,
+};
 const controlCharacters = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u;
 
 export function LandingProvider({
@@ -145,7 +150,8 @@ function SuccessMessage({
       <h3>{crmDelivered ? t.successTitle : t.savedTitle}</h3>
       <p>
         {crmDelivered
-          ? kind === "trial" ? t.successTrial : t.successDiagnostic
+          ? kind === "trial" ? t.successTrial
+            : kind === "consultation" ? t.successConsultation : t.successDiagnostic
           : t.savedDescription}
       </p>
       {!crmDelivered && (
@@ -164,7 +170,7 @@ function LeadFields({
   visible = true,
   selection,
 }: {
-  kind: LeadKind;
+  kind: FormKind;
   source: string;
   appearance?: "standard" | "bottom" | "school";
   visible?: boolean;
@@ -173,9 +179,20 @@ function LeadFields({
   const { locale, scope, notifySaved } = useLandingContext();
   const t = formsContent[locale];
   const school = appearance === "school";
+  const consultation = kind === "consultation";
   const hasCity = kind === "diagnostic" || school;
   const cityRequired = kind === "diagnostic" && scope === "landing";
   const fieldClass = `${styles.field} ${school ? schoolStyles.field : ""}`;
+  // Порядок полей на экране: по нему фокус переходит к первой ошибке.
+  const fieldOrder: readonly Field[] = consultation
+    ? ["name", "phone", "branch", "program", "year", "consent"]
+    : hasCity ? ["name", "city", "phone", "consent"] : ["name", "phone", "consent"];
+  const selectOptions: Record<SelectField, readonly LandingSelectOption[]> = {
+    city: t.cities,
+    branch: t.branches,
+    program: t.services,
+    year: t.admissionYears,
+  };
   const id = useId();
   const [values, setValues] = useState<FormValues>(emptyValues);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -183,10 +200,7 @@ function LeadFields({
   const [sending, setSending] = useState(false);
   const [crmDelivered, setCrmDelivered] = useState<boolean | null>(null);
   const requestRef = useRef<AbortController | null>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const cityRef = useRef<HTMLButtonElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
-  const consentRef = useRef<HTMLInputElement>(null);
+  const fieldRefs = useRef<Partial<Record<Field, HTMLInputElement | HTMLButtonElement | null>>>({});
   const errorFocusRef = useRef<HTMLInputElement | HTMLButtonElement | null>(null);
 
   useEffect(() => () => requestRef.current?.abort(), []);
@@ -198,10 +212,13 @@ function LeadFields({
   }, [errors, sending, visible]);
 
   function requestErrorFocus(nextErrors: FieldErrors): void {
-    errorFocusRef.current = nextErrors.name ? nameRef.current
-      : nextErrors.city ? cityRef.current
-      : nextErrors.phone ? phoneRef.current
-      : nextErrors.consent ? consentRef.current : null;
+    const field = fieldOrder.find((item) => nextErrors[item]);
+    errorFocusRef.current = field ? fieldRefs.current[field] ?? null : null;
+  }
+
+  function errorText(field: Field): string {
+    return field === "branch" || field === "program" || field === "year"
+      ? t.errors.option : t.errors[field];
   }
 
   function updateField<K extends Field>(field: K, value: FormValues[K]): void {
@@ -228,11 +245,14 @@ function LeadFields({
     ) {
       nextErrors.phone = t.errors.phone;
     }
-    if (
-      hasCity && (cityRequired || values.city !== "") &&
-      !t.cities.some((city) => city.value === values.city)
-    ) {
-      nextErrors.city = t.errors.city;
+    for (const field of ["city", "branch", "program", "year"] as const) {
+      const required = field === "city" && cityRequired;
+      if (
+        fieldOrder.includes(field) && (required || values[field] !== "") &&
+        !selectOptions[field].some((option) => option.value === values[field])
+      ) {
+        nextErrors[field] = errorText(field);
+      }
     }
     if (!values.consent) nextErrors.consent = t.errors.consent;
     setErrors(nextErrors);
@@ -242,6 +262,8 @@ function LeadFields({
       return;
     }
 
+    // Филиал уходит отдельным полем, а его город заполняет колонку city, как в других формах.
+    const branch = consultation ? t.branches.find((option) => option.value === values.branch) : undefined;
     const request = new AbortController();
     requestRef.current = request;
     setSending(true);
@@ -255,6 +277,9 @@ function LeadFields({
           name,
           phone,
           ...(hasCity && values.city ? { city: values.city } : {}),
+          ...(branch ? { city: branch.city, branch: branch.value } : {}),
+          ...(consultation && values.program ? { program: values.program } : {}),
+          ...(consultation && values.year ? { year: values.year } : {}),
           ...(selection?.course ? { course: selection.course } : {}),
           ...(selection?.teacher ? { teacher: selection.teacher } : {}),
           consent: true,
@@ -270,8 +295,8 @@ function LeadFields({
         const details = "details" in record ? record.details : null;
         const serverErrors: FieldErrors = {};
         if (typeof details === "object" && details !== null) {
-          for (const field of ["name", "phone", "city", "consent"] as const) {
-            if (field in details) serverErrors[field] = t.errors[field];
+          for (const field of fieldOrder) {
+            if (field in details) serverErrors[field] = errorText(field);
           }
         }
         setErrors(serverErrors);
@@ -305,6 +330,88 @@ function LeadFields({
 
   const bottom = appearance === "bottom";
   const [beforeWhatsApp, afterWhatsApp] = t.whatsappPhone.split("WhatsApp");
+
+  function selectField(field: SelectField, label: string, required = false): ReactElement {
+    return (
+      <div className={fieldClass}>
+        <label htmlFor={`${id}-${field}`}>{label}</label>
+        <LandingSelect
+          ref={(node) => { fieldRefs.current[field] = node; }}
+          id={`${id}-${field}`}
+          name={field}
+          className={styles.selectControl}
+          required={required}
+          disabled={sending}
+          autoComplete={field === "city" ? "address-level2" : undefined}
+          value={values[field]}
+          options={selectOptions[field]}
+          placeholder={t.selectPlaceholder}
+          aria-label={label}
+          aria-invalid={!!errors[field]}
+          aria-describedby={errors[field] ? `${id}-${field}-error` : undefined}
+          onValueChange={(value) => updateField(field, value)}
+        />
+        {errorFor(field)}
+      </div>
+    );
+  }
+
+  const nameField = (
+    <div className={fieldClass}>
+      <label htmlFor={`${id}-name`}>{bottom ? `${t.name}:` : t.name}</label>
+      <input
+        ref={(node) => { fieldRefs.current.name = node; }}
+        id={`${id}-name`}
+        name="name"
+        type="text"
+        autoComplete="name"
+        placeholder={t.namePlaceholder}
+        required
+        maxLength={200}
+        value={values.name}
+        aria-invalid={!!errors.name}
+        aria-describedby={errors.name ? `${id}-name-error` : undefined}
+        onChange={(event) => updateField("name", event.target.value)}
+      />
+      {errorFor("name")}
+    </div>
+  );
+
+  const phoneField = (
+    <div className={fieldClass}>
+      <label htmlFor={`${id}-phone`}>
+        {bottom ? (
+          <>
+            {beforeWhatsApp}
+            <strong>WhatsApp{afterWhatsApp ? null : <span>:</span>}</strong>
+            {afterWhatsApp && `${afterWhatsApp}:`}
+          </>
+        ) : school ? (
+          <>
+            <span className={schoolStyles.desktopText}>{t.phone}</span>
+            <span className={schoolStyles.mobileText}>{t.whatsappPhone}</span>
+          </>
+        ) : kind === "trial" ? t.whatsappPhone : t.phone}
+      </label>
+      <input
+        ref={(node) => { fieldRefs.current.phone = node; }}
+        id={`${id}-phone`}
+        name="phone"
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel"
+        placeholder="+7 (___) ___-__-__"
+        required
+        maxLength={60}
+        value={values.phone}
+        aria-invalid={!!errors.phone}
+        aria-describedby={errors.phone ? `${id}-phone-error` : undefined}
+        onChange={(event) => updateField("phone", event.target.value)}
+      />
+      {errorFor("phone")}
+    </div>
+  );
+
   return (
     <form
       className={`${styles.fields} ${bottom ? styles.bottomFields : ""} ${school ? schoolStyles.fields : ""}`}
@@ -313,81 +420,32 @@ function LeadFields({
       aria-busy={sending}
     >
       <fieldset className={styles.fieldset} disabled={sending}>
-        <div className={`${hasCity ? styles.nameCity : styles.nameOnly} ${school ? schoolStyles.nameCity : ""}`}>
-          <div className={fieldClass}>
-            <label htmlFor={`${id}-name`}>{t.name}</label>
-            <input
-              ref={nameRef}
-              id={`${id}-name`}
-              name="name"
-              type="text"
-              autoComplete="name"
-              placeholder={t.namePlaceholder}
-              required
-              maxLength={200}
-              value={values.name}
-              aria-invalid={!!errors.name}
-              aria-describedby={errors.name ? `${id}-name-error` : undefined}
-              onChange={(event) => updateField("name", event.target.value)}
-            />
-            {errorFor("name")}
-          </div>
-          {hasCity && (
-            <div className={fieldClass}>
-              <label htmlFor={`${id}-city`}>{cityRequired ? t.city : t.optionalCity}</label>
-              <LandingSelect
-                ref={cityRef}
-                id={`${id}-city`}
-                name="city"
-                className={styles.selectControl}
-                required={cityRequired}
-                disabled={sending}
-                autoComplete="address-level2"
-                value={values.city}
-                options={t.cities}
-                placeholder={t.cityPlaceholder}
-                aria-label={cityRequired ? t.city : t.optionalCity}
-                aria-invalid={!!errors.city}
-                aria-describedby={errors.city ? `${id}-city-error` : undefined}
-                onValueChange={(city) => updateField("city", city)}
-              />
-              {errorFor("city")}
+        {consultation ? (
+          <>
+            <div className={styles.nameCity}>
+              {nameField}
+              {phoneField}
             </div>
-          )}
-        </div>
-        <div className={fieldClass}>
-          <label htmlFor={`${id}-phone`}>
-            {bottom
-              ? <>{beforeWhatsApp}<strong>WhatsApp</strong>{afterWhatsApp}</>
-              : school ? (
-                <>
-                  <span className={schoolStyles.desktopText}>{t.phone}</span>
-                  <span className={schoolStyles.mobileText}>{t.whatsappPhone}</span>
-                </>
-              ) : kind === "trial" ? t.whatsappPhone : t.phone}
-          </label>
-          <input
-            ref={phoneRef}
-            id={`${id}-phone`}
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="+7 (___) ___-__-__"
-            required
-            maxLength={60}
-            value={values.phone}
-            aria-invalid={!!errors.phone}
-            aria-describedby={errors.phone ? `${id}-phone-error` : undefined}
-            onChange={(event) => updateField("phone", event.target.value)}
-          />
-          {errorFor("phone")}
-        </div>
+            <div className={styles.nameCity}>
+              {selectField("branch", t.branch)}
+              {selectField("program", t.service)}
+            </div>
+            {selectField("year", t.admissionYear)}
+          </>
+        ) : (
+          <>
+            <div className={`${hasCity ? styles.nameCity : styles.nameOnly} ${school ? schoolStyles.nameCity : ""}`}>
+              {nameField}
+              {hasCity && selectField("city", cityRequired ? t.city : t.optionalCity, cityRequired)}
+            </div>
+            {phoneField}
+          </>
+        )}
         <div className={styles.consentField}>
           <label className={`${styles.consent} ${school ? schoolStyles.consent : ""}`} htmlFor={`${id}-consent`}>
             <span className={`${styles.checkbox} ${school ? schoolStyles.checkbox : ""}`}>
               <input
-                ref={consentRef}
+                ref={(node) => { fieldRefs.current.consent = node; }}
                 id={`${id}-consent`}
                 name="consent"
                 type="checkbox"
@@ -399,16 +457,28 @@ function LeadFields({
               />
               {bottom && (
                 <span className={styles.checkboxArtwork} aria-hidden="true">
-                  <img
-                    src={values.consent
-                      ? "/landing/forms/consent-checked.svg"
-                      : "/landing/forms/consent-empty.svg"}
-                    alt=""
-                  />
+                  {/* Figma: на десктопе квадрат 16 px, на мобильной 24 px, в обоих состояниях. */}
+                  <picture key={String(values.consent)}>
+                    <source
+                      media="(max-width: 767px)"
+                      srcSet={values.consent
+                        ? "/landing/forms/consent-checked-mobile.svg"
+                        : "/landing/forms/consent-empty.svg"}
+                    />
+                    <img
+                      src={values.consent
+                        ? "/landing/forms/consent-checked.svg"
+                        : "/landing/forms/consent-empty-desktop.svg"}
+                      alt=""
+                    />
+                  </picture>
                 </span>
               )}
             </span>
-            <span>{t.consent}</span>
+            <span>
+              {t.consent}
+              {bottom && scope === "landing" && <span className={styles.consentPeriod}>.</span>}
+            </span>
           </label>
           {errorFor("consent")}
         </div>
@@ -428,7 +498,13 @@ function LeadFields({
             <span className={schoolStyles.desktopText}>{t.schoolTrialSubmit}</span>
             <span className={schoolStyles.mobileText}>{t.trialSubmit}</span>
           </>
-        ) : <span>{sending ? t.sending : kind === "trial" ? t.trialSubmit : t.submit}</span>}
+        ) : (
+          <span>
+            {sending ? t.sending
+              : kind === "trial" ? t.trialSubmit
+              : consultation ? t.consultationSubmit : t.submit}
+          </span>
+        )}
         {bottom && (
           <>
             <img className={styles.arrowDesktop} src="/landing/forms/arrow-desktop.svg" alt="" />
@@ -442,22 +518,25 @@ function LeadFields({
 
 export function LandingLeadForm({
   variant,
+  kind = "diagnostic",
   source,
 }: {
   variant: "white" | "pink";
+  kind?: "diagnostic" | "consultation";
   source?: string;
 }): ReactElement {
   const { locale, scope } = useLandingContext();
   const t = formsContent[locale];
   const titleId = useId();
+  const consultation = kind === "consultation";
   return (
     <section
-      className={`${styles.leadCard} ${variant === "pink" ? styles.pink : styles.white}`}
+      className={`${styles.leadCard} ${variant === "pink" ? styles.pink : styles.white} ${consultation ? styles.consultation : ""}`}
       aria-labelledby={titleId}
     >
-      <h2 id={titleId}>{t.diagnosticTitle}</h2>
-      <p className={styles.description}>{t.diagnosticDescription}</p>
-      <LeadFields kind="diagnostic" source={source ?? `${scope}-diagnostic-${variant}`} />
+      <h2 id={titleId}>{consultation ? t.consultationTitle : t.diagnosticTitle}</h2>
+      <p className={styles.description}>{consultation ? t.consultationDescription : t.diagnosticDescription}</p>
+      <LeadFields kind={kind} source={source ?? `${scope}-${kind}-${variant}`} />
       <p className={styles.faster}>
         {t.faster}{" "}
         <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
@@ -479,7 +558,7 @@ export function TrialSection(): ReactElement {
             {t.bottomTitle}<br /><em>{t.bottomTitleAccent}</em>
           </h2>
         </header>
-        <div className={styles.bottomForm}>
+        <div className={`${styles.bottomForm} ${scope === "landing" ? styles.homeBottomForm : ""}`}>
           <div className={styles.formBackground} aria-hidden="true">
             <img className={styles.backgroundDesktop} src="/landing/forms/form-desktop.svg" alt="" />
             <img className={styles.backgroundMobile} src="/landing/forms/form-mobile.svg" alt="" />

@@ -35,6 +35,18 @@ test("questionSummary preserves singular, plural and no-essay formatting", () =>
   assert.equal(questionSummary({ questions: [{ type: "essay" }] }, "en"), "0 questions + 1 writing task");
 });
 
+test("questionSummary can omit the count of a single writing task", () => {
+  const questions = [{ type: "choice" }, { type: "choice" }, { type: "essay" }];
+  assert.equal(questionSummary({ questions }, "ru", { countSingleWritten: false }), "2 вопроса + письменное задание");
+  assert.equal(questionSummary({ questions }, "en", { countSingleWritten: false }), "2 questions + a writing task");
+  assert.equal(questionSummary({ questions }, "kz", { countSingleWritten: false }), "2 сұрақ + жазбаша тапсырма");
+  assert.equal(questionSummary({ questions }, "ru"), "2 вопроса + 1 письменное задание");
+  assert.equal(
+    questionSummary({ questions: [...questions, { type: "essay" }] }, "ru", { countSingleWritten: false }),
+    "2 вопроса + 2 письменных задания",
+  );
+});
+
 test("presentation preserves both imported age groups", () => {
   assert.deepEqual(
     testPresentation({ ...baseTest, slug: "tilda-kids-6-8", kind: "kids" }, "ru"),

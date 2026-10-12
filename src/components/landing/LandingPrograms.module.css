@@ -53,7 +53,7 @@
 .directionsIntro {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 5px;
   max-width: 385px;
   margin: 0;
   text-align: right;
@@ -117,6 +117,11 @@
   font-size: 18px;
   line-height: 28px;
   letter-spacing: -0.18px;
+  white-space: pre-line;
+}
+
+.directionCard strong {
+  font-weight: 800;
 }
 
 .light > p {
@@ -160,7 +165,8 @@
 }
 
 .languageFormats li {
-  padding: 9px 21px;
+  min-width: max-content;
+  padding: 10px 20px;
   border: 1px solid rgb(37 90 135 / 50%);
   border-radius: 999px;
   color: #636363;
@@ -169,13 +175,18 @@
   font-weight: 500;
   line-height: 24px;
   letter-spacing: -0.16px;
+  text-align: center;
 }
+
+.languageFormats li:nth-child(1) { width: 197px; }
+.languageFormats li:nth-child(2) { width: 170px; }
+.languageFormats li:nth-child(3) { width: 100px; }
 
 .directionLink {
   display: flex;
   align-items: center;
   align-self: flex-start;
-  gap: 8px;
+  gap: 9px;
   margin-top: auto;
   padding-top: 25px;
   color: inherit;
@@ -184,6 +195,11 @@
   line-height: 28px;
   letter-spacing: -0.2px;
   text-decoration: none;
+}
+
+.directionLink picture {
+  position: relative;
+  top: 4px;
 }
 
 .directionLink:hover {
@@ -203,7 +219,7 @@
 .ticketSticker {
   position: absolute;
   top: 635px;
-  left: calc(50% - 838px);
+  left: calc(50% - 854px);
   width: 380px;
   height: 253px;
   transform: rotate(-15deg);
@@ -305,6 +321,12 @@
   text-transform: uppercase;
 }
 
+.kidsTest h3 {
+  font-size: 32px;
+  line-height: 34px;
+  letter-spacing: -1.28px;
+}
+
 .testAge {
   margin: -2px 0 0;
   font-family: "Futura PT", sans-serif;
@@ -351,8 +373,27 @@
 }
 
 .testMeta .questionCount {
+  min-width: 142px;
   max-width: 100%;
+  padding-inline: 23px;
   text-align: center;
+}
+
+.testMeta .testDuration {
+  min-width: 140px;
+  padding-inline: 15px;
+}
+
+.timerIcon {
+  display: grid;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+}
+
+.durationShort {
+  display: none;
 }
 
 .testLink {
@@ -360,7 +401,7 @@
   align-items: center;
   justify-content: space-between;
   align-self: flex-start;
-  gap: 10px;
+  gap: 7px;
   min-width: 180px;
   min-height: 46px;
   margin-top: auto;
@@ -404,6 +445,7 @@
 }
 
 .carouselControls img {
+  display: block;
   transform: rotate(180deg);
 }
 
@@ -411,7 +453,8 @@
   background: transparent;
 }
 
-.next {
+.programs .next {
+  border: 1.5px solid #e2e8f0;
   background: #fff;
 }
 
@@ -469,7 +512,8 @@
 }
 
 .consultationTags li {
-  padding: 10px 25px;
+  min-width: max-content;
+  padding: 10px 20px;
   border: 1px solid rgb(255 255 255 / 40%);
   border-radius: 999px;
   background: rgb(255 255 255 / 10%);
@@ -477,7 +521,12 @@
   font-weight: 500;
   line-height: 24px;
   letter-spacing: -0.16px;
+  text-align: center;
 }
+
+.consultationTags li:nth-child(1) { width: 134px; }
+.consultationTags li:nth-child(2) { width: 100px; }
+.consultationTags li:nth-child(3) { width: 120px; }
 
 .programs .consultationButton {
   position: absolute;
@@ -485,12 +534,13 @@
   right: 105px;
   width: 200px;
   height: 200px;
-  padding: 40px 10px 100px;
+  padding: 45px 15px 111px;
   overflow: hidden;
-  border: 5px solid var(--landing-blue, #135685);
+  border: 0;
   border-radius: 50%;
   color: #fff;
   background: var(--landing-yellow, #eac35d);
+  box-shadow: 0 0 0 5px var(--landing-blue, #135685);
   font-size: 18px;
   font-weight: 800;
   line-height: 22px;
@@ -499,10 +549,14 @@
   cursor: pointer;
 }
 
+.consultationButton span {
+  text-shadow: 0 4px 8px rgb(0 0 0 / 8%);
+}
+
 .consultationButton img {
   position: absolute;
-  left: -10px;
-  bottom: 25px;
+  left: -9.5px;
+  bottom: 29.5px;
   width: auto;
   height: auto;
   max-width: none;
@@ -613,8 +667,8 @@
 }
 
 .mapSticker {
-  top: -35px;
-  left: -8px;
+  top: -34px;
+  left: -37px;
   width: 90px;
   height: 90px;
   transform: rotate(20deg);
@@ -631,8 +685,8 @@
 }
 
 .gscSticker {
-  right: -45px;
-  bottom: -10px;
+  right: -51.5px;
+  bottom: -18px;
   width: 150px;
   height: 64px;
   transform: rotate(-20deg);
@@ -726,8 +780,8 @@
 }
 
 .studentsScribble {
-  top: 149px;
-  left: -17px;
+  top: 145px;
+  left: -14px;
   width: 643px;
   height: 382px;
   transform: rotate(0.78deg);
@@ -780,6 +834,7 @@
   font-size: 18px;
   line-height: 28px;
   letter-spacing: -0.36px;
+  white-space: pre-line;
 }
 
 .stepsList li:first-child p {
@@ -801,6 +856,7 @@
   .directionCard > p { font-size: 16px; line-height: 25px; }
   .languageFormats { gap: 6px; }
   .languageFormats li { padding: 6px 12px; font-size: 12px; }
+  .languageFormats li:nth-child(n) { width: auto; }
   .directionLink { font-size: 16px; }
   .programs .testsTitle { max-width: 65%; font-size: 58px; }
   .testsHeader > p { max-width: 35%; font-size: 16px; line-height: 25px; }
@@ -808,7 +864,8 @@
   .abroadCopy .abroadTitle { font-size: 48px; line-height: 52px; }
   .student { width: 300px; height: 446px; }
   .abroadDescription { font-size: 17px; line-height: 27px; }
-  .programs .consultationButton { position: relative; top: auto; right: auto; width: auto; height: auto; margin-top: 24px; padding: 16px 24px; border: 0; border-radius: 12px; }
+  .programs .consultationButton { position: relative; top: auto; right: auto; width: auto; height: auto; margin-top: 24px; padding: 16px 24px; border: 0; border-radius: 12px; box-shadow: none; }
+  .consultationButton span { text-shadow: none; }
   .consultationButton img { display: none; }
   .studentCaption { left: -20px; font-size: 12px; }
   .stepsInner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
@@ -825,27 +882,36 @@
   .programs .directionsTitle,
   .programs .testsTitle,
   .abroadCopy .abroadTitle { max-width: 100%; font-size: 35px; line-height: 38px; letter-spacing: -1.4px; }
+  .programs .directionsTitle,
+  .programs .testsTitle { margin-left: -1px; }
+  .abroadCopy .abroadTitle { margin-left: -2px; }
   .directionsTitle em { display: block; }
-  .directionsIntro { position: static; max-width: 358px; margin-top: 5px; font-size: 16px; line-height: 23px; text-align: left; letter-spacing: -0.16px; }
+  .directionsIntro { position: static; max-width: 358px; margin-top: 5px; font-size: 16px; font-weight: 300; line-height: 23px; text-align: left; letter-spacing: -0.16px; }
   .directionsGrid { grid-template-columns: minmax(0, 1fr); gap: 14px; width: 100%; margin-top: 28px; }
   .directionCard { min-height: 220px; padding: 24px 20px; border-radius: 24px; }
   .directionCard:nth-child(n + 3) { transform: none; }
   .directionCard h3 { max-width: calc(100% - 49px); font-size: 25px; line-height: 26px; letter-spacing: -1px; }
-  .directionCard > p { max-width: 275px; margin-top: 5px; font-size: 14px; line-height: 20px; letter-spacing: -0.14px; }
+  .directionCard > p { max-width: 275px; margin-top: 5px; font-size: 14px; font-weight: 300; line-height: 20px; letter-spacing: -0.14px; }
   .directionCard:first-child > p { max-width: 255px; }
+  .directionCard:nth-child(3) > p { max-width: 295px; font-weight: 400; }
+  .directionCard strong { font-weight: 700; }
   .directionIcon { top: 24px; right: 20px; width: 42px; height: 42px; }
   .languageFormats { flex-wrap: nowrap; gap: 8px; margin-top: 15px; }
-  .languageFormats li { flex-shrink: 0; padding: 6px 14px; font-size: 10px; line-height: 16px; letter-spacing: -0.1px; }
-  .directionLink { gap: 8px; padding-top: 22px; font-size: 14px; line-height: 18px; letter-spacing: -0.14px; }
-  .yellow { background: #e0b645; }
-  .ticketSticker { top: 64px; right: -57px; left: auto; width: 194px; height: 130px; transform: rotate(-140deg); }
+  .languageFormats li { display: flex; align-items: center; justify-content: center; height: 30px; padding: 0 14px; border-width: 0.6px; font-size: 10px; line-height: 15px; letter-spacing: -0.1px; }
+  .languageFormats li:nth-child(1) { width: 126px; }
+  .languageFormats li:nth-child(2) { width: 111px; }
+  .languageFormats li:nth-child(3) { width: 65px; }
+  .directionLink { gap: 9px; padding-top: 22px; font-size: 14px; line-height: 18px; letter-spacing: -0.14px; }
+  .directionLink picture { top: 2px; }
+  .yellow { color: #f0ebec; background: #e0b645; }
+  .ticketSticker { top: 62px; right: -58px; left: auto; width: 194px; height: 130px; transform: rotate(-140deg); }
   .ticketDesktop { display: none; }
   .ticketMobile { display: block; }
-  .pinkSticker { right: 39px; bottom: -41px; width: 100px; height: 100px; z-index: 1; }
+  .pinkSticker { right: 32px; bottom: -41px; width: 100px; height: 100px; z-index: 1; }
   .tests { padding: 72px 0 0; }
   .testsHeader { min-height: 0; }
   .testsTitle { max-width: 350px; }
-  .testsHeader > p { position: static; max-width: 245px; margin-top: 5px; font-size: 16px; line-height: 23px; text-align: left; letter-spacing: -0.16px; }
+  .testsHeader > p { position: static; max-width: 245px; margin-top: 5px; font-size: 16px; font-weight: 300; line-height: 23px; text-align: left; letter-spacing: -0.16px; }
   .carousel { margin-top: 28px; padding-bottom: 87px; }
   .testTrack { gap: 16px; padding-inline: 16px; scroll-padding-inline: 16px; }
   .testCard,
@@ -853,19 +919,31 @@
   .testCard h3 { max-width: calc(100% - 36px); font-size: 25px; line-height: 26px; letter-spacing: -1px; }
   .testAge { margin-top: 1px; font-size: 22px; line-height: 30px; letter-spacing: -0.88px; }
   .testFlag { right: 20px; }
-  .testMeta { gap: 6px; margin-top: 15px; margin-bottom: 18px; }
+  .testMeta { gap: 6px; margin-top: 16px; margin-bottom: 18px; }
   .testMeta > span { min-height: 36px; padding: 7px 15px; gap: 2px; font-size: 14px; line-height: 20px; letter-spacing: -0.14px; }
+  .testMeta .questionCount { min-width: 120px; padding-inline: 15px; }
+  .testMeta .writtenCount { flex-basis: 100%; }
+  .testMeta .testDuration { min-width: 100px; padding-inline: 15px; }
+  .timerIcon { width: 18px; height: 18px; }
+  .durationLong { display: none; }
+  .durationShort { display: inline; }
   .testLink { align-self: stretch; min-height: 44px; padding: 12px 25px; font-size: 14px; line-height: 20px; letter-spacing: -0.56px; }
   .carouselControls { top: auto; right: 16px; bottom: 0; gap: 16px; }
+  .carouselControls button { border-width: 0.8px; }
+  .programs .next { border-width: 1.25px; }
   .emptyTests { padding-bottom: 40px; }
   .abroad { padding: 72px 0 60px; }
   .abroadInner { grid-template-columns: minmax(0, 1fr); gap: 50px; min-height: 0; }
   .abroadTitle { max-width: 358px; }
-  .abroadDescription { max-width: 100%; margin-top: 10px; font-size: 16px; line-height: 24px; letter-spacing: -0.16px; }
+  .abroadDescription { max-width: 100%; margin-top: 10px; font-size: 16px; font-weight: 300; line-height: 24px; letter-spacing: -0.16px; }
   .desktopDescription { display: none; }
   .consultationTags { flex-wrap: nowrap; gap: 7px; margin-top: 20px; }
   .consultationTags li { flex: 1 1 auto; padding: 9px 16px; font-size: 16px; line-height: 24px; text-align: center; white-space: nowrap; }
-  .programs .consultationButton { position: static; width: 100%; height: auto; min-height: 60px; margin-top: 25px; padding: 16px; border: 0; border-radius: 12px; background: #e0b645; font-size: 16px; font-weight: 700; line-height: 24px; letter-spacing: -0.32px; }
+  .consultationTags li:nth-child(1) { width: 130px; }
+  .consultationTags li:nth-child(2) { width: 97px; }
+  .consultationTags li:nth-child(3) { width: 116px; }
+  .programs .consultationButton { position: static; width: 100%; height: auto; min-height: 60px; margin-top: 25px; padding: 16px; border: 0; border-radius: 12px; background: #e0b645; box-shadow: none; font-size: 16px; font-weight: 700; line-height: 24px; letter-spacing: -0.32px; }
+  .consultationButton span { text-shadow: none; }
   .consultationButton img { display: none; }
   .student { width: 100%; height: auto; aspect-ratio: 358 / 537; }
   .studentPhoto { top: -5.98%; height: 105.98%; }
@@ -884,22 +962,23 @@
   .studentCaption span { max-width: 100%; padding: 10px 17px; white-space: normal; }
   .studentCaption span:first-child { margin-left: 0; }
   .mapSticker { top: -28px; left: -33px; }
-  .gscSticker { right: -12px; bottom: -23px; width: 130px; height: 56px; }
+  .gscSticker { right: -26px; bottom: -28.5px; width: 130px; height: 56px; }
   .steps { padding: 72px 0 33px; border-radius: 0 0 30px 30px; }
   .divider { top: 20px; }
   .stepsInner { display: flex; flex-direction: column; min-height: 0; }
   .stepsList { order: 0; gap: 30px; margin: 0; }
   .stepsList li { grid-template-columns: 50px minmax(0, 1fr); gap: 22px; }
-  .stepNumber { width: 50px; height: 50px; margin-top: 3px; font-size: 25px; line-height: 26px; letter-spacing: -1px; }
+  .stepNumber { width: 50px; height: 50px; margin-top: 3px; border: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='24.5' fill='none' stroke='%23fff' stroke-opacity='.8' stroke-dasharray='1.93 1.93'/%3E%3C/svg%3E") center / 100% 100% no-repeat; font-size: 25px; line-height: 26px; letter-spacing: -1px; }
   .stepsList h3 { font-size: 25px; line-height: 26px; letter-spacing: -1px; }
-  .stepsList p { max-width: 290px; margin-top: 6px; font-size: 16px; line-height: 24px; letter-spacing: -0.32px; }
+  .stepsList p { max-width: 290px; margin-top: 6px; font-size: 16px; font-weight: 300; line-height: 24px; letter-spacing: -0.32px; }
+  .stepsList li:last-child p { max-width: 230px; }
   .studentPhotos { order: 1; height: 386px; margin-top: 25px; }
   .studentsLeft { top: 76.61px; left: -36px; width: 202px; height: 306px; border-radius: 20px; }
   .studentsLeft img { top: -15.8px; left: 21.46px; width: 208px; }
   .studentsRight { top: 0; left: 163.81px; width: 226px; height: 342px; border-radius: 20px; filter: drop-shadow(-33.219px 36.047px 15.004px rgb(0 0 0 / 12%)); }
   .studentsRight img { top: 7.91px; left: -90.46px; width: 301px; }
-  .studentsScribble { top: 75px; left: -14px; width: 445px; height: 261px; transform: rotate(3deg); }
-  .programs .mobileAdmissionButton { order: 2; display: flex; justify-content: center; min-height: 60px; margin-top: 30px; border-radius: 12px; background: #e0b645; font-size: 16px; font-weight: 700; line-height: 24px; }
+  .studentsScribble { top: 81px; left: -7.5px; width: 445px; height: 261px; transform: rotate(3deg); }
+  .programs .mobileAdmissionButton { order: 2; display: flex; justify-content: center; min-height: 60px; margin-top: 30px; border-radius: 12px; background: #e0b645; font-size: 16px; font-weight: 700; line-height: 24px; letter-spacing: -0.32px; }
 }
 
 @media (max-width: 374px) {

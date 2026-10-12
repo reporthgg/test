@@ -40,6 +40,7 @@ export function testPresentation(
 export function questionSummary(
   test: Pick<PublishedTest, "questions">,
   locale: Locale,
+  { countSingleWritten = true }: { countSingleWritten?: boolean } = {},
 ): string {
   const written = test.questions.filter((question) => question.type === "essay").length;
   const questions = test.questions.length - written;
@@ -49,5 +50,8 @@ export function questionSummary(
   const writtenCategory = rules.select(written);
   const questionForm = questionCategory === "one" || questionCategory === "few" ? questionCategory : "other";
   const writtenForm = writtenCategory === "one" || writtenCategory === "few" ? writtenCategory : "other";
-  return `${questions} ${t.questionForms[questionForm]}${written > 0 ? ` + ${written} ${t.writtenForms[writtenForm]}` : ""}`;
+  const writtenSummary = written === 1 && !countSingleWritten
+    ? t.singleWrittenTask
+    : `${written} ${t.writtenForms[writtenForm]}`;
+  return `${questions} ${t.questionForms[questionForm]}${written > 0 ? ` + ${writtenSummary}` : ""}`;
 }

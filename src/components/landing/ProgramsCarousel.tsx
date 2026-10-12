@@ -73,7 +73,10 @@ export default function ProgramsCarousel({
           disabled={bounds.start}
           onClick={() => move(-1)}
         >
-          <Image src="/landing/programs/chevron-white.svg" alt="" width={30} height={30} />
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/landing/programs/chevron-white-mobile.svg" />
+            <Image src="/landing/programs/chevron-white.svg" alt="" width={30} height={30} />
+          </picture>
         </button>
         <button
           type="button"
@@ -83,7 +86,10 @@ export default function ProgramsCarousel({
           disabled={bounds.end}
           onClick={() => move(1)}
         >
-          <Image src="/landing/programs/chevron-blue.svg" alt="" width={30} height={30} />
+          <picture>
+            <source media="(max-width: 767px)" srcSet="/landing/programs/chevron-blue-mobile.svg" />
+            <Image src="/landing/programs/chevron-blue.svg" alt="" width={30} height={30} />
+          </picture>
         </button>
       </div>
     </div>

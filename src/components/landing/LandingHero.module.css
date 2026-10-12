@@ -54,6 +54,7 @@
   font-weight: 300;
   line-height: 34px;
   letter-spacing: -0.01em;
+  white-space: pre-line;
 }
 
 .hashtag {
@@ -93,8 +94,8 @@
 
 .buttonLine {
   position: absolute;
-  top: 108px;
-  left: -7px;
+  top: 105.5px;
+  left: -9.5px;
   width: 155px;
   height: 65px;
   background: url("/landing/hero/button-line.svg") center / contain no-repeat;
@@ -108,84 +109,6 @@
 
 .mobileForm {
   display: none;
-}
-
-.desktopForm > section {
-  min-height: 546px;
-  padding: 31px 34px;
-  border-width: 1px;
-  border-radius: 40px;
-}
-
-.desktopForm > section > h2 {
-  font-size: 28px;
-  line-height: 32px;
-  letter-spacing: -0.03em;
-  text-align: center;
-}
-
-.desktopForm > section > p:first-of-type {
-  max-width: 335px;
-  margin: 8px auto 20px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: center;
-}
-
-.desktopForm form fieldset {
-  gap: 11px;
-}
-
-.desktopForm form label {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 19px;
-}
-
-.desktopForm form input:not([type="checkbox"]),
-.desktopForm form select,
-.desktopForm form [role="combobox"] {
-  height: 54px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-size: 14px;
-}
-
-.desktopForm form fieldset > div:last-child {
-  margin-top: 5px;
-}
-
-.desktopForm form fieldset > div:last-child > label {
-  gap: 12px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-}
-
-.desktopForm label > span:first-child,
-.desktopForm input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  flex-basis: 20px;
-}
-
-.desktopForm input[type="checkbox"] {
-  border-radius: 6px;
-}
-
-.desktopForm form button[type="submit"] {
-  min-height: 66px;
-  margin-top: 30px;
-  border-radius: 12px;
-  font-size: 16px;
-}
-
-.desktopForm > section > p:last-of-type {
-  margin-top: 15px;
-  font-size: 16px;
-  line-height: 22px;
-  text-align: center;
 }
 
 .scribble {
@@ -242,7 +165,7 @@
 .dots {
   display: flex;
   gap: 4px;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .dots button {
@@ -316,19 +239,21 @@
 .actions {
   display: flex;
   gap: 16px;
+  max-width: 630px;
   margin-top: 29px;
 }
 
-.actions > * {
-  flex: 1;
+.actions > :global(.landing-button) {
+  flex: 306 1 0%;
   min-width: 0;
   min-height: 66px;
   padding-inline: 20px;
   font-size: 16px;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
 }
 
-.secondary {
+.actions > .secondary {
+  flex-grow: 308;
   border-color: var(--landing-blue);
   background: white;
   color: var(--landing-blue);
@@ -336,7 +261,12 @@
 
 .english .title {
   font-size: 78px;
-  line-height: 0.98;
+  line-height: 76px;
+}
+
+.english .accent {
+  margin-top: 1px;
+  line-height: 72px;
 }
 
 .english .hashtag {
@@ -353,7 +283,7 @@
 }
 
 .abroad .description {
-  max-width: 425px;
+  max-width: 399px;
   margin-top: 10px;
 }
 
@@ -397,6 +327,11 @@
     line-height: 1;
   }
 
+  .english .accent {
+    margin-top: 0;
+    line-height: inherit;
+  }
+
   .description {
     font-size: 20px;
     line-height: 28px;
@@ -417,7 +352,7 @@
     gap: 10px;
   }
 
-  .actions > * {
+  .actions > :global(.landing-button) {
     min-height: 52px;
   }
 
@@ -463,6 +398,29 @@
     max-width: 345px;
   }
 
+  .english .title,
+  .abroad .title {
+    margin-left: -1px;
+  }
+
+  .education .accent {
+    margin-top: 2px;
+  }
+
+  .english .accent {
+    margin-top: 0;
+    line-height: inherit;
+  }
+
+  /* Figma keeps "для" and "ваших" on one line: АНГЛИЙСКИЙ / ДЛЯ ВАШИХ / ЦЕЛЕЙ. */
+  .hero[data-locale="ru"].english .title > span {
+    display: inline;
+  }
+
+  .hero[data-locale="ru"].english .accent::before {
+    content: " ";
+  }
+
   .description,
   .abroad .description {
     width: 100%;
@@ -480,6 +438,7 @@
 
   .english .description {
     max-width: 250px;
+    white-space: normal;
   }
 
   .hashtag,
@@ -489,6 +448,7 @@
     left: 269px;
     width: 60px;
     height: 68px;
+    background-image: url("/landing/hero/mobile-hashtag.svg");
   }
 
   .english .hashtag {
@@ -503,27 +463,29 @@
 
   .circleButton {
     position: absolute;
-    top: 102px;
-    right: 0;
-    width: 120px;
-    height: 120px;
+    top: 99px;
+    right: -3px;
+    width: 126px;
+    height: 126px;
     margin: 0;
     border: 3px solid white;
+    background-clip: padding-box;
   }
 
   .circleButton > span:first-child {
-    top: 21px;
-    left: 24px;
+    top: 24px;
+    left: 27px;
     width: 66px;
     font-size: 12px;
     line-height: 14px;
   }
 
   .buttonLine {
-    top: 63px;
-    left: -12px;
+    top: 64.5px;
+    left: -13.5px;
     width: 97px;
     height: 41px;
+    background-image: url("/landing/hero/mobile-button-line.svg");
   }
 
   .controls {
@@ -535,12 +497,13 @@
     width: 180px;
     height: 36px;
     margin-top: 34px;
-    padding: 2px;
+    padding: 2.4px;
+    border-width: 0.6px;
   }
 
   .dots {
     gap: 0;
-    margin-left: 3px;
+    margin-left: 6px;
   }
 
   .dots button {
@@ -557,6 +520,12 @@
   .next {
     width: 30px;
     height: 30px;
+    border-width: 0.6px;
+  }
+
+  .next {
+    border-color: rgb(19 86 133 / 50%);
+    background: #e2e8f0;
   }
 
   .previous img,
@@ -582,9 +551,9 @@
     flex-direction: column;
     min-height: 212px;
     padding: 20px 24px;
-    border: 0.7px solid #b2b2b2;
     border-radius: 24px;
     background: var(--landing-pink);
+    box-shadow: inset 0 0 0 0.7px #b2b2b2;
     color: white;
   }
 
@@ -599,10 +568,11 @@
 
   .mobileForm p {
     max-width: 280px;
-    margin: 5px 0 24px;
+    margin: 5px 0 25px;
     font-size: 14px;
     font-weight: 300;
     line-height: 20px;
+    white-space: pre-line;
   }
 
   .diagnosticButton {
@@ -652,7 +622,7 @@
     margin-top: 24px;
   }
 
-  .actions > * {
+  .actions > :global(.landing-button) {
     flex: auto;
     min-height: 48px;
     padding: 12px 18px;
@@ -665,9 +635,12 @@
     margin-top: 25px;
   }
 
-  .english .scribble,
-  .abroad .scribble {
+  .english .scribble {
     top: 643px;
+  }
+
+  .abroad .scribble {
+    top: 663px;
   }
 
   .english .photographs,

@@ -73,13 +73,14 @@
 .language {
   width: 100px;
   height: 38px;
-  padding: 0 14px;
+  padding: 0 12.5px;
   border: 1.5px solid #e2e8f0;
   border-radius: 100px;
   background: white;
   color: var(--landing-blue);
   font-size: 14px !important;
   font-weight: 600 !important;
+  letter-spacing: -0.01em;
   cursor: pointer;
 }
 
@@ -93,10 +94,8 @@
   color: white;
   font-size: 16px !important;
   font-weight: 700 !important;
-}
-
-.scrolled {
-  box-shadow: 0 5px 24px rgb(19 86 133 / 7%);
+  line-height: 22px !important;
+  letter-spacing: -0.02em;
 }
 
 .scrolled .inner {
@@ -120,6 +119,13 @@
   padding: 0;
   border: 0;
   background: transparent;
+}
+
+.burger {
+  place-items: center end;
+  width: 44px;
+  height: 44px;
+  margin-right: -4px;
 }
 
 .menu {
@@ -154,25 +160,29 @@
 }
 
 .menuConsult {
+  min-width: 125px;
   min-height: 37px;
-  padding: 8px 18px;
+  /* В Figma обводка 0.5 внутри кнопки, а CSS-рамка (в Chrome до 1px) добавляется к отступам. */
+  padding: 9px 19.5px;
   border: 0.5px solid var(--landing-blue);
   border-radius: 6px;
   background: white;
   color: var(--landing-blue);
-  font-size: 12px !important;
+  font-size: 12.45px !important;
   font-weight: 700 !important;
+  line-height: 17px !important;
+  letter-spacing: -0.02em;
 }
 
 .menuColumns {
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
+  grid-template-columns: 1.52fr 1fr;
   gap: 20px;
-  margin-top: 36px;
+  margin-top: 30px;
 }
 
 .menu h2 {
-  margin: 0 0 24px;
+  margin: 0 0 20px;
   color: #aaa;
   font-size: 20px;
   font-weight: 700;
@@ -188,19 +198,19 @@
 }
 
 .menuColumns h2 {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 .menuColumns a {
   font-size: 18px;
   line-height: 28px;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 .menuLanguage {
   display: flex;
   gap: 8px;
-  margin-top: 24px;
+  margin-top: 25px;
 }
 
 .menuLanguage button {
@@ -219,21 +229,23 @@
 
 .divider {
   height: 13px;
-  margin: 30px -16px 36px;
-  background: url("/landing/hero/menu-line.svg") center / auto 12px repeat-x;
+  margin: 35px -16px;
+  background: url("/landing/hero/menu-line.svg") center / 100% 12.5px no-repeat;
 }
 
 .contactGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px 16px;
+  gap: 25px 16px;
 }
 
 .contactGrid span {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 5px;
   font-size: 18px;
   font-weight: 300;
+  line-height: 28px;
+  letter-spacing: -0.02em;
 }
 
 .contactGrid a,
@@ -242,7 +254,7 @@
   font-size: 18px;
   font-weight: 800;
   line-height: 26px;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
 }
 
 .contactGrid a {
@@ -250,10 +262,14 @@
   text-underline-offset: 3px;
 }
 
+.contactGrid .phone {
+  font-size: 20px;
+}
+
 .socials {
   display: flex;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 25px;
 }
 
 .socials a {
@@ -309,13 +325,14 @@
   .consult {
     display: block;
     min-width: 125px;
-    min-height: 37px;
-    padding: 8px 16px;
+    min-height: 44px;
+    padding: 10px 19.5px;
     border: 0.5px solid var(--landing-blue);
     border-radius: 6px;
     background: white;
     color: var(--landing-blue);
-    font-size: 12px !important;
+    font-size: 12.45px !important;
+    line-height: 17px !important;
   }
 
   .menuButton {
@@ -344,7 +361,8 @@
 
   .menuColumns a,
   .contactGrid a,
-  .contactGrid strong {
+  .contactGrid strong,
+  .contactGrid .phone {
     font-size: 16px;
   }
 }

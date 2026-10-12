@@ -2,12 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactElement } from "react";
+import type { CSSProperties, ReactElement } from "react";
 import { withLocale } from "@/i18n/config";
 import type { Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
 import { contactsContent } from "@/components/landing/contacts-content";
 import styles from "@/components/landing/LandingContacts.module.css";
+
+type Office = (typeof site.offices)[number];
+
+// Address pill widths from Figma (desktop, mobile). They are minimums, so a longer translation widens the pill.
+const addressPillWidths: Record<Office["address"], readonly [number, number]> = {
+  "ул. Сыганак, 15": [150, 120],
+  "ул. Улы Дала, 41/6": [160, 120],
+  "пр. Сейфуллина, 575": [190, 150],
+};
+
+function isOnlyOfficeInCity(office: Office): boolean {
+  return site.offices.filter((item) => item.city === office.city).length === 1;
+}
 
 export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
   const t = contactsContent[locale];
@@ -36,28 +49,38 @@ export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
               </label>
             </fieldset>
             <div className={styles.officeGrid}>
-              {site.offices.map((office) => (
-                <article className={styles.officeCard} data-city={office.city === "Астана" ? "astana" : "almaty"} key={office.gis}>
-                  <Image className={styles.mapImage} src={office.mapPreview} alt={`${t.mapPreview}: ${t.cities[office.city]}, ${t.addresses[office.address]}`} width={738} height={363} sizes="(max-width: 600px) 738px, (max-width: 1024px) 90vw, 610px" />
-                  <div className={styles.officeAddress}>
-                    <h3>{t.cities[office.city]}</h3>
-                    <p>{t.addresses[office.address]}</p>
-                  </div>
-                  <span className={styles.gisBadge} aria-hidden="true">2GIS</span>
-                  <a
-                    href={office.gis}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.routeButton}
-                    aria-label={`${t.route}: ${t.cities[office.city]}, ${t.addresses[office.address]}`}
+              {site.offices.map((office) => {
+                // A city with a single office gets one full-width card on desktop (Figma 501:2716).
+                const wide = isOnlyOfficeInCity(office);
+                const [addressWidth, addressWidthMobile] = addressPillWidths[office.address];
+                const pillWidths = { "--address-width": `${addressWidth}px`, "--address-width-mobile": `${addressWidthMobile}px` } as CSSProperties;
+                return (
+                  <article
+                    className={styles.officeCard}
+                    data-city={office.city === "Астана" ? "astana" : "almaty"}
+                    data-wide={wide || undefined}
+                    key={office.gis}
+                    style={pillWidths}
                   >
-                    <Image className={styles.gisIcon} src="/landing/contacts/2gis.png" alt="" width={25} height={25} />
-                    {t.route}
-                    <img className={styles.routeArrow} src="/landing/contacts/route-arrow.svg" alt="" />
-                  </a>
-                  <a className={styles.mapAttribution} href={office.gis} target="_blank" rel="noopener noreferrer">© 2GIS</a>
-                </article>
-              ))}
+                    <Image className={styles.mapImage} src={office.mapPreview} alt={`${t.mapPreview}: ${t.cities[office.city]}, ${t.addresses[office.address]}`} width={738} height={363} sizes={`(max-width: 600px) 738px, (max-width: 1024px) 90vw, ${wide ? 1240 : 610}px`} />
+                    <div className={styles.officeAddress}>
+                      <h3>{t.cities[office.city]}</h3>
+                      <p>{t.addresses[office.address]}</p>
+                    </div>
+                    <a
+                      href={office.gis}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.routeButton}
+                      aria-label={`${t.route}: ${t.cities[office.city]}, ${t.addresses[office.address]}`}
+                    >
+                      <Image className={styles.gisIcon} src="/landing/contacts/2gis.png" alt="" width={30} height={30} />
+                      {t.route}
+                    </a>
+                    <a className={styles.mapAttribution} href={office.gis} target="_blank" rel="noopener noreferrer">© 2GIS</a>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -90,7 +113,7 @@ export function LandingContacts({ locale }: { locale: Locale }): ReactElement {
                   <img className={styles.plus} src="/landing/contacts/faq-plus.svg" alt="" />
                   <img className={styles.plusMobile} src="/landing/contacts/faq-plus-mobile.svg" alt="" />
                 </summary>
-                <p>{item.answer}</p>
+                <p data-answer={index}>{item.answer}</p>
               </details>
             ))}
           </div>

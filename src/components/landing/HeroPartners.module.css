@@ -3,28 +3,29 @@
   --partner-gap: 12px;
   position: absolute;
   z-index: 2;
-  right: -12px;
+  right: -20px;
   bottom: 29px;
-  width: 529px;
-  padding: 27px 12px 17px;
+  width: 545px;
+  padding: 27px 20px 17px;
   overflow: hidden;
 }
 
+/* Figma: white layer-blur 10 masks outside the 835-1340 window, centred on its edges. */
 .partners::before,
 .partners::after {
   position: absolute;
   z-index: 1;
-  top: 0;
-  bottom: 0;
-  width: 24px;
+  top: -20px;
+  bottom: -20px;
+  width: 40px;
   background: white;
-  filter: blur(7.5px);
+  filter: blur(5px);
   content: "";
   pointer-events: none;
 }
 
-.partners::before { left: -18px; }
-.partners::after { right: -18px; }
+.partners::before { left: -20px; }
+.partners::after { right: -20px; }
 
 .track,
 .group {
@@ -93,8 +94,8 @@
 
 .star {
   position: absolute;
-  bottom: -17px;
-  left: 20px;
+  bottom: -11.58px;
+  left: 25.58px;
   width: 60px;
   height: 60px;
   background: url("/landing/hero/star.svg") center / contain no-repeat;
@@ -120,7 +121,7 @@
   .partners {
     --partner-width: 120px;
     --partner-gap: 10px;
-    width: 404px;
+    width: 420px;
   }
 
   .partner {
@@ -143,13 +144,24 @@
     flex-shrink: 0;
     width: calc(100% + 24px);
     margin: 2px -12px -4px;
-    padding-top: 14px;
-    padding-bottom: 4px;
+    padding: 14px 12px 4px;
   }
+
+  .partners::before,
+  .partners::after {
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    filter: blur(7.5px);
+  }
+
+  .partners::before { left: -18px; }
+  .partners::after { right: -18px; }
 
   .partner {
     height: 60px;
-    border-radius: 14px;
+    border-width: 0.722px;
+    border-radius: 14.435px;
   }
 
   .partner img {
@@ -182,10 +194,11 @@
   }
 
   .star {
-    bottom: -4px;
-    left: 12px;
+    bottom: -7.9px;
+    left: 15.9px;
     width: 42px;
     height: 42px;
+    background-image: url("/landing/hero/mobile-star.svg");
   }
 }
 

@@ -14,7 +14,7 @@ import {
   studentStories,
   universityLogos,
 } from "@/components/landing/stories-content";
-import type { StudentStory } from "@/components/landing/stories-content";
+import type { StudentStory, UniversityLogo } from "@/components/landing/stories-content";
 import styles from "@/components/landing/LandingStories.module.css";
 
 function StoryCard({ story, locale, additional }: { story: StudentStory; locale: Locale; additional: boolean }): ReactElement {
@@ -24,7 +24,12 @@ function StoryCard({ story, locale, additional }: { story: StudentStory; locale:
       <h3>{story.name[locale]}</h3>
       <div className={styles.badges}>
         {story.badges.map((badge, index) => (
-          <span className={styles.badge} data-color={badge.color} key={index}>
+          <span
+            className={styles.badge}
+            data-color={badge.color}
+            key={index}
+            style={{ "--badge-width": `${badge.width}px`, "--badge-mobile-width": `${badge.mobileWidth ?? badge.width}px` } as CSSProperties}
+          >
             {badge.text[locale]}
             {badge.arrow && (
               <>
@@ -58,7 +63,15 @@ function StoryCard({ story, locale, additional }: { story: StudentStory; locale:
             <img className={styles.playMobile} src="/landing/stories/play-mobile.svg" alt="" />
           </span>
         )}
-        {story.caption && <span className={styles.caption}>{story.caption[locale]}</span>}
+        {story.caption && (
+          <span className={styles.caption}>
+            <span>
+              {story.caption[locale].before}
+              <strong>{story.caption[locale].strong}</strong>
+              {story.caption[locale].after}
+            </span>
+          </span>
+        )}
       </a>
     </article>
   );
@@ -81,7 +94,7 @@ export function StoriesCases({ locale }: { locale: Locale }): ReactElement {
             <StoryCard key={story.id} story={story} locale={locale} additional={index > 3} />
           ))}
           <article className={`${styles.storyCard} ${styles.yourStory}`}>
-            <h3>{t.nextStory}</h3>
+            <h3>{t.nextStory.split("\n").map((line, index) => <span key={index}>{index > 0 && " "}{line}</span>)}</h3>
             <LeadButton kind="trial" className={styles.trialButton}>{t.trial}</LeadButton>
           </article>
         </div>
@@ -102,6 +115,23 @@ export function StoriesCases({ locale }: { locale: Locale }): ReactElement {
       </div>
     </section>
   );
+}
+
+function logoLayout({ desktop, mobile }: UniversityLogo): CSSProperties {
+  const [cell, x, y, width, height] = desktop;
+  const [mobileCell, mobileX, mobileY, mobileWidth, mobileHeight] = mobile;
+  return {
+    "--logo-cell": `${cell}px`,
+    "--logo-x": `${x}px`,
+    "--logo-y": `${y}px`,
+    "--logo-width": `${width}px`,
+    "--logo-height": `${height}px`,
+    "--logo-mobile-cell": `${mobileCell}px`,
+    "--logo-mobile-x": `${mobileX}px`,
+    "--logo-mobile-y": `${mobileY}px`,
+    "--logo-mobile-width": `${mobileWidth}px`,
+    "--logo-mobile-height": `${mobileHeight}px`,
+  } as CSSProperties;
 }
 
 function LetterPreview({ letter, locale }: { letter: (typeof admissionLetters)[number]; locale: Locale }): ReactElement {
@@ -179,16 +209,24 @@ export function StoriesLetters({ locale }: { locale: Locale }): ReactElement {
         >
           {admissionLetters.map((letter) => <LetterPreview key={letter.id} letter={letter} locale={locale} />)}
         </div>
-        <div className={styles.universityLogos}>
-          {universityLogos.map((logo) => (
-            <div key={logo.id} className={styles.universityLogo} data-logo={logo.id}>
-              <Image src={`/landing/stories/${logo.id}.png`} alt={logo.name[locale]} width={456} height={190} sizes="190px" />
-            </div>
-          ))}
+        <div className={styles.universities}>
+          <div className={styles.universitiesViewport}>
+            <ul className={styles.universitiesTrack} aria-label={t.universityList}>
+              {universityLogos.map((logo) => (
+                <li key={logo.file} className={styles.universityLogo} style={logoLayout(logo)}>
+                  <img
+                    src={`/landing/stories/universities/${logo.file}`}
+                    alt={logo.name}
+                    width={Math.round(logo.desktop[3])}
+                    height={Math.round(logo.desktop[4])}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className={styles.mobileUniversities}>
-        <Image src="/landing/stories/universities-mobile.png" alt={t.universityImage} width={673} height={236} sizes="673px" />
       </div>
     </section>
   );
