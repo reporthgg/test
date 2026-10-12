@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- SVG variants keep their original Figma dimensions. */
 
 import Image from "next/image";
-import type { ReactElement, ReactNode, Ref } from "react";
+import { Fragment, type ReactElement, type ReactNode, type Ref } from "react";
 import type { Locale } from "@/i18n/config";
 import { formsContent } from "@/components/landing/forms-content";
 import styles from "./SchoolTrial.module.css";
@@ -29,7 +29,14 @@ export default function SchoolTrialCard({
           <h2 id={headingId} ref={headingRef} tabIndex={headingRef ? -1 : undefined}>
             {t.trialTitle}<br /><em>{t.trialTitleAccent}</em>
           </h2>
-          <p>{t.trialDescription}</p>
+          <p>
+            {t.schoolTrialDescription.map((line, index) => (
+              <Fragment key={line}>
+                {index > 0 && <><br className={styles.desktopBreak} />{" "}</>}
+                {line}
+              </Fragment>
+            ))}
+          </p>
         </div>
         <ul>
           {t.trialSteps.map((step) => (

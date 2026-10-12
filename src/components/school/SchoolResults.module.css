@@ -92,7 +92,7 @@
   align-items: center;
   justify-content: center;
   min-height: 35px;
-  padding: 5px 14px;
+  padding: 5px 20px;
   border: 1px solid var(--landing-pink, #b1005a);
   border-radius: 300px;
   background: #f0ebec;
@@ -107,20 +107,25 @@
 .info { position: relative; display: flex; flex-direction: column; gap: 4px; width: 100%; min-width: 0; overflow: hidden; }
 .result { font-size: 54px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
 .detail { font-size: 20px; font-weight: 600; line-height: normal; letter-spacing: -0.01em; color: rgb(255 255 255 / 85%); }
-.person { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; width: 100%; padding-top: 12px; border-top: 1px solid rgb(255 255 255 / 25%); }
+.person { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; padding-top: 16px; border-top: 1px solid rgb(255 255 255 / 25%); }
 .person h3 { font-size: 20px; font-weight: 600; line-height: normal; }
 .person > p { font-size: 15px; font-weight: 400; line-height: normal; color: rgb(255 255 255 / 75%); text-align: right; }
 .footer { display: flex; justify-content: space-between; align-items: center; gap: 40px; margin-top: 56px; padding-right: 20px; }
 .progress { position: relative; flex: 0 0 240px; height: 3px; overflow: hidden; border-radius: 2px; background: rgb(255 255 255 / 20%); }
-.progress > span { position: absolute; top: 0; height: 3px; border-radius: 2px; background: white; }
+.progress > span { position: absolute; top: 0; left: calc((100% - 80px) * var(--progress, 0)); width: 80px; height: 3px; border-radius: 2px; background: white; }
 .instagram { display: flex; align-items: center; gap: 28px; }
 .instagram > p { max-width: 320px; font-size: 20px; line-height: 32px; letter-spacing: -0.01em; color: rgb(255 255 255 / 85%); }
 .instagram > a { display: flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 8px; min-height: 58px; padding: 16px 32px; border: 1.5px solid white; border-radius: 12px; font-size: 16px; font-weight: 700; line-height: 22px; letter-spacing: -0.04em; }
 .instagram > a:hover { background: rgb(255 255 255 / 10%); }
 
 .resultsSticker { position: absolute; top: -64.4px; left: calc(50% - 7.6px); width: 311.083px; height: 311.083px; transform: rotate(-34.21deg); pointer-events: none; }
-.pinkSticker { position: absolute; top: 669.07px; left: -16.91px; width: 166.906px; height: 166.906px; overflow: hidden; box-shadow: 0 4px 2px rgb(0 0 0 / 30%); transform: rotate(20deg); pointer-events: none; }
+.pinkSticker { position: absolute; top: 669.07px; left: -16.91px; width: 166.906px; height: 166.906px; overflow: hidden; filter: drop-shadow(0 4px 2px rgb(0 0 0 / 30%)); transform: rotate(20deg); pointer-events: none; }
 .pinkSticker img { position: absolute; top: -30.56%; left: -29.71%; width: 159.22%; height: 162.53%; max-width: none; }
+
+@media (min-width: 1101px) {
+  /* The caption box hugs the Russian two-line copy, as in Figma. */
+  .results[data-locale="ru"] .instagram > p { max-width: 290px; }
+}
 
 @media (min-width: 768px) and (max-width: 1100px) {
   .results .title { font-size: 54px; line-height: 1.06; }
@@ -136,8 +141,7 @@
   .results > :global(.landing-container) { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
   .header, .footer { display: contents; }
   .results .title { grid-row: 1; margin-bottom: 4px; font-size: 35px; line-height: 38px; }
-  .arrows { grid-row: 3; grid-column: 1; justify-self: end; gap: 8px; }
-  .arrows button { width: 44px; height: 44px; }
+  .arrows { display: none; }
   .track { grid-row: 2; width: calc(100% + 16px); margin-top: 0; }
   .cards { gap: 12px; padding-right: 16px; }
   .card { flex-basis: 278.8px; width: 278.8px; height: 410px; padding: 0 19.68px 19.68px; border-radius: 22.96px; }
@@ -149,10 +153,10 @@
   .info { gap: 3.28px; }
   .result { font-size: 44.28px; }
   .detail { font-size: 16.4px; }
-  .person { padding-top: 9.84px; border-top-width: 0.82px; gap: 6px; }
+  .person { padding-top: 13.12px; border-top-width: 0.82px; gap: 6px; }
   .person h3 { font-size: 16.4px; }
   .person > p { font-size: 12.3px; }
-  .progress { grid-row: 3; grid-column: 1; align-self: center; width: calc(100% - 112px); }
+  .progress { grid-row: 3; width: 100%; }
   .instagram { grid-row: 4; flex-direction: column; gap: 16px; align-items: stretch; }
   .instagram > p { max-width: none; font-size: 16px; font-weight: 300; line-height: 23px; }
   .instagram > a { width: 100%; min-height: 48px; padding-block: 12px; font-size: 14px; line-height: 20px; }

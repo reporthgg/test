@@ -436,7 +436,8 @@ function LeadFields({
           <>
             <div className={`${hasCity ? styles.nameCity : styles.nameOnly} ${school ? schoolStyles.nameCity : ""}`}>
               {nameField}
-              {hasCity && selectField("city", cityRequired ? t.city : t.optionalCity, cityRequired)}
+              {/* Figma 260:2796: в форме школы подпись «Город», поле при этом остаётся необязательным. */}
+              {hasCity && selectField("city", cityRequired || school ? t.city : t.optionalCity, cityRequired)}
             </div>
             {phoneField}
           </>

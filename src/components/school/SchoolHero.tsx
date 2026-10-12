@@ -74,7 +74,7 @@ export function SchoolTrust({ locale }: { locale: Locale }): ReactElement {
   const t = schoolPageContent[locale];
 
   return (
-    <section className={styles.trust} aria-label={t.partners}>
+    <section className={styles.trust} aria-label={t.partners} data-locale={locale}>
       <div className={`landing-container ${styles.trustRow}`}>
         <div className={styles.since}>
           <p>{t.since}<br /><span>{t.year}</span></p>

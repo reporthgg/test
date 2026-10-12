@@ -1,19 +1,29 @@
 import type { Locale } from "@/i18n/config";
 
 type LocalizedText = Record<Locale, string>;
+type TeacherOffice = "syganak";
 type TeacherProfile = {
   name: LocalizedText;
   subjects: LocalizedText;
-  experience: number;
-  qualification: string;
-  image: { src: string; width: number; height: number } | null;
+  experience?: number;
+  qualification?: string;
+  office?: TeacherOffice;
+  // cover: обычное фото с фоном заполняет всю рамку; без него портрет без фона стоит на градиенте карточки.
+  image: { src: string; width: number; height: number; cover?: boolean };
 };
 
 type TeacherCard = {
   id: string;
   tone: "pink" | "green" | "blue";
-  profile: TeacherProfile | null;
+  profile: TeacherProfile;
 };
+
+const generalEnglish: LocalizedText = { ru: "General English", kz: "General English", en: "General English" };
+const generalEnglishIelts: LocalizedText = { ru: "General English, IELTS", kz: "General English, IELTS", en: "General English, IELTS" };
+
+function photo(id: string): TeacherProfile["image"] {
+  return { src: `/school/teacher-${id}.jpg`, width: 580, height: 640, cover: true };
+}
 
 export const schoolTeachers: readonly TeacherCard[] = [
   {
@@ -28,19 +38,29 @@ export const schoolTeachers: readonly TeacherCard[] = [
     },
   },
   {
-    id: "teacher-2",
+    id: "yulia",
     tone: "green",
-    profile: null,
+    profile: { name: { ru: "Юлия", kz: "Юлия", en: "Yulia" }, subjects: generalEnglish, office: "syganak", image: photo("yulia") },
   },
   {
-    id: "teacher-3",
+    id: "dana",
     tone: "blue",
-    profile: null,
+    profile: { name: { ru: "Дана", kz: "Дана", en: "Dana" }, subjects: generalEnglish, office: "syganak", image: photo("dana") },
   },
   {
-    id: "teacher-4",
+    id: "diana",
     tone: "pink",
-    profile: null,
+    profile: { name: { ru: "Диана", kz: "Диана", en: "Diana" }, subjects: generalEnglishIelts, office: "syganak", image: photo("diana") },
+  },
+  {
+    id: "alina",
+    tone: "green",
+    profile: { name: { ru: "Алина", kz: "Алина", en: "Alina" }, subjects: generalEnglish, office: "syganak", image: photo("alina") },
+  },
+  {
+    id: "kamila",
+    tone: "blue",
+    profile: { name: { ru: "Камила", kz: "Камила", en: "Kamila" }, subjects: generalEnglishIelts, office: "syganak", image: photo("kamila") },
   },
 ];
 
@@ -52,23 +72,21 @@ type TeachersCopy = {
   experience: string;
   years: string;
   listLabel: string;
-  placeholderName: string;
-  placeholderPhoto: string;
-  placeholderSubjects: string;
+  officeLabel: string;
+  offices: Record<TeacherOffice, string>;
 };
 
 export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
   ru: {
-    title: ["Познакомьтесь с вашими", "преподавателями"],
+    title: ["Познакомьтесь с вашими", "преподавателями"],
     description: "Познакомьтесь с преподавателем на пробном уроке",
     trial: "Пробный урок",
     bookWith: "Пробный урок с преподавателем",
     experience: "стаж",
     years: "лет",
     listLabel: "Преподаватели языковой школы",
-    placeholderName: "Имя преподавателя",
-    placeholderPhoto: "Фото преподавателя",
-    placeholderSubjects: "Информация о преподавателе появится здесь",
+    officeLabel: "Офис:",
+    offices: { syganak: "Сыганак, 15 · Greenline" },
   },
   kz: {
     title: ["Өз", "оқытушыларыңызбен танысыңыз"],
@@ -78,9 +96,8 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     experience: "тәжірибе",
     years: "жыл",
     listLabel: "Тіл мектебінің оқытушылары",
-    placeholderName: "Оқытушының аты",
-    placeholderPhoto: "Оқытушының фотосы",
-    placeholderSubjects: "Оқытушы туралы ақпарат осы жерде көрсетіледі",
+    officeLabel: "Кеңсе:",
+    offices: { syganak: "Сығанақ, 15 · Greenline" },
   },
   en: {
     title: ["Meet your", "teachers"],
@@ -90,8 +107,7 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     experience: "experience",
     years: "years",
     listLabel: "Language school teachers",
-    placeholderName: "Teacher name",
-    placeholderPhoto: "Teacher photo",
-    placeholderSubjects: "Information about the teacher will appear here",
+    officeLabel: "Office:",
+    offices: { syganak: "Syganak 15 · Greenline" },
   },
 };

@@ -16,28 +16,31 @@ test("programme pricing is consultation-only in every locale", () => {
   }
 });
 
-test("only Ayaulym has a profile and the other three card slots stay available", () => {
+test("teachers: Ayaulym unchanged, the Syganak office team follows her", () => {
   assert.deepEqual(
     schoolTeachers.map(({ id, profile }) => ({
       id,
-      name: profile?.name.ru ?? null,
-      image: profile?.image?.src ?? null,
+      name: profile.name.ru,
+      subjects: profile.subjects.ru,
+      office: profile.office ?? null,
+      image: profile.image.src,
     })),
     [
-      { id: "ayaulym", name: "Аяулым", image: "/school/teacher-ayaulym.png" },
-      { id: "teacher-2", name: null, image: null },
-      { id: "teacher-3", name: null, image: null },
-      { id: "teacher-4", name: null, image: null },
+      { id: "ayaulym", name: "Аяулым", subjects: "General English, Academic English", office: null, image: "/school/teacher-ayaulym.png" },
+      { id: "yulia", name: "Юлия", subjects: "General English", office: "syganak", image: "/school/teacher-yulia.jpg" },
+      { id: "dana", name: "Дана", subjects: "General English", office: "syganak", image: "/school/teacher-dana.jpg" },
+      { id: "diana", name: "Диана", subjects: "General English, IELTS", office: "syganak", image: "/school/teacher-diana.jpg" },
+      { id: "alina", name: "Алина", subjects: "General English", office: "syganak", image: "/school/teacher-alina.jpg" },
+      { id: "kamila", name: "Камила", subjects: "General English, IELTS", office: "syganak", image: "/school/teacher-kamila.jpg" },
     ],
   );
-  assert.deepEqual(schoolTeachers.map(({ tone }) => tone), ["pink", "green", "blue", "pink"]);
-  assert.equal(schoolTeachers[0].profile?.experience, 9);
-  assert.equal(schoolTeachers[0].profile?.qualification, "CELTA");
+  assert.deepEqual(schoolTeachers.map(({ tone }) => tone), ["pink", "green", "blue", "pink", "green", "blue"]);
+  assert.equal(schoolTeachers[0].profile.experience, 9);
+  assert.equal(schoolTeachers[0].profile.qualification, "CELTA");
+  assert.equal(schoolTeachers[0].profile.image.cover, undefined);
   for (const locale of locales) {
     assert.doesNotMatch(schoolTeachersContent[locale].description, /видео|video|бейне/iu);
-    assert.ok(schoolTeachersContent[locale].placeholderName);
-    assert.ok(schoolTeachersContent[locale].placeholderPhoto);
-    assert.ok(schoolTeachersContent[locale].placeholderSubjects);
+    assert.match(schoolTeachersContent[locale].offices.syganak, /Greenline/u);
   }
 });
 
@@ -67,13 +70,13 @@ test("all active section assets exist and are non-empty", async () => {
     ...schoolProgramArtwork.flatMap((art) => [
       `program-${art.id}.${art.extension}`, `program-${art.id}-mobile.png`,
     ]),
-    ...schoolTeachers.flatMap(({ profile }) => profile?.image ? [path.basename(profile.image.src)] : []),
+    ...schoolTeachers.map(({ profile }) => path.basename(profile.image.src)),
     "teacher-badge.svg", "test-arrow-white.svg", "test-arrow-blue.svg", "test-note.svg",
     "teaching-students.jpg", "teaching-retouch.png", "teaching-teacher.png", "teaching-child.jpg",
     "teaching-marker-1.svg", "teaching-marker-2.svg", "teaching-marker-3.svg", "teaching-marker-4.svg",
     "teaching-group.svg", "teaching-location.svg",
   ];
-  assert.equal(files.length, 31);
+  assert.equal(files.length, 36);
   for (const file of files) {
     const asset = path.join(process.cwd(), "public", "school", file);
     const info = await stat(asset);

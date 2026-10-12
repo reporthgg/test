@@ -5,9 +5,10 @@
   scroll-margin-top: 100px;
 }
 
+/* Figma 260:2755: колонка предложения 620 px, колонка формы 618 px. */
 .card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 620fr) minmax(0, 618fr);
   overflow: hidden;
   border: 1px solid #dce6ee;
   border-radius: 40px;
@@ -56,6 +57,7 @@
 }
 
 .offerText p {
+  max-width: 480px;
   margin: 24px 0 0;
   color: rgb(255 255 255 / 85%);
   font-size: 20px;
@@ -142,10 +144,11 @@
   gap: 12px;
 }
 
+/* Figma 260:2792: высота строки подписи normal, у Manrope 14 px это 19 px. */
 .fields .field label {
   font-size: 14px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 19px;
   letter-spacing: -0.28px;
 }
 
@@ -255,6 +258,10 @@ dialog.dialog {
     line-height: 28px;
   }
 
+  .desktopBreak {
+    display: none;
+  }
+
   .offer li {
     font-size: 16px;
     line-height: 22px;
@@ -279,7 +286,18 @@ dialog.dialog {
   }
 }
 
+/* Нижняя форма школы на десктопе, Figma 260:2870: подпись над полем через 8 px,
+   согласие через 16 px, квадрат 20 px со скруглением 6 px и текст в две строки по 180 px. */
 @media (min-width: 768px) {
+  /* Атрибутные селекторы перебивают специфичность общих правил .bottomFields. */
+  .bottomSection fieldset[class] {
+    row-gap: 16px;
+  }
+
+  .bottomSection fieldset label:has(+ input[name]) {
+    margin-bottom: 8px;
+  }
+
   .bottomSection fieldset input[type="text"],
   .bottomSection fieldset input[type="tel"] {
     height: 54px;
@@ -288,6 +306,42 @@ dialog.dialog {
     border-radius: 12px;
     background: #f9fafb;
     font-size: 14px;
+    letter-spacing: -0.28px;
+  }
+
+  .bottomSection fieldset > div:last-child {
+    max-width: 212px;
+  }
+
+  .bottomSection fieldset label:has(input[type="checkbox"]) {
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  .bottomSection fieldset label > span:first-child {
+    width: 20px;
+    height: 20px;
+    flex-basis: 20px;
+    margin-top: 0;
+  }
+
+  .bottomSection fieldset label > span:first-child > span {
+    display: none;
+  }
+
+  .bottomSection fieldset input[type="checkbox"] {
+    border-width: 1px;
+    border-radius: 6px;
+    opacity: 1;
+  }
+
+  .bottomSection fieldset input[type="checkbox"]:checked {
+    background: #fff url("/landing/forms/consent-checked.svg") center / 16px 16px no-repeat;
+  }
+
+  /* Жёлтый круг 200 px с обводкой 8 px снаружи начинается на 150 px ниже верха карточки формы. */
+  .bottomSection button[type="submit"] {
+    bottom: -192px;
   }
 }
 
@@ -324,6 +378,10 @@ dialog.dialog {
     letter-spacing: -0.16px;
   }
 
+  .desktopBreak {
+    display: none;
+  }
+
   .offer ul {
     gap: 10px;
     margin-top: 0;
@@ -338,7 +396,7 @@ dialog.dialog {
 
   .sticker {
     top: 244.865px;
-    left: calc(100% - 87.5px);
+    left: calc(100% - 85.35px);
     width: 152.487px;
     height: 152.487px;
   }
@@ -385,10 +443,20 @@ dialog.dialog {
     letter-spacing: -0.24px;
   }
 
+  /* Введённый текст 16 px, чтобы iOS не увеличивал страницу; подсказки 14 px, как в Figma 260:3142. */
   .fields .field input,
   .fields .field [role="combobox"] {
     height: 48px;
     font-size: 16px;
+  }
+
+  .fields .field input::placeholder {
+    font-size: 14px;
+    letter-spacing: -0.28px;
+  }
+
+  .fields .field [role="combobox"] {
+    font-size: 14px;
   }
 
   .fields .consent {
@@ -439,8 +507,10 @@ dialog.dialog {
     right: 11px;
   }
 
+  /* Figma 260:2977: верх формы на 52 px уходит под синий блок с офисами, до заголовка остаётся 50 px. */
   section.bottomSection {
-    padding-top: 102px;
+    min-height: 0;
+    padding-top: 50px;
   }
 
   .bottomSection > :global(.landing-container) {

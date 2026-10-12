@@ -1,10 +1,10 @@
 .section { background: #fff; color: #135685; padding-bottom: 120px; }
-.layout { display: grid; grid-template-columns: minmax(0, 540fr) minmax(0, 596fr); grid-template-rows: auto auto; column-gap: 64px; row-gap: 28px; align-items: start; }
+.layout { display: grid; grid-template-columns: minmax(0, 540fr) minmax(0, 596fr); grid-template-rows: auto auto; column-gap: 64px; row-gap: 28px; align-items: start; padding-right: 40px; }
 .content { grid-column: 1; grid-row: 1 / span 2; }
-.description { margin: 24px 0; font: 400 20px/32px "Manrope", sans-serif; color: #525251; letter-spacing: -.01em; }
+.description { max-width: 520px; margin: 24px 0; font: 400 20px/32px "Manrope", sans-serif; color: #525251; letter-spacing: -.01em; }
 .points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; padding: 0; margin: 0; list-style: none; }
 .points li { min-width: 0; }
-.pointNumber { display: flex; align-items: center; gap: 10px; color: #6f6f6e; font: 700 14px/16px "Manrope", sans-serif; }
+.pointNumber { display: flex; align-items: center; gap: 10px; color: #6f6f6e; font: 700 14px/16px "Manrope", sans-serif; letter-spacing: -.01em; }
 .pointNumber img { display: block; }
 .points h3 { margin: 8px 0; font: 600 22px/22px "Futura PT", sans-serif; letter-spacing: -.04em; text-transform: uppercase; color: #2e2d2c; overflow-wrap: anywhere; }
 .points p { margin: 0; color: #525251; font: 400 16px/24px "Manrope", sans-serif; letter-spacing: -.01em; }
@@ -23,7 +23,7 @@
 .child img { position: absolute; height: 133.31%; width: 348.91%; max-width: none; left: -45.05%; top: -27.75%; mix-blend-mode: multiply; }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  .layout { gap: 28px; }
+  .layout { gap: 28px; padding-right: 0; }
   .content :global(.landing-title) { font-size: clamp(38px, 4.17vw, 50px); line-height: 1.08; }
   .points { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .photos { position: sticky; top: 110px; height: 650px; grid-template-columns: minmax(0, 1fr) minmax(0, .65fr); gap: 12px; }
@@ -31,7 +31,7 @@
 
 @media (max-width: 767px) {
   .section { padding: 72px 0; }
-  .layout { display: flex; flex-direction: column; gap: 0; }
+  .layout { display: flex; flex-direction: column; gap: 0; padding-right: 0; }
   .description { margin: 12px 0 28px; font-size: 16px; line-height: 23px; }
   .points { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .points h3 { margin: 6px 0; font-size: 25px; line-height: 26px; }

@@ -33,9 +33,10 @@
 .title { max-width: 340px; padding-right: 15px; overflow-wrap: anywhere; }
 .title > span, .title > em { display: block; }
 .title em { color: inherit; }
-.hashtag { position: absolute; top: 19px; right: 7px; }
-.hashtagMobile { display: none; }
-.line { position: absolute; top: 530.57px; left: calc(50% - 770px); max-width: none; transform: rotate(3deg); pointer-events: none; }
+.hashtag { position: absolute; top: 19px; right: 4px; }
+.hashtagMobile, .lineMobile { display: none; }
+/* Figma 260:2811: центр повёрнутого вектора, пересчитанный в неповёрнутую рамку картинки. */
+.line { position: absolute; top: 549.41px; left: calc(50% - 759.18px); max-width: none; transform: rotate(3deg); pointer-events: none; }
 .questions { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .question { border-radius: 30px; color: var(--landing-blue, #135685); background: #f0ebec; }
 
@@ -63,8 +64,14 @@
 .question[open] .openDesktop { display: none; }
 .question[open] .closeDesktop { display: block; transform: rotate(45deg); }
 .answer { padding: 12px 112.574px 36px 40px; font-size: 20px; font-weight: 300; line-height: 30px; letter-spacing: -0.02em; }
-.trial { display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding-top: 6px; margin-top: 12px; background: transparent; color: var(--landing-pink, #b1005a); font-size: 18px; font-weight: 700; line-height: 24px; letter-spacing: -0.02em; cursor: pointer; }
+/* Вложенный селектор перебивает font: inherit для кнопок из landing.css. */
+.answer .trial { display: inline-flex; align-items: center; gap: 8px; vertical-align: top; min-height: 30px; padding-top: 6px; margin-top: 12px; background: transparent; color: var(--landing-pink, #b1005a); font-size: 18px; font-weight: 700; line-height: 24px; letter-spacing: -0.02em; cursor: pointer; }
 .trial:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Figma 260:2812: заголовок сдвинут на 5 px левее сетки, чтобы буквы Futura встали по краю. */
+@media (min-width: 1201px) {
+  .header .title { margin-left: -5px; }
+}
 
 @media (min-width: 768px) and (max-width: 1200px) {
   .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 35px; }
@@ -78,7 +85,7 @@
 @media (max-width: 767px) {
   .offices { border-radius: 0 0 30px 30px; }
   .offices fieldset { width: 100%; margin-bottom: 16px; }
-  .faq { padding: 72px 0 50px; }
+  .faq { padding: 72px 0 30px; }
   .layout { display: block; }
   .header { margin-bottom: 28px; padding-right: 65px; }
   .faq .title { max-width: none; padding-right: 0; font-size: 35px; line-height: 38px; overflow-wrap: anywhere; }
@@ -96,5 +103,15 @@
   .question[open] .openMobile { display: none; }
   .question[open] .closeMobile { display: block; transform: rotate(45deg); }
   .answer { padding: 10px 56.287px 20px 20px; font-size: 16px; line-height: 22px; }
-  .trial { min-height: 28px; margin-top: 10px; padding-top: 6px; font-size: 16px; line-height: 22px; }
+  .answer .trial { min-height: 28px; margin-top: 10px; padding-top: 6px; font-size: 16px; line-height: 22px; }
+}
+
+/* Мобильная раскладка общего блока офисов включается с 600 px, поэтому сквозная линия тоже. */
+@media (max-width: 600px) {
+  /* Figma 260:3000 и 564:823: одна линия идёт из вопросов в офисы, её рамка на 318.4 px выше верха офисов. */
+  .line { display: none; }
+  .lineMobile { display: block; position: absolute; bottom: -141.75px; left: -119.07px; max-width: none; transform: rotate(14.17deg); pointer-events: none; }
+  .offices img[src="/landing/contacts/offices-line-mobile.svg"] { top: -318.4px; left: -119.07px; }
+  /* Figma 564:822: от второй карты до низа синего блока 52 px. */
+  .offices section { padding-bottom: 52px; }
 }

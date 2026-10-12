@@ -62,8 +62,9 @@
   padding-top: 24px;
 }
 
-.primary,
-.secondary {
+/* Scoped to .hero so the shared `.landing button { font: inherit }` reset does not override the button text. */
+.hero .primary,
+.hero .secondary {
   display: flex;
   flex: 1;
   align-items: center;
@@ -83,9 +84,9 @@
   transition: background-color 160ms, color 160ms;
 }
 
-.primary:hover { background: #92004b; }
-.secondary { background: white; color: var(--landing-pink); }
-.secondary:hover { background: #fff0f6; }
+.hero .primary:hover { background: #92004b; }
+.hero .secondary { background: white; color: var(--landing-pink); }
+.hero .secondary:hover { background: #fff0f6; }
 
 .benefits {
   display: flex;
@@ -143,6 +144,7 @@
 
 .pennant { top: 2%; left: 40.3571%; }
 .halfCircle { top: 53%; left: 85.7143%; }
+.pennant img, .halfCircle img { max-width: none; }
 
 .speech {
   position: absolute;
@@ -156,6 +158,7 @@
   font-weight: 500;
   line-height: 1.35;
   transform: rotate(6deg);
+  transform-origin: top left;
 }
 
 .level {
@@ -221,17 +224,19 @@
 }
 
 .since p { position: relative; z-index: 1; }
-.since p span { padding-left: 32px; }
-.since > img { position: absolute; left: 20px; top: 30px; transform: rotate(-12deg); }
+.since p span { padding-left: 1.73em; }
+.trust[data-locale="kz"] .since p span { padding-left: 1.23em; }
+.since > img { position: absolute; left: 25.58px; top: 35.58px; transform: rotate(-12deg); }
 .students { flex-direction: column; background: var(--landing-blue); color: white; }
 .students strong { font: 800 26px/22px "Futura PT", "Manrope", sans-serif; letter-spacing: -0.07em; }
 .students > span { font-size: 14px; font-weight: 700; line-height: 16px; }
-.british, .quality { display: flex; align-items: center; gap: 16px; }
+.british, .quality { position: relative; display: flex; align-items: center; gap: 16px; }
 .partnerLogo { border: 1px solid #dbdbdb; background: white; }
 .british p, .quality p { display: flex; flex-direction: column; white-space: nowrap; }
 .british p strong, .quality p strong { color: #2e2d2c; font-size: 18px; font-weight: 600; line-height: 25px; }
 .british p span, .quality p span { color: #525251; font-size: 14px; line-height: 20px; letter-spacing: -0.01em; }
-.quality { margin-left: 40px; padding-left: 56px; border-left: 1px solid #c9d8e4; }
+.quality { margin-left: 40px; padding-left: 56px; }
+.quality::before { content: ""; position: absolute; top: 50%; left: 0; width: 1px; height: 48px; background: #c9d8e4; transform: translateY(-50%); }
 .britishCrop { position: relative; display: block; width: 112px; height: 40px; overflow: hidden; }
 .britishCrop img { position: absolute; top: -63.16%; left: -23.63%; width: 147.41%; height: 220.74%; max-width: none; }
 .qualityCrop { position: relative; display: block; width: 86px; height: 33px; overflow: hidden; }
@@ -263,7 +268,7 @@
   .hero[data-locale="kz"] .title { font-size: clamp(32px, 10.1vw, 56px); }
   .description { max-width: none; font-size: 16px; line-height: 22px; }
   .actions { flex-direction: column; gap: 10px; padding-top: 8px; }
-  .primary, .secondary { min-height: 48px; padding: 12px 24px; border-radius: 10px; font-size: 14px; line-height: 20px; }
+  .hero .primary, .hero .secondary { min-height: 48px; padding: 12px 24px; border-radius: 10px; font-size: 14px; line-height: 20px; }
   .benefits { flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 4px; }
   .benefits li { font-size: 14px; line-height: 20px; letter-spacing: -0.01em; }
   .benefitIcon { width: 32px; height: 32px; }
@@ -274,12 +279,13 @@
   .trustRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .since, .students, .partnerLogo { width: 100%; height: 60px; border-radius: 14px; }
   .since { font-size: 18px; line-height: 16px; }
-  .since p span { padding-left: 22px; }
-  .since > img { top: 16px; left: calc(50% - 39px); transform: rotate(-12deg) scale(0.7); }
+  .since p { margin-left: 12px; }
+  .since > img { top: 16.9px; left: calc(50% - 43.6px); transform: rotate(-12deg) scale(0.7); }
   .students strong { font-size: 20px; line-height: 20px; }
   .students > span { margin-top: 2px; font-size: 12px; line-height: 14px; }
   .british, .quality { position: relative; gap: 8px; height: 60px; padding: 0 10px 0 12px; border: 1px solid #dbdbdb; border-radius: 14px; background: white; }
   .quality { margin: 0; }
+  .quality::before { display: none; }
   .partnerLogo { flex-basis: auto; width: auto; height: auto; border: 0; border-radius: 0; }
   .britishCrop { width: 80px; height: 23px; }
   .britishCrop img { top: -83.14%; height: 265.99%; }

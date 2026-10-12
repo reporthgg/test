@@ -10,16 +10,16 @@
   border: 0;
   border-radius: 50%;
   background: #548655;
-  box-shadow: 0 8px 24px #12335426;
   cursor: pointer;
 }
 
 .trigger:hover { background: #37814c; }
 
+/* Figma 260:4260: панель 300 px, тень только у неё, у кнопки виджета тени нет (260:3749). */
 .panel {
   position: fixed;
-  inset: auto 24px 104px auto;
-  width: min(340px, calc(100vw - 32px));
+  inset: auto 24px 100px auto;
+  width: min(300px, calc(100vw - 32px));
   margin: 0;
   padding: 20px;
   border: 0;
@@ -36,5 +36,5 @@
 @media (max-width: 767px) {
   .trigger { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); width: 56px; height: 56px; }
   .trigger img { transform: scale(0.875); }
-  .panel { right: 16px; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 72px); }
+  .panel { right: 16px; bottom: calc(max(16px, env(safe-area-inset-bottom)) + 68px); }
 }

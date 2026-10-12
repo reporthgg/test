@@ -14,6 +14,8 @@ export function SchoolContacts({ locale }: { locale: Locale }): ReactElement {
     <div className={styles.contacts}>
       <section className={styles.faq} id="faq" aria-labelledby="school-faq-title">
         <img className={styles.line} src="/school/contacts/faq-line.svg" alt="" />
+        {/* Figma 260:3000: на мобильной в вопросы заходит та же линия, что и в блоке офисов (564:823). */}
+        <img className={styles.lineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" />
         <div className={`landing-container ${styles.layout}`}>
           <header className={styles.header}>
             <h2 className={`landing-title ${styles.title}`} id="school-faq-title">

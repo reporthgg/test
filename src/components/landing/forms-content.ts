@@ -38,6 +38,8 @@ export type FormsContent = {
   trialPriceCaption: string;
   trialSubmit: string;
   schoolTrialSubmit: string;
+  // Описание пробного урока в карточке школы: строки для десктопа, на мобильной текст переносится сам.
+  schoolTrialDescription: readonly string[];
   bottomTitle: string;
   bottomTitleAccent: string;
   bottomDescription: string;
@@ -119,6 +121,12 @@ export const formsContent: Record<Locale, FormsContent> = {
     trialPriceCaption: "Пробный урок + определение уровня",
     trialSubmit: "Получить пробный урок",
     schoolTrialSubmit: "Записаться на пробный урок",
+    // Переносы строк из Figma 260:2763.
+    schoolTrialDescription: [
+      "Бесплатно определим ваш уровень, познакомим",
+      "с преподавателем и пригласим на занятие.",
+      "Вы сможете оценить обучение до оплаты курса",
+    ],
     bottomTitle: "Пройдите",
     bottomTitleAccent: "диагностику",
     bottomDescription: "Познакомьтесь с преподавателем и форматом занятий",
@@ -191,6 +199,10 @@ export const formsContent: Record<Locale, FormsContent> = {
     trialPriceCaption: "Сынақ сабағы + деңгейді анықтау",
     trialSubmit: "Сынақ сабағына жазылу",
     schoolTrialSubmit: "Сынақ сабағына жазылу",
+    // Длинные казахские слова плохо делятся на строки макета, поэтому текст переносится сам.
+    schoolTrialDescription: [
+      "Деңгейіңізді тегін анықтап, оқытушымен таныстырамыз және сабаққа шақырамыз. Курс ақысын төлемес бұрын оқу форматын бағалай аласыз",
+    ],
     bottomTitle: "Диагностикадан",
     bottomTitleAccent: "өтіңіз",
     bottomDescription: "Оқытушымен және сабақ форматымен танысыңыз",
@@ -263,6 +275,10 @@ export const formsContent: Record<Locale, FormsContent> = {
     trialPriceCaption: "Trial lesson + level assessment",
     trialSubmit: "Get a trial lesson",
     schoolTrialSubmit: "Book a trial lesson",
+    schoolTrialDescription: [
+      "We will assess your level, introduce you to a teacher and invite you to a free lesson.",
+      "Experience our classes before paying for a course",
+    ],
     bottomTitle: "Take a free",
     bottomTitleAccent: "assessment",
     bottomDescription: "Meet your teacher and experience our classes",

@@ -75,8 +75,9 @@ export default async function SchoolTests({ locale }: { locale: Locale }): Promi
                         aria-label={`${common.startTest}: ${test.title}${age ? ` (${age})` : ""}`}
                       >
                         <strong>{age || test.title}</strong>
-                        {age && <span className={styles.variantTitle}>{test.title}</span>}
-                        <span className={styles.questionCount}>{questionSummary(test, locale)}</span>
+                        <span className={styles.questionCount}>
+                          {questionSummary(test, locale, { countSingleWritten: false })}
+                        </span>
                         <span className={styles.duration}>
                           {test.timeLimit !== null ? `${test.timeLimit} ${common.minutes}` : common.noTimeLimit}
                         </span>
@@ -99,10 +100,12 @@ export default async function SchoolTests({ locale }: { locale: Locale }): Promi
                     <img src="/school/test-arrow-blue.svg" alt="" />
                   </Link>
                 </div>
-                <h3>{test.title}</h3>
+                <h3>{testPresentation(test, locale).title}</h3>
                 <p className={styles.description}>{t.examDescription}</p>
                 <div className={styles.examMeta}>
-                  <span className={styles.examQuestions}>{questionSummary(test, locale)}</span>
+                  <span className={styles.examQuestions}>
+                    {questionSummary(test, locale, { countSingleWritten: false })}
+                  </span>
                   <span className={styles.examDuration}>
                     {test.timeLimit !== null ? `${test.timeLimit} ${common.minutes}` : common.noTimeLimit}
                   </span>

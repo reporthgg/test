@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import { useEffect, useEffectEvent, useId, useRef, useState } from "react";
-import type { ReactElement } from "react";
+import type { CSSProperties, ReactElement } from "react";
 import type { Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
 import { schoolResults, schoolResultsContent } from "./school-results-content";
@@ -14,7 +14,6 @@ type CarouselPosition = {
   start: boolean;
   end: boolean;
   offset: number;
-  visible: number;
 };
 
 export function SchoolResults({ locale }: { locale: Locale }): ReactElement {
@@ -28,7 +27,6 @@ export function SchoolResults({ locale }: { locale: Locale }): ReactElement {
     start: true,
     end: false,
     offset: 0,
-    visible: 1 / schoolResults.length,
   });
 
   function updatePosition(): void {
@@ -40,13 +38,11 @@ export function SchoolResults({ locale }: { locale: Locale }): ReactElement {
       start: scroll <= 1,
       end: scroll >= maximum - 1,
       offset: maximum > 0 ? scroll / maximum : 0,
-      visible: Math.min(1, track.clientWidth / track.scrollWidth),
     };
     setPosition((current) =>
       current.start === next.start &&
       current.end === next.end &&
-      current.offset === next.offset &&
-      current.visible === next.visible
+      current.offset === next.offset
         ? current
         : next,
     );
@@ -158,8 +154,9 @@ export function SchoolResults({ locale }: { locale: Locale }): ReactElement {
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.round(position.offset * 100)}
+            style={{ "--progress": position.offset } as CSSProperties}
           >
-            <span style={{ width: `${position.visible * 100}%`, left: `${position.offset * (1 - position.visible) * 100}%` }} />
+            <span />
           </div>
           <div className={styles.instagram}>
             <p>{t.description}</p>
