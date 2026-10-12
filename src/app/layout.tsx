@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import WhatsAppBubble from "@/components/WhatsAppBubble";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
+import MetaPixel from "@/components/MetaPixel";
 
 
 // Manrope подключается самостоятельно через @font-face в globals.css
@@ -27,6 +28,7 @@ export default function RootLayout({
         {children}
         <WhatsAppBubble />
         <StickyMobileCTA />
+        <MetaPixel />
       </body>
     </html>
   );

@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Icon from "@/components/Icon";
-import CountUp from "@/components/ui/CountUp";
-import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
-import { getDictionary } from "@/i18n/dictionaries";
+import { withLocale } from "@/i18n/config";
 import { getTestsDict } from "@/i18n/pages/tests";
+import { trackMetaEvent } from "@/lib/meta-pixel";
 import type { TestContactField, TestQuestion, TestSubmissionResult } from "@/lib/test-types";
 import { firstMissingAnswer, isQuestionAnswered } from "./test-runner-state";
+import { isTestSubmissionResult, saveTestResult } from "./test-result-storage";
+import TestResult from "./TestResult";
 
 type Props = {
   slug: string;
@@ -35,8 +36,8 @@ export default function TestRunner({
   scoringMode = "level",
 }: Props) {
   const locale = useLocale();
+  const router = useRouter();
   const t = getTestsDict(locale);
-  const submissionText = getDictionary(locale).submission;
   const [step, setStep] = useState<Step>("intro");
   const [form, setForm] = useState({ name: "", phone: "" });
   const [consent, setConsent] = useState(false);
@@ -104,11 +105,16 @@ export default function TestRunner({
         setStep("contacts");
         return;
       }
-      if (!res.ok || data.ok !== true || typeof data.score !== "number" ||
-          typeof data.total !== "number" || typeof data.level !== "string" ||
-          typeof data.pendingReview !== "number") throw new Error();
-      setResult(data as TestSubmissionResult);
-      setStep("done");
+      if (!res.ok || !isTestSubmissionResult(data)) throw new Error();
+      if (preview) {
+        setResult(data);
+        setStep("done");
+        return;
+      }
+      // Заявка сохранена: результат показываем на странице благодарности, она нужна для конверсий Meta.
+      saveTestResult({ title, result: data });
+      trackMetaEvent("Lead");
+      router.push(withLocale(locale, "/thankyou"));
     } catch {
       if (!controller.signal.aborted) setStep("error");
     } finally {
@@ -397,49 +403,11 @@ export default function TestRunner({
     );
   }
 
-  // ---------- DONE ----------
+  // ---------- DONE (только предпросмотр, остальные уходят на /thankyou) ----------
   if (step === "done" && result) {
     return (
       <Card previewLabel={previewLabel} rootRef={cardRef}>
-        <div className="text-center py-4">
-          <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6 shadow-premium">
-            <Icon name="check" className="text-3xl" />
-          </div>
-          <p className="text-on-surface-variant mb-4 text-sm uppercase tracking-wider font-semibold">{t.result.yourResult}</p>
-          {result.level && result.total > 0 && <div className="inline-flex items-center justify-center card-premium card-ring rounded-2xl bg-surface-container-lowest px-10 py-5 mb-5">
-            <div className="text-4xl md:text-5xl font-extrabold number-gradient leading-none">
-              {result.level}
-            </div>
-          </div>}
-          {result.total > 0 && <p className="text-on-surface-variant mb-8">
-            {t.result.correctAnswers}{" "}
-            <b className="text-lg"><CountUp value={result.score} className="number-gradient font-extrabold" /></b>{" "}
-            {t.result.of} {result.total}
-          </p>}
-          {result.pendingReview > 0 && (
-            <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-sm">
-              {t.result.manualReview} {result.pendingReview}. {t.result.manualReviewNote}
-            </p>
-          )}
-          <div className="glass-card rounded-xl p-5 text-sm text-on-surface-variant mb-8">
-            {preview ? t.preview.resultNote : result.crmDelivered === true ? t.result.note : submissionText.deliveryUnconfirmed}
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            {!preview && <a
-              href={`${site.whatsapp.link}?text=${encodeURIComponent(
-                `${t.result.waIntro}${title}${t.result.waResult}${result.level}`
-              )}`}
-              target="_blank"
-              rel="noopener"
-              className="btn-primary px-6 py-3 rounded-xl font-bold"
-            >
-              {t.result.waButton}
-            </a>}
-            <Link href="/" className="btn-outline px-6 py-3 rounded-xl font-bold bg-white">
-              {t.result.home}
-            </Link>
-          </div>
-        </div>
+        <TestResult title={title} result={result} preview={preview} />
       </Card>
     );
   }

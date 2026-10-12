@@ -76,6 +76,11 @@ const dict = {
       label: "Предпросмотр для администратора. Ответы и заявки не сохраняются.",
       resultNote: "Проверка завершена. Результат не сохранён, заявка не отправлена.",
     },
+    thankYou: {
+      title: "Спасибо!",
+      testTitle: "Спасибо, тест пройден!",
+      text: "Мы получили вашу заявку. Менеджер свяжется с вами в ближайшее время.",
+    },
   },
   kz: {
     hub: {
@@ -149,6 +154,11 @@ const dict = {
       label: "Әкімшіге арналған алдын ала қарау. Жауаптар мен өтінімдер сақталмайды.",
       resultNote: "Тексеру аяқталды. Нәтиже сақталмады, өтінім жіберілмеді.",
     },
+    thankYou: {
+      title: "Рахмет!",
+      testTitle: "Рахмет, тест аяқталды!",
+      text: "Өтініміңіз қабылданды. Менеджер жақын арада сізбен хабарласады.",
+    },
   },
   en: {
     hub: {
@@ -221,6 +231,11 @@ const dict = {
     preview: {
       label: "Administrator preview. Answers and requests are not saved.",
       resultNote: "Preview complete. No result was saved and no request was sent.",
+    },
+    thankYou: {
+      title: "Thank you!",
+      testTitle: "Thank you for taking the test!",
+      text: "We have received your request. Our manager will contact you shortly.",
     },
   },
 };
