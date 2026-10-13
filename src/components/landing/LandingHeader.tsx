@@ -12,7 +12,7 @@ import styles from "./LandingHeader.module.css";
 
 const languageLabels: Record<Locale, string> = { ru: "Рус", kz: "Қаз", en: "Eng" };
 const languageOptions = locales.map((value) => ({ value, label: languageLabels[value] }));
-const destinations = ["/school", "/exams", "/abroad", "/camps", "/#offices"] as const;
+const destinations = ["/school", "/exams", "/tests", "/abroad", "/camps", "/#offices"] as const;
 
 export default function LandingHeader({ locale }: { locale: Locale }): ReactElement {
   const text = heroContent[locale];
@@ -54,6 +54,7 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
     { label: text.nav[0], href: "/school" },
     { label: text.ielts, href: "/exams" },
     { label: "Digital SAT", href: "/exams" },
+    { label: text.nav[2], href: "/tests" },
     { label: text.abroad, href: "/abroad" },
     { label: text.camps, href: "/camps" },
   ];

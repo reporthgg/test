@@ -1,10 +1,14 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 
-export default function PanelLayout({
+export default async function PanelLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  if (!await verifySessionToken((await cookies()).get(SESSION_COOKIE)?.value)) redirect("/admin/login");
   return (
     <div className="min-h-screen bg-background text-on-surface">
       <AdminSidebar />

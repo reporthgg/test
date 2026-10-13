@@ -11,7 +11,7 @@ export function TestsHero({ locale }: { locale: Locale }): ReactElement | null {
 
   return (
     <section className={styles.hero} aria-labelledby="tests-hero-title">
-      <Image className={styles.line} src="/landing/hero/yellow-line.svg" alt="" width={747} height={465} />
+      <Image className={styles.line} src="/landing/hero/yellow-line.svg" alt="" width={747} height={465} loading="eager" />
       <div className={`landing-container ${styles.inner}`}>
         <h1 id="tests-hero-title" className={styles.title}>
           <span>{t.title[0]}</span> <span>{t.title[1]}</span>

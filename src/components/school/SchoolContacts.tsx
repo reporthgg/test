@@ -13,9 +13,9 @@ export function SchoolContacts({ locale }: { locale: Locale }): ReactElement {
   return (
     <div className={styles.contacts}>
       <section className={styles.faq} id="faq" aria-labelledby="school-faq-title">
-        <img className={styles.line} src="/school/contacts/faq-line.svg" alt="" />
+        <img className={styles.line} src="/school/contacts/faq-line.svg" alt="" loading="lazy" />
         {/* Figma 260:3000: на мобильной в вопросы заходит та же линия, что и в блоке офисов (564:823). */}
-        <img className={styles.lineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" />
+        <img className={styles.lineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" loading="lazy" />
         <div className={`landing-container ${styles.layout}`}>
           <header className={styles.header}>
             <h2 className={`landing-title ${styles.title}`} id="school-faq-title">
@@ -23,8 +23,8 @@ export function SchoolContacts({ locale }: { locale: Locale }): ReactElement {
               <span>{t.title[1]}</span>
               <em>{t.title[2]}</em>
             </h2>
-            <img className={styles.hashtag} src="/school/contacts/hashtag.svg" alt="" />
-            <img className={styles.hashtagMobile} src="/school/contacts/hashtag-mobile.svg" alt="" />
+            <img className={styles.hashtag} src="/school/contacts/hashtag.svg" alt="" loading="lazy" />
+            <img className={styles.hashtagMobile} src="/school/contacts/hashtag-mobile.svg" alt="" loading="lazy" />
           </header>
           <div className={styles.questions}>
             {t.faq.map((item, index) => (

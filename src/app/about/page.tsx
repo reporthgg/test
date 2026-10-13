@@ -7,19 +7,15 @@ import { AboutHero } from "@/components/about/AboutHero";
 import { AboutJourney } from "@/components/about/AboutJourney";
 import { AboutPartners, AboutValues } from "@/components/about/AboutValues";
 import { AboutCenters, AboutCta } from "@/components/about/AboutContact";
+import JsonLd from "@/components/JsonLd";
 import { getServerLocale } from "@/lib/locale";
 import { getPageContent } from "@/lib/page-content";
+import { pageMetadata } from "@/lib/page-metadata";
+import { pageJsonLd } from "@/lib/structured-data";
 import "@/components/landing/landing.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getServerLocale();
-  const ov = await getPageContent("about", locale);
-  return {
-    title: ov.metaTitle ?? "О нас | GSC Study",
-    description:
-      ov.metaDescription ??
-      "GSC Study: образование без границ с 2011 года. Более 15 000 студентов, центры в Алматы и Астане, поступление в вузы 25+ стран.",
-  };
+  return pageMetadata("about", await getServerLocale());
 }
 
 export default async function AboutPage(): Promise<ReactElement> {
@@ -28,6 +24,7 @@ export default async function AboutPage(): Promise<ReactElement> {
 
   return (
     <div className="landing" lang={locale === "kz" ? "kk" : locale}>
+      <JsonLd data={pageJsonLd("about", locale)} />
       <LandingProvider locale={locale} scope="about">
         <LandingHeader locale={locale} />
         <main id="landing-main">

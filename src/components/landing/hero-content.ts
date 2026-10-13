@@ -24,7 +24,7 @@ type HeroContent = {
   play: string;
   partners: string;
   skip: string;
-  nav: [string, string, string, string, string];
+  nav: [string, string, string, string, string, string];
   consultation: string;
   menu: string;
   close: string;
@@ -84,7 +84,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     play: "Продолжить слайдер",
     partners: "Партнёры и аккредитации",
     skip: "Перейти к содержимому",
-    nav: ["Языковая школа", "Экзамены", "За рубеж", "Лагеря", "Центры"],
+    nav: ["Языковая школа", "Экзамены", "Тесты", "За рубеж", "Лагеря", "Центры"],
     consultation: "Консультация",
     menu: "Открыть меню",
     close: "Закрыть меню",
@@ -142,7 +142,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     play: "Слайдерді жалғастыру",
     partners: "Серіктестер және аккредитациялар",
     skip: "Мазмұнға өту",
-    nav: ["Тіл мектебі", "Емтихандар", "Шетелде оқу", "Лагерьлер", "Орталықтар"],
+    nav: ["Тіл мектебі", "Емтихандар", "Тесттер", "Шетелде оқу", "Лагерьлер", "Орталықтар"],
     consultation: "Кеңес алу",
     menu: "Мәзірді ашу",
     close: "Мәзірді жабу",
@@ -200,7 +200,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     play: "Resume slideshow",
     partners: "Partners and accreditations",
     skip: "Skip to content",
-    nav: ["Language school", "Exams", "Study abroad", "Camps", "Centres"],
+    nav: ["Language school", "Exams", "Tests", "Study abroad", "Camps", "Centres"],
     consultation: "Consultation",
     menu: "Open menu",
     close: "Close menu",

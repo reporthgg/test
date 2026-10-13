@@ -51,7 +51,20 @@ describe("admin session routing", () => {
     assert.equal(response.status, 200);
     assert.equal(response.headers.get("x-middleware-next"), "1");
     assert.equal(response.headers.get("location"), null);
+    assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow");
   });
+
+  for (const locale of ["kz", "en"]) {
+    for (const suffix of ["/admin", "/admin/leads", "/admin/login"]) {
+      it(`redirects /${locale}${suffix} to the unprefixed admin path instead of rewriting it`, async () => {
+        const response = await proxy(new NextRequest(`${origin}/${locale}${suffix}?page=2`));
+
+        assert.equal(response.status, 307);
+        assert.equal(isRewrite(response), false);
+        assert.equal(getRedirectUrl(response), `${origin}${suffix}?page=2`);
+      });
+    }
+  }
 
   it("allows a valid signed session without changing cookies", async () => {
     const token = await createSessionToken("migration-test-admin");
@@ -63,6 +76,7 @@ describe("admin session routing", () => {
     assert.equal(response.headers.get("x-middleware-next"), "1");
     assert.equal(response.headers.get("location"), null);
     assert.equal(response.headers.get("set-cookie"), null);
+    assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow");
     assert.equal(await response.text(), "");
   });
 
@@ -94,7 +108,7 @@ describe("admin session routing", () => {
 
 describe("locale rewrites", () => {
   for (const locale of ["kz", "en"]) {
-    for (const suffix of ["", "/", "/courses/ielts", "/admin"]) {
+    for (const suffix of ["", "/", "/courses/ielts", "/test/general-english"]) {
       it(`rewrites /${locale}${suffix} and forwards the locale header`, async () => {
         const request = new NextRequest(`${origin}/${locale}${suffix}?campaign=test`, {
           headers: { "x-request-id": "request-123", "x-locale": "ru" },

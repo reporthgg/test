@@ -11,25 +11,22 @@ import {
 import SchoolHero, { SchoolTrust } from "@/components/school/SchoolHero";
 import { SchoolResults } from "@/components/school/SchoolResults";
 import SchoolPrograms from "@/components/school/SchoolPrograms";
+import SchoolOffer from "@/components/school/SchoolOffer";
 import SchoolTests from "@/components/school/SchoolTests";
 import SchoolTeaching from "@/components/school/SchoolTeaching";
 import SchoolTeachers from "@/components/school/SchoolTeachers";
 import SchoolCertificate from "@/components/school/SchoolCertificate";
 import { SchoolContacts } from "@/components/school/SchoolContacts";
 import SchoolWhatsApp from "@/components/school/SchoolWhatsApp";
+import JsonLd from "@/components/JsonLd";
 import { getServerLocale } from "@/lib/locale";
 import { getPageContent } from "@/lib/page-content";
+import { pageMetadata } from "@/lib/page-metadata";
+import { pageJsonLd } from "@/lib/structured-data";
 import "@/components/landing/landing.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getServerLocale();
-  const overrides = await getPageContent("school", locale);
-  return {
-    title: overrides.metaTitle ??
-      "Языковая школа: курсы английского A1-C2 в Алматы и Астане | GSC Study",
-    description: overrides.metaDescription ??
-      "Курсы английского языка от A1 до C2: общий, академический, деловой и детский. Группы до восьми человек, индивидуальные занятия и онлайн. Тест уровня и пробный урок бесплатно.",
-  };
+  return pageMetadata("school", await getServerLocale());
 }
 
 export default async function SchoolPage(): Promise<ReactElement> {
@@ -38,6 +35,7 @@ export default async function SchoolPage(): Promise<ReactElement> {
 
   return (
     <div className="landing" lang={locale === "kz" ? "kk" : locale}>
+      <JsonLd data={pageJsonLd("school", locale)} />
       <LandingProvider locale={locale} scope="school">
         <LandingHeader locale={locale} />
         <main id="landing-main">
@@ -45,6 +43,7 @@ export default async function SchoolPage(): Promise<ReactElement> {
           <SchoolTrust locale={locale} />
           <SchoolResults locale={locale} />
           <SchoolPrograms locale={locale} />
+          <SchoolOffer locale={locale} />
           <SchoolTests locale={locale} />
           <SchoolTeaching locale={locale} />
           <SchoolTeachers locale={locale} />

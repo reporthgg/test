@@ -7,23 +7,18 @@ import { ExamsHero } from "@/components/exams/ExamsHero";
 import { ExamsResults } from "@/components/exams/ExamsResults";
 import { ExamsTests } from "@/components/exams/ExamsTests";
 import { ExamsChoice } from "@/components/exams/ExamsChoice";
+import { ExamsOffer } from "@/components/exams/ExamsOffer";
 import { ExamsSteps } from "@/components/exams/ExamsSteps";
 import { ExamsFaq } from "@/components/exams/ExamsFaq";
+import JsonLd from "@/components/JsonLd";
 import { getServerLocale } from "@/lib/locale";
 import { getPageContent } from "@/lib/page-content";
+import { pageMetadata } from "@/lib/page-metadata";
+import { pageJsonLd } from "@/lib/structured-data";
 import "@/components/landing/landing.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getServerLocale();
-  const ov = await getPageContent("exams", locale);
-  return {
-    title:
-      ov.metaTitle ??
-      "Подготовка к IELTS и Digital SAT на нужный балл | GSC Study",
-    description:
-      ov.metaDescription ??
-      "Подготовка к IELTS (Academic и General Training) и Digital SAT: диагностика, план до целевого балла, тренировка по секциям и пробные тесты. Средний балл IELTS 7.0+.",
-  };
+  return pageMetadata("exams", await getServerLocale());
 }
 
 export default async function ExamsPage(): Promise<ReactElement> {
@@ -32,6 +27,7 @@ export default async function ExamsPage(): Promise<ReactElement> {
 
   return (
     <div className="landing" lang={locale === "kz" ? "kk" : locale}>
+      <JsonLd data={pageJsonLd("exams", locale)} />
       <LandingProvider locale={locale} scope="exams">
         <LandingHeader locale={locale} />
         <main id="landing-main">
@@ -39,6 +35,7 @@ export default async function ExamsPage(): Promise<ReactElement> {
           <ExamsResults locale={locale} />
           <ExamsTests locale={locale} />
           <ExamsChoice locale={locale} />
+          <ExamsOffer locale={locale} />
           <ExamsSteps locale={locale} />
           <ExamsFaq locale={locale} />
         </main>

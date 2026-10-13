@@ -12,15 +12,15 @@ export function CampsFaq({ locale }: { locale: Locale }): ReactElement {
 
   return (
     <section className={styles.faq} id="faq" aria-labelledby="camps-faq-title">
-      <img className={styles.line} src="/school/contacts/faq-line.svg" alt="" width={728.887} height={427.609} />
-      <img className={styles.lineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" width={682.961} height={460.155} />
+      <img className={styles.line} src="/school/contacts/faq-line.svg" alt="" width={728.887} height={427.609} loading="lazy" />
+      <img className={styles.lineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" width={682.961} height={460.155} loading="lazy" />
       <div className={`landing-container ${styles.layout}`}>
         <header className={styles.header}>
           <h2 className={`landing-title ${styles.title}`} id="camps-faq-title">
             <span>{t.title[0]}</span> <span>{t.title[1]}</span> <em>{t.title[2]}</em>
           </h2>
-          <img className={styles.hashtag} src="/school/contacts/hashtag.svg" alt="" width={100.012} height={109.966} />
-          <img className={styles.hashtagMobile} src="/school/contacts/hashtag-mobile.svg" alt="" width={50.0062} height={54.983} />
+          <img className={styles.hashtag} src="/school/contacts/hashtag.svg" alt="" width={100.012} height={109.966} loading="lazy" />
+          <img className={styles.hashtagMobile} src="/school/contacts/hashtag-mobile.svg" alt="" width={50.0062} height={54.983} loading="lazy" />
         </header>
         <div className={styles.questions}>
           {t.items.map((item, index) => (

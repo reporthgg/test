@@ -27,8 +27,8 @@ export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
 
   return (
       <section id="offices" className={styles.offices} aria-labelledby="landing-offices-title">
-        <img className={styles.officesLine} src="/landing/contacts/offices-line.svg" alt="" />
-        <img className={styles.officesLineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" />
+        <img className={styles.officesLine} src="/landing/contacts/offices-line.svg" alt="" loading="lazy" />
+        <img className={styles.officesLineMobile} src="/landing/contacts/offices-line-mobile.svg" alt="" loading="lazy" />
         <div className="landing-container">
           <header className={styles.officesHeader}>
             <h2 className={`landing-title ${styles.officesTitle}`} id="landing-offices-title">
@@ -95,15 +95,15 @@ export function LandingContacts({ locale }: { locale: Locale }): ReactElement {
     <div className={styles.contacts}>
       <LandingOffices locale={locale} />
       <section id="faq" className={styles.faq} aria-labelledby="landing-faq-title">
-        <img className={styles.faqLine} src="/landing/contacts/faq-line.svg" alt="" />
-        <img className={styles.faqLineMobile} src="/landing/contacts/faq-line-mobile.svg" alt="" />
+        <img className={styles.faqLine} src="/landing/contacts/faq-line.svg" alt="" loading="lazy" />
+        <img className={styles.faqLineMobile} src="/landing/contacts/faq-line-mobile.svg" alt="" loading="lazy" />
         <div className={`landing-container ${styles.faqLayout}`}>
           <header className={styles.faqHeader}>
             <h2 className={`landing-title ${styles.faqTitle}`} id="landing-faq-title">
               {t.faqTitle} <em>{t.faqAccent}</em>
             </h2>
-            <img className={styles.hashtag} src="/landing/contacts/hashtag.svg" alt="" />
-            <img className={styles.hashtagMobile} src="/landing/contacts/hashtag-mobile.svg" alt="" />
+            <img className={styles.hashtag} src="/landing/contacts/hashtag.svg" alt="" loading="lazy" />
+            <img className={styles.hashtagMobile} src="/landing/contacts/hashtag-mobile.svg" alt="" loading="lazy" />
           </header>
           <div className={styles.questions}>
             {t.faq.map((item, index) => (

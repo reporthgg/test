@@ -4,16 +4,25 @@ import path from "node:path";
 import { test } from "node:test";
 import { getSchoolDict } from "@/i18n/pages/school";
 import { locales } from "@/i18n/config";
-import { schoolProgramArtwork, schoolProgramsContent } from "./school-programs-content";
+import { schoolProgramArtwork, schoolProgramPrice, schoolProgramsContent } from "./school-programs-content";
 import { schoolTeachers, schoolTeachersContent } from "./school-teachers-content";
 
-test("programme pricing is consultation-only in every locale", () => {
+test("programme pricing: General English has a price, the rest are consultation-only", () => {
   assert.equal(schoolProgramsContent.ru.price, "Стоимость уточняется на консультации");
   assert.equal(schoolProgramsContent.kz.price, "Бағасы кеңес кезінде нақтыланады");
   assert.equal(schoolProgramsContent.en.price, "Pricing is confirmed during the consultation");
   for (const locale of locales) {
     assert.doesNotMatch(schoolProgramsContent[locale].price, /[\d₸]/u);
+    for (const { id } of schoolProgramArtwork) {
+      const price = schoolProgramPrice(id, locale);
+      if (id === "general") {
+        assert.match(price.replace(/\s/gu, " "), /^60 000 ₸ \/ \S/u);
+      } else {
+        assert.equal(price, schoolProgramsContent[locale].price);
+      }
+    }
   }
+  assert.equal(schoolProgramPrice("general", "ru").replace(/\s/gu, " "), "60 000 ₸ / 12 часов в месяц");
 });
 
 test("teachers: Ayaulym unchanged, the Syganak office team follows her", () => {

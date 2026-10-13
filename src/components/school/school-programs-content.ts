@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/config";
+import { schoolOfferContent } from "./school-offer-content";
 
 export const schoolProgramArtwork = [
   { id: "general", courseIndex: 0, badgeRow: 0, extension: "png", tone: "light" },
@@ -10,6 +11,8 @@ export const schoolProgramArtwork = [
   { id: "chinese", courseIndex: 6, badgeRow: 0, extension: "svg", tone: "green" },
   { id: "intensive", courseIndex: 7, badgeRow: 1, extension: "svg", tone: "sky" },
 ] as const;
+
+export type SchoolProgramId = (typeof schoolProgramArtwork)[number]["id"];
 
 type ProgramsCopy = {
   title: readonly [string, string];
@@ -74,3 +77,9 @@ export const schoolProgramsContent: Record<Locale, ProgramsCopy> = {
     ],
   },
 };
+
+export function schoolProgramPrice(id: SchoolProgramId, locale: Locale): string {
+  if (id !== "general") return schoolProgramsContent[locale].price;
+  const { amount, period } = schoolOfferContent[locale].price;
+  return `${amount}\u00a0/ ${period}`;
+}

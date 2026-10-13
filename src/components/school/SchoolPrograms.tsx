@@ -6,7 +6,7 @@ import type { Locale } from "@/i18n/config";
 import { LeadButton } from "@/components/landing/LandingForms";
 import { useLocale } from "@/i18n/useLocale";
 import { getSchoolDict } from "@/i18n/pages/school";
-import { schoolProgramArtwork, schoolProgramsContent } from "./school-programs-content";
+import { schoolProgramArtwork, schoolProgramPrice, schoolProgramsContent } from "./school-programs-content";
 import styles from "./SchoolPrograms.module.css";
 
 export default function SchoolPrograms({ locale }: { locale?: Locale }): ReactElement {
@@ -66,7 +66,7 @@ export default function SchoolPrograms({ locale }: { locale?: Locale }): ReactEl
               </div>
               <div className={styles.meta}>
                 <span className={styles.badge}>{program.badge}</span>
-                <p className={styles.price}>{t.price}</p>
+                <p className={styles.price}>{schoolProgramPrice(program.id, resolvedLocale)}</p>
               </div>
               <LeadButton
                 kind="trial"

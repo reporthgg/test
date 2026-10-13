@@ -32,7 +32,7 @@ export function TestHero({
 
   return (
     <section className={`${flow.hero} ${last ? flow.heroLast : ""} ${aside ? "" : flow.heroCompact}`} aria-labelledby={titleId}>
-      <Image className={flow.line} src="/landing/hero/yellow-line.svg" alt="" width={747} height={465} />
+      <Image className={flow.line} src="/landing/hero/yellow-line.svg" alt="" width={747} height={465} loading="eager" />
       <div className={`landing-container ${flow.heroInner} ${aside ? "" : flow.heroSingle}`}>
         <div className={flow.heroMain}>
           {back}

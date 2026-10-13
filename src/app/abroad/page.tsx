@@ -10,21 +10,15 @@ import { AbroadSituations } from "@/components/abroad/AbroadSituations";
 import { AbroadServices } from "@/components/abroad/AbroadServices";
 import { AbroadTimeline } from "@/components/abroad/AbroadTimeline";
 import { AbroadFaq } from "@/components/abroad/AbroadFaq";
+import JsonLd from "@/components/JsonLd";
 import { getServerLocale } from "@/lib/locale";
 import { getPageContent } from "@/lib/page-content";
+import { pageMetadata } from "@/lib/page-metadata";
+import { pageJsonLd } from "@/lib/structured-data";
 import "@/components/landing/landing.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getServerLocale();
-  const ov = await getPageContent("abroad", locale);
-  return {
-    title:
-      ov.metaTitle ??
-      "Образование за рубежом: поступление в вузы 25+ стран | GSC Study",
-    description:
-      ov.metaDescription ??
-      "Поступление в университеты Великобритании, Германии, Канады, ОАЭ и США. Подбор программы, документы, мотивационное письмо и сопровождение до зачисления. Foundation, Bachelor, Pre-Master.",
-  };
+  return pageMetadata("abroad", await getServerLocale());
 }
 
 export default async function AbroadPage(): Promise<ReactElement> {
@@ -33,6 +27,7 @@ export default async function AbroadPage(): Promise<ReactElement> {
 
   return (
     <div className="landing" lang={locale === "kz" ? "kk" : locale}>
+      <JsonLd data={pageJsonLd("abroad", locale)} />
       <LandingProvider locale={locale} scope="abroad">
         <LandingHeader locale={locale} />
         <main id="landing-main">

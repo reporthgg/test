@@ -9,24 +9,17 @@ import { CampsCatalog } from "@/components/camps/CampsCatalog";
 import { CampsCare, CampsIncluded, CampsSchedule, CampsSteps } from "@/components/camps/CampsExperience";
 import { CampsTour } from "@/components/camps/CampsTour";
 import { CampsFaq } from "@/components/camps/CampsFaq";
+import JsonLd from "@/components/JsonLd";
 import { getServerLocale } from "@/lib/locale";
-import { getPageContent } from "@/lib/page-content";
+import { pageMetadata } from "@/lib/page-metadata";
+import { pageJsonLd } from "@/lib/structured-data";
 import "@/components/landing/landing.css";
 
 // Смены берутся из админки при каждом запросе.
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getServerLocale();
-  const ov = await getPageContent("camps", locale);
-  return {
-    title:
-      ov.metaTitle ??
-      "Языковые лагеря за рубежом: лето 2026 для школьников | GSC Study",
-    description:
-      ov.metaDescription ??
-      "Языковые лагеря за рубежом для школьников 12-17 лет. Уроки английского, экскурсии, проживание и сопровождающий от GSC Study.",
-  };
+  return pageMetadata("camps", await getServerLocale());
 }
 
 export default async function CampsPage(): Promise<ReactElement> {
@@ -34,6 +27,7 @@ export default async function CampsPage(): Promise<ReactElement> {
 
   return (
     <div className="landing" lang={locale === "kz" ? "kk" : locale}>
+      <JsonLd data={pageJsonLd("camps", locale)} />
       <LandingProvider locale={locale} scope="camps">
         <LandingHeader locale={locale} />
         <main id="landing-main">
