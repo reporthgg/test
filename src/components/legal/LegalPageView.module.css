@@ -24,24 +24,6 @@
 .document li { margin-bottom: 6px; }
 .document li::marker { color: var(--landing-pink, #b1005a); }
 
-.note {
-  padding: 14px 18px;
-  border-radius: 14px;
-  background: #f2f6f9;
-  color: #4a4a4a;
-  font-size: 15px;
-  line-height: 22px;
-}
-
-.document .note { margin-bottom: 24px; }
-
-.documentTitle {
-  color: var(--landing-blue, #135685);
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 32px;
-}
-
 .document .intro { margin-bottom: 32px; font-weight: 600; }
 
 .document .related {
@@ -65,5 +47,4 @@
 @media (max-width: 767px) {
   .document { font-size: 15px; line-height: 24px; }
   .document h2 { margin-top: 28px; font-size: 18px; line-height: 25px; }
-  .documentTitle { font-size: 20px; line-height: 27px; }
 }

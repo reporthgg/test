@@ -59,19 +59,6 @@ export function AboutJourney({ locale }: { locale: Locale }): ReactElement {
             );
           })}
         </ol>
-        <figure className={styles.quote}>
-          <blockquote>
-            <p>{t.journey.quote}</p>
-          </blockquote>
-          <Image
-            className={styles.sticker}
-            src="/landing/stories/think-beyond-sticker.png"
-            alt=""
-            width={4096}
-            height={4096}
-            sizes="(max-width: 767px) 150px, 240px"
-          />
-        </figure>
       </div>
     </section>
   );

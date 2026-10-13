@@ -91,7 +91,7 @@ export function AbroadHero({ locale, overrides }: { locale: Locale; overrides: P
               <Image className={styles.sinceStarMobile} src="/landing/hero/mobile-star.svg" alt="" width={42} height={42} />
             </div>
             <p className={styles.students}>
-              <strong>{"8 000+"}</strong>
+              <strong>{"15 000+"}</strong>
               <span>{t.students}</span>
             </p>
           </div>

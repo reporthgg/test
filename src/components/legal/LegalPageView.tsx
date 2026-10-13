@@ -7,7 +7,8 @@ import { LandingOverlays, LandingProvider } from "@/components/landing/LandingFo
 import { TestHero } from "@/components/test/TestResult";
 import { withLocale, type Locale } from "@/i18n/config";
 import { buildPageMetadata, htmlLang } from "@/lib/seo";
-import { legalChrome, legalDocuments, type LegalPage } from "./legal-content";
+import { legalChrome } from "./legal-content";
+import { legalDocuments, type LegalPage } from "./legal-documents";
 import flowStyles from "@/components/test/TestFlow.module.css";
 import styles from "./LegalPageView.module.css";
 import "@/components/landing/landing.css";
@@ -19,13 +20,12 @@ export function legalMetadata(page: LegalPage, locale: Locale): Metadata {
     path: `/${page}`,
     title: `${t.titles[page]} | GSC Study`,
     description: t.descriptions[page],
-    index: locale === "ru",
   });
 }
 
 export default function LegalPageView({ locale, page }: { locale: Locale; page: LegalPage }): ReactElement {
   const t = legalChrome[locale];
-  const document = legalDocuments[page];
+  const document = legalDocuments[page][locale];
   const other: LegalPage = page === "privacy" ? "consent" : "privacy";
 
   return (
@@ -36,9 +36,7 @@ export default function LegalPageView({ locale, page }: { locale: Locale; page: 
           <TestHero title={t.titles[page]} aside={<p className={flowStyles.description}>{t.edition}</p>} />
           <section className={flowStyles.stage} aria-label={t.titles[page]}>
             <div className="landing-container">
-              <article className={`${flowStyles.panel} ${styles.document}`} lang="ru">
-                {t.note && <p className={styles.note} lang={htmlLang(locale)}>{t.note}</p>}
-                {locale !== "ru" && <p className={styles.documentTitle}>{document.title}</p>}
+              <article className={`${flowStyles.panel} ${styles.document}`}>
                 {document.intro && <p className={styles.intro}>{document.intro}</p>}
                 {document.sections.map((section) => (
                   <section key={section.title}>
@@ -48,7 +46,7 @@ export default function LegalPageView({ locale, page }: { locale: Locale; page: 
                       : <ul key={index}>{block.map((item) => <li key={item}>{item}</li>)}</ul>)}
                   </section>
                 ))}
-                <p className={styles.related} lang={htmlLang(locale)}>
+                <p className={styles.related}>
                   {t.related} <Link href={withLocale(locale, `/${other}`)}>{t.titles[other]}</Link>
                 </p>
               </article>
