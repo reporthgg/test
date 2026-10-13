@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { questionSummary, testPresentation } from "./test-presentation";
 import type { PublishedTest } from "./test-presentation";
+import { legacyTestSlugs, renamedTestSlug } from "./test-slugs";
 
 const baseTest: PublishedTest = {
   id: "published-test",
@@ -47,19 +48,31 @@ test("questionSummary can omit the count of a single writing task", () => {
   );
 });
 
-test("presentation preserves both imported age groups", () => {
-  assert.deepEqual(
-    testPresentation({ ...baseTest, slug: "tilda-kids-6-8", kind: "kids" }, "ru"),
-    { title: "English for Kids", flag: "kids-young", age: "(6-8 лет)" },
-  );
-  assert.deepEqual(
-    testPresentation({ ...baseTest, slug: "tilda-kids-9-12", kind: "kids" }, "ru"),
-    { title: "English for Kids", flag: "kids-older", age: "(9-12 лет)" },
-  );
+test("presentation preserves both imported age groups before and after the slug rename", () => {
+  for (const prefix of ["", "tilda-"]) {
+    assert.deepEqual(
+      testPresentation({ ...baseTest, slug: `${prefix}kids-6-8`, kind: "kids" }, "ru"),
+      { title: "English for Kids", flag: "kids-young", age: "(6-8 лет)" },
+    );
+    assert.deepEqual(
+      testPresentation({ ...baseTest, slug: `${prefix}kids-9-12`, kind: "kids" }, "ru"),
+      { title: "English for Kids", flag: "kids-older", age: "(9-12 лет)" },
+    );
+  }
+});
+
+test("every legacy Tilda slug maps to a clean slug without the prefix", () => {
+  for (const [legacy, renamed] of Object.entries(legacyTestSlugs)) {
+    assert.match(legacy, /^tilda-/u);
+    assert.doesNotMatch(renamed, /tilda/u);
+    assert.equal(renamedTestSlug(legacy), renamed);
+  }
+  assert.equal(renamedTestSlug("ielts"), null);
+  assert.equal(renamedTestSlug("constructor"), null);
 });
 
 test("presentation preserves legacy, imported, exam and custom tests", () => {
-  for (const slug of ["general-english", "tilda-general-english"]) {
+  for (const slug of ["general-english", "english", "tilda-general-english"]) {
     assert.equal(testPresentation({ ...baseTest, slug }, "en").flag, "general");
   }
   assert.equal(testPresentation({ ...baseTest, slug: "kids-english" }, "en").flag, "kids-young");

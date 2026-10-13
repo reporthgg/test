@@ -140,6 +140,25 @@ describe("locale rewrites", () => {
   }
 });
 
+describe("canonical host", () => {
+  const cases: Record<string, string>[] = [{ host: "www.gscstudy.com" }, { host: "app:3000", "x-forwarded-host": "WWW.gscstudy.com" }];
+  for (const headers of cases) {
+    it(`redirects ${JSON.stringify(headers)} to the apex domain permanently`, async () => {
+      const response = await proxy(new NextRequest(`${origin}/kz/school?utm_source=ig`, { headers }));
+
+      assert.equal(response.status, 301);
+      assert.equal(getRedirectUrl(response), "https://gscstudy.com/kz/school?utm_source=ig");
+    });
+  }
+
+  it("serves the apex domain without a redirect", async () => {
+    const response = await proxy(new NextRequest(`${origin}/school`, { headers: { host: "gscstudy.com" } }));
+
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("location"), null);
+  });
+});
+
 describe("route matcher", () => {
   for (const url of ["/", "/admin", "/admin/login", "/en", "/kz/courses", "/api/leads", "/data.json"]) {
     it(`matches ${url}`, () => {

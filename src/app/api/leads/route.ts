@@ -5,6 +5,8 @@ import type { BitrixLeadPayload } from "@/lib/bitrix";
 import { sendStoredLeadToBitrix, type BitrixDeliveryRecord } from "@/lib/bitrix-delivery";
 import { formatGeneralLeadComment } from "@/lib/bitrix-comments";
 import { isRecord } from "@/lib/test-content";
+import { parsePage, parseUtm } from "@/lib/lead-tracking";
+import { consentRecord } from "@/lib/legal";
 
 // Поля, которые кладём в отдельные колонки; остальное — в extra (JSON)
 const KNOWN = new Set(["name", "phone", "email", "city", "source"]);
@@ -142,7 +144,10 @@ export async function POST(request: Request): Promise<NextResponse> {
         consent: "Согласие должно быть передано как true",
       });
     }
-    const body = { ...raw, name, phone, email, city, source };
+    const page = parsePage(raw.page);
+    const utm = parseUtm(raw.utm);
+    const consent = raw.consent === true ? consentRecord() : { consentVersion: undefined, consentAt: undefined };
+    const body = { ...raw, name, phone, email, city, source, page, utm, ...consent };
 
     // «интерес» — первое осмысленное поле формы (курс/страна/экзамен/направление)
     const interestValue = [raw.course, raw.country, raw.exam, raw.camp, raw.program]
@@ -163,6 +168,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       title: `Заявка с сайта: ${name}`,
       comment: formatGeneralLeadComment(body),
       originId: leadId,
+      ...(utm ? { utm } : {}),
     };
     const deliveryRecord: BitrixDeliveryRecord = {
       version: 1,

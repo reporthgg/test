@@ -60,6 +60,7 @@ export default function HeroMotionTitle({ title, accent, current, locale }: Hero
                 </span>
               );
             })}
+            {lineIndex === 0 && " "}
           </span>
         );
       })}

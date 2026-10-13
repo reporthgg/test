@@ -134,7 +134,7 @@ const ru = {
   offices: {
     eyebrow: "Контакты",
     title: "Наши центры",
-    text: "Четыре учебных центра: три в Астане и один в Алматы. Или занимайтесь онлайн из любого города.",
+    text: "Три учебных центра: два в Астане и один в Алматы. Или занимайтесь онлайн из любого города.",
     writeWhatsApp: "Написать в WhatsApp",
   },
   faq: {
@@ -304,7 +304,7 @@ const kz: Dict = {
   offices: {
     eyebrow: "Байланыс",
     title: "Біздің орталықтар",
-    text: "Төрт оқу орталығы: үшеуі Астанада, біреуі Алматыда. Немесе кез келген қаладан онлайн оқыңыз.",
+    text: "Үш оқу орталығы: екеуі Астанада, біреуі Алматыда. Немесе кез келген қаладан онлайн оқыңыз.",
     writeWhatsApp: "WhatsApp-қа жазу",
   },
   faq: {
@@ -472,7 +472,7 @@ const en: Dict = {
   offices: {
     eyebrow: "Contacts",
     title: "Our centres",
-    text: "Four learning centres: three in Astana and one in Almaty. Or study online from any city.",
+    text: "Three learning centres: two in Astana and one in Almaty. Or study online from any city.",
     writeWhatsApp: "Message on WhatsApp",
   },
   faq: {

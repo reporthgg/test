@@ -170,6 +170,7 @@ export function StoriesLetters({ locale }: { locale: Locale }): ReactElement {
   const trackRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ start: true, end: false });
   const galleryId = useId();
+  const universitiesId = useId();
 
   function scrollLetters(direction: number): void {
     const track = trackRef.current;
@@ -210,8 +211,9 @@ export function StoriesLetters({ locale }: { locale: Locale }): ReactElement {
           {admissionLetters.map((letter) => <LetterPreview key={letter.id} letter={letter} locale={locale} />)}
         </div>
         <div className={styles.universities}>
+          <h3 className={styles.universitiesCaption} id={universitiesId}>{t.universityList}</h3>
           <div className={styles.universitiesViewport}>
-            <ul className={styles.universitiesTrack} aria-label={t.universityList}>
+            <ul className={styles.universitiesTrack} aria-labelledby={universitiesId}>
               {universityLogos.map((logo) => (
                 <li key={logo.file} className={styles.universityLogo} style={logoLayout(logo)}>
                   <img

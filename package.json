@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test src/proxy.test.ts src/lib/test-presentation.test.ts src/lib/site.test.ts src/lib/seo.test.ts src/components/school/school-sections.test.ts scripts/landing-assets.test.mjs scripts/school-assets.test.mjs",
+    "test": "node --import tsx --test src/proxy.test.ts src/lib/test-presentation.test.ts src/lib/site.test.ts src/lib/seo.test.ts src/lib/lead-tracking.test.ts src/components/school/school-sections.test.ts scripts/landing-assets.test.mjs scripts/school-assets.test.mjs",
     "test:proxy": "node --import tsx --test src/proxy.test.ts",
     "test:landing:api": "node --test scripts/landing-api.test.mjs",
     "check:text": "node scripts/check-ai-text.mjs",
@@ -17,7 +17,7 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "node prisma/seed.mjs",
-    "db:deploy": "prisma db push --skip-generate && prisma db execute --file prisma/manual-migrations/20260925_test_contact_fields.sql --schema prisma/schema.prisma && node prisma/seed-if-empty.mjs"
+    "db:deploy": "prisma db push --skip-generate && prisma db execute --file prisma/manual-migrations/20260925_test_contact_fields.sql --schema prisma/schema.prisma && prisma db execute --file prisma/manual-migrations/20261013_test_slugs.sql --schema prisma/schema.prisma && node prisma/seed-if-empty.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

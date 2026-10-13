@@ -32,8 +32,6 @@ const dict = {
       namePh: "Введите имя",
       phoneLabel: "Телефон",
       phonePh: "+7 700 000 00 00",
-      consent:
-        "Согласен(а) на обработку персональных данных, чтобы получить результат и разбор.",
       selectOption: "Выберите вариант",
       submit: "Получить результат",
       back: "Вернуться к ответам",
@@ -110,8 +108,6 @@ const dict = {
       namePh: "Атыңызды енгізіңіз",
       phoneLabel: "Телефон",
       phonePh: "+7 700 000 00 00",
-      consent:
-        "Нәтиже мен талдауды алу үшін дербес деректерді өңдеуге келісемін.",
       selectOption: "Нұсқаны таңдаңыз",
       submit: "Нәтижені алу",
       back: "Жауаптарға оралу",
@@ -188,8 +184,6 @@ const dict = {
       namePh: "Enter your name",
       phoneLabel: "Phone",
       phonePh: "+7 700 000 00 00",
-      consent:
-        "I agree to the processing of personal data in order to receive my result and a breakdown.",
       selectOption: "Select an option",
       submit: "Get my result",
       back: "Back to answers",

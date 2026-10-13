@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import { LandingFooter } from "@/components/landing/LandingContacts";
+import { OfficesSection } from "@/components/landing/OfficesSection";
 import { LandingOverlays, LandingProvider } from "@/components/landing/LandingForms";
 import CampsHero from "@/components/camps/CampsHero";
 import { CampsResults } from "@/components/camps/CampsResults";
@@ -39,6 +40,7 @@ export default async function CampsPage(): Promise<ReactElement> {
           <CampsCare locale={locale} />
           <CampsSteps locale={locale} />
           <CampsTour locale={locale} />
+          <OfficesSection locale={locale} layer={0} mobileOverlap={36} />
           <CampsFaq locale={locale} />
         </main>
         <LandingFooter locale={locale} />

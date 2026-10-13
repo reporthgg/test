@@ -644,6 +644,8 @@ textarea.answerField {
   outline-offset: 3px;
 }
 
+.consent a { color: var(--landing-blue, #135685); text-decoration: underline; text-underline-offset: 2px; }
+
 .submit {
   margin-top: 14px;
 }

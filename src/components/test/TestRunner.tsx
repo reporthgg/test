@@ -9,6 +9,8 @@ import { useLocale } from "@/i18n/useLocale";
 import { withLocale } from "@/i18n/config";
 import { getTestsDict } from "@/i18n/pages/tests";
 import { trackMetaEvent } from "@/lib/meta-pixel";
+import { leadTracking } from "@/lib/lead-tracking";
+import ConsentText from "@/components/legal/ConsentText";
 import type { TestContactField, TestQuestion, TestSubmissionResult } from "@/lib/test-types";
 import { firstMissingAnswer, isQuestionAnswered } from "./test-runner-state";
 import { isTestSubmissionResult, saveTestResult } from "./test-result-storage";
@@ -117,6 +119,7 @@ export default function TestRunner({
           ...Object.fromEntries(Object.entries(contact).filter(([, value]) => value?.trim())),
           consent,
           answers: finalAnswers,
+          ...(preview ? {} : leadTracking()),
         }),
         signal: controller.signal,
       });
@@ -312,7 +315,7 @@ export default function TestRunner({
               onChange={(event) => setConsent(event.target.checked)}
               required
             />
-            {t.contact.consent}
+            <ConsentText locale={locale} />
           </label>
           {contactError && <p role="alert" className={styles.error}>{contactError}</p>}
           <button type="submit" className={styles.submit}>

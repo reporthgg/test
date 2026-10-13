@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cookies } from "next/headers";
 import type { Metadata } from "next";
 import LandingHeader from "@/components/landing/LandingHeader";
@@ -15,6 +15,8 @@ import JsonLd from "@/components/JsonLd";
 import { buildPageMetadata, hiddenRobots } from "@/lib/seo";
 import { testSeoCopy } from "@/lib/seo-content";
 import { testJsonLd } from "@/lib/structured-data";
+import { renamedTestSlug } from "@/lib/test-slugs";
+import { withLocale } from "@/i18n/config";
 import flowStyles from "@/components/test/TestFlow.module.css";
 import "@/components/landing/landing.css";
 
@@ -79,9 +81,13 @@ export default async function TestPage({
     },
   });
 
+  const locale = await getServerLocale();
+  const renamed = renamedTestSlug(slug);
+  if (!test && renamed) {
+    permanentRedirect(withLocale(locale, `/test/${renamed}${previewRequested ? "?preview=1" : ""}`));
+  }
   if (!test || (!test.published && !preview) || test.questions.length === 0) notFound();
 
-  const locale = await getServerLocale();
   const questions = test.questions.map(toPublicTestQuestion);
   const contactFields = parseTestContactFields(test.contactFields);
   const { flag } = testPresentation(test, locale);

@@ -137,7 +137,6 @@ export const universityLogos: readonly UniversityLogo[] = [
   { file: "bristol.svg", name: "University of Bristol", desktop: [245, 29, 17, 187, 54], mobile: [140, 16.6, 9.8, 107.1, 31.1] },
   { file: "deakin.png", name: "Deakin University", desktop: [125, 28.5, 9, 69, 70], mobile: [71, 16.2, 5.1, 39.2, 39.8] },
   { file: "leicester.svg", name: "University of Leicester", desktop: [245, 10, 14, 225, 60], mobile: [140, 5.7, 8, 129.1, 34.4] },
-  { file: "arizona-state-seal.png", name: "Arizona State University", desktop: [125, 22.5, 4, 80, 80], mobile: [70, 11.9, 2.3, 45.9, 45.9] },
   { file: "harbin.svg", name: "Harbin Institute of Technology", desktop: [245, 0, 0, 245, 88], mobile: [139.3, 0, 0, 139.3, 50] },
   { file: "stony-brook.svg", name: "Stony Brook University", desktop: [245, 8, 20, 229, 48], mobile: [140, 4.6, 11.5, 131.4, 27.6] },
   { file: "auburn.svg", name: "Auburn University", desktop: [245, 0, 0, 245, 88], mobile: [139.3, 0, 0, 139.3, 50] },
@@ -156,7 +155,6 @@ export const universityLogos: readonly UniversityLogo[] = [
   { file: "brunel.svg", name: "Brunel University London", desktop: [105, 0, 0, 105, 88], mobile: [60, 0, 0, 60, 50] },
   { file: "griffith.svg", name: "Griffith University", desktop: [245, 14, 22, 218, 45.1], mobile: [140, 8, 12.6, 124.6, 26] },
   { file: "toronto.png", name: "University of Toronto", desktop: [93, 9, 6, 76, 76], mobile: [52, 4.2, 3.4, 43.6, 43.6] },
-  { file: "british-council.svg", name: "British Council", desktop: [210, 29.5, 22.5, 150.6, 42.7], mobile: [120, 16.9, 12.9, 86.4, 24.5] },
   { file: "wollongong-dubai.png", name: "University of Wollongong in Dubai", desktop: [180, 11.5, -32.5, 157, 157], mobile: [100, 4.6, -18.7, 90.1, 90.1] },
   { file: "rit-dubai.png", name: "Rochester Institute of Technology Dubai", desktop: [160, 17.3, 12.5, 125.4, 63], mobile: [90, 8.9, 7.2, 72, 36.1] },
   { file: "birmingham-dubai.png", name: "University of Birmingham Dubai", desktop: [180, 4, -42, 172.1, 172.1], mobile: [100, 0.3, -24.1, 98.8, 98.8] },
@@ -193,7 +191,7 @@ export const storiesContent = {
     enlarge: "Открыть письмо",
     close: "Закрыть",
     gallery: "Письма о поступлении",
-    universityList: "Зарубежные университеты",
+    universityList: "Куда поступили наши студенты",
   },
   kz: {
     dream: "Арманнан",
@@ -214,7 +212,7 @@ export const storiesContent = {
     enlarge: "Хатты ашу",
     close: "Жабу",
     gallery: "Университетке қабылдау хаттары",
-    universityList: "Шетелдік университеттер",
+    universityList: "Студенттеріміз түскен университеттер",
   },
   en: {
     dream: "From a dream",
@@ -235,6 +233,6 @@ export const storiesContent = {
     enlarge: "Open letter",
     close: "Close",
     gallery: "University admission letters",
-    universityList: "International universities",
+    universityList: "Where our students have been admitted",
   },
 } satisfies Record<Locale, Record<string, string>>;

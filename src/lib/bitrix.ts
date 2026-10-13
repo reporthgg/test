@@ -2,6 +2,7 @@
 // Вебхук берётся из настроек в БД, затем из BITRIX_WEBHOOK_URL. Ошибки не роняют основной запрос.
 
 import { getBitrixWebhookUrl } from "@/lib/settings";
+import { UTM_KEYS, type LeadUtm } from "@/lib/lead-tracking";
 
 export type BitrixLeadPayload = {
   name: string;
@@ -11,6 +12,7 @@ export type BitrixLeadPayload = {
   comment?: string;
   source?: string | null;
   originId?: string;
+  utm?: LeadUtm;
 };
 
 type BitrixFailure = {
@@ -123,6 +125,10 @@ export async function sendLeadToBitrix(lead: BitrixLeadPayload): Promise<BitrixS
   if (lead.originId) {
     fields.ORIGINATOR_ID = ORIGINATOR;
     fields.ORIGIN_ID = lead.originId;
+  }
+  for (const key of UTM_KEYS) {
+    const value = lead.utm?.[key];
+    if (typeof value === "string" && value) fields[key.toUpperCase()] = value;
   }
 
   const response = await requestBitrix("crm.lead.add", {

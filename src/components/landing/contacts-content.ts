@@ -24,7 +24,7 @@ type ContactContent = {
   saturday: string;
   rights: string;
   privacy: string;
-  offer: string;
+  consent: string;
   links: { school: string; ielts: string; sat: string; abroad: string; camps: string; about: string; centers: string; reviews: string };
 };
 
@@ -65,7 +65,7 @@ export const contactsContent: Record<Locale, ContactContent> = {
     saturday: "Сб",
     rights: "Все права защищены.",
     privacy: "Политика конфиденциальности",
-    offer: "Публичная оферта",
+    consent: "Согласие на обработку данных",
     links: { school: "Языковая школа", ielts: "Подготовка к IELTS", sat: "Digital SAT", abroad: "Поступление за рубеж", camps: "Летние лагеря", about: "О нас", centers: "Наши центры", reviews: "Отзывы" },
   },
   kz: {
@@ -102,8 +102,8 @@ export const contactsContent: Record<Locale, ContactContent> = {
     weekdays: "Дс-Жм",
     saturday: "Сб",
     rights: "Барлық құқықтар қорғалған.",
-    privacy: "Құпиялық саясаты",
-    offer: "Жария оферта",
+    privacy: "Құпиялылық саясаты",
+    consent: "Деректерді өңдеуге келісім",
     links: { school: "Тіл мектебі", ielts: "IELTS-қа дайындық", sat: "Digital SAT", abroad: "Шетелге оқуға түсу", camps: "Жазғы лагерьлер", about: "Біз туралы", centers: "Орталықтарымыз", reviews: "Пікірлер" },
   },
   en: {
@@ -141,7 +141,7 @@ export const contactsContent: Record<Locale, ContactContent> = {
     saturday: "Sat",
     rights: "All rights reserved.",
     privacy: "Privacy policy",
-    offer: "Public offer",
+    consent: "Data processing consent",
     links: { school: "Language school", ielts: "IELTS preparation", sat: "Digital SAT", abroad: "Study abroad", camps: "Summer camps", about: "About us", centers: "Our centres", reviews: "Reviews" },
   },
 };

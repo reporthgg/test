@@ -1,6 +1,7 @@
 import sanitizeHtml from "sanitize-html";
 import type { GradingTest, ValidatedSubmission } from "./test-submission";
 import type { TestContactField, TestSubmissionResult } from "./test-types";
+import type { ConsentRecord } from "./legal";
 
 const SITE_URL = "https://gscstudy.com";
 const BLOCK_TAGS = new Set([
@@ -30,7 +31,22 @@ const FIELD_LABELS: Record<string, string> = {
   comment: "Комментарий",
   message: "Сообщение",
   interest: "Интерес",
+  teacher: "Преподаватель",
+  leadKind: "Тип формы",
+  locale: "Язык версии",
+  page: "Страница",
+  utm: "UTM-метки",
+  consentVersion: "Версия согласия",
+  consentAt: "Время согласия",
 };
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function formatUtm(utm: Readonly<Record<string, unknown>>): string {
+  return Object.entries(utm).map(([key, value]) => `${key}=${String(value)}`).join(", ");
+}
 
 function plainText(value: string): string {
   return value.replaceAll("[", "［").replaceAll("]", "］");
@@ -117,7 +133,8 @@ export function formatGeneralLeadComment(fields: Readonly<Record<string, unknown
       const label = Object.hasOwn(FIELD_LABELS, key) ? FIELD_LABELS[key] : key;
       const text = key === "consent" && typeof value === "boolean"
         ? value ? "Да" : "Нет"
-        : typeof value === "string" ? value : JSON.stringify(value, null, 2);
+        : key === "utm" && isPlainRecord(value) ? formatUtm(value)
+          : typeof value === "string" ? value : JSON.stringify(value, null, 2);
       return `${plainText(label)}: ${plainText(text)}`;
     })
     .join("\n");
@@ -129,8 +146,9 @@ export function formatTestLeadComment(
   contactFields: TestContactField[],
   result: TestSubmissionResult,
   resultId: string,
+  consentInfo?: ConsentRecord,
 ): string {
-  const { name, phone, email, consent, contacts, answers } = submission;
+  const { name, phone, email, consent, contacts, answers, page, utm } = submission;
   const header = [
     `Тест: ${plainText(test.title)}`,
     `Результат: ${plainText(result.level)}`,
@@ -145,7 +163,9 @@ export function formatTestLeadComment(
       const value = contacts[field.name];
       return `${plainText(field.label)}: ${value ? plainText(value) : "Не указано"}`;
     }),
-    `Согласие на обработку персональных данных: ${consent ? "Да" : "Нет"}`,
+    `Согласие на обработку персональных данных: ${consent ? "Да" : "Нет"}${consent && consentInfo ? ` (${consentInfo.consentVersion}, ${consentInfo.consentAt})` : ""}`,
+    ...(page ? [`Страница: ${plainText(page)}`] : []),
+    ...(utm ? [`UTM-метки: ${plainText(formatUtm(utm))}`] : []),
     `Результат в админке: ${SITE_URL}/admin/exams/${encodeURIComponent(test.id)}/results/${encodeURIComponent(resultId)}`,
   ].join("\n");
   const essays = test.questions

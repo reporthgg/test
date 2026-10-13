@@ -382,6 +382,9 @@
 }
 
 .legalText { display: flex; gap: 50px; }
+.legalText a { color: inherit; text-decoration: none; }
+.legalText a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.legalText a:focus-visible { outline: 3px solid var(--landing-yellow, #eac35d); outline-offset: 3px; }
 
 .visuallyHidden {
   position: absolute;

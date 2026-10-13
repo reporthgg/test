@@ -18,7 +18,7 @@ const dict = {
     stats: [
       { value: "15+", label: "лет на рынке" },
       { value: "15 000+", label: "студентов обучено" },
-      { value: "2", label: "центра", sub: "Алматы, Астана" },
+      { value: "3", label: "центра", sub: "2 в Астане, 1 в Алматы" },
       { value: "25+", label: "стран поступления" },
     ],
     journey: {
@@ -63,7 +63,7 @@ const dict = {
     stats: [
       { value: "15+", label: "нарықтағы жыл" },
       { value: "15 000+", label: "студент оқыды" },
-      { value: "2", label: "орталық", sub: "Алматы, Астана" },
+      { value: "3", label: "орталық", sub: "Астанада 2, Алматыда 1" },
       { value: "25+", label: "түсу елдері" },
     ],
     journey: {
@@ -108,7 +108,7 @@ const dict = {
     stats: [
       { value: "15+", label: "years on the market" },
       { value: "15,000+", label: "students taught" },
-      { value: "2", label: "centres", sub: "Almaty, Astana" },
+      { value: "3", label: "centres", sub: "2 in Astana, 1 in Almaty" },
       { value: "25+", label: "admission countries" },
     ],
     journey: {

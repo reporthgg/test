@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import { LandingFooter } from "@/components/landing/LandingContacts";
+import { OfficesSection } from "@/components/landing/OfficesSection";
 import { LandingOverlays, LandingProvider } from "@/components/landing/LandingForms";
 import { AbroadHero } from "@/components/abroad/AbroadHero";
 import { AbroadStories } from "@/components/abroad/AbroadStories";
@@ -37,6 +38,7 @@ export default async function AbroadPage(): Promise<ReactElement> {
           <AbroadSituations locale={locale} />
           <AbroadServices locale={locale} />
           <AbroadTimeline locale={locale} />
+          <OfficesSection locale={locale} layer={1} />
           <AbroadFaq locale={locale} />
         </main>
         <LandingFooter locale={locale} />

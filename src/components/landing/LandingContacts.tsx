@@ -136,7 +136,6 @@ export function LandingFooter({ locale }: { locale: Locale }): ReactElement {
     { label: t.links.about, href: "/about" },
     { label: t.links.centers, href: "/#offices" },
     { label: t.links.reviews, href: "/#reviews" },
-    { label: t.links.school, href: "/school" },
   ];
   const hours = site.workingHours.replace("Пн-Пт", t.weekdays).replace("Сб", t.saturday).split(" · ");
 
@@ -181,7 +180,10 @@ export function LandingFooter({ locale }: { locale: Locale }): ReactElement {
       </div>
       <div className={`landing-container ${styles.footerBottom}`}>
         <p>© 2026 {site.name}. {t.rights}</p>
-        <div className={styles.legalText}><span>{t.privacy}</span><span>{t.offer}</span></div>
+        <div className={styles.legalText}>
+          <Link href={withLocale(locale, "/privacy")}>{t.privacy}</Link>
+          <Link href={withLocale(locale, "/consent")}>{t.consent}</Link>
+        </div>
       </div>
     </footer>
   );

@@ -6,6 +6,8 @@ import { sendStoredLeadToBitrix, type BitrixDeliveryRecord } from "@/lib/bitrix-
 import { formatTestLeadComment } from "@/lib/bitrix-comments";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { parseTestContactFields } from "@/lib/test-content";
+import { renamedTestSlug } from "@/lib/test-slugs";
+import { consentRecord } from "@/lib/legal";
 import {
   createSubmissionSnapshot,
   gradeTest,
@@ -75,15 +77,15 @@ export async function POST(
     if (preview && !(await verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value))) {
       return errorResponse(401, "UNAUTHORIZED", "Для предпросмотра войдите в админку");
     }
-    const test = await prisma.test.findUnique({
-      where: { slug },
-      include: {
-        questions: {
-          orderBy: { order: "asc" },
-          include: { options: { orderBy: { order: "asc" } } },
-        },
+    const include = {
+      questions: {
+        orderBy: { order: "asc" as const },
+        include: { options: { orderBy: { order: "asc" as const } } },
       },
-    });
+    };
+    const renamed = renamedTestSlug(slug);
+    const test = await prisma.test.findUnique({ where: { slug }, include }) ??
+      (renamed ? await prisma.test.findUnique({ where: { slug: renamed }, include }) : null);
     if (!test || (!test.published && !preview) || test.questions.length === 0) {
       return errorResponse(404, "TEST_NOT_FOUND", "Тест не найден");
     }
@@ -94,7 +96,8 @@ export async function POST(
     if (preview) {
       return NextResponse.json(result, { headers: { "Cache-Control": "no-store" } });
     }
-    const { name, phone, email, consent, contacts, answers } = submission;
+    const { name, phone, email, consent, contacts, answers, page, utm } = submission;
+    const consentInfo = consent ? consentRecord() : undefined;
     const { score, total, level, pendingReview } = result;
     const snapshot = createSubmissionSnapshot(test, submission, contactFields, result);
     const leadId = randomUUID();
@@ -103,10 +106,11 @@ export async function POST(
       name,
       phone,
       email,
-      source: `test:${slug}`,
+      source: `test:${test.slug}`,
       title: `Тест «${test.title}»: ${level}`,
-      comment: formatTestLeadComment(test, submission, contactFields, result, resultId),
+      comment: formatTestLeadComment(test, submission, contactFields, result, resultId, consentInfo),
       originId: leadId,
+      ...(utm ? { utm } : {}),
     };
     const deliveryRecord: BitrixDeliveryRecord = {
       version: 1,
@@ -125,9 +129,9 @@ export async function POST(
           email,
           city: contacts.city ?? null,
           interest: `${test.title}: ${level}`,
-          source: `test:${slug}`,
+          source: `test:${test.slug}`,
           extra: JSON.stringify({
-            level, score, total, pendingReview, contacts, consent, _bitrix: deliveryRecord,
+            level, score, total, pendingReview, contacts, consent, ...consentInfo, page, utm, _bitrix: deliveryRecord,
           }),
         },
       });

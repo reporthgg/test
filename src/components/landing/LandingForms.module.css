@@ -122,6 +122,9 @@
   line-height: 14px;
 }
 
+.consentText a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.consentText a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
 .checkbox {
   position: relative;
   display: flex;
@@ -1035,8 +1038,6 @@
     flex-basis: 24px;
     margin-top: 4px;
   }
-
-  .consentPeriod { display: none; }
 
   .bottomFields .formError {
     max-width: calc(100% - 75px);

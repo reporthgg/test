@@ -391,7 +391,7 @@ const dict = {
         highlight: false,
       },
       {
-        title: "Китайский язык",
+        title: "Қытай тілі",
         tag: "Жалпы",
         cat: "general",
         desc: "Путунхуа нөлден: айтылым, иероглифика және сөйлеу тәжірибесі.",
@@ -661,7 +661,7 @@ const dict = {
         highlight: false,
       },
       {
-        title: "Китайский язык",
+        title: "Chinese",
         tag: "General",
         cat: "general",
         desc: "Mandarin from scratch: pronunciation, characters and conversation practice.",
@@ -673,7 +673,7 @@ const dict = {
         highlight: false,
       },
       {
-        title: "Интенсив",
+        title: "Intensive",
         tag: "Intensive",
         cat: "exam",
         desc: "An accelerated 1-2 month programme for when the exam or admission deadline is already close.",

@@ -25,8 +25,8 @@ export default function SchoolHero({
           <h1 className={styles.title} id="school-title">
             {overrides.heroTitle ?? (
               <>
-                <span>{t.heading[0]}</span>
-                <span>{t.heading[1]}</span>
+                <span>{t.heading[0]}</span>{" "}
+                <span>{t.heading[1]}</span>{" "}
                 <span>{t.heading[2]}<strong>{t.heading[3]}</strong></span>
               </>
             )}

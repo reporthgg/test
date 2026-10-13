@@ -28,7 +28,6 @@ export type FormsContent = {
   admissionYears: readonly LandingSelectOption[];
   phone: string;
   whatsappPhone: string;
-  consent: string;
   submit: string;
   consultationSubmit: string;
   sending: string;
@@ -111,7 +110,6 @@ export const formsContent: Record<Locale, FormsContent> = {
     ],
     phone: "Телефон",
     whatsappPhone: "Ваш номер в WhatsApp",
-    consent: "Согласен(а) на обработку персональных данных",
     submit: "Записаться",
     consultationSubmit: "Записаться бесплатно",
     sending: "Отправляем...",
@@ -193,7 +191,6 @@ export const formsContent: Record<Locale, FormsContent> = {
     ],
     phone: "Телефон",
     whatsappPhone: "WhatsApp нөміріңіз",
-    consent: "Жеке деректерімді өңдеуге келісемін",
     submit: "Жазылу",
     consultationSubmit: "Тегін жазылу",
     sending: "Жіберілуде...",
@@ -273,7 +270,6 @@ export const formsContent: Record<Locale, FormsContent> = {
     ],
     phone: "Phone",
     whatsappPhone: "Your WhatsApp number",
-    consent: "I consent to the processing of my personal data",
     submit: "Book now",
     consultationSubmit: "Book for free",
     sending: "Sending...",

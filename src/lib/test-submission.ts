@@ -6,6 +6,7 @@ import {
   sanitizeTestHtml,
 } from "./test-content";
 import type { TestContactField, TestSubmissionResult } from "./test-types";
+import { parsePage, parseUtm, type LeadUtm } from "./lead-tracking";
 
 export type GradingQuestion = {
   id: string;
@@ -41,6 +42,8 @@ export type ValidatedSubmission = {
   consent: boolean;
   contacts: Partial<Record<TestContactField["name"], string>>;
   answers: Record<string, string>;
+  page?: string;
+  utm?: LeadUtm;
 };
 
 export class SubmissionValidationError extends Error {
@@ -85,7 +88,7 @@ export function validateTestSubmission(
 ): ValidatedSubmission {
   if (!isRecord(body)) throw new SubmissionValidationError("Ожидается JSON-объект");
   const allowedFields = new Set([
-    "name", "phone", "email", "consent", "answers", "contacts", ...contactFields.map((field) => field.name),
+    "name", "phone", "email", "consent", "answers", "contacts", "page", "utm", ...contactFields.map((field) => field.name),
   ]);
   for (const key of Object.keys(body)) {
     if (!allowedFields.has(key)) invalid(key, "Неизвестное поле формы");
@@ -153,7 +156,9 @@ export function validateTestSubmission(
     }
     if (value) answers[question.id] = value;
   }
-  return { name, phone, email: email || null, consent, contacts, answers };
+  const page = parsePage(body.page);
+  const utm = parseUtm(body.utm);
+  return { name, phone, email: email || null, consent, contacts, answers, ...(page ? { page } : {}), ...(utm ? { utm } : {}) };
 }
 
 function questionKey(question: GradingQuestion): string[] | null {

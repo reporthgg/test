@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import LandingHeader from "@/components/landing/LandingHeader";
 import { LandingFooter } from "@/components/landing/LandingContacts";
+import { OfficesSection } from "@/components/landing/OfficesSection";
 import { LandingOverlays, LandingProvider } from "@/components/landing/LandingForms";
 import { ExamsHero } from "@/components/exams/ExamsHero";
 import { ExamsResults } from "@/components/exams/ExamsResults";
@@ -37,6 +38,7 @@ export default async function ExamsPage(): Promise<ReactElement> {
           <ExamsChoice locale={locale} />
           <ExamsOffer locale={locale} />
           <ExamsSteps locale={locale} />
+          <OfficesSection locale={locale} layer={1} />
           <ExamsFaq locale={locale} />
         </main>
         <LandingFooter locale={locale} />

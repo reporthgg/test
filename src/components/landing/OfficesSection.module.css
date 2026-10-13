@@ -1,0 +1,14 @@
+.section {
+  --offices-overlap: 70px;
+  position: relative;
+  margin-bottom: calc(var(--offices-overlap) * -1);
+  padding-top: var(--offices-overlap);
+  overflow: clip;
+  border-radius: 0 0 50px 50px;
+  background: var(--landing-blue, #135685);
+}
+
+@media (max-width: 767px) {
+  .section { --offices-overlap: 40px; border-radius: 0 0 30px 30px; }
+  .section[data-overlap="36"] { --offices-overlap: 36px; }
+}

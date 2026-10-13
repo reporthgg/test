@@ -18,13 +18,13 @@ export function testPresentation(
   const t = programsContent[locale];
   if (test.kind === "ielts") return { title: "IELTS", flag: "ielts", age: "" };
   if (test.kind === "sat") return { title: "SAT", flag: "sat", age: "" };
-  if (test.slug === "tilda-kids-6-8") {
+  if (test.slug === "kids-6-8" || test.slug === "tilda-kids-6-8") {
     return { title: t.testTitles.kids, flag: "kids-young", age: `(6-8 ${t.years})` };
   }
-  if (test.slug === "tilda-kids-9-12") {
+  if (test.slug === "kids-9-12" || test.slug === "tilda-kids-9-12") {
     return { title: t.testTitles.kids, flag: "kids-older", age: `(9-12 ${t.years})` };
   }
-  if (test.slug === "general-english" || test.slug === "tilda-general-english") {
+  if (test.slug === "general-english" || test.slug === "english" || test.slug === "tilda-general-english") {
     return { title: t.testTitles.general, flag: "general", age: "" };
   }
   if (test.slug === "kids-english") {

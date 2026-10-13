@@ -17,7 +17,11 @@ import {
 } from "react";
 import type { Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
+import { leadTracking, rememberUtm } from "@/lib/lead-tracking";
+import { trackMetaEvent } from "@/lib/meta-pixel";
 import SchoolTrialCard from "@/components/school/SchoolTrialCard";
+import ConsentText from "@/components/legal/ConsentText";
+import CookieNotice from "@/components/legal/CookieNotice";
 import LandingSelect, { type LandingSelectOption } from "./LandingSelect";
 import { formsContent } from "./forms-content";
 import styles from "./LandingForms.module.css";
@@ -70,6 +74,8 @@ export function LandingProvider({
   }, []);
   const closeLead = useCallback(() => setActiveLead(null), []);
   const dismissNotification = useCallback(() => setSavedLead(null), []);
+
+  useEffect(() => rememberUtm(), []);
 
   return (
     <LandingContext.Provider
@@ -289,6 +295,7 @@ function LeadFields({
           source,
           leadKind: kind,
           locale,
+          ...leadTracking(),
         }),
       });
       const data: unknown = await response.json();
@@ -311,6 +318,7 @@ function LeadFields({
       setCrmDelivered(delivered);
       setValues(emptyValues);
       notifySaved({ kind, crmDelivered: delivered });
+      trackMetaEvent("Lead");
     } catch {
       if (!request.signal.aborted) setFormError("request");
     } finally {
@@ -479,10 +487,7 @@ function LeadFields({
                 </span>
               )}
             </span>
-            <span>
-              {t.consent}
-              {bottom && scope !== "school" && <span className={styles.consentPeriod}>.</span>}
-            </span>
+            <ConsentText locale={locale} className={styles.consentText} />
           </label>
           {errorFor("consent")}
         </div>
@@ -719,6 +724,7 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
           <img src="/landing/forms/whatsapp.svg" alt="" />
         </a>
       )}
+      <CookieNotice locale={locale} />
     </>
   );
 }
