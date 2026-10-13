@@ -85,10 +85,9 @@ const privacy: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        title: "7. Где и сколько хранятся данные",
+        title: "7. Сколько хранятся данные",
         blocks: [
-          "7.1. Базы, содержащие персональные данные, хранятся на территории Республики Казахстан (ст. 12 Закона).",
-          "7.2. Данные хранятся до достижения целей обработки. Если вы не заключили с нами договор, данные заявки удаляются или обезличиваются не позднее 3 лет с последнего обращения. Данные клиентов хранятся в течение срока действия договора и сроков, установленных законодательством Республики Казахстан.",
+          "Данные хранятся до достижения целей обработки. Если вы не заключили с нами договор, данные заявки удаляются или обезличиваются не позднее 3 лет с последнего обращения. Данные клиентов хранятся в течение срока действия договора и сроков, установленных законодательством Республики Казахстан.",
         ],
       },
       {
@@ -185,10 +184,9 @@ const privacy: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        title: "7. Деректер қайда және қанша уақыт сақталады",
+        title: "7. Деректер қанша уақыт сақталады",
         blocks: [
-          "7.1. Дербес деректер бар базалар Қазақстан Республикасының аумағында сақталады (Заңның 12-бабы).",
-          "7.2. Деректер өңдеу мақсаттарына жеткенге дейін сақталады. Егер бізбен шарт жасамасаңыз, өтінім деректері соңғы өтініштен кейін 3 жылдан кешіктірілмей жойылады немесе иесіздендіріледі. Клиенттердің деректері шарттың қолданылу мерзімі ішінде және Қазақстан Республикасының заңнамасында белгіленген мерзімдерде сақталады.",
+          "Деректер өңдеу мақсаттарына жеткенге дейін сақталады. Егер бізбен шарт жасамасаңыз, өтінім деректері соңғы өтініштен кейін 3 жылдан кешіктірілмей жойылады немесе иесіздендіріледі. Клиенттердің деректері шарттың қолданылу мерзімі ішінде және Қазақстан Республикасының заңнамасында белгіленген мерзімдерде сақталады.",
         ],
       },
       {
@@ -285,10 +283,9 @@ const privacy: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        title: "7. Where and how long data is stored",
+        title: "7. How long data is stored",
         blocks: [
-          "7.1. Databases containing personal data are stored in the territory of the Republic of Kazakhstan (Article 12 of the Law).",
-          "7.2. Data is stored until the purposes of processing are achieved. If you have not signed a contract with us, request data is deleted or anonymised no later than 3 years after your last contact. Client data is stored for the term of the contract and the periods set by the laws of the Republic of Kazakhstan.",
+          "Data is stored until the purposes of processing are achieved. If you have not signed a contract with us, request data is deleted or anonymised no later than 3 years after your last contact. Client data is stored for the term of the contract and the periods set by the laws of the Republic of Kazakhstan.",
         ],
       },
       {
