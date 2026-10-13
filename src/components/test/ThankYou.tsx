@@ -1,14 +1,15 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import Icon from "@/components/Icon";
 import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
-import { getDictionary } from "@/i18n/dictionaries";
+import { withLocale } from "@/i18n/config";
 import { getTestsDict } from "@/i18n/pages/tests";
 import { parseStoredTestResult, readStoredTestResult } from "./test-result-storage";
-import TestResult from "./TestResult";
+import TestResult, { TestHero, TestStage } from "./TestResult";
+import styles from "./TestFlow.module.css";
 
 const noSubscription = () => () => {};
 
@@ -19,35 +20,46 @@ export default function ThankYou() {
   const raw = useSyncExternalStore(noSubscription, readStoredTestResult, () => undefined);
   const stored = useMemo(() => (raw === undefined ? undefined : parseStoredTestResult(raw)), [raw]);
 
-  return (
-    <div className="max-w-2xl mx-auto card-premium card-ring rounded-2xl bg-white p-7 md:p-12 shadow-premium">
-      {stored === undefined ? (
-        <div className="py-16 text-center">
-          <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto" />
-        </div>
-      ) : stored ? (
-        <TestResult
-          title={stored.title}
-          result={stored.result}
-          heading={<h1 className="text-3xl md:text-4xl font-extrabold mb-6"><span className="text-gradient">{t.thankYou.testTitle}</span></h1>}
+  if (stored === undefined) {
+    return <section className={`${styles.hero} ${styles.heroLast} ${styles.busy}`} aria-busy="true" />;
+  }
+
+  if (stored) {
+    return (
+      <>
+        <TestHero
+          title={t.thankYou.testTitle}
+          tags={
+            <ul className={styles.tags}>
+              <li className={`${styles.tag} ${styles.tagBlue}`}>{stored.title}</li>
+            </ul>
+          }
         />
-      ) : (
-        <div className="text-center py-4">
-          <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6 shadow-premium">
-            <Icon name="check" className="text-3xl" />
-          </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-4"><span className="text-gradient">{t.thankYou.title}</span></h1>
-          <p className="text-on-surface-variant mb-8 max-w-lg mx-auto leading-relaxed">{t.thankYou.text}</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href={site.whatsapp.link} target="_blank" rel="noopener" className="btn-primary px-6 py-3 rounded-xl font-bold">
-              {getDictionary(locale).actions.writeWhatsApp}
+        <TestStage>
+          <TestResult title={stored.title} result={stored.result} />
+        </TestStage>
+      </>
+    );
+  }
+
+  return (
+    <TestHero
+      title={t.thankYou.title}
+      last
+      aside={
+        <>
+          <p className={styles.description}>{t.thankYou.text}</p>
+          <div className={styles.actions}>
+            <a href={site.whatsapp.link} target="_blank" rel="noopener" className={styles.whatsapp}>
+              <Image src="/landing/forms/whatsapp.svg" alt="" width={24} height={24} />
+              {t.result.waButton}
             </a>
-            <Link href="/" className="btn-outline px-6 py-3 rounded-xl font-bold bg-white">
+            <Link href={withLocale(locale, "/")} className={styles.textButton}>
               {t.result.home}
             </Link>
           </div>
-        </div>
-      )}
-    </div>
+        </>
+      }
+    />
   );
 }

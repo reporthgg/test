@@ -1,13 +1,17 @@
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import LandingHeader from "@/components/landing/LandingHeader";
+import { LandingFooter } from "@/components/landing/LandingContacts";
+import { LandingOverlays, LandingProvider } from "@/components/landing/LandingForms";
 import TestRunner from "@/components/test/TestRunner";
-import Aurora from "@/components/ui/Aurora";
 import { prisma } from "@/lib/prisma";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
+import { getServerLocale } from "@/lib/locale";
 import { parseTestContactFields, toPublicTestQuestion } from "@/lib/test-content";
+import { testPresentation } from "@/lib/test-presentation";
+import flowStyles from "@/components/test/TestFlow.module.css";
+import "@/components/landing/landing.css";
 
 export const dynamic = "force-dynamic";
 
@@ -49,15 +53,16 @@ export default async function TestPage({
 
   if (!test || (!test.published && !preview) || test.questions.length === 0) notFound();
 
+  const locale = await getServerLocale();
   const questions = test.questions.map(toPublicTestQuestion);
   const contactFields = parseTestContactFields(test.contactFields);
+  const { flag } = testPresentation(test, locale);
 
   return (
-    <>
-      <Header />
-      <main className="pt-20 min-h-screen bg-background bg-dots relative overflow-hidden">
-        <Aurora intensity="subtle" />
-        <div className="relative z-10 py-16 px-4 sm:px-6 lg:px-8">
+    <div className={`landing ${flowStyles.shortPage}`} lang={locale === "kz" ? "kk" : locale}>
+      <LandingProvider locale={locale} scope="tests">
+        <LandingHeader locale={locale} />
+        <main id="landing-main">
           <TestRunner
             slug={test.slug}
             title={test.title}
@@ -67,10 +72,12 @@ export default async function TestPage({
             contactFields={contactFields}
             preview={preview}
             scoringMode={test.scoringMode}
+            flag={flag}
           />
-        </div>
-      </main>
-      <Footer />
-    </>
+        </main>
+        <LandingFooter locale={locale} />
+        <LandingOverlays />
+      </LandingProvider>
+    </div>
   );
 }

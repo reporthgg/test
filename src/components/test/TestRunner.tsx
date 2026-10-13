@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Icon from "@/components/Icon";
+import { programsContent } from "@/components/landing/programs-content";
 import { useLocale } from "@/i18n/useLocale";
 import { withLocale } from "@/i18n/config";
 import { getTestsDict } from "@/i18n/pages/tests";
@@ -10,7 +12,8 @@ import { trackMetaEvent } from "@/lib/meta-pixel";
 import type { TestContactField, TestQuestion, TestSubmissionResult } from "@/lib/test-types";
 import { firstMissingAnswer, isQuestionAnswered } from "./test-runner-state";
 import { isTestSubmissionResult, saveTestResult } from "./test-result-storage";
-import TestResult from "./TestResult";
+import TestResult, { TestHero, TestStage } from "./TestResult";
+import styles from "./TestFlow.module.css";
 
 type Props = {
   slug: string;
@@ -21,9 +24,18 @@ type Props = {
   contactFields?: TestContactField[];
   preview?: boolean;
   scoringMode?: string;
+  flag?: string;
 };
 
 type Step = "intro" | "quiz" | "contacts" | "loading" | "done" | "error";
+
+const flags: Record<string, string> = {
+  ielts: "/tests/flag-ielts.svg",
+  sat: "/tests/flag-sat.svg",
+  general: "/landing/programs/flag-general.svg",
+  "kids-young": "/tests/flag-kids-young.svg",
+  "kids-older": "/tests/flag-kids-older.svg",
+};
 
 export default function TestRunner({
   slug,
@@ -34,10 +46,12 @@ export default function TestRunner({
   contactFields = [],
   preview = false,
   scoringMode = "level",
+  flag = "general",
 }: Props) {
   const locale = useLocale();
   const router = useRouter();
   const t = getTestsDict(locale);
+  const common = programsContent[locale];
   const [step, setStep] = useState<Step>("intro");
   const [form, setForm] = useState({ name: "", phone: "" });
   const [consent, setConsent] = useState(false);
@@ -66,6 +80,13 @@ export default function TestRunner({
   const chosen = q ? answers[q.id] : undefined;
   const progress = total ? Math.round((idx / total) * 100) : 0;
   const previewLabel = preview ? t.preview.label : undefined;
+  const plural = new Intl.PluralRules(locale === "kz" ? "kk" : locale);
+  const formOf = (count: number) => {
+    const category = plural.select(count);
+    return category === "one" || category === "few" ? category : "other";
+  };
+  const written = questions.filter((question) => question.type === "essay").length;
+  const flagSrc = flags[flag] ?? flags.general;
 
   function cancelAdvance() {
     if (advanceTimer.current) clearTimeout(advanceTimer.current);
@@ -157,43 +178,76 @@ export default function TestRunner({
     else setStep("contacts");
   }
 
-  // ---------- INTRO ----------
-  if (step === "intro") {
+  function hero(intro = false) {
     return (
-      <Card previewLabel={previewLabel} rootRef={cardRef}>
-        <div className="text-center">
-          <span className="tag-pill">{scoringMode === "raw" ? t.intro.rawEyebrow : t.intro.eyebrow}</span>
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-3">
-            <span className="text-gradient">{title}</span>
-          </h1>
-          {description && (
-            <p className="text-on-surface-variant mb-8 max-w-lg mx-auto leading-relaxed">{description}</p>
-          )}
-        </div>
-        <p className="text-center text-sm text-on-surface-variant mb-6">
-          {t.intro.metaQuestions}: {total}
-          {timeLimit ? ` · ${timeLimit} ${t.intro.minutes}` : ""}
-        </p>
-        {!preview && <p className="text-center text-sm text-on-surface-variant mb-6">{t.intro.contactNotice}</p>}
-        <button
-          type="button"
-          onClick={() => setStep("quiz")}
-          disabled={total === 0}
-          className="btn-primary shimmer w-full py-4 rounded-xl font-bold text-lg disabled:opacity-60"
-        >
-          {t.intro.startBtn}
-        </button>
-        {total === 0 && <p className="text-sm text-on-surface-variant mt-3">{t.intro.empty}</p>}
-      </Card>
+      <TestHero
+        title={title}
+        last={intro}
+        back={
+          <Link className={styles.back} href={withLocale(locale, "/tests")}>
+            <Image src="/landing/forms/chevron-blue-16.svg" alt="" width={16} height={16} />
+            {common.allTests}
+          </Link>
+        }
+        tags={
+          <ul className={styles.tags}>
+            <li className={`${styles.tag} ${styles.tagPink}`}>
+              {scoringMode === "raw" ? t.intro.rawEyebrow : t.intro.eyebrow}
+            </li>
+            <li className={`${styles.tag} ${styles.tagBlue}`}>{`${total} ${common.questionForms[formOf(total)]}`}</li>
+            {written > 0 && (
+              <li className={`${styles.tag} ${styles.tagGreen}`}>
+                {written === 1 ? common.singleWrittenTask : `${written} ${common.writtenForms[formOf(written)]}`}
+              </li>
+            )}
+            <li className={styles.tag}>
+              <Image src="/landing/programs/timer.svg" alt="" width={16} height={19} />
+              {timeLimit ? `${timeLimit} ${common.minuteForms[formOf(timeLimit)]}` : common.noTimeLimit}
+            </li>
+          </ul>
+        }
+        aside={intro ? (
+          <>
+            {previewLabel && <p role="status" className={styles.preview}>{previewLabel}</p>}
+            {description && <p className={styles.description}>{description}</p>}
+            <button
+              type="button"
+              onClick={() => setStep("quiz")}
+              disabled={total === 0}
+              className={styles.start}
+            >
+              {t.intro.startBtn}
+            </button>
+            {!preview && <p className={styles.notice}>{t.intro.contactNotice}</p>}
+            {total === 0 && <p className={styles.notice}>{t.intro.empty}</p>}
+          </>
+        ) : description ? <p className={styles.description}>{description}</p> : undefined}
+      />
     );
   }
 
-  if (step === "contacts") {
+  function panel(children: React.ReactNode) {
     return (
-      <Card rootRef={cardRef}>
-        <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-extrabold text-primary mb-3">{t.contact.title}</h1>
-          <p className="text-on-surface-variant">{t.contact.subtitle}</p>
+      <>
+        {hero()}
+        <Card previewLabel={previewLabel} rootRef={cardRef} flag={flagSrc}>
+          {children}
+        </Card>
+      </>
+    );
+  }
+
+  // ---------- INTRO ----------
+  if (step === "intro") {
+    return hero(true);
+  }
+
+  if (step === "contacts") {
+    return panel(
+      <>
+        <div className={styles.formHead}>
+          <h2>{t.contact.title}</h2>
+          <p>{t.contact.subtitle}</p>
         </div>
         <form
           onSubmit={(e) => {
@@ -201,9 +255,9 @@ export default function TestRunner({
             void submit(answers);
           }}
           onChange={() => setContactError("")}
-          className="space-y-4"
+          className={styles.form}
         >
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className={styles.pair}>
             <Field
               label={t.contact.nameLabel}
               value={form.name}
@@ -223,18 +277,20 @@ export default function TestRunner({
             />
           </div>
           {contactFields.map((field) => (
-            <label key={field.name} className="block text-sm font-semibold text-on-surface">
-              <span className="block mb-2">{field.label}{field.required ? " *" : ` (${t.quiz.optional})`}</span>
+            <label key={field.name} className={styles.field}>
+              <span>{field.label}{field.required ? " *" : ` (${t.quiz.optional})`}</span>
               {field.options?.length ? (
-                <select
-                  value={contact[field.name] ?? ""}
-                  onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
-                  required={field.required}
-                  className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
-                >
-                  <option value="">{t.contact.selectOption}</option>
-                  {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
-                </select>
+                <span className={styles.select}>
+                  <select
+                    value={contact[field.name] ?? ""}
+                    onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
+                    required={field.required}
+                    className={styles.control}
+                  >
+                    <option value="">{t.contact.selectOption}</option>
+                    {field.options.map((option) => <option key={option} value={option}>{option}</option>)}
+                  </select>
+                </span>
               ) : (
                 <input
                   type={field.name === "age" ? "number" : "text"}
@@ -244,69 +300,65 @@ export default function TestRunner({
                   value={contact[field.name] ?? ""}
                   onChange={(event) => setContact((previous) => ({ ...previous, [field.name]: event.target.value }))}
                   required={field.required}
-                  className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
+                  className={styles.control}
                 />
               )}
             </label>
           ))}
-          <label className="flex items-start gap-3 text-sm text-on-surface-variant pt-1">
+          <label className={styles.consent}>
             <input
               type="checkbox"
               checked={consent}
               onChange={(event) => setConsent(event.target.checked)}
               required
-              className="mt-1 rounded text-primary focus:ring-primary"
             />
             {t.contact.consent}
           </label>
-          {contactError && <p role="alert" className="text-error text-sm">{contactError}</p>}
-          <button
-            type="submit"
-            className="btn-primary w-full py-4 rounded-xl font-bold text-lg mt-2"
-          >
+          {contactError && <p role="alert" className={styles.error}>{contactError}</p>}
+          <button type="submit" className={styles.submit}>
             {t.contact.submit}
           </button>
           <button
             type="button"
             onClick={() => setStep("quiz")}
-            className="block mx-auto text-sm font-semibold text-primary"
+            className={styles.textButton}
           >
             {t.contact.back}
           </button>
         </form>
-      </Card>
+      </>
     );
   }
 
   // ---------- QUIZ ----------
   if (step === "quiz" && q) {
-    return (
-      <Card previewLabel={previewLabel} rootRef={cardRef}>
-        <div className="mb-8">
-          <div className="flex justify-between text-sm font-semibold text-on-surface-variant mb-2.5">
-            <span>
-              {t.quiz.question} {idx + 1} {t.quiz.of} {total}
-            </span>
-            <span className="number-gradient font-extrabold">{progress}%</span>
-          </div>
-          <div className="h-2.5 rounded-full bg-surface-container-high overflow-hidden">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
-              style={{ width: `${progress}%` }}
-            />
+    return panel(
+      <>
+        <div className={styles.progressHead}>
+          <span>
+            {t.quiz.question} {idx + 1} {t.quiz.of} {total}
+          </span>
+          <span className={styles.percent}>{progress}%</span>
+        </div>
+        <div className={styles.progress}>
+          <span style={{ width: `${progress}%` }} />
+        </div>
+
+        <div className={styles.question}>
+          <span className={styles.number} aria-hidden="true">{String(idx + 1).padStart(2, "0")}</span>
+          <div className={styles.questionBody}>
+            <div id={`question-${q.id}`} className={styles.questionText}>
+              {q.contentHtml ? <RichContent html={q.contentHtml} /> : <h2>{q.text}</h2>}
+            </div>
+            <p className={styles.hints}>
+              <span>{q.required ? t.quiz.required : t.quiz.optional}</span>
+              {q.type === "essay" && <span className={styles.hintEssay}>{t.quiz.essayNotice}</span>}
+            </p>
           </div>
         </div>
 
-        <div id={`question-${q.id}`} className="text-xl md:text-2xl font-bold text-on-surface mb-6 leading-snug">
-          {q.contentHtml ? <RichContent html={q.contentHtml} /> : <h2 className="whitespace-pre-wrap">{q.text}</h2>}
-        </div>
-        <p className="text-sm text-on-surface-variant mb-4">
-          {q.required ? t.quiz.required : t.quiz.optional}
-          {q.type === "essay" && ` · ${t.quiz.essayNotice}`}
-        </p>
-
-        {q.type === "choice" ? <div role="group" aria-labelledby={`question-${q.id}`} className="space-y-3">
-          {q.options.map((o) => {
+        {q.type === "choice" ? <div role="group" aria-labelledby={`question-${q.id}`} className={styles.answers}>
+          {q.options.map((o, optionIndex) => {
             const active = chosen === o.id;
             return (
               <button
@@ -314,62 +366,56 @@ export default function TestRunner({
                 type="button"
                 aria-pressed={active}
                 onClick={() => choose(o.id)}
-                className={`group w-full text-left flex items-center gap-4 px-5 py-4 rounded-xl border-2 font-medium transition-all duration-200 ${
-                  active
-                    ? "border-primary bg-primary/5 text-primary shadow-premium"
-                    : "border-border-subtle bg-surface hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-premium"
-                }`}
+                className={`${styles.option} ${active ? styles.optionActive : ""}`}
               >
-                <span
-                  className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    active
-                      ? "border-primary bg-primary text-white"
-                      : "border-border-subtle group-hover:border-primary/50"
-                  }`}
-                >
-                  {active && <Icon name="check" className="text-base" />}
+                <span className={styles.marker} aria-hidden="true">
+                  {optionIndex < 26 ? String.fromCharCode(65 + optionIndex) : optionIndex + 1}
                 </span>
-                <div className="flex-1 min-w-0">
-                  {o.contentHtml ? <RichContent html={o.contentHtml} /> : <span className="whitespace-pre-wrap">{o.text}</span>}
+                <div className={styles.optionText}>
+                  {o.contentHtml ? <RichContent html={o.contentHtml} /> : <span>{o.text}</span>}
                 </div>
               </button>
             );
           })}
         </div> : q.type === "essay" ? (
-          <textarea
-            key={q.id}
-            aria-labelledby={`question-${q.id}`}
-            aria-invalid={validationError}
-            value={chosen ?? ""}
-            onChange={(event) => {
-              setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }));
-              setValidationError(false);
-            }}
-            rows={10}
-            maxLength={20000}
-            placeholder={t.quiz.answerPlaceholder}
-            className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 resize-y"
-          />
+          <div className={styles.fieldIndent}>
+            <textarea
+              key={q.id}
+              aria-labelledby={`question-${q.id}`}
+              aria-invalid={validationError}
+              value={chosen ?? ""}
+              onChange={(event) => {
+                setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }));
+                setValidationError(false);
+              }}
+              rows={10}
+              maxLength={20000}
+              placeholder={t.quiz.answerPlaceholder}
+              className={styles.answerField}
+            />
+          </div>
         ) : (
-          <input
-            key={q.id}
-            type="text"
-            aria-labelledby={`question-${q.id}`}
-            aria-invalid={validationError}
-            value={chosen ?? ""}
-            onChange={(event) => {
-              setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }));
-              setValidationError(false);
-            }}
-            maxLength={2000}
-            autoComplete="off"
-            placeholder={t.quiz.answerPlaceholder}
-            className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3"
-          />
+          <div className={styles.fieldIndent}>
+            <input
+              key={q.id}
+              type="text"
+              aria-labelledby={`question-${q.id}`}
+              aria-invalid={validationError}
+              value={chosen ?? ""}
+              onChange={(event) => {
+                setAnswers((previous) => ({ ...previous, [q.id]: event.target.value }));
+                setValidationError(false);
+              }}
+              maxLength={2000}
+              autoComplete="off"
+              placeholder={t.quiz.answerPlaceholder}
+              className={styles.answerField}
+            />
+          </div>
         )}
-        {validationError && <p role="alert" className="mt-3 text-sm text-error">{t.quiz.answerRequired}</p>}
+        {validationError && <p role="alert" className={`${styles.error} ${styles.answerError}`}>{t.quiz.answerRequired}</p>}
 
-        <div className="mt-6 flex items-center justify-between gap-4">
+        <div className={styles.nav}>
         {idx > 0 && (
           <button
             type="button"
@@ -378,58 +424,60 @@ export default function TestRunner({
               setValidationError(false);
               setIdx(idx - 1);
             }}
-            className="inline-flex items-center gap-1 text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors"
+            className={styles.textButton}
           >
             {t.quiz.back}
           </button>
         )}
-          <button type="button" onClick={advance} className="btn-primary ml-auto px-6 py-3 rounded-xl font-bold">
+          <button type="button" onClick={advance} className={`landing-button ${styles.next}`}>
             {idx + 1 === total ? (preview ? t.quiz.finish : t.quiz.toContacts) : !q.required && !chosen?.trim() ? t.quiz.skip : t.quiz.next}
           </button>
         </div>
-      </Card>
+      </>
     );
   }
 
   // ---------- LOADING ----------
   if (step === "loading") {
-    return (
-      <Card previewLabel={previewLabel} rootRef={cardRef}>
-        <div className="py-16 text-center">
-          <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-on-surface-variant">{t.loading.text}</p>
-        </div>
-      </Card>
+    return panel(
+      <div className={styles.state}>
+        <h2 role="status">{t.loading.text}</h2>
+      </div>
     );
   }
 
   // ---------- DONE (только предпросмотр, остальные уходят на /thankyou) ----------
   if (step === "done" && result) {
     return (
-      <Card previewLabel={previewLabel} rootRef={cardRef}>
-        <TestResult title={title} result={result} preview={preview} />
-      </Card>
+      <>
+        {hero()}
+        <TestStage>
+          <div ref={cardRef} className={styles.anchor}>
+            {previewLabel && <p role="status" className={styles.preview}>{previewLabel}</p>}
+            <TestResult title={title} result={result} preview={preview} />
+          </div>
+        </TestStage>
+      </>
     );
   }
 
   // ---------- ERROR ----------
-  return (
-    <Card previewLabel={previewLabel} rootRef={cardRef}>
-      <div className="py-12 text-center">
-        <p className="text-error font-semibold mb-4">
-          {t.error.text}
-        </p>
-        <button
-          onClick={() => submit(answers)}
-          className="btn-primary px-6 py-3 rounded-xl font-bold"
-        >
-          {t.error.retry}
-        </button>
-        {!preview && <button onClick={() => setStep("contacts")} className="block mx-auto mt-4 text-sm text-primary font-semibold">
-          {t.error.editContact}
-        </button>}
-      </div>
-    </Card>
+  return panel(
+    <div className={styles.state}>
+      <h2 className={styles.stateError}>
+        {t.error.text}
+      </h2>
+      <button
+        type="button"
+        onClick={() => submit(answers)}
+        className="landing-button"
+      >
+        {t.error.retry}
+      </button>
+      {!preview && <button type="button" onClick={() => setStep("contacts")} className={styles.textButton}>
+        {t.error.editContact}
+      </button>}
+    </div>
   );
 }
 
@@ -437,22 +485,27 @@ function Card({
   children,
   previewLabel,
   rootRef,
+  flag,
 }: {
   children: React.ReactNode;
   previewLabel?: string;
   rootRef: React.RefObject<HTMLDivElement | null>;
+  flag: string;
 }) {
   return (
-    <div ref={rootRef} className="max-w-2xl mx-auto card-premium card-ring rounded-2xl bg-white p-7 md:p-12 shadow-premium scroll-mt-28">
-      {previewLabel && <p role="status" className="mb-6 rounded-lg border border-primary/30 bg-primary/5 p-3 text-sm font-semibold">{previewLabel}</p>}
-      {children}
-    </div>
+    <TestStage>
+      <div ref={rootRef} className={styles.panel}>
+        <Image className={styles.flag} src={flag} alt="" width={45} height={71} />
+        {previewLabel && <p role="status" className={`${styles.preview} ${styles.panelPreview}`}>{previewLabel}</p>}
+        {children}
+      </div>
+    </TestStage>
   );
 }
 
 function RichContent({ html }: { html: string }) {
   return <div
-    className="break-words [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_p]:mb-3 [&_blockquote]:my-5 [&_blockquote]:text-base [&_blockquote]:font-normal [&_blockquote]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_table]:max-w-full [&_a]:underline"
+    className={styles.rich}
     dangerouslySetInnerHTML={{ __html: html }}
   />;
 }
@@ -475,8 +528,8 @@ function Field({
   maxLength?: number;
 }) {
   return (
-    <label className="block">
-      <span className="block text-sm font-semibold text-on-surface mb-2">
+    <label className={styles.field}>
+      <span>
         {label}
       </span>
       <input
@@ -486,7 +539,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-border-subtle bg-surface-container-low px-4 py-3 focus:border-primary focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all"
+        className={styles.control}
       />
     </label>
   );

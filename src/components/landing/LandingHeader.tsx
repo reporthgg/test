@@ -3,24 +3,20 @@
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { isLocale, locales, withLocale, type Locale } from "@/i18n/config";
+import { isLocale, locales, stripLocale, withLocale, type Locale } from "@/i18n/config";
 import { site } from "@/lib/site";
-import { useLandingActions, type LandingScope } from "@/components/landing/LandingForms";
+import { useLandingActions } from "@/components/landing/LandingForms";
 import LandingSelect from "./LandingSelect";
 import { heroContent } from "./hero-content";
 import styles from "./LandingHeader.module.css";
 
-// При смене языка остаёмся на той же странице.
-const scopePaths: Record<LandingScope, string> = {
-  landing: "/", school: "/school", camps: "/camps", abroad: "/abroad", exams: "/exams", tests: "/tests",
-};
 const languageLabels: Record<Locale, string> = { ru: "Рус", kz: "Қаз", en: "Eng" };
 const languageOptions = locales.map((value) => ({ value, label: languageLabels[value] }));
 const destinations = ["/school", "/exams", "/abroad", "/camps", "/#offices"] as const;
 
 export default function LandingHeader({ locale }: { locale: Locale }): ReactElement {
   const text = heroContent[locale];
-  const { openLead, scope } = useLandingActions();
+  const { openLead } = useLandingActions();
   const markerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDialogElement>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -46,11 +42,12 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
     openLead("diagnostic");
   }
 
+  // При смене языка остаёмся на той же странице.
   function changeLanguage(value: string): void {
     if (!isLocale(value)) return;
     closeMenu();
     // Локаль приходит из server rewrite, поэтому не переиспользуем RSC-кэш другого языка.
-    window.location.assign(withLocale(value, scopePaths[scope]));
+    window.location.assign(withLocale(value, stripLocale(window.location.pathname)));
   }
 
   const programLinks = [

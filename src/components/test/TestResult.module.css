@@ -1,0 +1,285 @@
+.result {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 24px;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.score {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 400px;
+  padding: 40px 44px;
+  overflow: clip;
+  border-radius: 30px;
+  background: var(--landing-blue, #135685);
+  color: #fff;
+}
+
+.label {
+  position: relative;
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.level {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 26px 0 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.levelMain {
+  color: var(--landing-yellow, #eac35d);
+  font-size: 140px;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
+}
+
+.levelLong .levelMain {
+  font-size: 78px;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.levelNote {
+  margin-top: 14px;
+  color: rgb(255 255 255 / 55%);
+  font-size: 34px;
+  font-style: italic;
+  line-height: 38px;
+  letter-spacing: -0.03em;
+}
+
+.caption {
+  position: relative;
+  margin: 26px 0 0;
+  color: rgb(255 255 255 / 85%);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.caption + .level {
+  margin-top: 10px;
+}
+
+.correct {
+  position: relative;
+  margin-top: auto;
+  padding-top: 36px;
+}
+
+.correct p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin: 0;
+  color: rgb(255 255 255 / 85%);
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+}
+
+.correct b {
+  color: #fff;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 34px;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.correct small {
+  color: rgb(255 255 255 / 60%);
+  font-size: 22px;
+}
+
+.bar {
+  height: 4px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 20%);
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--landing-yellow, #eac35d);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 40px 40px 34px;
+  border-radius: 30px;
+  background: #fff;
+}
+
+.check {
+  display: block;
+  flex: none;
+  margin-bottom: 20px;
+}
+
+.note {
+  margin: 0;
+  color: #3a3a3a;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+}
+
+.review {
+  margin: 20px 0 0;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #e3eee6;
+  color: #2e2d2c;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.review b {
+  color: #37814c;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+.actions > a:first-child {
+  width: 100%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e1eaf1;
+  color: var(--landing-pink, #b1005a);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+.link img {
+  display: block;
+  flex: none;
+  transform: scaleY(-1);
+}
+
+@media (max-width: 899px) {
+  .result {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .score {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .result {
+    gap: 16px;
+  }
+
+  .score {
+    padding: 28px 22px 26px;
+    border-radius: 25px;
+  }
+
+  .label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .level {
+    margin-top: 18px;
+  }
+
+  .levelMain {
+    font-size: 96px;
+  }
+
+  .levelLong .levelMain {
+    font-size: 50px;
+  }
+
+  .levelNote {
+    margin-top: 10px;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .correct {
+    padding-top: 28px;
+  }
+
+  .correct p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .correct b {
+    font-size: 28px;
+    line-height: 28px;
+  }
+
+  .correct small {
+    font-size: 18px;
+  }
+
+  .side {
+    padding: 26px 22px 22px;
+    border-radius: 25px;
+  }
+
+  .check {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 16px;
+  }
+
+  .note {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .actions {
+    padding-top: 24px;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,231 @@
+.values {
+  position: relative;
+  z-index: 5;
+  margin-bottom: -70px;
+  padding: 180px 0 120px;
+  overflow: clip;
+  border-radius: 0 0 50px 50px;
+  background: white;
+  color: var(--landing-blue, #135685);
+}
+
+.inner { position: relative; }
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.title { min-width: 0; overflow-wrap: anywhere; }
+
+.intro {
+  flex: 0 1 420px;
+  margin: 8px 0 0;
+  color: #636363;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+  text-align: right;
+}
+
+.board { position: relative; margin-top: 60px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 390px;
+  padding: 30px;
+  border-radius: 30px;
+}
+
+.card:nth-child(even) { margin-top: 56px; }
+
+.light { background: #f0ebec; color: var(--landing-blue, #135685); }
+.blue { background: var(--landing-blue, #135685); color: white; }
+.green { background: var(--landing-green, #37814c); color: white; }
+.yellow { background: var(--landing-yellow, #eac35d); color: var(--landing-blue, #135685); }
+
+.number {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+.light .number { background: var(--landing-pink, #b1005a); color: #f0ebec; }
+.blue .number { background: var(--landing-yellow, #eac35d); color: var(--landing-blue, #135685); }
+.green .number { background: #f0ebec; color: var(--landing-green, #37814c); }
+.yellow .number { background: var(--landing-blue, #135685); color: var(--landing-yellow, #eac35d); }
+
+.card h3 {
+  margin: auto 0 0;
+  padding-top: 40px;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.card > p {
+  margin: 14px 0 0;
+  font-size: 17px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
+}
+
+.light > p { color: #525251; }
+
+.sticker {
+  position: absolute;
+  top: -70px;
+  right: -64px;
+  width: 210px;
+  height: 210px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.partners {
+  position: relative;
+  z-index: 4;
+  margin-bottom: -70px;
+  padding: 160px 0 100px;
+  border-radius: 0 0 50px 50px;
+  background: #f2f6f9;
+  color: var(--landing-blue, #135685);
+}
+
+.partnersRow {
+  display: grid;
+  grid-template-columns: minmax(0, 400fr) minmax(0, 780fr);
+  align-items: center;
+  gap: 60px;
+}
+
+.partnersHeader > p {
+  max-width: 360px;
+  margin: 18px 0 0;
+  color: #636363;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+.partners .partnersTitle { font-size: 50px; line-height: 1.04; overflow-wrap: anywhere; }
+.partnersTitle > span, .partnersTitle > em { display: block; }
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.partner {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 20px 24px;
+  border: 1px solid #dadada;
+  border-radius: 25px;
+  background: white;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: white;
+}
+
+.logo img { display: block; width: auto; max-width: 80%; height: auto; }
+.logo[data-logo="icef"] img { height: 136px; }
+.logo[data-logo="british"] img { width: 150%; max-width: none; }
+.logo[data-logo="quality"] img { width: 74%; }
+
+.partner p {
+  display: flex;
+  flex-direction: column;
+  margin: 18px 4px 0;
+}
+
+.partner strong {
+  color: #2e2d2c;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 25px;
+}
+
+.partner p span {
+  color: #525251;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .header { display: block; }
+  .values .title { font-size: clamp(48px, 6.4vw, 70px); line-height: 1.06; }
+  .intro { max-width: 520px; margin-top: 18px; text-align: left; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card { min-height: 320px; }
+  .card:nth-child(even) { margin-top: 40px; }
+  .card:nth-child(3) { margin-top: -20px; }
+  .card:nth-child(4) { margin-top: 20px; }
+  .sticker { top: -110px; right: -30px; width: 170px; height: 170px; }
+  .partnersRow { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .partnersHeader > p { max-width: 520px; }
+}
+
+@media (max-width: 767px) {
+  .values { margin-bottom: -40px; padding: 100px 0 72px; border-radius: 0 0 30px 30px; }
+  .header { display: block; }
+  .values .title { font-size: 35px; line-height: 38px; }
+  .intro { max-width: 325px; margin-top: 12px; font-size: 16px; line-height: 23px; text-align: left; }
+  .board { margin-top: 28px; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .card, .card:nth-child(even) { min-height: 0; margin-top: 0; padding: 22px 20px 24px; border-radius: 22px; }
+  .number { width: 38px; height: 38px; border-radius: 10px; font-size: 16px; }
+  .card h3 { padding-top: 28px; font-size: 25px; line-height: 26px; }
+  .card > p { margin-top: 8px; font-size: 15px; line-height: 22px; }
+  .sticker { top: -48px; right: -26px; width: 130px; height: 130px; }
+  .partners { margin-bottom: -40px; padding: 90px 0 56px; border-radius: 0 0 30px 30px; }
+  .partnersRow { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .partners .partnersTitle { font-size: 32px; line-height: 35px; }
+  .partnersHeader > p { margin-top: 10px; font-size: 16px; line-height: 23px; }
+  .logos { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .partner { display: grid; grid-template-columns: 116px minmax(0, 1fr); align-items: center; gap: 16px; padding: 10px; border-radius: 18px; }
+  .logo { height: 84px; border-radius: 12px; }
+  .logo[data-logo="icef"] img { height: 70px; }
+  .partner p { margin: 0; }
+  .partner strong { font-size: 16px; line-height: 22px; }
+  .partner p span { font-size: 13px; line-height: 18px; }
+}

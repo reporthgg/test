@@ -1,69 +1,140 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useId, type ReactElement, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import Icon from "@/components/Icon";
-import CountUp from "@/components/ui/CountUp";
+import { programsContent } from "@/components/landing/programs-content";
 import { site } from "@/lib/site";
 import { useLocale } from "@/i18n/useLocale";
+import { withLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getTestsDict } from "@/i18n/pages/tests";
 import type { TestSubmissionResult } from "@/lib/test-types";
+import flow from "./TestFlow.module.css";
+import styles from "./TestResult.module.css";
+
+export function TestHero({
+  title,
+  back,
+  tags,
+  aside,
+  last = false,
+}: {
+  title: string;
+  back?: ReactNode;
+  tags?: ReactNode;
+  aside?: ReactNode;
+  last?: boolean;
+}): ReactElement {
+  const titleId = useId();
+  const words = title.trim().split(/\s+/u);
+  const accent = words.length > 1 ? words.pop() : undefined;
+
+  return (
+    <section className={`${flow.hero} ${last ? flow.heroLast : ""} ${aside ? "" : flow.heroCompact}`} aria-labelledby={titleId}>
+      <Image className={flow.line} src="/landing/hero/yellow-line.svg" alt="" width={747} height={465} />
+      <div className={`landing-container ${flow.heroInner} ${aside ? "" : flow.heroSingle}`}>
+        <div className={flow.heroMain}>
+          {back}
+          <h1 id={titleId} className={`landing-title ${flow.title}`}>
+            {accent ? <>{words.join(" ")} <em>{accent}</em></> : title}
+          </h1>
+          {tags}
+        </div>
+        {aside && <div className={flow.heroAside}>{aside}</div>}
+      </div>
+    </section>
+  );
+}
+
+export function TestStage({ children }: { children: ReactNode }): ReactElement {
+  return (
+    <section className={flow.stage}>
+      <div className="landing-container">{children}</div>
+    </section>
+  );
+}
+
+function splitLevel(level: string): { main: string; note?: string } {
+  const match = /^(.+?)\s*\(([^()]+)\)$/u.exec(level.trim());
+  return match ? { main: match[1], note: match[2] } : { main: level.trim() };
+}
 
 export default function TestResult({
   title,
   result,
-  heading,
   preview = false,
 }: {
   title: string;
   result: TestSubmissionResult;
-  heading?: ReactNode;
   preview?: boolean;
 }) {
   const locale = useLocale();
   const t = getTestsDict(locale);
   const submissionText = getDictionary(locale).submission;
+  const common = programsContent[locale];
+  const level = splitLevel(result.level);
+  const share = result.total > 0 ? Math.min(100, Math.max(0, Math.round((result.score / result.total) * 100))) : 0;
 
   return (
-    <div className="text-center py-4">
-      <div className="w-16 h-16 rounded-full bg-clever-green/10 text-clever-green flex items-center justify-center mx-auto mb-6 shadow-premium">
-        <Icon name="check" className="text-3xl" />
+    <div className={styles.result}>
+      <div className={styles.score}>
+        <p className={styles.label}>{t.result.yourResult}</p>
+        {result.level && result.total > 0 && (
+          <p className={`${styles.level} ${level.main.length > 6 ? styles.levelLong : ""}`}>
+            <span className={styles.levelMain}>{level.main}</span>
+            {level.note && <span className={styles.levelNote}>{level.note}</span>}
+          </p>
+        )}
+        {result.total === 0 && result.pendingReview > 0 && (
+          <>
+            <p className={styles.caption}>{t.result.manualReview}</p>
+            <p className={styles.level}>
+              <span className={styles.levelMain}>{result.pendingReview}</span>
+            </p>
+          </>
+        )}
+        {result.total > 0 && (
+          <div className={styles.correct}>
+            <p>
+              <span>{t.result.correctAnswers}</span>
+              <b>{result.score} <small>{t.result.of} {result.total}</small></b>
+            </p>
+            <div className={styles.bar}>
+              <span style={{ width: `${share}%` }} />
+            </div>
+          </div>
+        )}
       </div>
-      {heading}
-      <p className="text-on-surface-variant mb-4 text-sm uppercase tracking-wider font-semibold">{t.result.yourResult}</p>
-      {result.level && result.total > 0 && <div className="inline-flex items-center justify-center card-premium card-ring rounded-2xl bg-surface-container-lowest px-10 py-5 mb-5">
-        <div className="text-4xl md:text-5xl font-extrabold number-gradient leading-none">
-          {result.level}
-        </div>
-      </div>}
-      {result.total > 0 && <p className="text-on-surface-variant mb-8">
-        {t.result.correctAnswers}{" "}
-        <b className="text-lg"><CountUp value={result.score} className="number-gradient font-extrabold" /></b>{" "}
-        {t.result.of} {result.total}
-      </p>}
-      {result.pendingReview > 0 && (
-        <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-sm">
-          {t.result.manualReview} {result.pendingReview}. {t.result.manualReviewNote}
+      <div className={styles.side}>
+        {!preview && result.crmDelivered === true && (
+          <Image className={styles.check} src="/landing/forms/success-check.svg" alt="" width={44} height={44} />
+        )}
+        <p className={styles.note}>
+          {preview ? t.preview.resultNote : result.crmDelivered === true ? t.result.note : submissionText.deliveryUnconfirmed}
         </p>
-      )}
-      <div className="glass-card rounded-xl p-5 text-sm text-on-surface-variant mb-8">
-        {preview ? t.preview.resultNote : result.crmDelivered === true ? t.result.note : submissionText.deliveryUnconfirmed}
-      </div>
-      <div className="flex flex-col sm:flex-row gap-3 justify-center">
-        {!preview && <a
-          href={`${site.whatsapp.link}?text=${encodeURIComponent(
-            `${t.result.waIntro}${title}${t.result.waResult}${result.level}`
-          )}`}
-          target="_blank"
-          rel="noopener"
-          className="btn-primary px-6 py-3 rounded-xl font-bold"
-        >
-          {t.result.waButton}
-        </a>}
-        <Link href="/" className="btn-outline px-6 py-3 rounded-xl font-bold bg-white">
-          {t.result.home}
-        </Link>
+        {result.pendingReview > 0 && (
+          <p role="status" className={styles.review}>
+            {t.result.manualReview} <b>{result.pendingReview}</b>. {t.result.manualReviewNote}
+          </p>
+        )}
+        <div className={styles.actions}>
+          {!preview && <a
+            href={`${site.whatsapp.link}?text=${encodeURIComponent(
+              `${t.result.waIntro}${title}${t.result.waResult}${result.level}`
+            )}`}
+            target="_blank"
+            rel="noopener"
+            className={flow.whatsapp}
+          >
+            <Image src="/landing/forms/whatsapp.svg" alt="" width={24} height={24} />
+            {t.result.waButton}
+          </a>}
+          <Link href={withLocale(locale, "/tests")} className={styles.link}>
+            {common.allTests}
+            <Image src="/tests/arrow.svg" alt="" width={24} height={24} />
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ import schoolStyles from "@/components/school/SchoolTrial.module.css";
 
 export type LeadKind = "diagnostic" | "trial";
 // camps: формы оформлены как на главной, scope нужен только для источника заявки в CRM.
-export type LandingScope = "landing" | "school" | "camps" | "abroad" | "exams" | "tests";
+export type LandingScope = "landing" | "school" | "camps" | "abroad" | "exams" | "tests" | "about";
 export type LeadSelection = { course?: string; teacher?: string; camp?: string };
 type ActiveLead = { kind: LeadKind; selection?: LeadSelection };
 // Консультация открывается только формой на первом экране, у неё нет своего попапа.
