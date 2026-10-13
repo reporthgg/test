@@ -1,11 +1,17 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import {
   setSetting,
   type SettingKey,
 } from "@/lib/settings";
 import { sendLeadToBitrix } from "@/lib/bitrix";
+
+async function requireAdmin(): Promise<void> {
+  if (!await verifySessionToken((await cookies()).get(SESSION_COOKIE)?.value)) throw new Error("Войдите в админку для сохранения.");
+}
 
 const KEYS: SettingKey[] = [
   "bitrixWebhookUrl",
@@ -16,6 +22,7 @@ const KEYS: SettingKey[] = [
 ];
 
 export async function saveSettings(formData: FormData): Promise<void> {
+  await requireAdmin();
   for (const key of KEYS) {
     const value = String(formData.get(key) ?? "");
     await setSetting(key, value);
@@ -24,6 +31,7 @@ export async function saveSettings(formData: FormData): Promise<void> {
 }
 
 export async function sendTestLead(): Promise<{ ok: boolean; reason?: string }> {
+  await requireAdmin();
   const result = await sendLeadToBitrix({
     name: "Тест из админки",
     phone: "+70000000000",

@@ -6,12 +6,18 @@ import { prisma } from "@/lib/prisma";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { sendStoredLeadToBitrix } from "@/lib/bitrix-delivery";
 
+async function requireAdmin(): Promise<void> {
+  if (!await verifySessionToken((await cookies()).get(SESSION_COOKIE)?.value)) throw new Error("Войдите в админку для сохранения.");
+}
+
 export async function updateLeadStatus(id: string, status: string) {
+  await requireAdmin();
   await prisma.lead.update({ where: { id }, data: { status } });
   revalidatePath("/admin/leads");
 }
 
 export async function deleteLead(id: string) {
+  await requireAdmin();
   await prisma.lead.delete({ where: { id } });
   revalidatePath("/admin/leads");
 }

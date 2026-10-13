@@ -1,7 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
+
+async function requireAdmin(): Promise<void> {
+  if (!await verifySessionToken((await cookies()).get(SESSION_COOKIE)?.value)) throw new Error("Войдите в админку для сохранения.");
+}
 
 function num(v: FormDataEntryValue | null): number | null {
   const s = String(v ?? "").trim();
@@ -11,6 +17,7 @@ function num(v: FormDataEntryValue | null): number | null {
 }
 
 export async function createCamp() {
+  await requireAdmin();
   const count = await prisma.camp.count();
   const camp = await prisma.camp.create({
     data: { city: "Новый лагерь", country: "", order: count, published: false },
@@ -20,6 +27,7 @@ export async function createCamp() {
 }
 
 export async function saveCamp(id: string, formData: FormData) {
+  await requireAdmin();
   await prisma.camp.update({
     where: { id },
     data: {
@@ -41,6 +49,7 @@ export async function saveCamp(id: string, formData: FormData) {
 }
 
 export async function deleteCamp(id: string) {
+  await requireAdmin();
   await prisma.camp.delete({ where: { id } });
   revalidatePath("/admin/camps");
   revalidatePath("/camps");
