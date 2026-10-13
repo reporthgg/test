@@ -1,0 +1,744 @@
+.hero {
+  --frame-blue: var(--landing-blue, #135685);
+  --frame-pink: var(--landing-pink, #b1005a);
+  --frame-green: var(--landing-green, #37814c);
+  --frame-gold: #e3b741;
+  --frame-rose: #f46899;
+  position: relative;
+  overflow: clip;
+  border-radius: 0 0 50px 50px;
+  background: #fff;
+  color: var(--landing-blue, #135685);
+}
+
+.scribble {
+  position: absolute;
+  top: 90px;
+  left: calc(50% - 943px);
+  display: grid;
+  place-items: center;
+  width: 1431.582px;
+  height: 1475.769px;
+  pointer-events: none;
+}
+
+.scribble::before {
+  width: 1276.5px;
+  height: 793.948px;
+  background: url("/landing/hero/yellow-line.svg") center / contain no-repeat;
+  content: "";
+  transform: rotate(48.66deg) scaleY(-1);
+}
+
+.stage {
+  position: relative;
+  container-type: inline-size;
+}
+
+.inner {
+  --u: 0.0806452cqw;
+  position: relative;
+  height: calc(860 * var(--u));
+  padding-top: calc(135 * var(--u));
+}
+
+.eyebrow {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  margin: 0;
+  padding: 8px 18px 8px 16px;
+  border-radius: 100px;
+  background: #e7eff5;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.heading {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(24.28 * var(--u));
+}
+
+.title {
+  margin: 0 0 0 calc(-7 * var(--u));
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: calc(78 * var(--u));
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.title > span {
+  display: block;
+}
+
+.title > span:first-child {
+  max-width: calc(726 * var(--u));
+}
+
+.hero[data-locale="kz"] .title {
+  font-size: calc(72 * var(--u));
+}
+
+.description {
+  position: absolute;
+  top: calc(8.72 * var(--u));
+  left: calc(726 * var(--u));
+  width: calc(457 * var(--u));
+  margin: 0;
+  color: #636363;
+  font-size: calc(20 * var(--u));
+  font-weight: 300;
+  line-height: calc(30 * var(--u));
+  letter-spacing: -0.01em;
+}
+
+.heading[data-custom] .description {
+  position: static;
+  width: auto;
+  max-width: calc(560 * var(--u));
+  margin-top: 16px;
+}
+
+.cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 228px;
+  min-height: 66px;
+  margin-top: calc(29.72 * var(--u));
+  padding: 16px 32px;
+  border-radius: 12px;
+  background: var(--landing-pink, #b1005a);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 160ms;
+}
+
+.cta:hover {
+  background: #92004b;
+}
+
+.visual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.desktopPhotos {
+  position: absolute;
+  inset: 0;
+}
+
+.mobilePhotos {
+  display: none;
+}
+
+.photo {
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.crop {
+  position: absolute;
+  inset: 0;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mask-position: 0 0;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.border > span {
+  position: absolute;
+}
+
+.ribbon {
+  position: absolute;
+  max-width: none;
+}
+
+.brand {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+}
+
+.brand img {
+  position: absolute;
+  top: 0;
+  left: -33.65%;
+  width: 165.52%;
+  max-width: none;
+  height: 100%;
+}
+
+.score {
+  position: absolute;
+  color: #fff;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-weight: 800;
+  line-height: normal;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.ielts {
+  position: absolute;
+  display: block;
+  background: #c7002b;
+}
+
+.ielts img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.portrait {
+  width: calc(419.706 * var(--u));
+  height: calc(517.237 * var(--u));
+  border-radius: calc(26.232 * var(--u));
+}
+
+.portrait .border {
+  height: calc(629.559 * var(--u));
+}
+
+.student {
+  top: calc(408 * var(--u));
+  left: calc(879 * var(--u));
+  width: calc(441.833 * var(--u));
+  height: calc(535.024 * var(--u));
+}
+
+.studentFrame {
+  transform: rotate(2.5deg);
+}
+
+.studentMedia {
+  inset: auto;
+  top: calc(0.02 * var(--u));
+  left: calc(-1.4 * var(--u));
+  width: calc(419.7 * var(--u));
+  height: calc(515.26 * var(--u));
+  transform: rotate(-1.41deg);
+}
+
+.studentMedia .crop {
+  inset: -13.66% auto auto 0.06%;
+  width: 99.85%;
+  height: 124.81%;
+}
+
+.studentRibbon.ribbon {
+  top: calc(-1.54 * var(--u));
+  left: calc(310.86 * var(--u));
+  width: calc(68.586 * var(--u));
+  height: calc(116.06 * var(--u));
+  transform: rotate(0.78deg);
+}
+
+.studentRibbon.brand {
+  top: calc(1.11 * var(--u));
+  left: calc(319.62 * var(--u));
+  width: calc(51.418 * var(--u));
+  height: calc(85.108 * var(--u));
+  transform: rotate(0.78deg);
+}
+
+.studentScore.score {
+  top: calc(273.67 * var(--u));
+  left: calc(209.35 * var(--u));
+  font-size: calc(70.818 * var(--u));
+}
+
+.studentScore.ielts {
+  top: calc(363.97 * var(--u));
+  left: calc(131.92 * var(--u));
+  width: calc(154.865 * var(--u));
+  height: calc(75.212 * var(--u));
+  padding: calc(20.2 * var(--u));
+}
+
+.university {
+  top: calc(487 * var(--u));
+  left: calc(-45 * var(--u));
+  width: calc(601.028 * var(--u));
+  height: calc(445.458 * var(--u));
+  filter: drop-shadow(calc(43.129 * var(--u)) calc(52.253 * var(--u)) calc(22.809 * var(--u)) rgb(0 0 0 / 12%));
+}
+
+.universityFrame {
+  width: calc(589.181 * var(--u));
+  height: calc(429.039 * var(--u));
+  border-radius: calc(28.741 * var(--u));
+  transform: rotate(-1.61deg);
+}
+
+.amir {
+  top: calc(382.89 * var(--u));
+  left: calc(467 * var(--u));
+  width: calc(431.488 * var(--u));
+  height: calc(526.751 * var(--u));
+}
+
+.amirFrame {
+  transform: rotate(-1.32deg);
+}
+
+.amirMedia {
+  inset: auto;
+  top: calc(-4.79 * var(--u));
+  left: calc(-5.76 * var(--u));
+  width: calc(419.71 * var(--u));
+  height: calc(515.27 * var(--u));
+  transform: rotate(0.37deg);
+}
+
+.amirMedia .crop {
+  inset: -6.07% auto auto -3.19%;
+  width: 106.3%;
+  height: 115.9%;
+}
+
+.amirScore.score {
+  top: calc(277.9 * var(--u));
+  left: calc(203.44 * var(--u));
+  font-size: calc(70.094 * var(--u));
+  transform: translateX(-50%) rotate(0.37deg);
+}
+
+.amirScore.ielts {
+  top: calc(369.36 * var(--u));
+  left: calc(125.54 * var(--u));
+  width: calc(154.865 * var(--u));
+  height: calc(75.212 * var(--u));
+  padding: calc(20.2 * var(--u));
+  transform: rotate(0.37deg);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.trust {
+  position: relative;
+  z-index: 1;
+  padding: 40px 0;
+  border-radius: 0 0 50px 50px;
+  background: #f2f6f9;
+}
+
+.trustList {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-block: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trustList li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logoCard {
+  position: relative;
+  display: flex;
+  flex: 0 0 160px;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 84px;
+  border: 1px solid #dbdbdb;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.logoCard img {
+  display: block;
+  object-fit: cover;
+}
+
+.icef img {
+  width: 108px;
+  height: 36px;
+}
+
+.ets img {
+  width: 74px;
+  height: 50px;
+}
+
+.ieltsCard {
+  flex-basis: 130px;
+  width: 130px;
+  border-color: #dadada;
+}
+
+.ieltsCard img {
+  width: 68px;
+  height: 20.681px;
+}
+
+.britishCouncil {
+  width: 379px;
+}
+
+.britishCrop {
+  position: relative;
+  display: block;
+  width: 112px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.britishCrop img {
+  position: absolute;
+  top: -63.16%;
+  left: -23.63%;
+  width: 147.41%;
+  max-width: none;
+  height: 220.74%;
+}
+
+.flower {
+  position: absolute;
+  top: -27px;
+  left: 13px;
+  width: 45px;
+  height: 45px;
+}
+
+.trustList p {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.trustList p strong {
+  color: #2e2d2c;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.trustList p span {
+  color: #525251;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .scribble {
+    display: none;
+  }
+
+  .inner {
+    height: auto;
+    padding-top: 130px;
+  }
+
+  .heading {
+    margin-top: 20px;
+  }
+
+  .title > span:first-child {
+    max-width: none;
+  }
+
+  .description,
+  .heading[data-custom] .description {
+    position: static;
+    width: auto;
+    max-width: 560px;
+    margin-top: 16px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .cta {
+    margin-top: 28px;
+  }
+
+  .visual {
+    position: relative;
+    inset: auto;
+    height: calc(477 * var(--u));
+    margin-top: 24px;
+  }
+
+  .desktopPhotos {
+    inset: auto;
+    top: calc(-382.89 * var(--u));
+    right: 0;
+    left: 0;
+    height: calc(860 * var(--u));
+  }
+
+  .trustList {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 28px;
+  }
+
+  .britishCouncil {
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    border-radius: 0 0 30px 30px;
+  }
+
+  .scribble,
+  .eyebrow {
+    display: none;
+  }
+
+  .inner {
+    height: auto;
+    padding-top: 101px;
+  }
+
+  .heading {
+    margin-top: 0;
+  }
+
+  .title,
+  .hero[data-locale="kz"] .title {
+    margin: 0;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .title > span:first-child {
+    max-width: none;
+  }
+
+  .description,
+  .heading[data-custom] .description {
+    position: static;
+    width: auto;
+    max-width: none;
+    margin-top: 12px;
+    color: #525251;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .cta {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    margin-top: 20px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .visual {
+    position: relative;
+    inset: auto;
+    height: 241px;
+    margin: 12px -16px 0;
+  }
+
+  .desktopPhotos {
+    display: none;
+  }
+
+  .mobilePhotos {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 195px);
+    display: block;
+    width: 390px;
+    height: 100%;
+  }
+
+  .studentMobile {
+    top: 9.23px;
+    left: 183.02px;
+    width: 182.054px;
+    height: 264.017px;
+    filter: drop-shadow(7.247px 21.742px 13.287px rgb(0 0 0 / 20%));
+  }
+
+  .studentMobileFrame {
+    width: 170.606px;
+    height: 256.551px;
+    border-radius: 12.828px;
+    transform: rotate(2.6deg);
+  }
+
+  .studentMobileRibbon.ribbon {
+    top: 1.17px;
+    left: 125.17px;
+    width: 27.54px;
+    height: 46.624px;
+  }
+
+  .studentMobileRibbon.brand {
+    top: 3.18px;
+    left: 128.52px;
+    width: 20.75px;
+    height: 34.346px;
+  }
+
+  .studentMobileScore.score {
+    top: 147.2px;
+    left: 86.5px;
+    font-size: 22.755px;
+    transform: translateX(-50%) rotate(-0.1deg);
+  }
+
+  .studentMobileScore.ielts {
+    top: 176.79px;
+    left: 59.67px;
+    width: 52.395px;
+    height: 25.446px;
+    padding: 6.834px;
+    transform: rotate(-0.1deg);
+  }
+
+  .amirMobile {
+    top: 0;
+    left: 23.36px;
+    width: 195.649px;
+    height: 282px;
+    filter: drop-shadow(7.704px 23.111px 14.123px rgb(0 0 0 / 20%));
+  }
+
+  .amirMobileFrame {
+    width: 181.351px;
+    height: 272.709px;
+    border-radius: 13.635px;
+    transform: rotate(-3.06deg);
+  }
+
+  .amirMobileRibbon.ribbon {
+    top: 1.25px;
+    left: 133.05px;
+    width: 29.274px;
+    height: 49.561px;
+  }
+
+  .amirMobileRibbon.brand {
+    top: 3.38px;
+    left: 136.62px;
+    width: 22.057px;
+    height: 36.509px;
+  }
+
+  .amirMobileScore.score {
+    top: 160.27px;
+    left: 95.37px;
+    font-size: 27.827px;
+  }
+
+  .amirMobileScore.ielts {
+    top: 195.84px;
+    left: 62.73px;
+    width: 64.076px;
+    height: 31.119px;
+    padding: 8.358px;
+  }
+
+  .trust {
+    padding: 16px 0 24px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .trust::before {
+    position: absolute;
+    top: -35px;
+    right: 0;
+    left: 0;
+    height: 35px;
+    background: linear-gradient(180deg, rgb(242 246 249 / 0%), #f2f6f9);
+    content: "";
+    pointer-events: none;
+  }
+
+  .trustList {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .trustList .icef,
+  .trustList .ets,
+  .flower {
+    display: none;
+  }
+
+  .average {
+    order: -1;
+  }
+
+  .logoCard,
+  .ieltsCard {
+    flex-basis: 108px;
+    width: 108px;
+  }
+
+  .britishCouncil {
+    width: auto;
+  }
+
+  .britishCrop {
+    width: 74px;
+    height: 26px;
+  }
+
+  .trustList p {
+    min-width: 0;
+    white-space: normal;
+  }
+}

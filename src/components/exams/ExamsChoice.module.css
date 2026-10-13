@@ -1,0 +1,304 @@
+.choice {
+  position: relative;
+  z-index: 3;
+  margin-bottom: -70px;
+  padding: 192px 0 120px;
+  border-radius: 0 0 50px 50px;
+  background: #f2f6f9;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.choice .title {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--landing-blue, #135685);
+  overflow-wrap: anywhere;
+}
+
+.aside {
+  display: flex;
+  flex: 0 0 405px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.text {
+  margin: 0;
+  color: #525251;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+.text > span {
+  display: block;
+}
+
+.aside .cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--landing-pink, #b1005a);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.04em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.cta:hover {
+  opacity: 0.9;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 288px;
+  padding: 0 30px 30px;
+  overflow: hidden;
+  border-radius: 30px;
+  background: rgb(255 255 255 / 94%);
+}
+
+.logo {
+  height: 141px;
+  margin: 0;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mark img {
+  display: block;
+}
+
+.ielts .mark {
+  width: 125px;
+  height: 70px;
+  margin-top: 34px;
+  background: #c7002b;
+}
+
+.sat .mark {
+  width: 77px;
+  height: 77px;
+  margin-top: 30px;
+  border-radius: 19.271px;
+  background: #009ada;
+}
+
+.flag {
+  position: absolute;
+  top: -6px;
+  right: 30px;
+  width: 45px;
+  height: 71.4257px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips > li {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 100px;
+  background: var(--landing-blue, #135685);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.description {
+  margin: 8px 0 10px;
+  color: #525251;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.card .action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-top: auto;
+  padding: 14px 0 0;
+  border: 0;
+  border-top: 1px solid #e1eaf1;
+  background: transparent;
+  color: #2e2d2c;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.action img {
+  flex: none;
+  transform: scaleY(-1);
+}
+
+.action:hover > span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .choice .title {
+    font-size: clamp(44px, 5.6vw, 64px);
+  }
+
+  .aside {
+    flex-basis: 340px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .card {
+    padding-inline: 24px;
+  }
+
+  .flag {
+    right: 24px;
+  }
+
+  .card .action {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .choice {
+    margin-bottom: -40px;
+    padding: 106px 0 72px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .head {
+    display: block;
+  }
+
+  .choice .title {
+    font-size: 35px;
+    line-height: 44px;
+  }
+
+  .aside {
+    display: block;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  .aside .cta {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 24px;
+    padding: 0 32px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 52px;
+  }
+
+  .card {
+    min-height: 0;
+    padding: 0 24px 20px;
+  }
+
+  .ielts .logo {
+    height: 111px;
+  }
+
+  .sat .logo {
+    height: 113px;
+  }
+
+  .ielts .mark {
+    width: 85px;
+    height: 47.602px;
+    margin-top: 31px;
+  }
+
+  .ielts .mark img {
+    width: 62.8276px;
+    height: 19.1076px;
+  }
+
+  .sat .mark {
+    width: 64px;
+    height: 64px;
+    margin-top: 24px;
+    border-radius: 16.017px;
+  }
+
+  .sat .mark img {
+    width: 60.0647px;
+    height: 40.0431px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .sat .description {
+    padding-right: 12px;
+    line-height: 20px;
+  }
+
+  .card .action {
+    font-size: 16px;
+  }
+}

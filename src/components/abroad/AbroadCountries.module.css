@@ -1,0 +1,268 @@
+.countries {
+  position: relative;
+  z-index: 5;
+  margin-bottom: -70px;
+  overflow: clip;
+  padding: 210px 0 111px;
+  border-radius: 0 0 50px 50px;
+  background: var(--landing-blue);
+  color: white;
+}
+
+.container {
+  position: relative;
+  container-type: inline-size;
+}
+
+.title {
+  margin: 0 0 0 -0.02em;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: min(102px, 8.226cqi);
+  font-weight: 600;
+  line-height: 1.1765;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.title > span { display: block; }
+.title > span:first-child { color: rgb(255 255 255 / 60%); }
+.title > span:last-child { text-align: right; }
+.countries[data-locale="kz"] .title { font-size: min(94px, 7.58cqi); }
+.countries[data-locale="en"] .title { font-size: min(70px, 5.645cqi); }
+
+.gridWrap {
+  position: relative;
+  margin-top: 70px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 390px));
+  justify-content: center;
+  gap: 28px 29px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  height: 420px;
+  padding: 15px 16px 0 15px;
+  border-radius: 25px;
+  background: #f0ebec;
+  color: #3a3a3a;
+  text-align: center;
+}
+
+.photo {
+  position: relative;
+  height: 270px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.photo img { object-fit: cover; }
+
+.name {
+  margin: 13px 0 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 224px;
+  max-width: 100%;
+  margin: 13px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 107.25px;
+  min-height: 34px;
+  padding: 6px 12px;
+  border-radius: 300px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.badge[data-color="blue"] { background: var(--landing-blue); }
+.badge[data-color="pink"] { background: var(--landing-pink); }
+.badge[data-color="green"] { background: var(--landing-green); }
+
+.flag {
+  position: absolute;
+  z-index: 1;
+  width: 92.47px;
+  height: 92.47px;
+  pointer-events: none;
+}
+
+.countries .discuss {
+  position: absolute;
+  top: 528.6px;
+  left: calc(50% + min(16.6667%, 204.667px) + 77.933px);
+  width: 272.76px;
+  height: 272.76px;
+  padding: 0;
+  overflow: hidden;
+  border: 8.183px solid var(--landing-blue);
+  border-radius: 50%;
+  background: var(--landing-pink);
+  color: white;
+  cursor: pointer;
+  transform: rotate(-7.97deg);
+}
+
+.countries .discuss:hover { background: #92004b; }
+
+.discussLabel {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  width: max-content;
+  max-width: 200px;
+  font-size: 24.549px;
+  font-weight: 700;
+  line-height: 30.004px;
+  letter-spacing: -0.04em;
+  text-align: center;
+  text-wrap: balance;
+  transform: translateX(-50%);
+}
+
+.discussFlags,
+.discussFlagsMobile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 307.95px;
+  height: 307.95px;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(7.97deg);
+}
+
+.discussFlags img,
+.discussFlagsMobile img {
+  position: absolute;
+  max-width: none;
+}
+
+.discussFlagsMobile,
+.wave { display: none; }
+
+.keysSticker {
+  position: absolute;
+  top: 155.4px;
+  right: -75.4px;
+  width: 230px;
+  height: 230px;
+  object-fit: cover;
+  pointer-events: none;
+  transform: rotate(-12deg);
+}
+
+.beyondSticker {
+  position: absolute;
+  top: 1214.38px;
+  left: -73.74px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  pointer-events: none;
+  transform: rotate(21.12deg);
+}
+
+.beyondSticker img {
+  position: absolute;
+  top: -23.74%;
+  left: -23.92%;
+  width: 145.51%;
+  height: 149.95%;
+  max-width: none;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .countries .discuss {
+    top: 976.6px;
+    left: calc((100% - 29px) / 2 + 29px + 58.6px);
+  }
+}
+
+@media (max-width: 767px) {
+  .countries { margin-bottom: -40px; padding: 94px 0 180px; border-radius: 0; }
+
+  .title,
+  .countries[data-locale] .title {
+    margin-left: 0;
+    font-size: 42px;
+    line-height: 45px;
+  }
+
+  .title > span:first-child { color: rgb(255 255 255 / 70%); }
+  .title > span:last-child { text-align: left; }
+  .gridWrap { margin-top: 51px; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .flag { display: none; }
+
+  .countries .discuss {
+    top: calc(100% - 7.4px);
+    right: 12.4px;
+    left: auto;
+    width: 180px;
+    height: 180px;
+    border-width: 5.4px;
+  }
+
+  .discussLabel {
+    top: 29.7px;
+    max-width: 140px;
+    font-size: 16.2px;
+    line-height: 19.8px;
+  }
+
+  .discussFlags { display: none; }
+
+  .discussFlagsMobile {
+    display: block;
+    width: 203.22px;
+    height: 203.22px;
+  }
+
+  .wave {
+    position: absolute;
+    top: 85.47px;
+    left: -53.63px;
+    display: block;
+    width: 139.5px;
+    height: 58.5px;
+    max-width: none;
+    pointer-events: none;
+    transform: rotate(0.77deg);
+  }
+
+  .keysSticker {
+    top: 53.05px;
+    right: -79.8px;
+    width: 168.758px;
+    height: 168.758px;
+    transform: rotate(-17.06deg);
+  }
+}

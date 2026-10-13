@@ -1,0 +1,398 @@
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 158px 0 120px;
+  border-radius: 0 0 50px 50px;
+  background: #f2f6f9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 296px;
+  padding: 30px 30px 28px;
+  overflow: clip;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.flag {
+  position: absolute;
+  top: -6px;
+  right: 30px;
+  width: 45px;
+  height: 71.426px;
+}
+
+.media {
+  position: relative;
+  flex: none;
+  height: 111px;
+}
+
+.media img {
+  display: block;
+  max-width: none;
+}
+
+.ielts,
+.sat {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ielts {
+  top: 7.08px;
+  width: 114px;
+  height: 63.84px;
+  background: #c7002b;
+}
+
+.ielts img {
+  width: 84.261px;
+  height: 25.626px;
+}
+
+.sat {
+  top: 0;
+  width: 77px;
+  height: 77px;
+  border-radius: 19.271px;
+  background: #009ada;
+}
+
+.sat img {
+  width: 72.265px;
+  height: 48.177px;
+}
+
+.media .kids {
+  position: absolute;
+  top: -6.33px;
+  left: -10.12px;
+  width: 134.815px;
+  height: 80.658px;
+}
+
+.general,
+.teen {
+  position: absolute;
+  transform-origin: 0 0;
+}
+
+.general {
+  top: -1.79px;
+  left: -13.93px;
+  width: 143.852px;
+  height: 92.213px;
+  overflow: hidden;
+}
+
+.bubbleFirst,
+.bubbleSecond {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubbleFirst {
+  top: 0.62px;
+  left: 17.82px;
+  width: 86.68px;
+  height: 71.46px;
+}
+
+.bubbleFirst img {
+  width: 81.507px;
+  height: 64.781px;
+  transform: rotate(-4.87deg);
+}
+
+.bubbleSecond {
+  top: 30.63px;
+  left: 54.4px;
+  width: 71.04px;
+  height: 60.92px;
+}
+
+.bubbleSecond img {
+  width: 62.601px;
+  height: 49.755px;
+  transform: rotate(11.15deg) scaleX(-1);
+}
+
+.teen {
+  top: 8.07px;
+  left: 2.54px;
+  width: 118.918px;
+  height: 71.148px;
+}
+
+.media .headphones {
+  position: absolute;
+  top: 10.16px;
+  left: 0.96px;
+  width: 66.066px;
+  height: 58.189px;
+  transform: rotate(6deg);
+  transform-origin: 33.03px 30.24px;
+}
+
+.phone {
+  position: absolute;
+  top: 0.05px;
+  left: 78.54px;
+  width: 38.623px;
+  height: 65.049px;
+  border-radius: 8.131px;
+  background: #e7e6e9;
+  transform: rotate(-8deg);
+}
+
+.phone span {
+  position: absolute;
+  top: 12.2px;
+  left: 7.11px;
+  width: 19.311px;
+  height: 8.131px;
+  border-radius: 4.066px;
+  background: #e7e6e9;
+}
+
+.phone span:nth-child(1) {
+  top: 5.08px;
+  left: 3.56px;
+  width: 31.508px;
+  height: 54.885px;
+  border-radius: 5.082px;
+  background: var(--landing-blue, #135685);
+}
+
+.phone span:nth-child(3) {
+  top: 24.39px;
+  left: 13.21px;
+  width: 18.295px;
+  background: #e2b23a;
+}
+
+.phone span:nth-child(4) {
+  top: 36.59px;
+  width: 14.23px;
+}
+
+.phone span:nth-child(5) {
+  top: 48.79px;
+  left: 15.25px;
+  width: 16.262px;
+  height: 5.082px;
+  border-radius: 2.541px;
+  background: var(--landing-green, #37814c);
+}
+
+.media .sparkle {
+  position: absolute;
+  top: 0;
+  left: 60.98px;
+  width: 11.18px;
+  height: 11.18px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  gap: 12px;
+}
+
+.name {
+  min-width: 0;
+  margin: 0;
+  color: var(--landing-blue, #135685);
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.chip {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 100px;
+  background: var(--landing-blue, #135685);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.description {
+  margin: 0;
+  color: #525251;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #e1eaf1;
+  color: var(--landing-pink, #b1005a);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+.arrow {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  transform: scaleY(-1);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 640px;
+}
+
+.empty p {
+  margin: 0;
+  color: #525251;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    margin-bottom: -22px;
+    padding: 69px 0 72px;
+    border-radius: 0;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+
+  .card {
+    min-height: 0;
+    padding: 24px 24px 20px;
+  }
+
+  .media {
+    height: 103px;
+  }
+
+  .ielts {
+    top: 15px;
+    width: 93.26px;
+    height: 50.58px;
+  }
+
+  .ielts img {
+    width: 66.595px;
+    height: 20.253px;
+  }
+
+  .sat {
+    top: 14.07px;
+    width: 60.856px;
+    height: 60.856px;
+    border-radius: 15.23px;
+  }
+
+  .sat img {
+    width: 57.114px;
+    height: 38.076px;
+  }
+
+  .media .kids {
+    top: 8.13px;
+    left: -4.72px;
+    width: 106.549px;
+    height: 63.747px;
+  }
+
+  .general {
+    top: 13.87px;
+    left: -8.57px;
+    transform: scale(0.7903);
+  }
+
+  .teen {
+    top: 21.54px;
+    left: 8.01px;
+    transform: scale(0.7903);
+  }
+
+  .info {
+    padding-bottom: 10px;
+  }
+
+  .long .name {
+    font-size: 24px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+}

@@ -11,7 +11,9 @@ import { heroContent } from "./hero-content";
 import styles from "./LandingHeader.module.css";
 
 // При смене языка остаёмся на той же странице.
-const scopePaths: Record<LandingScope, string> = { landing: "/", school: "/school", camps: "/camps" };
+const scopePaths: Record<LandingScope, string> = {
+  landing: "/", school: "/school", camps: "/camps", abroad: "/abroad", exams: "/exams", tests: "/tests",
+};
 const languageLabels: Record<Locale, string> = { ru: "Рус", kz: "Қаз", en: "Eng" };
 const languageOptions = locales.map((value) => ({ value, label: languageLabels[value] }));
 const destinations = ["/school", "/exams", "/abroad", "/camps", "/#offices"] as const;

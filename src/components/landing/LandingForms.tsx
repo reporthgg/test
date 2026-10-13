@@ -25,7 +25,7 @@ import schoolStyles from "@/components/school/SchoolTrial.module.css";
 
 export type LeadKind = "diagnostic" | "trial";
 // camps: формы оформлены как на главной, scope нужен только для источника заявки в CRM.
-export type LandingScope = "landing" | "school" | "camps";
+export type LandingScope = "landing" | "school" | "camps" | "abroad" | "exams" | "tests";
 export type LeadSelection = { course?: string; teacher?: string; camp?: string };
 type ActiveLead = { kind: LeadKind; selection?: LeadSelection };
 // Консультация открывается только формой на первом экране, у неё нет своего попапа.
@@ -686,9 +686,11 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
           {(!school || activeLead === "diagnostic") && (
             <div className={`${styles.leadCard} ${styles.white} ${styles.diagnosticPanel}`} hidden={activeLead !== "diagnostic"}>
               <h2 id={`${id}-diagnostic-title`} ref={diagnosticHeadingRef} tabIndex={-1}>
-                {scope === "camps" ? t.campsTitle : t.diagnosticTitle}
+                {scope === "camps" ? t.campsTitle : scope === "abroad" ? t.abroadTitle : t.diagnosticTitle}
               </h2>
-              <p className={styles.description}>{scope === "camps" ? t.campsDescription : t.diagnosticDescription}</p>
+              <p className={styles.description}>
+                {scope === "camps" ? t.campsDescription : scope === "abroad" ? t.abroadDescription : t.diagnosticDescription}
+              </p>
               <LeadFields kind="diagnostic" source={`${scope}-diagnostic-popup`} visible={activeLead === "diagnostic"} selection={leadSelection} />
               <p className={styles.faster}>
                 {t.faster}{" "}

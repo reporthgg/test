@@ -1,0 +1,297 @@
+.section {
+  position: relative;
+  z-index: 4;
+  margin-bottom: -70px;
+  padding: 198px 0 120px;
+  border-radius: 0 0 50px 50px;
+  background: #fff;
+  color: var(--landing-blue, #135685);
+}
+
+:global(.landing) .section {
+  scroll-margin-top: -60px;
+}
+
+.panel {
+  padding: 64px 56px 56px;
+  border-radius: 40px;
+  background: #e7eff5;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 44px;
+}
+
+.title {
+  min-width: 0;
+}
+
+.title > span {
+  display: block;
+}
+
+.header p {
+  flex: 0 1 402px;
+  margin: 0;
+  color: #525251;
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.english,
+.exam {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  min-width: 0;
+  padding: 24px;
+  border-radius: 28px;
+}
+
+.english {
+  background: #fff;
+  color: var(--landing-blue, #135685);
+}
+
+.exam {
+  background: var(--landing-blue, #135685);
+  color: #fff;
+}
+
+.cardTop {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.badge {
+  padding: 6px 14px 6px 12px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+}
+
+.english .badge {
+  background: #e5ede5;
+  color: #548655;
+}
+
+.exam .badge {
+  background: rgb(255 255 255 / 14%);
+}
+
+.arrow {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  transition: box-shadow 160ms;
+}
+
+.arrow::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  content: "";
+}
+
+.arrow img {
+  display: block;
+}
+
+.english .arrow {
+  background: var(--landing-blue, #135685);
+}
+
+.exam .arrow {
+  background: #fff;
+}
+
+.english:hover .arrow {
+  box-shadow: 0 0 0 4px rgb(19 86 133 / 15%);
+}
+
+.exam:hover .arrow {
+  box-shadow: 0 0 0 4px rgb(255 255 255 / 25%);
+}
+
+.english h3,
+.exam h3 {
+  margin: 0;
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  margin: 0;
+  color: #525251;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+}
+
+.exam .description {
+  color: rgb(255 255 255 / 85%);
+}
+
+.chip {
+  padding: 9px 14px;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+}
+
+.english .chip {
+  background: rgb(19 86 133 / 10%);
+  color: var(--landing-blue, #135685);
+}
+
+.exam .chip {
+  background: var(--landing-blue, #135685);
+  color: #fff;
+}
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: 20px;
+}
+
+.empty p {
+  margin: 0;
+  color: #525251;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@media (min-width: 768px) {
+  .header .title em {
+    font-style: normal;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .panel {
+    padding: 48px 32px 40px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .header p {
+    flex: none;
+    max-width: 560px;
+  }
+
+  .english h3,
+  .exam h3 {
+    font-size: 34px;
+    line-height: 36px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    margin-bottom: -40px;
+    padding: 72px 0 38px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  :global(.landing) .section {
+    scroll-margin-top: 24px;
+  }
+
+  .panel {
+    padding: 32px 16px 20px;
+    border-radius: 24px;
+  }
+
+  .header {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .header p {
+    font-size: 16px;
+    line-height: 23px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .english,
+  .exam {
+    gap: 12px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .badge {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .arrow::after {
+    border-radius: 24px;
+  }
+
+  .english h3,
+  .exam h3 {
+    font-size: 25px;
+    line-height: 26px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .chip {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .english .chip {
+    line-height: 22px;
+  }
+}

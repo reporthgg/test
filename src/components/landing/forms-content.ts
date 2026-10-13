@@ -10,6 +10,8 @@ export type FormsContent = {
   diagnosticDescription: string;
   campsTitle: string;
   campsDescription: string;
+  abroadTitle: string;
+  abroadDescription: string;
   consultationTitle: string;
   consultationDescription: string;
   name: string;
@@ -75,6 +77,8 @@ export const formsContent: Record<Locale, FormsContent> = {
     diagnosticDescription: "Эксперт разберет ваш кейс,\nопределит уровень языка и даст советы",
     campsTitle: "Подобрать программу лагеря",
     campsDescription: "Расскажем о направлениях, датах и условиях поездки и ответим на вопросы",
+    abroadTitle: "Бесплатная консультация по поступлению",
+    abroadDescription: "Подберём страну и университеты под ваши оценки, интересы и бюджет",
     consultationTitle: "Бесплатная консультация\nс экспертом",
     consultationDescription: "За 30 минут разберём твои шансы\nи наметим план действий",
     name: "Имя",
@@ -155,6 +159,8 @@ export const formsContent: Record<Locale, FormsContent> = {
     diagnosticDescription: "Маман жағдайыңызды талдап, тіл деңгейіңізді анықтайды және кеңес береді",
     campsTitle: "Лагерь бағдарламасын таңдау",
     campsDescription: "Бағыттар, күндер мен сапар шарттары туралы айтып, сұрақтарыңызға жауап береміз",
+    abroadTitle: "Түсу бойынша тегін кеңес",
+    abroadDescription: "Бағаларыңызға, қызығушылықтарыңызға және бюджетіңізге сай ел мен университеттерді таңдаймыз",
     consultationTitle: "Сарапшымен\nтегін кеңес",
     consultationDescription: "30 минутта мүмкіндіктеріңді талдап,\nіс-қимыл жоспарын құрамыз",
     name: "Атыңыз",
@@ -233,6 +239,8 @@ export const formsContent: Record<Locale, FormsContent> = {
     diagnosticDescription: "An expert will review your goals, assess your language level and offer advice",
     campsTitle: "Choose a camp programme",
     campsDescription: "We will talk you through destinations, dates and trip conditions and answer your questions",
+    abroadTitle: "Free admissions consultation",
+    abroadDescription: "We will match countries and universities to your grades, interests and budget",
     consultationTitle: "Free consultation\nwith an expert",
     consultationDescription: "In 30 minutes, we will review your chances\nand outline an action plan",
     name: "Name",

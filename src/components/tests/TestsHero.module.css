@@ -1,0 +1,109 @@
+.hero {
+  position: relative;
+  z-index: 2;
+  min-height: 449px;
+  margin-bottom: -70px;
+  padding: 178px 0 115px;
+  overflow: clip;
+  border-radius: 0 0 50px 50px;
+  background: #fff;
+}
+
+.line {
+  position: absolute;
+  bottom: -159px;
+  left: calc(50% + 119.4px);
+  width: 747.163px;
+  max-width: none;
+  height: 465.35px;
+  transform: rotate(4.36deg) scaleY(-1);
+  transform-origin: 50% 230px;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  margin: 0 0 0 -7px;
+  color: var(--landing-blue, #135685);
+  font-family: "Futura PT", "Manrope", sans-serif;
+  font-size: 78px;
+  font-weight: 600;
+  line-height: 78px;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.title span {
+  display: block;
+}
+
+.subtitle {
+  position: absolute;
+  top: 9px;
+  left: 555px;
+  width: 457px;
+  margin: 0;
+  color: #636363;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 1199px) {
+  .hero {
+    min-height: 0;
+    padding: 160px 0 110px;
+  }
+
+  .title {
+    margin-left: 0;
+    font-size: clamp(48px, 6.4vw, 72px);
+    line-height: 1;
+  }
+
+  .subtitle {
+    position: static;
+    width: auto;
+    max-width: 520px;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: 305px;
+    margin-bottom: -40px;
+    padding: 101px 0 68px;
+    border-radius: 0 0 30px 30px;
+  }
+
+  .line {
+    bottom: -135.1px;
+    left: calc(50% - 143.6px);
+    width: 427.484px;
+    height: 266.25px;
+    transform-origin: 50% 131.6px;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .title span {
+    display: inline;
+  }
+
+  .subtitle {
+    max-width: none;
+    margin-top: 12px;
+    color: #525251;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}

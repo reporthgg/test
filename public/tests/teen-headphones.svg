@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="66.0656" height="58.1887" viewBox="0 0 66.0656 58.1887" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group / headphones">
+<path id="band" d="M7.11479 33.7951C7.11479 13.4672 20.3279 2.28688 33.0328 2.28688C45.7377 2.28688 58.9509 13.4672 58.9509 33.7951" stroke="#E2B23A" stroke-width="4.57377" stroke-linecap="round" stroke-linejoin="round"/>
+<rect id="cup-left" y="28.7129" width="15.2459" height="26.4262" rx="7.11475" fill="#E7E6E9"/>
+<rect id="cup-right" x="50.8197" y="28.7132" width="15.2459" height="26.4262" rx="7.11475" fill="#E7E6E9"/>
+<rect id="cup-pad" x="4.0656" y="33.795" width="7.11475" height="16.2623" rx="3.55738" fill="#E2B23A"/>
+<rect id="cup-pad_2" x="54.8853" y="33.795" width="7.11475" height="16.2623" rx="3.55738" fill="#E2B23A"/>
+</g>
+</svg>
