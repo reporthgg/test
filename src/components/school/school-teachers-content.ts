@@ -1,7 +1,7 @@
 import type { Locale } from "@/i18n/config";
 
 type LocalizedText = Record<Locale, string>;
-type TeacherOffice = "syganak";
+type TeacherOffice = "syganak" | "seifullin";
 type TeacherProfile = {
   name: LocalizedText;
   subjects: LocalizedText;
@@ -20,6 +20,8 @@ type TeacherCard = {
 
 const generalEnglish: LocalizedText = { ru: "General English", kz: "General English", en: "General English" };
 const generalEnglishIelts: LocalizedText = { ru: "General English, IELTS", kz: "General English, IELTS", en: "General English, IELTS" };
+const ielts: LocalizedText = { ru: "IELTS", kz: "IELTS", en: "IELTS" };
+const chineseHsk: LocalizedText = { ru: "Китайский язык, HSK", kz: "Қытай тілі, HSK", en: "Chinese, HSK" };
 
 function photo(id: string): TeacherProfile["image"] {
   return { src: `/school/teacher-${id}.jpg`, width: 580, height: 640, cover: true };
@@ -50,7 +52,14 @@ export const schoolTeachers: readonly TeacherCard[] = [
   {
     id: "diana",
     tone: "pink",
-    profile: { name: { ru: "Диана", kz: "Диана", en: "Diana" }, subjects: generalEnglishIelts, office: "syganak", image: photo("diana") },
+    profile: {
+      name: { ru: "Диана", kz: "Диана", en: "Diana" },
+      subjects: generalEnglishIelts,
+      experience: 10,
+      qualification: "IELTS 8.0",
+      office: "syganak",
+      image: photo("diana"),
+    },
   },
   {
     id: "alina",
@@ -60,7 +69,39 @@ export const schoolTeachers: readonly TeacherCard[] = [
   {
     id: "kamila",
     tone: "blue",
-    profile: { name: { ru: "Камила", kz: "Камила", en: "Kamila" }, subjects: generalEnglishIelts, office: "syganak", image: photo("kamila") },
+    profile: {
+      name: { ru: "Камила", kz: "Камила", en: "Kamila" },
+      subjects: generalEnglishIelts,
+      experience: 8,
+      qualification: "IELTS 8.0",
+      office: "syganak",
+      image: photo("kamila"),
+    },
+  },
+  {
+    id: "asel",
+    tone: "pink",
+    profile: { name: { ru: "Асель Мусина", kz: "Асель Мусина", en: "Asel Musina" }, subjects: generalEnglish, office: "seifullin", image: photo("asel") },
+  },
+  {
+    id: "alina-kazhkenova",
+    tone: "green",
+    profile: { name: { ru: "Алина Кажкенова", kz: "Алина Кажкенова", en: "Alina Kazhkenova" }, subjects: chineseHsk, office: "seifullin", image: photo("alina-kazhkenova") },
+  },
+  {
+    id: "beibarys",
+    tone: "blue",
+    profile: { name: { ru: "Бейбарыс Сарсенбаев", kz: "Бейбарыс Сарсенбаев", en: "Beibarys Sarsenbayev" }, subjects: generalEnglishIelts, office: "seifullin", image: photo("beibarys") },
+  },
+  {
+    id: "nazerke",
+    tone: "pink",
+    profile: { name: { ru: "Назерке Әсен", kz: "Назерке Әсен", en: "Nazerke Assen" }, subjects: chineseHsk, office: "seifullin", image: photo("nazerke") },
+  },
+  {
+    id: "alida",
+    tone: "green",
+    profile: { name: { ru: "Алида Рамазанова", kz: "Алида Рамазанова", en: "Alida Ramazanova" }, subjects: ielts, office: "seifullin", image: photo("alida") },
   },
 ];
 
@@ -86,7 +127,7 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     years: "лет",
     listLabel: "Преподаватели языковой школы",
     officeLabel: "Офис:",
-    offices: { syganak: "Сыганак, 15 · Greenline" },
+    offices: { syganak: "Сыганак, 15 · Greenline", seifullin: "Алматы, Сейфуллина, 575" },
   },
   kz: {
     title: ["Өз", "оқытушыларыңызбен танысыңыз"],
@@ -97,7 +138,7 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     years: "жыл",
     listLabel: "Тіл мектебінің оқытушылары",
     officeLabel: "Кеңсе:",
-    offices: { syganak: "Сығанақ, 15 · Greenline" },
+    offices: { syganak: "Сығанақ, 15 · Greenline", seifullin: "Алматы, Сейфуллин, 575" },
   },
   en: {
     title: ["Meet your", "teachers"],
@@ -108,6 +149,6 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     years: "years",
     listLabel: "Language school teachers",
     officeLabel: "Office:",
-    offices: { syganak: "Syganak 15 · Greenline" },
+    offices: { syganak: "Syganak 15 · Greenline", seifullin: "Almaty, 575 Seifullin Ave" },
   },
 };

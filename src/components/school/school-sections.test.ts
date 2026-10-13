@@ -32,15 +32,29 @@ test("teachers: Ayaulym unchanged, the Syganak office team follows her", () => {
       { id: "diana", name: "Диана", subjects: "General English, IELTS", office: "syganak", image: "/school/teacher-diana.jpg" },
       { id: "alina", name: "Алина", subjects: "General English", office: "syganak", image: "/school/teacher-alina.jpg" },
       { id: "kamila", name: "Камила", subjects: "General English, IELTS", office: "syganak", image: "/school/teacher-kamila.jpg" },
+      { id: "asel", name: "Асель Мусина", subjects: "General English", office: "seifullin", image: "/school/teacher-asel.jpg" },
+      { id: "alina-kazhkenova", name: "Алина Кажкенова", subjects: "Китайский язык, HSK", office: "seifullin", image: "/school/teacher-alina-kazhkenova.jpg" },
+      { id: "beibarys", name: "Бейбарыс Сарсенбаев", subjects: "General English, IELTS", office: "seifullin", image: "/school/teacher-beibarys.jpg" },
+      { id: "nazerke", name: "Назерке Әсен", subjects: "Китайский язык, HSK", office: "seifullin", image: "/school/teacher-nazerke.jpg" },
+      { id: "alida", name: "Алида Рамазанова", subjects: "IELTS", office: "seifullin", image: "/school/teacher-alida.jpg" },
     ],
   );
-  assert.deepEqual(schoolTeachers.map(({ tone }) => tone), ["pink", "green", "blue", "pink", "green", "blue"]);
+  assert.deepEqual(
+    schoolTeachers.map(({ tone }) => tone),
+    ["pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green"],
+  );
   assert.equal(schoolTeachers[0].profile.experience, 9);
   assert.equal(schoolTeachers[0].profile.qualification, "CELTA");
   assert.equal(schoolTeachers[0].profile.image.cover, undefined);
+  assert.equal(schoolTeachers.find(({ id }) => id === "diana")?.profile.experience, 10);
+  assert.equal(schoolTeachers.find(({ id }) => id === "kamila")?.profile.experience, 8);
+  for (const id of ["diana", "kamila"]) {
+    assert.equal(schoolTeachers.find((teacher) => teacher.id === id)?.profile.qualification, "IELTS 8.0");
+  }
   for (const locale of locales) {
     assert.doesNotMatch(schoolTeachersContent[locale].description, /видео|video|бейне/iu);
     assert.match(schoolTeachersContent[locale].offices.syganak, /Greenline/u);
+    assert.match(schoolTeachersContent[locale].offices.seifullin, /575/u);
   }
 });
 
@@ -76,7 +90,7 @@ test("all active section assets exist and are non-empty", async () => {
     "teaching-marker-1.svg", "teaching-marker-2.svg", "teaching-marker-3.svg", "teaching-marker-4.svg",
     "teaching-group.svg", "teaching-location.svg",
   ];
-  assert.equal(files.length, 36);
+  assert.equal(files.length, 41);
   for (const file of files) {
     const asset = path.join(process.cwd(), "public", "school", file);
     const info = await stat(asset);
