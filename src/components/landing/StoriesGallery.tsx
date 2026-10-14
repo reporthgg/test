@@ -86,7 +86,7 @@ export function StoriesCases({ locale }: { locale: Locale }): ReactElement {
     <section id="reviews" className={styles.cases} aria-labelledby="landing-stories-title">
       <div className="landing-container">
         <h2 id="landing-stories-title" className={styles.casesTitle}>
-          <span>{t.dream}</span>
+          <span>{t.dream}</span>{" "}
           <span>{t.into} <strong>{t.university}</strong></span>
         </h2>
         <div className={styles.storyGrid} id={gridId} data-expanded={expanded}>
@@ -184,8 +184,8 @@ export function StoriesLetters({ locale }: { locale: Locale }): ReactElement {
       <img className={styles.lettersLine} src="/landing/stories/letters-line.svg" alt="" />
       <div className={`landing-container ${styles.lettersContainer}`}>
         <h2 id="landing-letters-title" className={styles.lettersTitle}>
-          <strong>{t.admissions}</strong>
-          <span>{t.abroad}</span>
+          <strong>{t.admissions}</strong>{" "}
+          <span>{t.abroad}</span>{" "}
           <span>{t.universities}</span>
         </h2>
         <div className={styles.letterControls}>
@@ -211,7 +211,10 @@ export function StoriesLetters({ locale }: { locale: Locale }): ReactElement {
           {admissionLetters.map((letter) => <LetterPreview key={letter.id} letter={letter} locale={locale} />)}
         </div>
         <div className={styles.universities}>
-          <h3 className={styles.universitiesCaption} id={universitiesId}>{t.universityList}</h3>
+          <div className={styles.universitiesHead}>
+            <h3 className={styles.universitiesCaption} id={universitiesId}>{t.universityList}</h3>
+            <p className={styles.universitiesStat}>{site.admissions[locale]}</p>
+          </div>
           <div className={styles.universitiesViewport}>
             <ul className={styles.universitiesTrack} aria-labelledby={universitiesId}>
               {universityLogos.map((logo) => (

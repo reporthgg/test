@@ -91,7 +91,7 @@ export function SchoolResults({ locale }: { locale: Locale }): ReactElement {
       <div className="landing-container">
         <header className={styles.header}>
           <h2 className={`landing-title ${styles.title}`} id={titleId}>
-            <span>{t.your} <em>{t.results}</em></span>
+            <span>{t.your} <em>{t.results}</em></span>{" "}
             <span>{t.speak}</span>
           </h2>
           <div className={styles.arrows}>

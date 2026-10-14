@@ -43,7 +43,7 @@ export function AbroadSituations({ locale }: { locale: Locale }): ReactElement {
                     <Image src={icon.desktop} alt="" width={icon.width} height={icon.height} />
                   </picture>
                 </span>
-                <LeadButton className={styles.link}>
+                <LeadButton className={`${styles.link} tap-target`}>
                   <span>{card.cta}</span>
                   <picture>
                     <source media="(max-width: 767px)" srcSet={`/landing/programs/wave-arrow-${arrow.mobile}-mobile.svg`} />

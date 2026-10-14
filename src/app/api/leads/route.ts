@@ -7,6 +7,7 @@ import { formatGeneralLeadComment } from "@/lib/bitrix-comments";
 import { isRecord } from "@/lib/test-content";
 import { parsePage, parseUtm } from "@/lib/lead-tracking";
 import { consentRecord } from "@/lib/legal";
+import { leadProduct } from "@/lib/lead-product";
 
 // Поля, которые кладём в отдельные колонки; остальное — в extra (JSON)
 const KNOWN = new Set(["name", "phone", "email", "city", "source"]);
@@ -147,12 +148,13 @@ export async function POST(request: Request): Promise<NextResponse> {
     const page = parsePage(raw.page);
     const utm = parseUtm(raw.utm);
     const consent = raw.consent === true ? consentRecord() : { consentVersion: undefined, consentAt: undefined };
-    const body = { ...raw, name, phone, email, city, source, page, utm, ...consent };
+    const product = leadProduct({ page, program: raw.program, course: raw.course, camp: raw.camp });
+    const body = { product, ...raw, name, phone, email, city, source, page, utm, ...consent };
 
     // «интерес» — первое осмысленное поле формы (курс/страна/экзамен/направление)
     const interestValue = [raw.course, raw.country, raw.exam, raw.camp, raw.program]
       .find((value) => value !== "" && value != null);
-    const interest = interestValue == null ? null : typeof interestValue === "string"
+    const interest = interestValue == null ? product : typeof interestValue === "string"
       ? interestValue : JSON.stringify(interestValue);
 
     // всё, что не попало в отдельные колонки, — в extra

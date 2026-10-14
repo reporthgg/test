@@ -31,6 +31,7 @@ const FIELD_LABELS: Record<string, string> = {
   comment: "Комментарий",
   message: "Сообщение",
   interest: "Интерес",
+  product: "Продукт",
   teacher: "Преподаватель",
   leadKind: "Тип формы",
   locale: "Язык версии",
@@ -150,6 +151,7 @@ export function formatTestLeadComment(
 ): string {
   const { name, phone, email, consent, contacts, answers, page, utm } = submission;
   const header = [
+    `Продукт: ${plainText(test.title)}`,
     `Тест: ${plainText(test.title)}`,
     `Результат: ${plainText(result.level)}`,
     `Правильных: ${result.score} из ${result.total}`,

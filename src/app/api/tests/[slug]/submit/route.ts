@@ -131,7 +131,7 @@ export async function POST(
           interest: `${test.title}: ${level}`,
           source: `test:${test.slug}`,
           extra: JSON.stringify({
-            level, score, total, pendingReview, contacts, consent, ...consentInfo, page, utm, _bitrix: deliveryRecord,
+            product: test.title, level, score, total, pendingReview, contacts, consent, ...consentInfo, page, utm, _bitrix: deliveryRecord,
           }),
         },
       });

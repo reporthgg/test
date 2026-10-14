@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- Preserve the original Figma SVG dimensions. */
 
 import Image from "next/image";
-import type { ReactElement } from "react";
+import { Fragment, type ReactElement } from "react";
 import type { Locale } from "@/i18n/config";
 import {
   bookingSteps,
@@ -27,7 +27,7 @@ export function CampsIncluded({ locale }: { locale: Locale }): ReactElement {
       <div className="landing-container">
         <div className={styles.includedHeader}>
           <h2 id="camps-included-title" className={styles.includedTitle}>
-            <span>{t.holidays}</span>
+            <span>{t.holidays}</span>{" "}
             <strong>all inclusive</strong>
           </h2>
           <p className={styles.includedIntro}>{t.includedIntro}</p>
@@ -121,7 +121,7 @@ export function CampsSchedule({ locale }: { locale: Locale }): ReactElement {
                   <h3>
                     {item.mobileTitle ? (
                       <>
-                        <span className={styles.desktopAsset}>{item.title[locale]}</span>
+                        <span className={styles.desktopAsset}>{item.title[locale]}</span>{" "}
                         <span className={styles.mobileAsset}>{item.mobileTitle[locale]}</span>
                       </>
                     ) : item.title[locale]}
@@ -156,7 +156,7 @@ export function CampsCare({ locale }: { locale: Locale }): ReactElement {
     <section className={styles.care} id="care" aria-labelledby="camps-care-title">
       <div className="landing-container">
         <h2 id="camps-care-title" className={`landing-title ${styles.careTitle}`}>
-          {t.careTitle.map((line) => <span key={line}>{line}</span>)}
+          {t.careTitle.map((line, index) => <Fragment key={line}>{index > 0 && " "}<span>{line}</span></Fragment>)}
         </h2>
         <ol className={styles.careGrid}>
           {careItems.map((item, index) => (
@@ -202,7 +202,7 @@ export function CampsSteps({ locale }: { locale: Locale }): ReactElement {
     <section className={styles.steps} id="booking-steps" aria-labelledby="camps-steps-title">
       <div className={`landing-container ${styles.stepsPanel}`}>
         <h2 id="camps-steps-title" className={`landing-title ${styles.stepsTitle}`}>
-          <span>{t.stepsTitle[0]}</span>
+          <span>{t.stepsTitle[0]}</span>{" "}
           <strong>{t.stepsTitle[1]}</strong>
         </h2>
         <ol className={styles.stepsGrid}>

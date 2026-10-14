@@ -153,7 +153,7 @@ export function CampsResults({ locale }: { locale: Locale }): ReactElement {
                   <div className={styles.info}>
                     <h3 className={styles.city}>{city}</h3>
                     <span className={styles.divider} aria-hidden="true" />
-                    <LeadButton camp={item.city.ru} className={styles.tripButton}>
+                    <LeadButton camp={item.city.ru} className={`${styles.tripButton} tap-target`}>
                       <span>
                         {t.trip}
                         <span className={styles.srOnly}>: {city}</span>

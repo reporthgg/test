@@ -14,7 +14,7 @@ export default function SchoolCertificate({ locale }: { locale: Locale }): React
       <div className={`landing-container ${styles.layout}`}>
         <header className={styles.heading}>
           <h2 className="landing-title" id="school-certificate-title">
-            {t.certificateTitle}<br />{t.certificateResult} <em>{t.certificateAccent}</em>
+            {t.certificateTitle}{" "}<br />{t.certificateResult} <em>{t.certificateAccent}</em>
           </h2>
           <p>{t.certificateDescription}</p>
         </header>

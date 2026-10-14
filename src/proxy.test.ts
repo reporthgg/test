@@ -108,7 +108,7 @@ describe("admin session routing", () => {
 
 describe("locale rewrites", () => {
   for (const locale of ["kz", "en"]) {
-    for (const suffix of ["", "/", "/courses/ielts", "/test/general-english"]) {
+    for (const suffix of ["", "/", "/school", "/test/general-english"]) {
       it(`rewrites /${locale}${suffix} and forwards the locale header`, async () => {
         const request = new NextRequest(`${origin}/${locale}${suffix}?campaign=test`, {
           headers: { "x-request-id": "request-123", "x-locale": "ru" },
@@ -128,7 +128,7 @@ describe("locale rewrites", () => {
     }
   }
 
-  for (const pathname of ["/", "/courses", "/enough", "/ru/courses", "/api/leads"]) {
+  for (const pathname of ["/", "/nothing-here", "/enough", "/ru/whatever", "/api/leads"]) {
     it(`leaves ${pathname} unchanged`, async () => {
       const response = await proxy(new NextRequest(`${origin}${pathname}`));
 
@@ -138,6 +138,30 @@ describe("locale rewrites", () => {
       assert.equal(response.headers.get("location"), null);
     });
   }
+});
+
+describe("legacy gscstudy.kz addresses", () => {
+  const cases: Record<string, string> = {
+    "/admission-ielts?utm_source=ig": `${origin}/exams?utm_source=ig`,
+    "/kz/universities/arizona-state-university": `${origin}/kz/abroad`,
+    "/centers/view/1": `${origin}/#offices`,
+    "/en/reviews": `${origin}/en#reviews`,
+  };
+  for (const [from, to] of Object.entries(cases)) {
+    it(`redirects ${from} permanently to ${to}`, async () => {
+      const response = await proxy(new NextRequest(`${origin}${from}`));
+
+      assert.equal(response.status, 301);
+      assert.equal(getRedirectUrl(response), to);
+    });
+  }
+
+  it("lets an unknown old page fall through to the 404 page", async () => {
+    const response = await proxy(new NextRequest(`${origin}/news/kak-sozdat-uspeshnyyi-stratap`));
+
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get("location"), null);
+  });
 });
 
 describe("canonical host", () => {

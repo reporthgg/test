@@ -19,8 +19,8 @@ export function SchoolContacts({ locale }: { locale: Locale }): ReactElement {
         <div className={`landing-container ${styles.layout}`}>
           <header className={styles.header}>
             <h2 className={`landing-title ${styles.title}`} id="school-faq-title">
-              <span>{t.title[0]}</span>
-              <span>{t.title[1]}</span>
+              <span>{t.title[0]}</span>{" "}
+              <span>{t.title[1]}</span>{" "}
               <em>{t.title[2]}</em>
             </h2>
             <img className={styles.hashtag} src="/school/contacts/hashtag.svg" alt="" loading="lazy" />
@@ -41,7 +41,7 @@ export function SchoolContacts({ locale }: { locale: Locale }): ReactElement {
                 <div className={styles.answer}>
                   <p>{item.answer}</p>
                   {item.trial && (
-                    <LeadButton kind="trial" className={styles.trial}>
+                    <LeadButton kind="trial" className={`${styles.trial} tap-target`}>
                       {t.trial} <span aria-hidden="true">→</span>
                     </LeadButton>
                   )}

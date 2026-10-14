@@ -47,7 +47,7 @@ export default function SchoolTeachers({ locale }: { locale: Locale }): ReactEle
                     <LeadButton
                       kind="trial"
                       teacher={profile.name[locale]}
-                      className={styles.teacherName}
+                      className={`${styles.teacherName} tap-target`}
                     >
                       <span className={styles.screenReader}>{t.bookWith} </span>
                       {profile.name[locale]}

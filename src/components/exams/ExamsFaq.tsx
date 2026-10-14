@@ -41,7 +41,7 @@ export function ExamsFaq({ locale }: { locale: Locale }): ReactElement {
               <div className={styles.answer}>
                 <p>{item.answer}</p>
                 {item.action && (
-                  <LeadButton className={styles.action}>
+                  <LeadButton className={`${styles.action} tap-target`}>
                     {t.action}{" "}<span aria-hidden="true">→</span>
                   </LeadButton>
                 )}

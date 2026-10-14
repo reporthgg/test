@@ -83,7 +83,7 @@ export function organizationNodes(locale: Locale, base: string = siteUrl()): Jso
       url: home,
       logo,
       image,
-      description: seoCopy.home[locale].description,
+      description: `${seoCopy.home[locale].description} ${site.admissions[locale]}.`,
       foundingDate: String(site.foundedYear),
       email: site.email,
       telephone: site.phone.tel,

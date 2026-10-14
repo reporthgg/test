@@ -125,7 +125,7 @@ export default async function SchoolTests({ locale }: { locale: Locale }): Promi
               <LeadButton kind="diagnostic">{common.consultationCta}</LeadButton>
             </div>
           )}
-          <Link className={styles.allTests} href={allTestsHref}>{common.allTests}</Link>
+          <Link className={`${styles.allTests} tap-target`} href={allTestsHref}>{common.allTests}</Link>
         </div>
       </div>
     </section>

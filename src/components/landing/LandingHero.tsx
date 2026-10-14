@@ -134,6 +134,7 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
               <button
                 key={id}
                 type="button"
+                className="tap-target-tall"
                 aria-label={`${text.slide} ${index + 1}`}
                 aria-current={current === index ? "true" : undefined}
                 onClick={() => goTo(index)}
@@ -142,7 +143,7 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
           </div>
           <button
             type="button"
-            className={styles.pause}
+            className={`${styles.pause} tap-target`}
             onClick={() => setPaused((value) => !value)}
             aria-label={paused ? text.play : text.pause}
             title={paused ? text.play : text.pause}
@@ -150,10 +151,10 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
           >
             <span className={paused ? styles.playGlyph : styles.pauseGlyph} aria-hidden="true" />
           </button>
-          <button type="button" className={styles.previous} onClick={() => goTo(current - 1)} aria-label={text.previous}>
+          <button type="button" className={`${styles.previous} tap-target`} onClick={() => goTo(current - 1)} aria-label={text.previous}>
             <Image src="/landing/hero/chevron-left.svg" width={24} height={24} alt="" />
           </button>
-          <button type="button" className={styles.next} onClick={() => goTo(current + 1)} aria-label={text.next}>
+          <button type="button" className={`${styles.next} tap-target`} onClick={() => goTo(current + 1)} aria-label={text.next}>
             <picture>
               <source media="(max-width: 767px)" srcSet="/landing/hero/mobile-chevron-right.svg" />
               <Image src="/landing/hero/chevron-right.svg" width={24} height={24} alt="" />

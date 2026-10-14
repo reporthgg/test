@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { SITE_URL } from "@/lib/seo";
+import { legacyRedirect } from "@/lib/legacy-redirects";
 
 const ADMIN_ROBOTS = "noindex, nofollow";
 const WWW_HOST = `www.${new URL(SITE_URL).host}`;
@@ -37,6 +38,13 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
     return adminResponse();
   }
   if (pathname === "/admin/login") return adminResponse();
+
+  const legacy = legacyRedirect(pathname);
+  if (legacy) {
+    const [path, hash] = legacy.split("#");
+    const url = new URL(`${path}${request.nextUrl.search}${hash ? `#${hash}` : ""}`, request.url);
+    return NextResponse.redirect(url, 301);
+  }
 
   // локаль по префиксу URL: /kz/... и /en/... → внутренняя переадресация + заголовок x-locale
   const seg = pathname.split("/")[1];

@@ -185,3 +185,20 @@ body:has(.landing dialog[open]) {
     transition-duration: 0.01ms !important;
   }
 }
+
+@media (max-width: 767px) {
+  :where(.landing) :where(.tap-target, .tap-target-tall) { position: relative; }
+
+  .landing .tap-target::before,
+  .landing .tap-target-tall::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+
+  .landing .tap-target-tall::before { width: calc(100% + 4px); }
+}

@@ -347,7 +347,7 @@ export default function CampsHero({ locale }: { locale: Locale }): ReactElement 
             <span className={styles.firstLine}>
               <span className={current === 2 ? styles.accent : undefined}>{slide.title}</span>
               {slide.continuation && <span className={styles.continuation}> {slide.continuation}</span>}
-            </span>
+            </span>{" "}
             <span className={current !== 2 ? styles.accent : undefined}>{slide.lastLine}</span>
           </h1>
           <p className={styles.description}>
@@ -366,6 +366,7 @@ export default function CampsHero({ locale }: { locale: Locale }): ReactElement 
               <button
                 key={id}
                 type="button"
+                className="tap-target-tall"
                 aria-label={`${text.slide} ${index + 1}: ${text.slides[index].title}`}
                 aria-current={current === index ? "true" : undefined}
                 onClick={() => goTo(index)}
@@ -374,7 +375,7 @@ export default function CampsHero({ locale }: { locale: Locale }): ReactElement 
           </div>
           <button
             type="button"
-            className={styles.pause}
+            className={`${styles.pause} tap-target`}
             aria-label={paused ? text.play : text.pause}
             aria-pressed={paused}
             title={paused ? text.play : text.pause}
@@ -382,11 +383,11 @@ export default function CampsHero({ locale }: { locale: Locale }): ReactElement 
           >
             <span className={paused ? styles.playGlyph : styles.pauseGlyph} aria-hidden="true" />
           </button>
-          <button type="button" className={styles.previous} onClick={() => goTo(current - 1)} aria-label={text.previous}>
+          <button type="button" className={`${styles.previous} tap-target`} onClick={() => goTo(current - 1)} aria-label={text.previous}>
             <Image className={styles.desktopArrow} src="/landing/hero/chevron-left.svg" alt="" width={24} height={24} />
             <Image className={styles.mobileArrow} src={`${assetPath}mobile-chevron-left.svg`} alt="" width={15} height={15} />
           </button>
-          <button type="button" className={styles.next} onClick={() => goTo(current + 1)} aria-label={text.next}>
+          <button type="button" className={`${styles.next} tap-target`} onClick={() => goTo(current + 1)} aria-label={text.next}>
             <Image className={styles.desktopArrow} src="/landing/hero/chevron-right.svg" alt="" width={24} height={24} />
             <Image className={styles.mobileArrow} src={`${assetPath}mobile-chevron-right.svg`} alt="" width={15} height={15} />
           </button>

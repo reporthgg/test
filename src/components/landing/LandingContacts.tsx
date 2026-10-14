@@ -39,11 +39,11 @@ export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
           <div className={styles.officePicker}>
             <fieldset className={styles.cityPicker}>
               <legend className={styles.visuallyHidden}>{t.chooseCity}</legend>
-              <label>
+              <label className="tap-target">
                 <input type="radio" name={`landing-office-city-${locale}`} value="astana" defaultChecked />
                 <span>{t.cities.Астана}</span>
               </label>
-              <label>
+              <label className="tap-target">
                 <input type="radio" name={`landing-office-city-${locale}`} value="almaty" />
                 <span>{t.cities.Алматы}</span>
               </label>
@@ -77,7 +77,7 @@ export function LandingOffices({ locale }: { locale: Locale }): ReactElement {
                       <Image className={styles.gisIcon} src="/landing/contacts/2gis.png" alt="" width={30} height={30} />
                       {t.route}
                     </a>
-                    <a className={styles.mapAttribution} href={office.gis} target="_blank" rel="noopener noreferrer">© 2GIS</a>
+                    <a className={`${styles.mapAttribution} tap-target`} href={office.gis} target="_blank" rel="noopener noreferrer">© 2GIS</a>
                   </article>
                 );
               })}
@@ -158,11 +158,11 @@ export function LandingFooter({ locale }: { locale: Locale }): ReactElement {
         </div>
         <nav className={styles.footerNav} aria-label={t.programs}>
           <h3>{t.programs}</h3>
-          <ul>{programs.map((item) => <li key={item.label}><Link href={withLocale(locale, item.href)}>{item.label}</Link></li>)}</ul>
+          <ul>{programs.map((item) => <li key={item.label}><Link className="tap-target" href={withLocale(locale, item.href)}>{item.label}</Link></li>)}</ul>
         </nav>
         <nav className={styles.footerNav} aria-label={t.company}>
           <h3>{t.company}</h3>
-          <ul>{company.map((item) => <li key={item.label}><Link href={withLocale(locale, item.href)}>{item.label}</Link></li>)}</ul>
+          <ul>{company.map((item) => <li key={item.label}><Link className="tap-target" href={withLocale(locale, item.href)}>{item.label}</Link></li>)}</ul>
         </nav>
         <div className={styles.footerContacts}>
           <h3>{t.contacts}</h3>
@@ -181,8 +181,8 @@ export function LandingFooter({ locale }: { locale: Locale }): ReactElement {
       <div className={`landing-container ${styles.footerBottom}`}>
         <p>© 2026 {site.name}. {t.rights}</p>
         <div className={styles.legalText}>
-          <Link href={withLocale(locale, "/privacy")}>{t.privacy}</Link>
-          <Link href={withLocale(locale, "/consent")}>{t.consent}</Link>
+          <Link className="tap-target" href={withLocale(locale, "/privacy")}>{t.privacy}</Link>
+          <Link className="tap-target" href={withLocale(locale, "/consent")}>{t.consent}</Link>
         </div>
       </div>
     </footer>

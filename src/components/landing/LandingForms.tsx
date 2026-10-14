@@ -564,7 +564,7 @@ export function TrialSection(): ReactElement {
         <header className={styles.trialHeading}>
           <p>{t.bottomDescription}</p>
           <h2 id={titleId} className="landing-title">
-            {t.bottomTitle}<br /><em>{t.bottomTitleAccent}</em>
+            {t.bottomTitle}{" "}<br /><em>{t.bottomTitleAccent}</em>
           </h2>
         </header>
         <div className={`${styles.bottomForm} ${scope !== "school" ? styles.homeBottomForm : ""}`}>
@@ -668,7 +668,7 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
               <div className={styles.offer}>
                 <img className={styles.flags} src="/landing/forms/flags.svg" alt="" />
                 <h2 id={`${id}-trial-title`} ref={trialHeadingRef} tabIndex={-1}>
-                  {t.trialTitle}<br /><em>{t.trialTitleAccent}</em>
+                  {t.trialTitle}{" "}<br /><em>{t.trialTitleAccent}</em>
                 </h2>
                 <p>{t.trialDescription}</p>
                 <ul>

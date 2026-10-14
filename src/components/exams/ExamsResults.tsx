@@ -150,11 +150,11 @@ export function ExamsResults({ locale }: { locale: Locale }): ReactElement {
                   <div className={styles.overlay} />
                   <div className={styles.info}>
                     <h3 className={styles.score}>
-                      <span className={styles.exam}>IELTS</span>
+                      <span className={styles.exam}>IELTS</span>{" "}
                       <span>{t.points(item.score)}</span>
                     </h3>
                     <span className={styles.divider} aria-hidden="true" />
-                    <LeadButton kind="diagnostic" className={styles.want}>
+                    <LeadButton kind="diagnostic" className={`${styles.want} tap-target`}>
                       <span>{t.want}</span>
                       <Arrow />
                     </LeadButton>

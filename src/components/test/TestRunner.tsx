@@ -187,7 +187,7 @@ export default function TestRunner({
         title={title}
         last={intro}
         back={
-          <Link className={styles.back} href={withLocale(locale, "/tests")}>
+          <Link className={`${styles.back} tap-target`} href={withLocale(locale, "/tests")}>
             <Image src="/landing/forms/chevron-blue-16.svg" alt="" width={16} height={16} />
             {common.allTests}
           </Link>

@@ -74,16 +74,16 @@ export const seoCopy: Record<SeoPage, Record<Locale, SeoCopy>> = {
   },
   camps: {
     ru: {
-      title: "Языковые лагеря за рубежом для детей 12-17 лет | GSC Study",
-      description: "Поездки на 2-3 недели для школьников 12-17 лет: английский каждый день, экскурсии, проживание, страховка и куратор GSC Study от вылета до возвращения.",
+      title: "Кампус-туры и лагеря за рубежом, 12-17 лет | GSC Study",
+      description: "Кампус-тур по Китаю и языковые лагеря для школьников 12-17 лет: университеты, английский, экскурсии, проживание и куратор GSC Study от вылета до возвращения.",
     },
     kz: {
-      title: "Шетелдегі тіл лагерьлері 12-17 жас | GSC Study",
-      description: "12-17 жастағы оқушыларға 2-3 апталық сапарлар: күн сайын ағылшын тілі, экскурсиялар, тұру, сақтандыру және ұшудан оралғанға дейін GSC Study жетекшісі.",
+      title: "Шетелдегі кампус-турлар мен лагерьлер, 12-17 жас | GSC Study",
+      description: "12-17 жастағы оқушыларға Қытайдағы кампус-тур және тіл лагерьлері: университеттер, ағылшын тілі, экскурсиялар, тұру және ұшудан оралғанға дейін GSC Study жетекшісі.",
     },
     en: {
-      title: "Language camps abroad for ages 12-17 | GSC Study",
-      description: "2-3 week trips for students aged 12-17: English every day, excursions, accommodation, insurance and a GSC Study group leader from departure to return.",
+      title: "Campus tours and camps abroad, ages 12-17 | GSC Study",
+      description: "A campus tour of China and language camps for students aged 12-17: universities, English, excursions, accommodation and a GSC Study group leader from departure to return.",
     },
   },
   tests: {

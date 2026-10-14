@@ -149,7 +149,7 @@ export function AbroadStories({ locale }: { locale: Locale }): ReactElement {
                   <h3 className={styles.result}>{story.result[locale]}</h3>
                   <span className={styles.divider} aria-hidden="true" />
                   {story.href ? (
-                    <a className={styles.storyLink} href={story.href} target="_blank" rel="noopener noreferrer">
+                    <a className={`${styles.storyLink} tap-target`} href={story.href} target="_blank" rel="noopener noreferrer">
                       <span>{story.label[locale]}</span>
                       <StoryArrows />
                     </a>

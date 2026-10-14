@@ -71,7 +71,7 @@ export default function LandingHeader({ locale }: { locale: Locale }): ReactElem
       <a href="#landing-main" className={styles.skip}>{text.skip}</a>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
         <div className={styles.inner}>
-          <Link href={withLocale(locale, "/")} className={styles.logo} aria-label="GSC Study">
+          <Link href={withLocale(locale, "/")} className={`${styles.logo} tap-target`} aria-label="GSC Study">
             <Image src="/landing/hero/logo.png" width={114} height={46} alt="GSC Study" priority />
           </Link>
           <nav className={styles.desktopNav} aria-label={text.menu}>

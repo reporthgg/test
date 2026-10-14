@@ -42,7 +42,7 @@ export function AbroadFaq({ locale }: { locale: Locale }): ReactElement {
               <div className={styles.answer}>
                 <p>{typeof item.answer === "number" ? dictAnswers[item.answer].a : item.answer}</p>
                 {item.action && (
-                  <LeadButton className={styles.action}>
+                  <LeadButton className={`${styles.action} tap-target`}>
                     <span className={styles.actionFull}>{t.action}</span>
                     <span className={styles.actionShort}>{t.actionShort}</span>{" "}
                     <span className={styles.actionArrow} aria-hidden="true">→</span>

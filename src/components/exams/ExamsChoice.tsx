@@ -52,7 +52,7 @@ export function ExamsChoice({ locale }: { locale: Locale }): ReactElement {
                 {card.chips.map((chip) => <li key={chip}>{chip}</li>)}
               </ul>
               <p className={styles.description}>{card.text}</p>
-              <LeadButton className={styles.action} course={card.course}>
+              <LeadButton className={`${styles.action} tap-target`} course={card.course}>
                 <span>
                   {t.action}
                   <span className="sr-only">{`: ${card.course}`}</span>

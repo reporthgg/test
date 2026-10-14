@@ -51,7 +51,7 @@ export default async function LandingPrograms({
         <div className={`landing-container ${styles.directionsInner}`}>
           <div className={styles.directionsHeader}>
             <h2 id="directions-title" className={`landing-title ${styles.directionsTitle}`}>
-              {t.directionsTitle[0]} <em>{t.directionsTitle[1]}</em>
+              {t.directionsTitle[0]} <em>{t.directionsTitle[1]}</em>{" "}
               <span>{t.directionsTitle[2]}</span>
             </h2>
             <p className={styles.directionsIntro}>{t.directionsIntro}</p>
@@ -92,7 +92,7 @@ export default async function LandingPrograms({
                       {t.languageFormats.map((format) => <li key={format}>{format}</li>)}
                     </ul>
                   )}
-                  <Link href={withLocale(locale, direction.path)} className={styles.directionLink}>
+                  <Link href={withLocale(locale, direction.path)} className={`${styles.directionLink} tap-target`}>
                     {copy.cta}
                     <picture>
                       <source

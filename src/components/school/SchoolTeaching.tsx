@@ -14,7 +14,7 @@ export default function SchoolTeaching({ locale }: { locale: Locale }): ReactEle
       <div className={`landing-container ${styles.layout}`}>
         <div className={styles.content}>
           <h2 className="landing-title" id="school-teaching-title">
-            {t.title[0]} <em>{t.title[1]}</em><br />{t.title[2]}
+            {t.title[0]} <em>{t.title[1]}</em>{" "}<br />{t.title[2]}
           </h2>
           <p className={styles.description}>{t.description}</p>
           <ol className={styles.points}>

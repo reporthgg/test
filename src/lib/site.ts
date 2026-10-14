@@ -1,6 +1,11 @@
 export const site = {
   name: "GSC Study",
   foundedYear: 2011,
+  admissions: {
+    ru: "643 поступления в 246 вузов",
+    kz: "246 ЖОО-ға 643 қабылдану",
+    en: "643 admissions to 246 universities",
+  },
 
   // Единый номер колл-центра для звонков
   phone: { display: "+7 700 127 77 88", tel: "+77001277788" },
