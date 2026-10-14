@@ -116,6 +116,8 @@ export async function sendLeadToBitrix(lead: BitrixLeadPayload): Promise<BitrixS
     TITLE: title,
     NAME: lead.name,
     PHONE: [{ VALUE: lead.phone, VALUE_TYPE: "WORK" }],
+    // Без SOURCE_ID Битрикс ставит первый источник из справочника («Звонок»)
+    SOURCE_ID: "WEB",
     SOURCE_DESCRIPTION: lead.source || "site",
     COMMENTS: title === fullTitle ? lead.comment || "" : `Полное название: ${fullTitle}\n\n${lead.comment || ""}`,
   };
