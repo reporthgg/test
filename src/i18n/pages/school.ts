@@ -78,7 +78,7 @@ const dict = {
         cat: "general",
         desc: "Переговоры, деловая переписка, презентации и собеседования на английском языке.",
         rows: [
-          ["Уровень входа", "B1+"],
+          ["Уровень входа", "A1-C2"],
           ["Формат", "Инд. / онлайн"],
           ["Для кого", "Специалисты"],
         ],
@@ -348,7 +348,7 @@ const dict = {
         cat: "general",
         desc: "Келіссөздер, іскерлік хат алмасу, презентациялар және ағылшын тіліндегі сұхбаттар.",
         rows: [
-          ["Кіру деңгейі", "B1+"],
+          ["Кіру деңгейі", "A1-C2"],
           ["Формат", "Жеке / онлайн"],
           ["Кімге", "Мамандарға"],
         ],
@@ -618,7 +618,7 @@ const dict = {
         cat: "general",
         desc: "Negotiations, business correspondence, presentations and interviews in English.",
         rows: [
-          ["Entry level", "B1+"],
+          ["Entry level", "A1-C2"],
           ["Format", "One-to-one / online"],
           ["For whom", "Professionals"],
         ],

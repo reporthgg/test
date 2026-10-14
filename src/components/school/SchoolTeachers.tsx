@@ -4,7 +4,7 @@ import Image from "next/image";
 import type { ReactElement } from "react";
 import type { Locale } from "@/i18n/config";
 import { LeadButton } from "@/components/landing/LandingForms";
-import { schoolTeachers, schoolTeachersContent } from "./school-teachers-content";
+import { experienceLabel, schoolTeachers, schoolTeachersContent } from "./school-teachers-content";
 import styles from "./SchoolTeachers.module.css";
 
 export default function SchoolTeachers({ locale }: { locale: Locale }): ReactElement {
@@ -59,7 +59,7 @@ export default function SchoolTeachers({ locale }: { locale: Locale }): ReactEle
                   <div className={styles.facts}>
                     {profile.experience !== undefined && (
                       <div className={styles.experience}>
-                        <strong>{`${profile.experience} ${t.years}`}</strong>
+                        <strong>{experienceLabel(locale, profile.experience, profile.experiencePlus === true, t.years)}</strong>
                         <span>{t.experience}</span>
                       </div>
                     )}

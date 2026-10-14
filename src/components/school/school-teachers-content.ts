@@ -1,11 +1,12 @@
 import type { Locale } from "@/i18n/config";
 
 type LocalizedText = Record<Locale, string>;
-type TeacherOffice = "syganak" | "seifullin";
+type TeacherOffice = "syganak" | "ulyDala" | "seifullin";
 type TeacherProfile = {
   name: LocalizedText;
   subjects: LocalizedText;
   experience?: number;
+  experiencePlus?: boolean;
   qualification?: string;
   office?: TeacherOffice;
   // cover: обычное фото с фоном заполняет всю рамку; без него портрет без фона стоит на градиенте карточки.
@@ -32,11 +33,12 @@ export const schoolTeachers: readonly TeacherCard[] = [
     id: "ayaulym",
     tone: "pink",
     profile: {
-      name: { ru: "Аяулым", kz: "Аяулым", en: "Ayaulym" },
-      subjects: { ru: "General English, Academic English", kz: "General English, Academic English", en: "General English, Academic English" },
-      experience: 9,
-      qualification: "CELTA",
-      image: { src: "/school/teacher-ayaulym.png", width: 1192, height: 1319 },
+      name: { ru: "Аяулым Камбарова", kz: "Аяулым Камбарова", en: "Ayaulym Kambarova" },
+      subjects: generalEnglish,
+      experience: 6,
+      experiencePlus: true,
+      office: "ulyDala",
+      image: photo("ayaulym"),
     },
   },
   {
@@ -81,27 +83,115 @@ export const schoolTeachers: readonly TeacherCard[] = [
   {
     id: "asel",
     tone: "pink",
-    profile: { name: { ru: "Асель Мусина", kz: "Асель Мусина", en: "Asel Musina" }, subjects: generalEnglish, office: "seifullin", image: photo("asel") },
+    profile: { name: { ru: "Асель Мусина", kz: "Асель Мусина", en: "Asel Musina" }, subjects: generalEnglish, experience: 21, office: "seifullin", image: photo("asel") },
   },
   {
     id: "alina-kazhkenova",
     tone: "green",
-    profile: { name: { ru: "Алина Кажкенова", kz: "Алина Кажкенова", en: "Alina Kazhkenova" }, subjects: chineseHsk, office: "seifullin", image: photo("alina-kazhkenova") },
+    profile: { name: { ru: "Алина Кажкенова", kz: "Алина Кажкенова", en: "Alina Kazhkenova" }, subjects: chineseHsk, experience: 3, office: "seifullin", image: photo("alina-kazhkenova") },
   },
   {
     id: "beibarys",
     tone: "blue",
-    profile: { name: { ru: "Бейбарыс Сарсенбаев", kz: "Бейбарыс Сарсенбаев", en: "Beibarys Sarsenbayev" }, subjects: generalEnglishIelts, office: "seifullin", image: photo("beibarys") },
+    profile: { name: { ru: "Бейбарыс Сарсенбаев", kz: "Бейбарыс Сарсенбаев", en: "Beibarys Sarsenbayev" }, subjects: generalEnglishIelts, experience: 6, office: "seifullin", image: photo("beibarys") },
   },
   {
     id: "nazerke",
     tone: "pink",
-    profile: { name: { ru: "Назерке Әсен", kz: "Назерке Әсен", en: "Nazerke Assen" }, subjects: chineseHsk, office: "seifullin", image: photo("nazerke") },
+    profile: { name: { ru: "Назерке Әсен", kz: "Назерке Әсен", en: "Nazerke Assen" }, subjects: chineseHsk, experience: 2, office: "seifullin", image: photo("nazerke") },
   },
   {
     id: "alida",
     tone: "green",
-    profile: { name: { ru: "Алида Рамазанова", kz: "Алида Рамазанова", en: "Alida Ramazanova" }, subjects: ielts, office: "seifullin", image: photo("alida") },
+    profile: { name: { ru: "Алида Рамазанова", kz: "Алида Рамазанова", en: "Alida Ramazanova" }, subjects: ielts, experience: 7, office: "seifullin", image: photo("alida") },
+  },
+  {
+    id: "tokzhan",
+    tone: "blue",
+    profile: {
+      name: { ru: "Токжан Есенгали", kz: "Токжан Есенгали", en: "Tokzhan Yessengali" },
+      subjects: ielts,
+      experience: 3,
+      experiencePlus: true,
+      qualification: "IELTS 8.5",
+      office: "ulyDala",
+      image: photo("tokzhan"),
+    },
+  },
+  {
+    id: "zhaniya",
+    tone: "pink",
+    profile: {
+      name: { ru: "Жания Турсынкул", kz: "Жания Турсынкул", en: "Zhaniya Tursynkul" },
+      subjects: generalEnglish,
+      experience: 9,
+      experiencePlus: true,
+      office: "ulyDala",
+      image: photo("zhaniya"),
+    },
+  },
+  {
+    id: "marat",
+    tone: "green",
+    profile: {
+      name: { ru: "Марат Калымгереев", kz: "Марат Калымгереев", en: "Marat Kalymgereyev" },
+      subjects: ielts,
+      experience: 10,
+      experiencePlus: true,
+      qualification: "IELTS 8.0",
+      office: "ulyDala",
+      image: photo("marat"),
+    },
+  },
+  {
+    id: "kamila-berdenova",
+    tone: "blue",
+    profile: {
+      name: { ru: "Камила Берденова", kz: "Камила Берденова", en: "Kamila Berdenova" },
+      subjects: generalEnglish,
+      experience: 9,
+      experiencePlus: true,
+      office: "ulyDala",
+      image: photo("kamila-berdenova"),
+    },
+  },
+  {
+    id: "sulkei",
+    tone: "pink",
+    profile: {
+      name: { ru: "Сулькей Куандыкова", kz: "Сулькей Куандыкова", en: "Sulkei Kuandykova" },
+      subjects: ielts,
+      experience: 7,
+      experiencePlus: true,
+      qualification: "IELTS 8.0",
+      office: "ulyDala",
+      image: photo("sulkei"),
+    },
+  },
+  {
+    id: "dinara",
+    tone: "green",
+    profile: {
+      name: { ru: "Динара Махмет", kz: "Динара Махмет", en: "Dinara Makhmet" },
+      subjects: generalEnglish,
+      experience: 9,
+      experiencePlus: true,
+      office: "ulyDala",
+      image: photo("dinara"),
+    },
+  },
+  {
+    id: "leila",
+    tone: "blue",
+    profile: {
+      name: { ru: "Лейла Валеева", kz: "Лейла Валеева", en: "Leila Valeyeva" },
+      subjects: ielts,
+      experience: 3,
+      experiencePlus: true,
+      qualification: "IELTS 8.0",
+      office: "ulyDala",
+      image: photo("leila"),
+    },
   },
 ];
 
@@ -111,11 +201,16 @@ type TeachersCopy = {
   trial: string;
   bookWith: string;
   experience: string;
-  years: string;
+  years: Record<"one" | "few" | "other", string>;
   listLabel: string;
   officeLabel: string;
   offices: Record<TeacherOffice, string>;
 };
+
+export function experienceLabel(locale: Locale, years: number, plus: boolean, forms: TeachersCopy["years"]): string {
+  const category = plus ? "other" : new Intl.PluralRules(locale === "kz" ? "kk" : locale).select(years);
+  return `${years}${plus ? "+" : ""} ${category === "one" || category === "few" ? forms[category] : forms.other}`;
+}
 
 export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
   ru: {
@@ -124,10 +219,10 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     trial: "Пробный урок",
     bookWith: "Пробный урок с преподавателем",
     experience: "стаж",
-    years: "лет",
+    years: { one: "год", few: "года", other: "лет" },
     listLabel: "Преподаватели языковой школы",
     officeLabel: "Офис:",
-    offices: { syganak: "Сыганак, 15 · Greenline", seifullin: "Алматы, Сейфуллина, 575" },
+    offices: { syganak: "Сыганак, 15 · Greenline", ulyDala: "Улы Дала, 41/6", seifullin: "Алматы, Сейфуллина, 575" },
   },
   kz: {
     title: ["Өз", "оқытушыларыңызбен танысыңыз"],
@@ -135,10 +230,10 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     trial: "Сынама сабақ",
     bookWith: "Сынама сабақтың оқытушысы:",
     experience: "тәжірибе",
-    years: "жыл",
+    years: { one: "жыл", few: "жыл", other: "жыл" },
     listLabel: "Тіл мектебінің оқытушылары",
     officeLabel: "Кеңсе:",
-    offices: { syganak: "Сығанақ, 15 · Greenline", seifullin: "Алматы, Сейфуллин, 575" },
+    offices: { syganak: "Сығанақ, 15 · Greenline", ulyDala: "Ұлы Дала, 41/6", seifullin: "Алматы, Сейфуллин, 575" },
   },
   en: {
     title: ["Meet your", "teachers"],
@@ -146,9 +241,9 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
     trial: "Trial lesson",
     bookWith: "Book a trial lesson with",
     experience: "experience",
-    years: "years",
+    years: { one: "year", few: "years", other: "years" },
     listLabel: "Language school teachers",
     officeLabel: "Office:",
-    offices: { syganak: "Syganak 15 · Greenline", seifullin: "Almaty, 575 Seifullin Ave" },
+    offices: { syganak: "Syganak 15 · Greenline", ulyDala: "41/6 Uly Dala St", seifullin: "Almaty, 575 Seifullin Ave" },
   },
 };
