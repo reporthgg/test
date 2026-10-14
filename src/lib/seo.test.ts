@@ -11,6 +11,7 @@ import {
 } from "./seo";
 import { breadcrumbLabels, notFoundCopy, seoCopy, testSeoCopy, thankYouSeoCopy } from "./seo-content";
 import { faqEntries, openingHours, pageJsonLd, serializeJsonLd, testJsonLd, type FaqPage } from "./structured-data";
+import { site } from "./site";
 
 const base = "https://example.kz";
 
@@ -137,4 +138,5 @@ test("page JSON-LD has the expected types and parses back", () => {
 test("opening hours are parsed from the site schedule", () => {
   assert.deepEqual(openingHours("Пн-Пт 9:00-18:00 · Сб 10:00-15:00").map((item) => [item.opens, item.closes]), [["09:00", "18:00"], ["10:00", "15:00"]]);
   assert.deepEqual(openingHours("по записи"), []);
+  assert.deepEqual(openingHours(site.workingHours).map((item) => [item.opens, item.closes]), [["10:00", "19:00"], ["10:00", "14:00"]]);
 });

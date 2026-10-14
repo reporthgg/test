@@ -100,8 +100,8 @@ export const heroContent: Record<Locale, HeroContent> = {
     camps: "Летние лагеря",
     callCenter: "Колл-центр:",
     hours: "Часы работы:",
-    weekdays: "Пн-Пт 9:00-18:00",
-    saturday: "Сб 10:00-15:00",
+    weekdays: "Пн-Пт 10:00-19:00",
+    saturday: "Сб 10:00-14:00",
   },
   kz: {
     slides: [
@@ -158,8 +158,8 @@ export const heroContent: Record<Locale, HeroContent> = {
     camps: "Жазғы лагерьлер",
     callCenter: "Байланыс орталығы:",
     hours: "Жұмыс уақыты:",
-    weekdays: "Дс-Жм 9:00-18:00",
-    saturday: "Сб 10:00-15:00",
+    weekdays: "Дс-Жм 10:00-19:00",
+    saturday: "Сб 10:00-14:00",
   },
   en: {
     slides: [
@@ -216,7 +216,7 @@ export const heroContent: Record<Locale, HeroContent> = {
     camps: "Summer camps",
     callCenter: "Call centre:",
     hours: "Opening hours:",
-    weekdays: "Mon-Fri 9:00-18:00",
-    saturday: "Sat 10:00-15:00",
+    weekdays: "Mon-Fri 10:00-19:00",
+    saturday: "Sat 10:00-14:00",
   },
 };

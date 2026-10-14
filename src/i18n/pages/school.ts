@@ -150,7 +150,7 @@ const dict = {
       title: "Как проходят занятия",
     },
     formats: [
-      { num: "01", title: "Группа до восьми человек", text: "Основной формат. В небольшой группе у каждого есть время для разговорной практики. Группы стартуют ежемесячно." },
+      { num: "01", title: "Группа до десяти человек", text: "Основной формат. В небольшой группе у каждого есть время для разговорной практики. Группы стартуют ежемесячно." },
       { num: "02", title: "Индивидуально", text: "Когда нужен свой темп, нестандартная цель или жёсткий дедлайн. Программу и расписание подбираем под вас." },
       { num: "03", title: "Онлайн", text: "Те же преподаватели и программа для тех, кто не в Алматы и Астане или не хочет тратить время на дорогу." },
     ],
@@ -164,7 +164,7 @@ const dict = {
         text: "Занятия в группе с личным общением. Подходит тем, кому удобнее учиться в классе и соблюдать расписание.",
         rows: [
           ["Города", "Алматы, Астана"],
-          ["Группа", "до 8 человек"],
+          ["Группа", "до 10 человек"],
           ["Занятие", "90 минут"],
           ["В неделю", "2-3 занятия"],
         ],
@@ -176,7 +176,7 @@ const dict = {
         text: "Те же преподаватели и та же программа. Подходит, если вы не в Алматы и Астане, много ездите или не хотите тратить час на дорогу ради полутора часов урока.",
         rows: [
           ["Где угодно", "весь Казахстан"],
-          ["Группа", "до 8 человек"],
+          ["Группа", "до 10 человек"],
           ["Материалы", "остаются у вас"],
           ["Пропуск", "разбор потом"],
         ],
@@ -420,7 +420,7 @@ const dict = {
       title: "Сабақтар қалай өтеді",
     },
     formats: [
-      { num: "01", title: "Сегіз адамға дейінгі топ", text: "Негізгі формат. Шағын топта әркімге сөйлеу тәжірибесіне уақыт беріледі. Топтар ай сайын ашылады." },
+      { num: "01", title: "Он адамға дейінгі топ", text: "Негізгі формат. Шағын топта әркімге сөйлеу тәжірибесіне уақыт беріледі. Топтар ай сайын ашылады." },
       { num: "02", title: "Жеке", text: "Өз қарқыныңыз, ерекше мақсат немесе қатаң мерзім керек болғанда. Бағдарлама да, кесте де сізге ыңғайланады." },
       { num: "03", title: "Онлайн", text: "Алматы мен Астанада емес немесе жолға уақыт жұмсағысы келмейтіндерге сол оқытушылар мен сол бағдарлама." },
     ],
@@ -434,7 +434,7 @@ const dict = {
         text: "Топта бетпе-бет қарым-қатынас жасап оқисыз. Сыныпта оқу және кестені сақтау ыңғайлы адамдарға лайық.",
         rows: [
           ["Қалалар", "Алматы, Астана"],
-          ["Топ", "8 адамға дейін"],
+          ["Топ", "10 адамға дейін"],
           ["Сабақ", "90 минут"],
           ["Аптасына", "2-3 сабақ"],
         ],
@@ -446,7 +446,7 @@ const dict = {
         text: "Сол оқытушылар мен сол бағдарлама. Алматы мен Астанада болмасаңыз, көп жүрсеңіз немесе бір жарым сағаттық сабақ үшін жолға бір сағат жұмсағыңыз келмесе, лайық.",
         rows: [
           ["Кез келген жерде", "бүкіл Қазақстан"],
-          ["Топ", "8 адамға дейін"],
+          ["Топ", "10 адамға дейін"],
           ["Материалдар", "сізде қалады"],
           ["Босатқан сабақ", "кейін талданады"],
         ],
@@ -690,7 +690,7 @@ const dict = {
       title: "How lessons are run",
     },
     formats: [
-      { num: "01", title: "Group of up to eight", text: "Our main format. A small group gives everyone time for speaking practice. New groups start every month." },
+      { num: "01", title: "Group of up to ten", text: "Our main format. A small group gives everyone time for speaking practice. New groups start every month." },
       { num: "02", title: "One-to-one", text: "When you need your own pace, an unusual goal or a tight deadline. We adapt the programme and schedule to your needs." },
       { num: "03", title: "Online", text: "The same teachers and programme for those who aren't in Almaty or Astana, or who'd rather not spend time commuting." },
     ],
@@ -704,7 +704,7 @@ const dict = {
         text: "Group lessons with face-to-face interaction. A good fit if you prefer learning in a classroom and following a regular schedule.",
         rows: [
           ["Cities", "Almaty, Astana"],
-          ["Group", "up to 8 people"],
+          ["Group", "up to 10 people"],
           ["Lesson", "90 minutes"],
           ["Per week", "2-3 lessons"],
         ],
@@ -716,7 +716,7 @@ const dict = {
         text: "The same teachers and the same programme. A good fit if you're not in Almaty or Astana, travel a lot, or don't want to spend an hour commuting for a ninety-minute lesson.",
         rows: [
           ["Anywhere", "all of Kazakhstan"],
-          ["Group", "up to 8 people"],
+          ["Group", "up to 10 people"],
           ["Materials", "stay with you"],
           ["Missed lesson", "reviewed later"],
         ],

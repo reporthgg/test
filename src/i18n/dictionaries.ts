@@ -34,7 +34,7 @@ const ru = {
         tag: "Набор 2026",
         title1: "Старт групп",
         title2: "каждый месяц",
-        text: "Группы формируем по результатам теста уровня, от A1 до C2. До восьми человек, чтобы говорил каждый.",
+        text: "Группы формируем по результатам теста уровня, от A1 до C2. До десяти человек, чтобы говорил каждый.",
       },
       {
         tag: "Приёмная кампания",
@@ -44,7 +44,7 @@ const ru = {
       },
     ],
     features: [
-      "Группы до восьми человек, индивидуально или онлайн",
+      "Группы до десяти человек, индивидуально или онлайн",
       "Тест уровня и пробный урок бесплатно",
       "Сопровождение до зачисления в университет",
     ],
@@ -204,7 +204,7 @@ const kz: Dict = {
         tag: "2026 жинағы",
         title1: "Топтар ашылады",
         title2: "ай сайын",
-        text: "A1-ден C2-ге дейінгі топтарды деңгей тестінің нәтижесі бойынша құрамыз. Әркім сөйлесуі үшін сегіз адамға дейін.",
+        text: "A1-ден C2-ге дейінгі топтарды деңгей тестінің нәтижесі бойынша құрамыз. Әркім сөйлесуі үшін он адамға дейін.",
       },
       {
         tag: "Қабылдау науқаны",
@@ -214,7 +214,7 @@ const kz: Dict = {
       },
     ],
     features: [
-      "Топтар сегіз адамға дейін, жеке немесе онлайн",
+      "Топтар он адамға дейін, жеке немесе онлайн",
       "Деңгей тесті мен сынама сабақ тегін",
       "Университетке қабылданғанға дейін қолдау",
     ],
@@ -372,7 +372,7 @@ const en: Dict = {
         tag: "Intake 2026",
         title1: "New groups start",
         title2: "every month",
-        text: "We form groups by level-test results, from A1 to C2. Up to eight people so everyone speaks.",
+        text: "We form groups by level-test results, from A1 to C2. Up to ten people so everyone speaks.",
       },
       {
         tag: "Admissions",
@@ -382,7 +382,7 @@ const en: Dict = {
       },
     ],
     features: [
-      "Groups of up to eight, one-to-one or online",
+      "Groups of up to ten, one-to-one or online",
       "Free level test and trial lesson",
       "Support all the way to university enrolment",
     ],
