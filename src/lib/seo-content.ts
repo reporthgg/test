@@ -33,15 +33,15 @@ export const seoCopy: Record<SeoPage, Record<Locale, SeoCopy>> = {
   school: {
     ru: {
       title: "Курсы английского A1-C2 в Астане и Алматы | GSC Study",
-      description: "Общий, академический, деловой и детский английский от A1 до C2. Группы до 8 человек, занятия в центре или онлайн. Бесплатный пробный урок и тест уровня.",
+      description: "Общий, академический, деловой и детский английский от A1 до C2. Группы до 8 человек, занятия в центре или онлайн. Бесплатная диагностика уровня.",
     },
     kz: {
       title: "Ағылшын тілі курстары A1-C2 Астана мен Алматыда | GSC Study",
-      description: "Жалпы, академиялық, іскерлік және балаларға арналған ағылшын тілі A1-ден C2-ге дейін. Топта 8 адамға дейін, орталықта немесе онлайн. Тегін сынақ сабағы.",
+      description: "Жалпы, академиялық, іскерлік және балаларға арналған ағылшын тілі A1-ден C2-ге дейін. Топта 8 адамға дейін, орталықта немесе онлайн. Тегін диагностика.",
     },
     en: {
       title: "English courses A1-C2 in Astana and Almaty | GSC Study",
-      description: "General, academic, business and kids' English from A1 to C2. Groups of up to 8 students, at a centre or online. Free trial lesson and level test.",
+      description: "General, academic, business and kids' English from A1 to C2. Groups of up to 8 students, at a centre or online. Free level assessment.",
     },
   },
   exams: {

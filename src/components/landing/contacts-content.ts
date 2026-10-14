@@ -47,7 +47,7 @@ export const contactsContent: Record<Locale, ContactContent> = {
     // "и\u00a0" keeps the conjunction with the next word, as in the Figma line breaks.
     faq: [
       { question: "Можно начать с нулевым английским?", answer: "Да. Сначала определим ваш уровень и\u00a0подберём программу, с которой будет комфортно начать." },
-      { question: "Что будет на бесплатном пробном уроке?", answer: "Вы познакомитесь с преподавателем, попробуете формат занятий и сможете задать вопросы об обучении." },
+      { question: "Что входит в бесплатную диагностику?", answer: "Тест уровня онлайн или в центре, разбор письменной и разговорной части с экспертом и персональный план: ваш уровень, цель, срок и подходящая программа. Это бесплатно и ни к чему не обязывает." },
       { question: "Сколько времени занимает подготовка к IELTS или SAT?", answer: "Срок зависит от начального уровня, нужного результата и времени на занятия. После диагностики можно составить подходящий план подготовки." },
       { question: "Сколько стоит обучение и\u00a0поступление за рубеж?", answer: "Стоимость зависит от программы, страны, университета и объёма сопровождения. На разборе обсудим ваш бюджет и подходящие варианты." },
       { question: "Можно ли поступить на грант?", answer: "Такие возможности есть. Условия зависят от университета и программы, а решение принимает учебное заведение. Эксперт поможет разобраться в требованиях." },
@@ -85,7 +85,7 @@ export const contactsContent: Record<Locale, ContactContent> = {
     faqAccent: "қойылатын сұрақтар",
     faq: [
       { question: "Ағылшын тілін нөлден бастауға бола ма?", answer: "Иә. Алдымен деңгейіңізді анықтап, оқуды ыңғайлы бастауға көмектесетін бағдарламаны таңдаймыз." },
-      { question: "Тегін сынақ сабағында не болады?", answer: "Оқытушымен танысып, сабақ форматын байқап көресіз және оқу туралы сұрақтарыңызды қоя аласыз." },
+      { question: "Тегін диагностикаға не кіреді?", answer: "Онлайн немесе орталықта деңгей тесті, жазбаша және ауызша бөлімді сарапшымен талдау және жеке жоспар: деңгейіңіз, мақсатыңыз, мерзім және сізге сай бағдарлама. Бұл тегін және ешқандай міндеттеме жүктемейді." },
       { question: "IELTS немесе SAT-қа дайындық қанша уақыт алады?", answer: "Мерзім бастапқы деңгейіңізге, қажетті нәтижеге және сабаққа бөлетін уақытыңызға байланысты. Диагностикадан кейін қолайлы дайындық жоспарын құрамыз." },
       { question: "Оқу мен шетелге түсу қанша тұрады?", answer: "Бағасы бағдарламаға, елге, университетке және сүйемелдеу көлеміне байланысты. Кеңес кезінде бюджетіңізді және қолайлы нұсқаларды талқылаймыз." },
       { question: "Грантқа түсуге бола ма?", answer: "Мұндай мүмкіндіктер бар. Шарттар университет пен бағдарламаға байланысты, ал шешімді оқу орны қабылдайды. Сарапшы талаптарды түсінуге көмектеседі." },
@@ -123,7 +123,7 @@ export const contactsContent: Record<Locale, ContactContent> = {
     faqAccent: "questions",
     faq: [
       { question: "Can I start with no English?", answer: "Yes. We will first assess your level and recommend a programme that gives you a comfortable start." },
-      { question: "What happens at the free trial lesson?", answer: "You will meet your teacher, try the lesson format and have a chance to ask questions about studying with us." },
+      { question: "What does the free assessment include?", answer: "A level test online or at a centre, a review of your writing and speaking with an expert, and a personal plan: your level, goal, timeline and the right programme. It is free and there is no obligation." },
       { question: "How long does IELTS or SAT preparation take?", answer: "It depends on your starting level, target score and time available for study. After the assessment, we can put together a suitable preparation plan." },
       { question: "How much do courses and study abroad support cost?", answer: "The cost depends on the programme, country, university and level of support. During your consultation, we will discuss your budget and suitable options." },
       { question: "Can I get a scholarship?", answer: "Scholarship opportunities are available. Requirements depend on the university and programme, and the institution makes the final decision. Our expert will help you understand the requirements." },

@@ -53,11 +53,16 @@ test("teachers: Ayaulym first, then the Syganak, Almaty and Uly Dala teams", () 
       { id: "sulkei", name: "Сулькей Куандыкова", subjects: "IELTS", office: "ulyDala", image: "/school/teacher-sulkei.jpg" },
       { id: "dinara", name: "Динара Махмет", subjects: "General English", office: "ulyDala", image: "/school/teacher-dinara.jpg" },
       { id: "leila", name: "Лейла Валеева", subjects: "IELTS", office: "ulyDala", image: "/school/teacher-leila.jpg" },
+      { id: "balzhan", name: "Балжан", subjects: "Китайский язык, HSK", office: "syganak", image: "/school/teacher-balzhan.jpg" },
     ],
   );
   assert.deepEqual(
     schoolTeachers.map(({ tone }) => tone),
-    ["pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue"],
+    ["pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink", "green", "blue", "pink"],
+  );
+  assert.deepEqual(
+    schoolTeachers.filter(({ profile }) => profile.office === "syganak").map(({ id, profile }) => [id, profile.experience ?? null, profile.qualification ?? null]),
+    [["yulia", 7, null], ["dana", 7, null], ["diana", 10, "IELTS 8.0"], ["alina", 3, null], ["kamila", 8, "IELTS 8.0"], ["balzhan", 6, "HSK 5"]],
   );
   assert.deepEqual(
     schoolTeachers.filter(({ profile }) => profile.office === "ulyDala").map(({ profile }) => [profile.experience, profile.experiencePlus, profile.qualification ?? null]),
@@ -123,7 +128,7 @@ test("all active section assets exist and are non-empty", async () => {
     "teaching-marker-1.svg", "teaching-marker-2.svg", "teaching-marker-3.svg", "teaching-marker-4.svg",
     "teaching-group.svg", "teaching-location.svg",
   ];
-  assert.equal(files.length, 48);
+  assert.equal(files.length, 49);
   for (const file of files) {
     const asset = path.join(process.cwd(), "public", "school", file);
     const info = await stat(asset);

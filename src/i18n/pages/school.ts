@@ -92,7 +92,7 @@ const dict = {
         rows: [
           ["Возраст", "7-12 лет"],
           ["Формат", "Малая группа"],
-          ["Пробный урок", "бесплатно"],
+          ["Диагностика", "бесплатно"],
         ],
         highlight: false,
       },
@@ -362,7 +362,7 @@ const dict = {
         rows: [
           ["Жасы", "7-12 жас"],
           ["Формат", "Шағын топ"],
-          ["Сынама сабақ", "тегін"],
+          ["Диагностика", "тегін"],
         ],
         highlight: false,
       },
@@ -632,7 +632,7 @@ const dict = {
         rows: [
           ["Age", "7-12 years"],
           ["Format", "Small group"],
-          ["Trial lesson", "free"],
+          ["Assessment", "free"],
         ],
         highlight: false,
       },

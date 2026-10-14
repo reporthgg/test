@@ -48,7 +48,7 @@ export const schoolPageContent: Record<Locale, SchoolPageContent> = {
     eyebrow: "GSC Study Language School",
     heading: ["English", "you can", "feel ", "confident in"],
     description: "For study, work and everyday life. We will find a programme for your level and goals",
-    trial: "Try a free lesson",
+    trial: "Try it for free",
     levelTest: "Check your level",
     smallGroups: "Up to 8 students per group",
     format: "At a centre or online",

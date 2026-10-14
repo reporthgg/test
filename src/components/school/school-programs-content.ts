@@ -26,7 +26,7 @@ type ProgramsCopy = {
 export const schoolProgramsContent: Record<Locale, ProgramsCopy> = {
   ru: {
     title: ["Выберите свою", "программу"],
-    trial: "Пробный урок",
+    trial: "Узнать свой уровень",
     price: "Стоимость уточняется на консультации",
     filterLabel: "Категории программ",
     countLabel: "Программ:",
@@ -44,7 +44,7 @@ export const schoolProgramsContent: Record<Locale, ProgramsCopy> = {
   },
   kz: {
     title: ["Өзіңізге лайық", "бағдарламаны таңдаңыз"],
-    trial: "Сынама сабақ",
+    trial: "Деңгейді білу",
     price: "Бағасы кеңес кезінде нақтыланады",
     filterLabel: "Бағдарлама санаттары",
     countLabel: "Бағдарламалар:",
@@ -61,7 +61,7 @@ export const schoolProgramsContent: Record<Locale, ProgramsCopy> = {
   },
   en: {
     title: ["Choose your", "programme"],
-    trial: "Trial lesson",
+    trial: "Find out your level",
     price: "Pricing is confirmed during the consultation",
     filterLabel: "Programme categories",
     countLabel: "Programmes:",

@@ -44,12 +44,12 @@ export const schoolTeachers: readonly TeacherCard[] = [
   {
     id: "yulia",
     tone: "green",
-    profile: { name: { ru: "Юлия", kz: "Юлия", en: "Yulia" }, subjects: generalEnglish, office: "syganak", image: photo("yulia") },
+    profile: { name: { ru: "Юлия", kz: "Юлия", en: "Yulia" }, subjects: generalEnglish, experience: 7, office: "syganak", image: photo("yulia") },
   },
   {
     id: "dana",
     tone: "blue",
-    profile: { name: { ru: "Дана", kz: "Дана", en: "Dana" }, subjects: generalEnglish, office: "syganak", image: photo("dana") },
+    profile: { name: { ru: "Дана", kz: "Дана", en: "Dana" }, subjects: generalEnglish, experience: 7, office: "syganak", image: photo("dana") },
   },
   {
     id: "diana",
@@ -66,7 +66,7 @@ export const schoolTeachers: readonly TeacherCard[] = [
   {
     id: "alina",
     tone: "green",
-    profile: { name: { ru: "Алина", kz: "Алина", en: "Alina" }, subjects: generalEnglish, office: "syganak", image: photo("alina") },
+    profile: { name: { ru: "Алина", kz: "Алина", en: "Alina" }, subjects: generalEnglish, experience: 3, office: "syganak", image: photo("alina") },
   },
   {
     id: "kamila",
@@ -193,6 +193,18 @@ export const schoolTeachers: readonly TeacherCard[] = [
       image: photo("leila"),
     },
   },
+  {
+    id: "balzhan",
+    tone: "pink",
+    profile: {
+      name: { ru: "Балжан", kz: "Балжан", en: "Balzhan" },
+      subjects: chineseHsk,
+      experience: 6,
+      qualification: "HSK 5",
+      office: "syganak",
+      image: photo("balzhan"),
+    },
+  },
 ];
 
 type TeachersCopy = {
@@ -215,9 +227,9 @@ export function experienceLabel(locale: Locale, years: number, plus: boolean, fo
 export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
   ru: {
     title: ["Познакомьтесь с вашими", "преподавателями"],
-    description: "Познакомьтесь с преподавателем на пробном уроке",
-    trial: "Пробный урок",
-    bookWith: "Пробный урок с преподавателем",
+    description: "Пройдите бесплатную диагностику, и мы подберём преподавателя и группу под ваш уровень",
+    trial: "Узнать свой уровень",
+    bookWith: "Узнать свой уровень. Преподаватель:",
     experience: "стаж",
     years: { one: "год", few: "года", other: "лет" },
     listLabel: "Преподаватели языковой школы",
@@ -226,9 +238,9 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
   },
   kz: {
     title: ["Өз", "оқытушыларыңызбен танысыңыз"],
-    description: "Сынама сабақта оқытушымен танысыңыз",
-    trial: "Сынама сабақ",
-    bookWith: "Сынама сабақтың оқытушысы:",
+    description: "Тегін диагностикадан өтіңіз, біз деңгейіңізге сай оқытушы мен топ таңдаймыз",
+    trial: "Деңгейді білу",
+    bookWith: "Деңгейді білу. Оқытушы:",
     experience: "тәжірибе",
     years: { one: "жыл", few: "жыл", other: "жыл" },
     listLabel: "Тіл мектебінің оқытушылары",
@@ -237,9 +249,9 @@ export const schoolTeachersContent: Record<Locale, TeachersCopy> = {
   },
   en: {
     title: ["Meet your", "teachers"],
-    description: "Meet your teacher at a trial lesson",
-    trial: "Trial lesson",
-    bookWith: "Book a trial lesson with",
+    description: "Take a free assessment and we will match you with a teacher and a group at your level",
+    trial: "Find out your level",
+    bookWith: "Find out your level. Teacher:",
     experience: "experience",
     years: { one: "year", few: "years", other: "years" },
     listLabel: "Language school teachers",
