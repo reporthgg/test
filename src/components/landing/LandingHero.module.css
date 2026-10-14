@@ -451,6 +451,15 @@
     background-image: url("/landing/hero/mobile-hashtag.svg");
   }
 
+  /* Scales with the title so the hashtag stays just after "границ" at any phone width. */
+  .education .hashtag {
+    --title-size: clamp(44px, 14.1vw, 64px);
+    top: calc(var(--title-size) * 0.755);
+    left: calc(var(--title-size) * 5.14 + 6px);
+    width: calc(var(--title-size) * 1.135);
+    height: calc(var(--title-size) * 1.286);
+  }
+
   .english .hashtag {
     top: 90px;
     left: 144px;

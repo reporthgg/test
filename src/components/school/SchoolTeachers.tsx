@@ -69,6 +69,14 @@ export default function SchoolTeachers({ locale }: { locale: Locale }): ReactEle
                         {profile.qualification}
                       </span>
                     )}
+                    {profile.certificate && (
+                      <div className={styles.certificateRow}>
+                        <span className={`${styles.qualification} ${styles.certificate}`}>
+                          <img src="/school/teacher-badge.svg" alt="" />
+                          {profile.certificate[locale]}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

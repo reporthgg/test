@@ -8,6 +8,7 @@ type TeacherProfile = {
   experience?: number;
   experiencePlus?: boolean;
   qualification?: string;
+  certificate?: LocalizedText;
   office?: TeacherOffice;
   // cover: обычное фото с фоном заполняет всю рамку; без него портрет без фона стоит на градиенте карточки.
   image: { src: string; width: number; height: number; cover?: boolean };
@@ -201,6 +202,11 @@ export const schoolTeachers: readonly TeacherCard[] = [
       subjects: chineseHsk,
       experience: 6,
       qualification: "HSK 5",
+      certificate: {
+        ru: "Даляньский технологический университет, 2025",
+        kz: "Далянь технологиялық университеті, 2025",
+        en: "Dalian University of Technology, 2025",
+      },
       office: "syganak",
       image: photo("balzhan"),
     },

@@ -111,6 +111,39 @@ export const studentStories: readonly StudentStory[] = [
     href: "https://www.instagram.com/p/DX0TyQVTEGH/?hl=en",
     badges: [ielts8],
   },
+  {
+    id: "dilyara",
+    name: text("Диляра", "Диляра", "Dilyara"),
+    image: "/landing/stories/dilyara.jpg",
+    href: "https://www.instagram.com/reel/DdTwMW-Or8W/",
+    badges: [
+      { text: text("IELTS 7.0", "IELTS 7.0", "IELTS 7.0"), color: "pink", width: 100 },
+      { text: text("с B2 за 1,5 месяца", "B2-ден 1,5 айда", "From B2 in 1.5 months"), color: "green", width: 170 },
+    ],
+  },
+  {
+    id: "dilnaz",
+    name: text("Дильназ", "Дильназ", "Dilnaz"),
+    image: "/landing/stories/dilnaz.jpg",
+    href: "https://www.instagram.com/reel/DeUJGVNMxFB/",
+    badges: [{ text: text("B2+ в 14 лет", "14 жаста B2+", "B2+ at 14"), color: "blue", width: 130 }],
+  },
+  {
+    id: "adiya",
+    name: text("Адия", "Адия", "Adiya"),
+    image: "/landing/stories/adiya.jpg",
+    href: "https://www.instagram.com/p/DZAkrH-DqAj/?img_index=3",
+    badges: [{ text: text("Китайский язык", "Қытай тілі", "Chinese"), color: "pink", width: 150 }],
+    readLabel: text("Читать историю Адии", "Адияның оқиғасын оқу", "Read Adiya’s story"),
+  },
+  {
+    id: "insar",
+    name: text("Инсар", "Инсар", "Insar"),
+    image: "/landing/stories/insar.jpg",
+    href: "https://www.instagram.com/p/DXweXRTkxSE/?img_index=3",
+    badges: [{ text: text("Китайский язык", "Қытай тілі", "Chinese"), color: "green", width: 150 }],
+    readLabel: text("Читать историю Инсара", "Инсардың оқиғасын оқу", "Read Insar’s story"),
+  },
 ];
 
 export const admissionLetters = [
