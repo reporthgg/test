@@ -27,7 +27,7 @@ export default function SchoolTrialCard({
         <img className={`${styles.flags} ${styles.mobileAsset}`} src="/landing/forms/flags.svg" alt="" />
         <div className={styles.offerText}>
           <h2 id={headingId} ref={headingRef} tabIndex={headingRef ? -1 : undefined}>
-            {t.trialTitle}{" "}<br /><em>{t.trialTitleAccent}</em>
+            {t.trialTitle}
           </h2>
           <p>
             {t.schoolTrialDescription.map((line, index) => (
@@ -58,7 +58,6 @@ export default function SchoolTrialCard({
       </div>
       <div className={styles.panel}>
         <div className={styles.price}>
-          <s>15 000 ₸</s>
           <strong>0 ₸</strong>
           <p>{t.trialPriceCaption}</p>
         </div>

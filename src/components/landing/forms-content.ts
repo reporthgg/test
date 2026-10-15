@@ -35,7 +35,6 @@ export type FormsContent = {
   whatsapp: string;
   close: string;
   trialTitle: string;
-  trialTitleAccent: string;
   trialDescription: string;
   trialSteps: readonly string[];
   trialPriceCaption: string;
@@ -117,19 +116,17 @@ export const formsContent: Record<Locale, FormsContent> = {
     whatsapp: "Написать в WhatsApp",
     close: "Закрыть",
     trialTitle: "Диагностика",
-    trialTitleAccent: "+ план",
-    trialDescription: "Тест уровня и разбор с экспертом: с какой группы начать и сколько месяцев до следующего уровня",
+    trialDescription: "Тест уровня покажет, с какой группы начать и сколько месяцев до следующего уровня",
     trialSteps: [
       "Тест уровня онлайн или в центре",
-      "Разбор с экспертом",
       "Персональный план в WhatsApp",
     ],
-    trialPriceCaption: "Тест уровня + разбор с экспертом",
+    trialPriceCaption: "Тест уровня",
     trialSubmit: "Пройти диагностику",
     schoolTrialSubmit: "Пройти диагностику бесплатно",
     // Переносы строк из Figma 260:2763.
     schoolTrialDescription: [
-      "Тест уровня и разбор с экспертом: с какой",
+      "Тест уровня покажет, с какой",
       "группы начать и сколько месяцев",
       "до следующего уровня",
     ],
@@ -198,19 +195,17 @@ export const formsContent: Record<Locale, FormsContent> = {
     whatsapp: "WhatsApp арқылы жазу",
     close: "Жабу",
     trialTitle: "Диагностика",
-    trialTitleAccent: "+ жоспар",
-    trialDescription: "Деңгей тесті және сарапшымен талдау: қай топтан бастау керегін және келесі деңгейге дейін қанша ай қажет екенін айтамыз",
+    trialDescription: "Деңгей тесті қай топтан бастау керегін және келесі деңгейге дейін қанша ай қажет екенін көрсетеді",
     trialSteps: [
       "Деңгей тесті онлайн немесе орталықта",
-      "Сарапшымен талдау",
       "WhatsApp-та жеке жоспар",
     ],
-    trialPriceCaption: "Деңгей тесті + сарапшымен талдау",
+    trialPriceCaption: "Деңгей тесті",
     trialSubmit: "Диагностикадан өту",
     schoolTrialSubmit: "Тегін диагностикадан өту",
     // Длинные казахские слова плохо делятся на строки макета, поэтому текст переносится сам.
     schoolTrialDescription: [
-      "Деңгей тесті және сарапшымен талдау: қай топтан бастау керегін және келесі деңгейге дейін қанша ай қажет екенін айтамыз",
+      "Деңгей тесті қай топтан бастау керегін және келесі деңгейге дейін қанша ай қажет екенін көрсетеді",
     ],
     bottomTitle: "Диагностикадан",
     bottomTitleAccent: "өтіңіз",
@@ -276,19 +271,17 @@ export const formsContent: Record<Locale, FormsContent> = {
     faster: "Faster: message us on",
     whatsapp: "Message us on WhatsApp",
     close: "Close",
-    trialTitle: "Assessment +",
-    trialTitleAccent: "personal plan",
-    trialDescription: "A level test and a review with an expert: which group to start in and how many months it takes to reach the next level",
+    trialTitle: "Assessment",
+    trialDescription: "A level test shows which group to start in and how many months it takes to reach the next level",
     trialSteps: [
       "Level test online or at a centre",
-      "Review with an expert",
       "Personal plan on WhatsApp",
     ],
-    trialPriceCaption: "Level test + expert review",
+    trialPriceCaption: "Level test",
     trialSubmit: "Take the assessment",
     schoolTrialSubmit: "Take the free assessment",
     schoolTrialDescription: [
-      "A level test and a review with an expert: which group to start in",
+      "A level test shows which group to start in",
       "and how many months it takes to reach the next level",
     ],
     bottomTitle: "Take a free",

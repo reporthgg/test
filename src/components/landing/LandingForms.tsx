@@ -668,7 +668,7 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
               <div className={styles.offer}>
                 <img className={styles.flags} src="/landing/forms/flags.svg" alt="" />
                 <h2 id={`${id}-trial-title`} ref={trialHeadingRef} tabIndex={-1}>
-                  {t.trialTitle}{" "}<br /><em>{t.trialTitleAccent}</em>
+                  {t.trialTitle}
                 </h2>
                 <p>{t.trialDescription}</p>
                 <ul>
@@ -680,7 +680,6 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
               </div>
               <div className={styles.trialFormPanel}>
                 <div className={styles.price}>
-                  <s>15 000 ₸</s>
                   <strong>0 ₸</strong>
                   <p>{t.trialPriceCaption}</p>
                 </div>

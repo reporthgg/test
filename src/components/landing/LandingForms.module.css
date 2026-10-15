@@ -732,11 +732,6 @@
   text-transform: uppercase;
 }
 
-.offer h2 em {
-  color: rgb(255 255 255 / 50%);
-  font-weight: 600;
-}
-
 .offer > p {
   position: relative;
   z-index: 1;
@@ -791,15 +786,6 @@
   margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid #e1eaf1;
-}
-
-.price s {
-  display: block;
-  color: #a3a3a2;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 22px;
-  letter-spacing: -0.36px;
 }
 
 .price strong {
