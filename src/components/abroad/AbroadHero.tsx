@@ -94,6 +94,10 @@ export function AbroadHero({ locale, overrides }: { locale: Locale; overrides: P
               <strong>{"15 000+"}</strong>
               <span>{t.students}</span>
             </p>
+            <p className={`${styles.students} ${styles.admissions}`}>
+              <strong>{"600+"}</strong>
+              <span>{t.admissions}</span>
+            </p>
           </div>
           <span className={styles.divider} aria-hidden="true" />
           <div className={styles.quality}>

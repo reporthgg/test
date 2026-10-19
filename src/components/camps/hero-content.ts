@@ -37,7 +37,7 @@ export const campsHeroContent: Record<Locale, HeroCopy> = {
   ru: {
     age: "12-17 лет",
     duration: "2-3 недели",
-    primary: "Подобрать программу",
+    primary: "Заявка на лагерь",
     secondary: "Как прошли прошлые поездки",
     carousel: "Поездки и лагеря GSC Study",
     carouselRole: "карусель",
@@ -73,7 +73,7 @@ export const campsHeroContent: Record<Locale, HeroCopy> = {
   kz: {
     age: "12-17 жас",
     duration: "2-3 апта",
-    primary: "Бағдарлама таңдау",
+    primary: "Лагерьге өтінім",
     secondary: "Өткен сапарлар қалай өтті",
     carousel: "GSC Study сапарлары мен лагерьлері",
     carouselRole: "карусель",
@@ -109,7 +109,7 @@ export const campsHeroContent: Record<Locale, HeroCopy> = {
   en: {
     age: "Ages 12-17",
     duration: "2-3 weeks",
-    primary: "Find a programme",
+    primary: "Camp application",
     secondary: "Explore our past trips",
     carousel: "GSC Study trips and camps",
     carouselRole: "carousel",

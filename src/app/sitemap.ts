@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/i18n/config";
 import { prisma } from "@/lib/prisma";
 import { buildSitemap, type SitemapPage } from "@/lib/seo";
-import { seoPaths, type SeoPage } from "@/lib/seo-content";
+import { seoPaths, seoUpdatedAt, type SeoPage } from "@/lib/seo-content";
 
 export const dynamic = "force-dynamic";
 
@@ -61,9 +61,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: SitemapPage[] = pages.map(({ page, priority, changeFrequency }) => {
     const cms = content.get(page) ?? {};
     const extra = page === "camps" ? camps : page === "tests" ? testsUpdated : undefined;
+    const code = new Date(`${seoUpdatedAt[page]}T00:00:00+05:00`);
     const lastModified: Dates = {};
     for (const locale of locales) {
-      const date = latest(cms[locale], extra);
+      const date = latest(cms[locale], extra, code);
       if (date) lastModified[locale] = date;
     }
     return { path: seoPaths[page], priority, changeFrequency, lastModified };

@@ -497,38 +497,39 @@
     background-image: url("/landing/hero/mobile-button-line.svg");
   }
 
+  /* Точки, пауза и стрелки на телефоне: сама кнопка не меньше 44 × 44 px (ТЗ 5.7). */
   .controls {
     position: relative;
     bottom: auto;
     left: auto;
     flex-shrink: 0;
-    gap: 6px;
-    width: 180px;
-    height: 36px;
+    gap: 0;
+    width: max-content;
+    height: 50px;
     margin-top: 34px;
-    padding: 2.4px;
+    padding: 2px;
     border-width: 0.6px;
   }
 
   .dots {
     gap: 0;
-    margin-left: 6px;
+    margin-left: 0;
   }
 
   .dots button {
-    width: 16px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
   }
 
   .dots span {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   .previous,
   .next {
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
     border-width: 0.6px;
   }
 
@@ -539,12 +540,13 @@
 
   .previous img,
   .next img {
-    transform: scale(0.625);
+    transform: scale(0.8);
   }
 
   .pause {
-    width: 22px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
+    margin-left: 0;
   }
 
   .form {

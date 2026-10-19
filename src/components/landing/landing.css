@@ -186,6 +186,11 @@ body:has(.landing dialog[open]) {
   }
 }
 
+/* Ссылки в тексте согласия: вертикальные поля дают область нажатия от 44 px и не меняют высоту строк. */
+.landing .consent-link {
+  padding-block: 16px;
+}
+
 @media (max-width: 767px) {
   :where(.landing) :where(.tap-target, .tap-target-tall) { position: relative; }
 

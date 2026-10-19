@@ -7,9 +7,9 @@ export default function ConsentText({ locale, className }: { locale: Locale; cla
   return (
     <span className={className}>
       {before}
-      <a href={withLocale(locale, "/consent")} target="_blank" rel="noopener">{consent}</a>
+      <a className="consent-link" href={withLocale(locale, "/consent")} target="_blank" rel="noopener">{consent}</a>
       {middle}
-      <a href={withLocale(locale, "/privacy")} target="_blank" rel="noopener">{privacy}</a>
+      <a className="consent-link" href={withLocale(locale, "/privacy")} target="_blank" rel="noopener">{privacy}</a>
       {after}
     </span>
   );

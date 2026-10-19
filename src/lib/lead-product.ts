@@ -16,14 +16,24 @@ const SERVICE_PRODUCTS: Readonly<Record<string, string>> = {
 };
 
 export const UNKNOWN_PRODUCT = "Не определён";
+// Ответ «Пока не знаю» в поле «Что интересует» не задаёт продукт: он берётся по странице.
+const UNSURE_INTEREST = "Пока не знаю";
 
 function text(value: unknown): string | undefined {
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
 
-export function leadProduct(fields: { page?: string; program?: unknown; course?: unknown; camp?: unknown }): string {
+export function leadProduct(fields: {
+  page?: string;
+  program?: unknown;
+  interest?: unknown;
+  course?: unknown;
+  camp?: unknown;
+}): string {
   const program = text(fields.program);
   if (program) return Object.hasOwn(SERVICE_PRODUCTS, program) ? SERVICE_PRODUCTS[program] : program;
+  const interest = text(fields.interest);
+  if (interest && interest !== UNSURE_INTEREST) return interest;
   const course = text(fields.course);
   if (course) return course;
   if (text(fields.camp)) return "Лагерь";

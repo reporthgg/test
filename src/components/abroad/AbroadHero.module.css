@@ -278,6 +278,9 @@
   letter-spacing: -0.01em;
 }
 
+.admissions { background: var(--landing-pink); }
+.admissions > span { width: 136px; }
+
 .divider {
   flex: none;
   width: 1px;
@@ -449,6 +452,7 @@
   .students { gap: 2px; }
   .students strong { font-size: 20px; line-height: 20px; }
   .students > span { width: auto; font-size: 12px; line-height: 14px; letter-spacing: 0; }
+  .admissions { grid-column: 1 / -1; }
 
   .quality {
     grid-column: 1 / -1;

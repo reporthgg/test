@@ -502,14 +502,15 @@
     display: none;
   }
 
+  /* Точки, пауза и стрелки на телефоне: сама кнопка не меньше 44 × 44 px (ТЗ 5.7). */
   .controls {
     position: relative;
     right: auto;
     bottom: auto;
     flex-shrink: 0;
-    gap: 6px;
-    width: 180px;
-    height: 36px;
+    gap: 0;
+    width: max-content;
+    height: 50px;
     margin-top: 16px;
     padding: 2px;
     border-width: 0.603px;
@@ -517,28 +518,29 @@
 
   .dots {
     gap: 0;
-    margin-left: 6.4px;
+    margin-left: 0;
   }
 
   .dots button {
-    width: 16px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
   }
 
   .dots span {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   .pause {
-    width: 22px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
+    margin-left: 0;
   }
 
   .previous,
   .next {
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
     border-width: 0.603px;
   }
 

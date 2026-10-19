@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- SVG variants keep their original Figma dimensions. */
 
 import Image from "next/image";
-import { Fragment, type ReactElement, type ReactNode, type Ref } from "react";
+import type { ReactElement, ReactNode, Ref } from "react";
 import type { Locale } from "@/i18n/config";
 import { formsContent } from "@/components/landing/forms-content";
 import styles from "./SchoolTrial.module.css";
@@ -20,26 +20,21 @@ export default function SchoolTrialCard({
   children,
 }: SchoolTrialCardProps): ReactElement {
   const t = formsContent[locale];
+  const offer = t.offers.school;
   return (
     <div className={styles.card}>
       <div className={styles.offer}>
         <img className={`${styles.flags} ${styles.desktopAsset}`} src="/landing/forms/school-flags-desktop.svg" alt="" />
         <img className={`${styles.flags} ${styles.mobileAsset}`} src="/landing/forms/flags.svg" alt="" />
         <div className={styles.offerText}>
+          <p className={styles.badge}>{t.offerBadge}</p>
           <h2 id={headingId} ref={headingRef} tabIndex={headingRef ? -1 : undefined}>
-            {t.trialTitle}
+            {offer.title.join(" ")}
           </h2>
-          <p>
-            {t.schoolTrialDescription.map((line, index) => (
-              <Fragment key={line}>
-                {index > 0 && <><br className={styles.desktopBreak} />{" "}</>}
-                {line}
-              </Fragment>
-            ))}
-          </p>
+          <p>{offer.description}</p>
         </div>
         <ul>
-          {t.trialSteps.map((step) => (
+          {t.offerSteps.map((step) => (
             <li key={step}>
               <img className={styles.desktopAsset} src="/landing/forms/school-step-check-desktop.svg" alt="" />
               <img className={styles.mobileAsset} src="/landing/forms/step-check.svg" alt="" />
@@ -56,13 +51,7 @@ export default function SchoolTrialCard({
           sizes="(max-width: 767px) 153px, 339px"
         />
       </div>
-      <div className={styles.panel}>
-        <div className={styles.price}>
-          <strong>0 ₸</strong>
-          <p>{t.trialPriceCaption}</p>
-        </div>
-        {children}
-      </div>
+      <div className={styles.panel}>{children}</div>
     </div>
   );
 }

@@ -34,12 +34,17 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
   const [focused, setFocused] = useState(false);
   const [inView, setInView] = useState(true);
   const [pageVisible, setPageVisible] = useState(true);
+  // Первый слайд виден сразу после загрузки: анимация появления букв и фото идёт только при смене слайда.
+  const [entryMotion, setEntryMotion] = useState(false);
   const reducedMotion = useSyncExternalStore(subscribeMotion, getReducedMotion, () => true);
   const heroRef = useRef<HTMLElement>(null);
   const touchRef = useRef<{ x: number; y: number } | null>(null);
   const slide = text.slides[current];
   const motionPaused = paused || hovered || focused || reducedMotion || !inView || !pageVisible;
-  const advance = useEffectEvent(() => setCurrent((index) => (index + 1) % slideIds.length));
+  const advance = useEffectEvent(() => {
+    setEntryMotion(true);
+    setCurrent((index) => (index + 1) % slideIds.length);
+  });
   const updateVisibility = useEffectEvent(() => {
     setPageVisible(heroRef.current?.ownerDocument.visibilityState !== "hidden");
   });
@@ -66,6 +71,7 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
 
   function goTo(index: number): void {
     setPaused(true);
+    setEntryMotion(true);
     setCurrent((index + slideIds.length) % slideIds.length);
   }
 
@@ -75,7 +81,7 @@ export default function LandingHero({ locale }: { locale: Locale }): ReactElemen
       className={`${styles.hero} ${styles[slideIds[current]]}`}
       data-locale={locale}
       data-slide={current}
-      data-motion-disabled={reducedMotion}
+      data-motion-disabled={reducedMotion || !entryMotion}
       data-offscreen={!inView || !pageVisible}
       aria-label={text.carousel}
       aria-roledescription="carousel"

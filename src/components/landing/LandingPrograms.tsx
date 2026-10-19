@@ -264,7 +264,8 @@ export default async function LandingPrograms({
             </picture>
             <picture className={styles.studentsScribble}>
               <source media="(max-width: 767px)" srcSet="/landing/programs/students-scribble-mobile.svg" />
-              <Image src="/landing/programs/students-scribble.svg" alt="" width={643} height={382} />
+              {/* Размер задаёт CSS; атрибуты только сохраняют пропорции 643 × 382. */}
+              <Image src="/landing/programs/students-scribble.svg" alt="" width={1286} height={764} />
             </picture>
             <picture className={styles.studentsRight}>
               <source media="(max-width: 767px)" srcSet="/landing/programs/students-right-mobile.png" />

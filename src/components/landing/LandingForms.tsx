@@ -23,22 +23,28 @@ import SchoolTrialCard from "@/components/school/SchoolTrialCard";
 import ConsentText from "@/components/legal/ConsentText";
 import CookieNotice from "@/components/legal/CookieNotice";
 import LandingSelect, { type LandingSelectOption } from "./LandingSelect";
-import { formsContent } from "./forms-content";
+import { formsContent, type OfferPage } from "./forms-content";
 import styles from "./LandingForms.module.css";
 import schoolStyles from "@/components/school/SchoolTrial.module.css";
 
 export type LeadKind = "diagnostic" | "trial";
-// camps: формы оформлены как на главной, scope нужен только для источника заявки в CRM.
+// scope задаёт текст оффера в попапе и источник заявки в CRM; на camps вместо диагностики заявка на лагерь.
 export type LandingScope = "landing" | "school" | "camps" | "abroad" | "exams" | "tests" | "about";
 export type LeadSelection = { course?: string; teacher?: string; camp?: string };
 type ActiveLead = { kind: LeadKind; selection?: LeadSelection };
 // Консультация открывается только формой на первом экране, у неё нет своего попапа.
 type FormKind = LeadKind | "consultation";
-type SelectField = "city" | "branch" | "program" | "year";
+type SelectField = "city" | "branch" | "program" | "year" | "interest";
 type Field = "name" | "phone" | SelectField | "consent";
 type FieldErrors = Partial<Record<Field, string>>;
 type FormValues = Record<Exclude<Field, "consent">, string> & { consent: boolean };
-type SavedLead = { kind: FormKind; crmDelivered: boolean };
+type SavedLead = { crmDelivered: boolean };
+
+// Тексты оффера по страницам (ТЗ 2.2): у главной, школы, экзаменов и «За рубеж» свои, у остальных общий.
+export function offerPage(scope: LandingScope): OfferPage {
+  if (scope === "landing") return "home";
+  return scope === "school" || scope === "exams" || scope === "abroad" ? scope : "default";
+}
 
 type LandingContextValue = {
   locale: Locale;
@@ -54,7 +60,7 @@ type LandingContextValue = {
 
 const LandingContext = createContext<LandingContextValue | null>(null);
 const emptyValues: FormValues = {
-  name: "", phone: "", city: "", branch: "", program: "", year: "", consent: false,
+  name: "", phone: "", city: "", branch: "", program: "", year: "", interest: "", consent: false,
 };
 const controlCharacters = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u;
 
@@ -138,7 +144,6 @@ export function LeadButton({
 }
 
 function SuccessMessage({
-  kind,
   crmDelivered,
   focus = false,
   school = false,
@@ -156,12 +161,7 @@ function SuccessMessage({
       {school && <img className={schoolStyles.desktopAsset} src="/landing/forms/school-success-desktop.svg" alt="" />}
       <img className={school ? schoolStyles.mobileAsset : undefined} src="/landing/forms/success-check.svg" alt="" />
       <h3>{crmDelivered ? t.successTitle : t.savedTitle}</h3>
-      <p>
-        {crmDelivered
-          ? kind === "trial" ? t.successTrial
-            : kind === "consultation" ? t.successConsultation : t.successDiagnostic
-          : t.savedDescription}
-      </p>
+      <p>{crmDelivered ? t.successText : t.savedDescription}</p>
       {!crmDelivered && (
         <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">
           {t.whatsapp}
@@ -188,19 +188,24 @@ function LeadFields({
   const t = formsContent[locale];
   const school = appearance === "school";
   const consultation = kind === "consultation";
-  const hasCity = kind === "diagnostic" || school;
-  const cityRequired = kind === "diagnostic" && scope !== "school";
+  const camps = scope === "camps";
+  // Форма оффера (ТЗ 2.1): имя, телефон, обязательный город и необязательное «Что интересует».
+  // В заявке на лагерь продукт известен, поэтому там только имя, город и телефон.
+  const offerForm = !consultation && !camps;
   const fieldClass = `${styles.field} ${school ? schoolStyles.field : ""}`;
+  const rowClass = `${styles.nameCity} ${school ? schoolStyles.nameCity : ""}`;
   // Порядок полей на экране: по нему фокус переходит к первой ошибке.
   const fieldOrder: readonly Field[] = consultation
     ? ["name", "phone", "branch", "program", "year", "consent"]
-    : hasCity ? ["name", "city", "phone", "consent"] : ["name", "phone", "consent"];
+    : offerForm ? ["name", "phone", "city", "interest", "consent"] : ["name", "city", "phone", "consent"];
   const selectOptions: Record<SelectField, readonly LandingSelectOption[]> = {
     city: t.cities,
     branch: t.branches,
     program: t.services,
     year: t.admissionYears,
+    interest: t.interests,
   };
+  const submitLabel = consultation ? t.consultationSubmit : camps ? t.campsSubmit : t.offers[offerPage(scope)].submit;
   const id = useId();
   const [values, setValues] = useState<FormValues>(emptyValues);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -225,7 +230,7 @@ function LeadFields({
   }
 
   function errorText(field: Field): string {
-    return field === "branch" || field === "program" || field === "year"
+    return field === "branch" || field === "program" || field === "year" || field === "interest"
       ? t.errors.option : t.errors[field];
   }
 
@@ -253,8 +258,8 @@ function LeadFields({
     ) {
       nextErrors.phone = t.errors.phone;
     }
-    for (const field of ["city", "branch", "program", "year"] as const) {
-      const required = field === "city" && cityRequired;
+    for (const field of ["city", "branch", "program", "year", "interest"] as const) {
+      const required = field === "city";
       if (
         fieldOrder.includes(field) && (required || values[field] !== "") &&
         !selectOptions[field].some((option) => option.value === values[field])
@@ -284,8 +289,9 @@ function LeadFields({
         body: JSON.stringify({
           name,
           phone,
-          ...(hasCity && values.city ? { city: values.city } : {}),
+          ...(!consultation && values.city ? { city: values.city } : {}),
           ...(branch ? { city: branch.city, branch: branch.value } : {}),
+          ...(offerForm && values.interest ? { interest: values.interest } : {}),
           ...(consultation && values.program ? { program: values.program } : {}),
           ...(consultation && values.year ? { year: values.year } : {}),
           ...(selection?.course ? { course: selection.course } : {}),
@@ -317,7 +323,7 @@ function LeadFields({
       const delivered = "crmDelivered" in record && record.crmDelivered === true;
       setCrmDelivered(delivered);
       setValues(emptyValues);
-      notifySaved({ kind, crmDelivered: delivered });
+      notifySaved({ crmDelivered: delivered });
       trackMetaEvent("Lead");
     } catch {
       if (!request.signal.aborted) setFormError("request");
@@ -336,7 +342,7 @@ function LeadFields({
   }
 
   if (crmDelivered !== null) {
-    return <SuccessMessage kind={kind} crmDelivered={crmDelivered} focus={visible} school={school} />;
+    return <SuccessMessage crmDelivered={crmDelivered} focus={visible} school={school} />;
   }
 
   const bottom = appearance === "bottom";
@@ -345,7 +351,7 @@ function LeadFields({
   function selectField(field: SelectField, label: string, required = false): ReactElement {
     return (
       <div className={fieldClass}>
-        <label htmlFor={`${id}-${field}`}>{label}</label>
+        <label htmlFor={`${id}-${field}`}>{bottom ? `${label}:` : label}</label>
         <LandingSelect
           ref={(node) => { fieldRefs.current[field] = node; }}
           id={`${id}-${field}`}
@@ -402,7 +408,7 @@ function LeadFields({
             <span className={schoolStyles.desktopText}>{t.phone}</span>
             <span className={schoolStyles.mobileText}>{t.whatsappPhone}</span>
           </>
-        ) : kind === "trial" ? t.whatsappPhone : t.phone}
+        ) : t.phone}
       </label>
       <input
         ref={(node) => { fieldRefs.current.phone = node; }}
@@ -443,12 +449,22 @@ function LeadFields({
             </div>
             {selectField("year", t.admissionYear)}
           </>
+        ) : offerForm ? (
+          <>
+            <div className={`${rowClass} ${styles.offerRow}`}>
+              {nameField}
+              {phoneField}
+            </div>
+            <div className={`${rowClass} ${styles.offerRow}`}>
+              {selectField("city", t.city, true)}
+              {selectField("interest", t.interest)}
+            </div>
+          </>
         ) : (
           <>
-            <div className={`${hasCity ? styles.nameCity : styles.nameOnly} ${school ? schoolStyles.nameCity : ""}`}>
+            <div className={rowClass}>
               {nameField}
-              {/* Figma 260:2796: в форме школы подпись «Город», поле при этом остаётся необязательным. */}
-              {hasCity && selectField("city", cityRequired || school ? t.city : t.optionalCity, cityRequired)}
+              {selectField("city", t.city, true)}
             </div>
             {phoneField}
           </>
@@ -502,18 +518,7 @@ function LeadFields({
         type="submit"
         disabled={sending}
       >
-        {school && !sending ? (
-          <>
-            <span className={schoolStyles.desktopText}>{t.schoolTrialSubmit}</span>
-            <span className={schoolStyles.mobileText}>{t.trialSubmit}</span>
-          </>
-        ) : (
-          <span>
-            {sending ? t.sending
-              : kind === "trial" ? t.trialSubmit
-              : consultation ? t.consultationSubmit : t.submit}
-          </span>
-        )}
+        <span>{sending ? t.sending : submitLabel}</span>
         {bottom && (
           <>
             <img className={styles.arrowDesktop} src="/landing/forms/arrow-desktop.svg" alt="" />
@@ -536,6 +541,7 @@ export function LandingLeadForm({
 }): ReactElement {
   const { locale, scope } = useLandingContext();
   const t = formsContent[locale];
+  const offer = t.offers[offerPage(scope)];
   const titleId = useId();
   const consultation = kind === "consultation";
   return (
@@ -543,28 +549,35 @@ export function LandingLeadForm({
       className={`${styles.leadCard} ${variant === "pink" ? styles.pink : styles.white} ${consultation ? styles.consultation : ""}`}
       aria-labelledby={titleId}
     >
-      <h2 id={titleId}>{consultation ? t.consultationTitle : t.diagnosticTitle}</h2>
-      <p className={styles.description}>{consultation ? t.consultationDescription : t.diagnosticDescription}</p>
+      <h2 id={titleId}>{consultation ? t.consultationTitle : offer.title.join(" ")}</h2>
+      <p className={styles.description}>{consultation ? t.consultationDescription : offer.description}</p>
       <LeadFields kind={kind} source={source ?? `${scope}-${kind}-${variant}`} />
-      <p className={styles.faster}>
-        {t.faster}{" "}
-        <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      </p>
+      <FasterWhatsApp />
     </section>
+  );
+}
+
+function FasterWhatsApp(): ReactElement {
+  const { locale } = useLandingContext();
+  return (
+    <p className={styles.faster}>
+      {formsContent[locale].faster}{" "}
+      <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </p>
   );
 }
 
 export function TrialSection(): ReactElement {
   const { locale, scope } = useLandingContext();
-  const t = formsContent[locale];
+  const offer = formsContent[locale].offers[offerPage(scope)];
   const titleId = useId();
   return (
     <section id="trial" className={`${styles.trialSection} ${scope === "school" ? schoolStyles.bottomSection : ""}`} aria-labelledby={titleId}>
       <div className={`landing-container ${styles.trialContainer}`}>
         <header className={styles.trialHeading}>
-          <p>{t.bottomDescription}</p>
+          <p>{offer.description}</p>
           <h2 id={titleId} className="landing-title">
-            {t.bottomTitle}{" "}<br /><em>{t.bottomTitleAccent}</em>
+            {offer.title[0]}{" "}<br /><em>{offer.title[1]}</em>
           </h2>
         </header>
         <div className={`${styles.bottomForm} ${scope !== "school" ? styles.homeBottomForm : ""}`}>
@@ -593,6 +606,7 @@ export function SchoolTrialSection(): ReactElement {
       <div className="landing-container">
         <SchoolTrialCard locale={locale} headingId={titleId}>
           <LeadFields kind="trial" source={`${scope}-trial-inline`} appearance="school" />
+          <FasterWhatsApp />
         </SchoolTrialCard>
       </div>
     </section>
@@ -602,21 +616,23 @@ export function SchoolTrialSection(): ReactElement {
 export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolean }): ReactElement {
   const { locale, scope, activeLead, leadSelection, closeLead, savedLead, dismissNotification } = useLandingContext();
   const t = formsContent[locale];
+  const offer = t.offers[offerPage(scope)];
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const trialHeadingRef = useRef<HTMLHeadingElement>(null);
-  const diagnosticHeadingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const backdropPress = useRef(false);
   const id = useId();
   const isOpen = activeLead !== null;
+  const kind = activeLead ?? "diagnostic";
   const school = scope === "school";
-  const schoolTrial = school && activeLead === "trial";
+  // На /camps диагностики нет (ТЗ 2.2): там попап с заявкой на лагерь.
+  const camps = scope === "camps";
+  const schoolPopup = school && isOpen;
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog || !isOpen) return;
     if (!dialog.open) dialog.showModal();
-    const heading = activeLead === "trial" ? trialHeadingRef : diagnosticHeadingRef;
-    heading.current?.focus();
+    headingRef.current?.focus();
     return () => {
       if (dialog.open) dialog.close();
     };
@@ -626,8 +642,8 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
     <>
       <dialog
         ref={dialogRef}
-        className={`${styles.dialog} ${activeLead === "diagnostic" ? styles.diagnosticDialog : ""} ${schoolTrial ? schoolStyles.dialog : ""}`}
-        aria-labelledby={`${id}-${activeLead ?? "trial"}-title`}
+        className={`${styles.dialog} ${camps ? styles.diagnosticDialog : ""} ${school ? schoolStyles.dialog : ""}`}
+        aria-labelledby={`${id}-title`}
         onCancel={(event) => {
           event.preventDefault();
           closeLead();
@@ -652,59 +668,51 @@ export function LandingOverlays({ showWhatsapp = true }: { showWhatsapp?: boolea
         }}
       >
         <div className={styles.dialogContent}>
-          {schoolTrial && (
-            <SchoolTrialCard locale={locale} headingId={`${id}-trial-title`} headingRef={trialHeadingRef}>
+          {schoolPopup && (
+            <SchoolTrialCard locale={locale} headingId={`${id}-title`} headingRef={headingRef}>
               <LeadFields
                 key={JSON.stringify(leadSelection ?? {})}
-                kind="trial"
-                source="school-trial-popup"
+                kind={kind}
+                source={`school-${kind}-popup`}
                 appearance="school"
                 selection={leadSelection}
               />
+              <FasterWhatsApp />
             </SchoolTrialCard>
           )}
-          {!school && (
-            <div className={styles.trialDialogContent} hidden={activeLead !== "trial"}>
+          {!school && !camps && (
+            <div className={styles.trialDialogContent} hidden={!isOpen}>
               <div className={styles.offer}>
                 <img className={styles.flags} src="/landing/forms/flags.svg" alt="" />
-                <h2 id={`${id}-trial-title`} ref={trialHeadingRef} tabIndex={-1}>
-                  {t.trialTitle}
+                <p className={styles.badge}>{t.offerBadge}</p>
+                <h2 id={`${id}-title`} ref={headingRef} tabIndex={-1}>
+                  {offer.title.join(" ")}
                 </h2>
-                <p>{t.trialDescription}</p>
+                <p>{offer.description}</p>
                 <ul>
-                  {t.trialSteps.map((step) => (
+                  {t.offerSteps.map((step) => (
                     <li key={step}><img src="/landing/forms/step-check.svg" alt="" /><span>{step}</span></li>
                   ))}
                 </ul>
                 <Image className={styles.offerSticker} src="/landing/forms/sticker-blue.png" alt="" width={153} height={153} sizes="153px" />
               </div>
               <div className={styles.trialFormPanel}>
-                <div className={styles.price}>
-                  <strong>0 ₸</strong>
-                  <p>{t.trialPriceCaption}</p>
-                </div>
-                <LeadFields kind="trial" source={`${scope}-trial-popup`} visible={activeLead === "trial"} selection={leadSelection} />
+                <LeadFields kind={kind} source={`${scope}-${kind}-popup`} visible={isOpen} selection={leadSelection} />
+                <FasterWhatsApp />
               </div>
             </div>
           )}
-          {(!school || activeLead === "diagnostic") && (
-            <div className={`${styles.leadCard} ${styles.white} ${styles.diagnosticPanel}`} hidden={activeLead !== "diagnostic"}>
-              <h2 id={`${id}-diagnostic-title`} ref={diagnosticHeadingRef} tabIndex={-1}>
-                {scope === "camps" ? t.campsTitle : scope === "abroad" ? t.abroadTitle : t.diagnosticTitle}
-              </h2>
-              <p className={styles.description}>
-                {scope === "camps" ? t.campsDescription : scope === "abroad" ? t.abroadDescription : t.diagnosticDescription}
-              </p>
-              <LeadFields kind="diagnostic" source={`${scope}-diagnostic-popup`} visible={activeLead === "diagnostic"} selection={leadSelection} />
-              <p className={styles.faster}>
-                {t.faster}{" "}
-                <a href={site.whatsapp.link} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-              </p>
+          {camps && (
+            <div className={`${styles.leadCard} ${styles.white} ${styles.diagnosticPanel}`} hidden={!isOpen}>
+              <h2 id={`${id}-title`} ref={headingRef} tabIndex={-1}>{t.campsTitle}</h2>
+              <p className={styles.description}>{t.campsDescription}</p>
+              <LeadFields kind={kind} source={`camps-${kind}-popup`} visible={isOpen} selection={leadSelection} />
+              <FasterWhatsApp />
             </div>
           )}
-          <button className={`${styles.close} ${schoolTrial ? schoolStyles.close : ""}`} type="button" onClick={closeLead} aria-label={t.close}>
-            {schoolTrial && <img className={schoolStyles.desktopAsset} src="/landing/forms/school-close-desktop.svg" alt="" />}
-            <img className={schoolTrial ? schoolStyles.mobileAsset : undefined} src="/landing/forms/close.svg" alt="" />
+          <button className={`${styles.close} ${school ? schoolStyles.close : ""}`} type="button" onClick={closeLead} aria-label={t.close}>
+            {school && <img className={schoolStyles.desktopAsset} src="/landing/forms/school-close-desktop.svg" alt="" />}
+            <img className={school ? schoolStyles.mobileAsset : undefined} src="/landing/forms/close.svg" alt="" />
           </button>
         </div>
       </dialog>

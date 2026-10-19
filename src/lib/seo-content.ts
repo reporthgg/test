@@ -15,19 +15,31 @@ export const seoPaths: Record<SeoPage, string> = {
   about: "/about",
 };
 
+// Дата последнего изменения страницы в коде (тексты, блоки, формы). В sitemap.xml уходит
+// более поздняя из неё и даты правки в админке. Обновляйте дату вместе с контентом страницы.
+export const seoUpdatedAt: Record<SeoPage, string> = {
+  home: "2026-10-19",
+  school: "2026-10-19",
+  exams: "2026-10-19",
+  abroad: "2026-10-19",
+  camps: "2026-10-19",
+  tests: "2026-10-19",
+  about: "2026-10-19",
+};
+
 export const seoCopy: Record<SeoPage, Record<Locale, SeoCopy>> = {
   home: {
     ru: {
       title: "GSC Study: английский, IELTS, SAT и учёба за рубежом",
-      description: "С 2011 года: языковые курсы, подготовка к IELTS и Digital SAT, поступление в зарубежные вузы. Центры GSC Study в Астане и Алматы, бесплатная диагностика.",
+      description: "С 2011 года: английский, подготовка к IELTS и Digital SAT, поступление за рубеж. 15 000+ студентов, 600+ поступлений в 240+ вузов, центры в Астане и Алматы.",
     },
     kz: {
       title: "GSC Study: ағылшын, IELTS, SAT және шетелде оқу",
-      description: "2011 жылдан бері: тіл курстары, IELTS және Digital SAT емтихандарына дайындық, шетелдік университеттерге түсу. Астана мен Алматыдағы орталықтар, тегін диагностика.",
+      description: "2011 жылдан бері: ағылшын тілі, IELTS және Digital SAT-қа дайындық, шетелге оқуға түсу. 15 000+ студент, 240+ ЖОО-ға 600+ қабылдану, Астана мен Алматыдағы орталықтар.",
     },
     en: {
       title: "GSC Study: English, IELTS, SAT and study abroad",
-      description: "Since 2011: language courses, IELTS and Digital SAT preparation, and admission to universities abroad. GSC Study centres in Astana and Almaty, free assessment.",
+      description: "Since 2011: English courses, IELTS and Digital SAT preparation, study abroad. 15,000+ students, 600+ admissions to 240+ universities, centres in Astana and Almaty.",
     },
   },
   school: {
@@ -61,15 +73,15 @@ export const seoCopy: Record<SeoPage, Record<Locale, SeoCopy>> = {
   abroad: {
     ru: {
       title: "Поступление в зарубежные вузы 25+ стран | GSC Study",
-      description: "Подбор университета под оценки, интересы и бюджет: Великобритания, Германия, Канада, ОАЭ, США. Документы, заявки и связь с вузом. Первая консультация бесплатно.",
+      description: "Подбор университета под оценки, интересы и бюджет: Великобритания, Германия, Канада, ОАЭ, США. 600+ поступлений в 240+ вузов. Персональный план бесплатно.",
     },
     kz: {
       title: "Шетелдік университеттерге түсу: 25+ ел | GSC Study",
-      description: "Университетті бағаңа, қызығушылығыңа және бюджетіңе сай таңдаймыз: Ұлыбритания, Германия, Канада, БАӘ, АҚШ. Құжаттар, өтінімдер, ЖОО-мен байланыс. Алғашқы кеңес тегін.",
+      description: "Университетті бағаңа, қызығушылығыңа және бюджетіңе сай таңдаймыз: Ұлыбритания, Германия, Канада, БАӘ, АҚШ. 240+ ЖОО-ға 600+ қабылдану. Жеке жоспар тегін.",
     },
     en: {
       title: "University admission abroad, 25+ countries | GSC Study",
-      description: "Universities matched to your grades, interests and budget: UK, Germany, Canada, UAE, USA. We handle documents and applications. Free first consultation.",
+      description: "Universities matched to your grades, interests and budget: UK, Germany, Canada, UAE, USA. 600+ admissions to 240+ universities. Free personal admissions plan.",
     },
   },
   camps: {
@@ -103,15 +115,15 @@ export const seoCopy: Record<SeoPage, Record<Locale, SeoCopy>> = {
   about: {
     ru: {
       title: "О компании GSC Study: образование без границ с 2011 года",
-      description: "GSC Study с 2011 года помогает учить языки, готовиться к экзаменам и поступать в зарубежные вузы. 15 000+ студентов, 25+ стран, центры в Астане и Алматы.",
+      description: "GSC Study с 2011 года помогает учить языки, готовиться к экзаменам и поступать за рубеж. 15 000+ студентов, 600+ поступлений в 240+ вузов, 25+ стран, 3 центра.",
     },
     kz: {
       title: "GSC Study туралы: 2011 жылдан бері шекарасыз білім",
-      description: "GSC Study 2011 жылдан бері тіл үйренуге, емтиханға дайындалуға және шетелдік ЖОО-ға түсуге көмектеседі. 15 000+ студент, 25+ ел, Астана мен Алматыдағы орталықтар.",
+      description: "GSC Study 2011 жылдан бері тіл үйренуге, емтиханға дайындалуға және шетелге түсуге көмектеседі. 15 000+ студент, 240+ ЖОО-ға 600+ қабылдану, 25+ ел, 3 орталық.",
     },
     en: {
       title: "About GSC Study: education without borders since 2011",
-      description: "Since 2011, GSC Study has helped students learn languages, prepare for exams and enter universities abroad. 15,000+ students, 25+ countries, centres in Astana and Almaty.",
+      description: "Since 2011, GSC Study has helped students learn languages, prepare for exams and study abroad. 15,000+ students, 600+ admissions to 240+ universities, 25+ countries.",
     },
   },
 };

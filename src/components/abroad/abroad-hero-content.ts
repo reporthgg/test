@@ -9,6 +9,7 @@ type AbroadHeroContent = {
   trust: string;
   since: readonly [string, string];
   students: string;
+  admissions: string;
 };
 
 export type AbroadHeroPhoto = {
@@ -50,6 +51,7 @@ export const abroadHeroContent: Record<Locale, AbroadHeroContent> = {
     trust: "Опыт GSC Study и партнёры",
     since: ["С 2011", "года"],
     students: "студентов вместе с GSC",
+    admissions: "поступлений в 240+ вузов",
   },
   kz: {
     eyebrow: "Шетелге оқуға түсу",
@@ -65,6 +67,7 @@ export const abroadHeroContent: Record<Locale, AbroadHeroContent> = {
     trust: "GSC Study тәжірибесі және серіктестер",
     since: ["2011", "жылдан"],
     students: "студент GSC-мен бірге",
+    admissions: "240+ ЖОО-ға қабылдану",
   },
   en: {
     eyebrow: "Study abroad",
@@ -80,5 +83,6 @@ export const abroadHeroContent: Record<Locale, AbroadHeroContent> = {
     trust: "GSC Study experience and partners",
     since: ["Since", "2011"],
     students: "students with GSC",
+    admissions: "admissions to 240+ universities",
   },
 };

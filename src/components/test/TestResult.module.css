@@ -147,6 +147,15 @@
   letter-spacing: -0.01em;
 }
 
+.planTitle {
+  margin: 0 0 10px;
+  color: var(--landing-blue, #135685);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+}
+
 .review {
   margin: 20px 0 0;
   padding: 16px 18px;
@@ -273,6 +282,11 @@
   .note {
     font-size: 16px;
     line-height: 24px;
+  }
+
+  .planTitle {
+    font-size: 20px;
+    line-height: 26px;
   }
 
   .actions {

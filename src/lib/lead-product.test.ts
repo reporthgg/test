@@ -23,3 +23,10 @@ test("an explicit choice in the form wins over the page", () => {
   assert.equal(leadProduct({ page: "/", camp: "Лондон" }), "Лагерь");
   assert.equal(leadProduct({ page: "/school", course: " " }), "Языковая школа");
 });
+
+test("the «Что интересует» answer sets the product unless the visitor is unsure", () => {
+  assert.equal(leadProduct({ page: "/", interest: "IELTS" }), "IELTS");
+  assert.equal(leadProduct({ page: "/school", interest: "Китайский язык", course: "General English" }), "Китайский язык");
+  assert.equal(leadProduct({ page: "/exams", interest: "Пока не знаю" }), "IELTS / SAT");
+  assert.equal(leadProduct({ page: "/school", interest: "Пока не знаю", course: "General English" }), "General English");
+});

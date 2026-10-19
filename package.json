@@ -13,6 +13,7 @@
     "test:proxy": "node --import tsx --test src/proxy.test.ts",
     "test:landing:api": "node --test scripts/landing-api.test.mjs",
     "check:text": "node scripts/check-ai-text.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "import:tilda": "tsx scripts/import-tilda-tests.ts",
     "postinstall": "prisma generate",
     "db:push": "prisma db push",

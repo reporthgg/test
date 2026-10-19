@@ -19,7 +19,7 @@ const dict = {
       { value: "15+", label: "лет на рынке" },
       { value: "15 000+", label: "студентов обучено" },
       { value: "3", label: "центра", sub: "2 в Астане, 1 в Алматы" },
-      { value: "643", label: "поступления в 246 вузов", sub: "25+ стран" },
+      { value: "600+", label: "поступлений в 240+ вузов", sub: "25+ стран" },
     ],
     journey: {
       title: "Наш путь",
@@ -63,7 +63,7 @@ const dict = {
       { value: "15+", label: "нарықтағы жыл" },
       { value: "15 000+", label: "студент оқыды" },
       { value: "3", label: "орталық", sub: "Астанада 2, Алматыда 1" },
-      { value: "643", label: "246 ЖОО-ға қабылдану", sub: "25+ ел" },
+      { value: "600+", label: "240+ ЖОО-ға қабылдану", sub: "25+ ел" },
     ],
     journey: {
       title: "Біздің жолымыз",
@@ -107,7 +107,7 @@ const dict = {
       { value: "15+", label: "years on the market" },
       { value: "15,000+", label: "students taught" },
       { value: "3", label: "centres", sub: "2 in Astana, 1 in Almaty" },
-      { value: "643", label: "admissions to 246 universities", sub: "25+ countries" },
+      { value: "600+", label: "admissions to 240+ universities", sub: "25+ countries" },
     ],
     journey: {
       title: "Our journey",

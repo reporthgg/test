@@ -30,7 +30,7 @@ const FIELD_LABELS: Record<string, string> = {
   studyFormat: "Формат обучения",
   comment: "Комментарий",
   message: "Сообщение",
-  interest: "Интерес",
+  interest: "Что интересует",
   product: "Продукт",
   teacher: "Преподаватель",
   leadKind: "Тип формы",

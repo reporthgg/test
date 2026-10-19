@@ -9,7 +9,7 @@ import {
   languageAlternates,
   siteUrl,
 } from "./seo";
-import { breadcrumbLabels, notFoundCopy, seoCopy, testSeoCopy, thankYouSeoCopy } from "./seo-content";
+import { breadcrumbLabels, notFoundCopy, seoCopy, seoUpdatedAt, testSeoCopy, thankYouSeoCopy } from "./seo-content";
 import { faqEntries, openingHours, pageJsonLd, serializeJsonLd, testJsonLd, type FaqPage } from "./structured-data";
 import { site } from "./site";
 
@@ -79,6 +79,14 @@ test("sitemap lists every locale with hreflang alternates and only real dates", 
   assert.ok(sitemap.every((entry) => !/admin|api|thankyou/u.test(entry.url)));
 });
 
+test("every page has a real content date for sitemap lastmod", () => {
+  assert.deepEqual(Object.keys(seoUpdatedAt).sort(), Object.keys(seoCopy).sort());
+  for (const [page, date] of Object.entries(seoUpdatedAt)) {
+    assert.match(date, /^\d{4}-\d{2}-\d{2}$/u, page);
+    assert.ok(!Number.isNaN(new Date(date).getTime()), page);
+  }
+});
+
 test("titles and descriptions are localized, unique, sized for snippets and free of long dashes", () => {
   const titles = new Set<string>();
   for (const page of Object.values(seoCopy)) {
@@ -133,6 +141,23 @@ test("page JSON-LD has the expected types and parses back", () => {
   assert.doesNotMatch(serialized, /<\/script>/u);
   const parsed = JSON.parse(serialized) as { "@graph": { itemListElement: { item: string }[] }[] };
   assert.deepEqual(parsed["@graph"][0].itemListElement.map((item) => item.item), [`${base}/kz`, `${base}/kz/tests`, `${base}/kz/test/ielts`]);
+});
+
+test("Organization carries legal data, credentials, profiles and the admissions figures", () => {
+  for (const locale of locales) {
+    const [organization, ...offices] = pageJsonLd("about", locale, base)["@graph"].slice(1) as Record<string, unknown>[];
+    assert.equal(organization.legalName, "ТОО «GSCSTUDY CORPORATION»");
+    assert.equal(organization.taxID, "221240037945");
+    assert.deepEqual(organization.alternateName, ["GSC", "GSCSTUDY"]);
+    assert.equal((organization.hasCredential as unknown[]).length, 3);
+    const sameAs = organization.sameAs as string[];
+    for (const office of site.offices) assert.ok(sameAs.includes(office.gis), office.address);
+    assert.ok(sameAs.includes(site.hh) && sameAs.includes(site.instagram));
+    assert.ok(sameAs.some((url) => url.includes("quality-english.com/associate-school/gsc-study")));
+    assert.match(String(organization.description), /600\+/u);
+    assert.doesNotMatch(String(organization.description), /643|246/u);
+    assert.deepEqual(offices.slice(0, 3).map((office) => office.sameAs), site.offices.map((office) => [office.gis]));
+  }
 });
 
 test("opening hours are parsed from the site schedule", () => {

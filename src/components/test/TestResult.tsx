@@ -75,6 +75,8 @@ export default function TestResult({
   const common = programsContent[locale];
   const level = splitLevel(result.level);
   const share = result.total > 0 ? Math.min(100, Math.max(0, Math.round((result.score / result.total) * 100))) : 0;
+  // Оффер «план до цели» показываем, когда заявка дошла до менеджера и уровень известен.
+  const planOffer = !preview && result.crmDelivered === true && !!level.main && result.total > 0;
 
   return (
     <div className={styles.result}>
@@ -110,9 +112,16 @@ export default function TestResult({
         {!preview && result.crmDelivered === true && (
           <Image className={styles.check} src="/landing/forms/success-check.svg" alt="" width={44} height={44} />
         )}
-        <p className={styles.note}>
-          {preview ? t.preview.resultNote : result.crmDelivered === true ? t.result.note : submissionText.deliveryUnconfirmed}
-        </p>
+        {planOffer ? (
+          <>
+            <p className={styles.planTitle}>{t.result.planTitle.replace("{level}", level.main)}</p>
+            <p className={styles.note}>{t.result.planText}</p>
+          </>
+        ) : (
+          <p className={styles.note}>
+            {preview ? t.preview.resultNote : result.crmDelivered === true ? t.result.note : submissionText.deliveryUnconfirmed}
+          </p>
+        )}
         {result.pendingReview > 0 && (
           <p role="status" className={styles.review}>
             {t.result.manualReview} <b>{result.pendingReview}</b>. {t.result.manualReviewNote}
@@ -121,14 +130,14 @@ export default function TestResult({
         <div className={styles.actions}>
           {!preview && <a
             href={`${site.whatsapp.link}?text=${encodeURIComponent(
-              `${t.result.waIntro}${title}${t.result.waResult}${result.level}`
+              `${t.result.waIntro}${title}${t.result.waResult}${result.level}${planOffer ? t.result.waPlan : ""}`
             )}`}
             target="_blank"
             rel="noopener"
             className={flow.whatsapp}
           >
             <Image src="/landing/forms/whatsapp.svg" alt="" width={24} height={24} />
-            {t.result.waButton}
+            {planOffer ? t.result.planButton : t.result.waButton}
           </a>}
           <Link href={withLocale(locale, "/tests")} className={styles.link}>
             {common.allTests}

@@ -1,10 +1,26 @@
 export const site = {
   name: "GSC Study",
+  // Юридические данные и аккредитации для микроразметки Organization.
+  legalName: "ТОО «GSCSTUDY CORPORATION»",
+  taxId: "221240037945",
+  alternateNames: ["GSC", "GSCSTUDY"],
+  credentials: [
+    { name: "ICEF Accredited Agency", identifier: "1478", category: "accreditation", issuer: "ICEF", issuerUrl: "https://www.icef.com/" },
+    { name: "British Council IELTS Registration Centre", category: "registration", issuer: "British Council", issuerUrl: "https://www.britishcouncil.org/" },
+    {
+      name: "Quality English Associate School",
+      category: "membership",
+      issuer: "Quality English",
+      issuerUrl: "https://www.quality-english.com/",
+      url: "https://www.quality-english.com/associate-school/gsc-study/",
+    },
+  ],
+  hh: "https://hh.kz/employer/12494356",
   foundedYear: 2011,
   admissions: {
-    ru: "643 поступления в 246 вузов",
-    kz: "246 ЖОО-ға 643 қабылдану",
-    en: "643 admissions to 246 universities",
+    ru: "600+ поступлений в 240+ вузов",
+    kz: "240+ ЖОО-ға 600+ қабылдану",
+    en: "600+ admissions to 240+ universities",
   },
 
   // Единый номер колл-центра для звонков

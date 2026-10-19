@@ -55,7 +55,11 @@
   gap: 10px;
 }
 
-.nameOnly,
+/* Подписи «Что интересует (необязательно)» бывают в две строки, поля при этом стоят на одной линии. */
+.offerRow {
+  align-items: end;
+}
+
 .field {
   min-width: 0;
 }
@@ -498,6 +502,7 @@
 .bottomFields .fieldset {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  align-items: end;
   column-gap: 16px;
   row-gap: 14px;
 }
@@ -530,7 +535,24 @@
   line-height: 34px;
 }
 
+.bottomFields .field .selectControl {
+  height: 60px;
+  padding: 12px 25px;
+  border-color: #e2e2e2;
+  border-radius: 500px;
+  color: #5b5b5b;
+  background: #fff;
+  font-size: 20px;
+  line-height: 34px;
+}
+
+/* В нижней форме поля идут сеткой 2 × 2: имя и телефон, город и «Что интересует». */
+.bottomFields .nameCity {
+  display: contents;
+}
+
 .homeBottomForm .field input::placeholder,
+.homeBottomForm .field .selectControl[data-placeholder],
 .homeBottomForm .consent {
   color: #5b5b5b;
 }
@@ -721,7 +743,6 @@
 .offer h2 {
   position: relative;
   z-index: 1;
-  max-width: 320px;
   margin: 0 0 12px;
   outline: none;
   font-family: "Futura PT", sans-serif;
@@ -782,27 +803,17 @@
   padding: 32px 28px;
 }
 
-.price {
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e1eaf1;
-}
-
-.price strong {
-  display: block;
-  color: #548655;
-  font-size: 90px;
-  font-weight: 700;
-  line-height: 90px;
-  letter-spacing: -3.6px;
-}
-
-.price p {
-  margin: 0;
-  color: #2e2d2c;
+/* Бейдж «Бесплатно» над заголовком оффера (ТЗ 2.1). */
+.offer .badge {
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 4px 14px;
+  border-radius: 100px;
+  color: var(--landing-blue, #135685);
+  background: var(--landing-yellow, #eac35d);
   font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
+  font-weight: 700;
+  line-height: 22px;
   letter-spacing: -0.14px;
 }
 
@@ -994,12 +1005,17 @@
   .bottomFields .field label strong { font-weight: 700; }
 
   /* Введённый текст остаётся 16 px, чтобы iOS не увеличивал страницу при фокусе. */
-  .bottomFields .field input {
+  .bottomFields .field input,
+  .bottomFields .field .selectControl {
     height: 55px;
     padding: 10px 20px;
     border-width: 0.5px;
     font-size: 16px;
     line-height: 18px;
+  }
+
+  .offerRow {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .bottomFields .field input::placeholder,

@@ -60,6 +60,20 @@
   letter-spacing: -0.2px;
 }
 
+/* Бейдж «Бесплатно» над заголовком оффера (ТЗ 2.1). */
+.offerText .badge {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 6px 18px;
+  border-radius: 100px;
+  color: var(--landing-blue, #135685);
+  background: var(--landing-yellow, #eac35d);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: -0.18px;
+}
+
 .offer ul {
   display: flex;
   flex-direction: column;
@@ -94,32 +108,12 @@
 }
 
 .panel {
+  display: flex;
   min-width: 0;
+  flex-direction: column;
+  justify-content: center;
   padding: 56px 64px;
   color: #374151;
-}
-
-.price {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e1eaf1;
-}
-
-.price strong {
-  display: block;
-  color: #548655;
-  font-size: 140px;
-  font-weight: 700;
-  line-height: 140px;
-  letter-spacing: -5.6px;
-}
-
-.price p {
-  margin: 0;
-  color: #2e2d2c;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 25px;
 }
 
 .fields fieldset {
@@ -280,12 +274,14 @@ dialog.dialog {
     row-gap: 16px;
   }
 
-  .bottomSection fieldset label:has(+ input[name]) {
+  .bottomSection fieldset label:has(+ input[name]),
+  .bottomSection fieldset label:has(+ div) {
     margin-bottom: 8px;
   }
 
   .bottomSection fieldset input[type="text"],
-  .bottomSection fieldset input[type="tel"] {
+  .bottomSection fieldset input[type="tel"],
+  .bottomSection fieldset [role="combobox"] {
     height: 54px;
     padding: 10px 16px;
     border-color: #e5e7eb;
@@ -391,21 +387,11 @@ dialog.dialog {
     padding: 24px 20px;
   }
 
-  .price {
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-  }
-
-  .price strong {
-    font-size: 90px;
-    line-height: 90px;
-    letter-spacing: -3.6px;
-  }
-
-  .price p {
+  .offerText .badge {
+    margin-bottom: 12px;
+    padding: 4px 14px;
     font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.14px;
+    line-height: 22px;
   }
 
   .fields fieldset {
